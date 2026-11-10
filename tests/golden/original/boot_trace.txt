@@ -1,0 +1,592 @@
+log.txt for X-Plane 10.51r2 (build 105101 64-bit)
+ compiled on Oct 18 2016 19:49:34
+
+This log file is generated automatically by Laminar Research applications and contains diagnostics about your graphics hardware, installation, and any error conditions.
+If you need to contact tech support or file a bug, please send us this file. NOTE: this file is rewritten every time you start ANY of your X-System applications.
+
+
+X-System folder:'', case sensitive=0
+
+-------------------------------------------------------------------
+Application was launched with the following command line options...
+	'--elev'='386'
+	'--force_run'
+	'--heading'='160'
+	'--lat'='47.449888889'
+	'--load_acf'='Aircraft/General Aviation/StinsonL5/L5.acf'
+	'--lon'='-122.311777778'
+	'--no_joystick'
+	'--no_sound'
+	'--qa_script'='<scratch>/qa2.txt'
+	'--speed'='0'
+-------------------------------------------------------------------
+
+
+OpenGL Vendor    : Apple
+OpenGL Render    : Apple M4
+OpenGL Version   : 2.1 Metal - 91.7 (210/0)
+OpenGL Extensions: GL_ARB_color_buffer_float GL_ARB_depth_buffer_float GL_ARB_depth_clamp GL_ARB_depth_texture GL_ARB_draw_buffers GL_ARB_draw_elements_base_vertex GL_ARB_draw_instanced GL_ARB_fragment_program GL_ARB_fragment_program_shadow GL_ARB_fragment_shader GL_ARB_framebuffer_object GL_ARB_framebuffer_sRGB GL_ARB_half_float_pixel GL_ARB_half_float_vertex GL_ARB_imaging GL_ARB_instanced_arrays GL_ARB_multisample GL_ARB_multitexture GL_ARB_occlusion_query GL_ARB_pixel_buffer_object GL_ARB_point_parameters GL_ARB_point_sprite GL_ARB_provoking_vertex GL_ARB_seamless_cube_map GL_ARB_shader_objects GL_ARB_shader_texture_lod GL_ARB_shading_language_100 GL_ARB_shadow GL_ARB_shadow_ambient GL_ARB_sync GL_ARB_texture_border_clamp GL_ARB_texture_compression GL_ARB_texture_compression_rgtc GL_ARB_texture_cube_map GL_ARB_texture_env_add GL_ARB_texture_env_combine GL_ARB_texture_env_crossbar GL_ARB_texture_env_dot3 GL_ARB_texture_float GL_ARB_texture_mirrored_repeat GL_ARB_texture_non_power_of_two GL_ARB_texture_rectangle GL_ARB_texture_rg GL_ARB_transpose_matrix GL_ARB_vertex_array_bgra GL_ARB_vertex_blend GL_ARB_vertex_buffer_object GL_ARB_vertex_program GL_ARB_vertex_shader GL_ARB_window_pos GL_EXT_abgr GL_EXT_bgra GL_EXT_bindable_uniform GL_EXT_blend_color GL_EXT_blend_equation_separate GL_EXT_blend_func_separate GL_EXT_blend_minmax GL_EXT_blend_subtract GL_EXT_clip_volume_hint GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_draw_buffers2 GL_EXT_draw_range_elements GL_EXT_fog_coord GL_EXT_framebuffer_blit GL_EXT_framebuffer_multisample GL_EXT_framebuffer_multisample_blit_scaled GL_EXT_framebuffer_object GL_EXT_framebuffer_sRGB GL_EXT_geometry_shader4 GL_EXT_gpu_program_parameters GL_EXT_gpu_shader4 GL_EXT_multi_draw_arrays GL_EXT_packed_depth_stencil GL_EXT_packed_float GL_EXT_provoking_vertex GL_EXT_rescale_normal GL_EXT_secondary_color GL_EXT_separate_specular_color GL_EXT_shadow_funcs GL_EXT_stencil_two_side GL_EXT_stencil_wrap GL_EXT_texture_array GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_s3tc GL_EXT_texture_env_add GL_EXT_texture_filter_anisotropic GL_EXT_texture_integer GL_EXT_texture_lod_bias GL_EXT_texture_rectangle GL_EXT_texture_shared_exponent GL_EXT_texture_sRGB GL_EXT_texture_sRGB_decode GL_EXT_timer_query GL_EXT_transform_feedback GL_EXT_vertex_array_bgra GL_APPLE_aux_depth_stencil GL_APPLE_client_storage GL_APPLE_element_array GL_APPLE_fence GL_APPLE_float_pixels GL_APPLE_flush_buffer_range GL_APPLE_flush_render GL_APPLE_packed_pixels GL_APPLE_pixel_buffer GL_APPLE_rgb_422 GL_APPLE_row_bytes GL_APPLE_specular_vector GL_APPLE_texture_range GL_APPLE_transform_hint GL_APPLE_vertex_array_object GL_APPLE_vertex_point_size GL_APPLE_vertex_program_evaluators GL_APPLE_ycbcr_422 GL_ATI_separate_stencil GL_ATI_texture_env_combine3 GL_ATI_texture_float GL_IBM_rasterpos_clip GL_NV_blend_square GL_NV_conditional_render GL_NV_depth_clamp GL_NV_fog_distance GL_NV_fragment_program_option GL_NV_fragment_program2 GL_NV_light_max_exponent GL_NV_texgen_reflection GL_NV_texture_barrier GL_NV_vertex_program2_option GL_NV_vertex_program3 GL_SGI_color_matrix GL_SGIS_generate_mipmap GL_SGIS_texture_edge_clamp GL_SGIS_texture_lod 
+
+threaded_avail   : 1	aniso_avail      : 1	timer_avail      : 1	sync/fence       : 1
+pbo_avail        : 1	frameblit_avail  : 1
+gpu_shad4_avail  : 1	shad_lod_avail   : 1	array_tex_avail  : 1	texture_rg       : 1
+tex_float_avail  : 1	seamless_avail   : 1	drawbuf2_avail   : 1	packed_stencil   : 1
+framebuffer_srgb : 1	copy_buf_avail   : 0	ubo_avail        : 0	gshader_avail    : 1
+base_vert_avail  : 1
+instance_avail   : 1	dis_fog_avail    : 1	pinned_avail     : 0	debug_avail      : 0
+max tex units    : 8 (16/8)
+max iso filtering: 16.000000
+max texture size : 16384 (hardware limit)
+max point size   : 64.000000
+idx in vram      : 1
+GLSL Version     :1.20/120
+first-gen shaders: 0
+(16/4096/124/16/16/4096/4096)
+This video card is: DX10 or 11 - With instancing
+CPU count        : 10
+Fetching plugins for Resources/plugins
+
+Loaded: Resources/plugins/PluginAdmin/mac.xpl (xpsdk.examples.pluginadmin).
+
+Initializing off screen memory.
+Initializing off screen memory complete.
+I found the following scenery packages (prioritized in this order):
+  0 Custom Scenery/Global Airports/
+  1 Custom Scenery/KLAL - Lakeland (airshow version)/
+  2 Custom Scenery/KOSH - Wittman Regional (airshow version)/
+  3 Custom Scenery/KSEA Demo Area/
+  4 Custom Scenery/KSEA Demo Terrain/
+  5 Custom Scenery/LOWI Demo Area/
+  6 Resources/default scenery/1000 autogen/
+  7 Resources/default scenery/1000 decals/
+  8 Resources/default scenery/1000 forests/
+  9 Resources/default scenery/1000 roads/
+ 10 Resources/default scenery/1000 urban terrain/
+ 11 Resources/default scenery/1000 world terrain/
+ 12 Resources/default scenery/700 roads/
+ 13 Resources/default scenery/900 beaches/
+ 14 Resources/default scenery/900 europe objects/
+ 15 Resources/default scenery/900 forests/
+ 16 Resources/default scenery/900 roads/
+ 17 Resources/default scenery/900 us objects/
+ 18 Resources/default scenery/900 world object placeholders/
+ 19 Resources/default scenery/airport decals/
+ 20 Resources/default scenery/airport scenery/
+ 21 Resources/default scenery/default apt dat/
+ 22 Resources/default scenery/default atc/
+ 23 Resources/default scenery/sim objects/
+
+Clean exit from threads.
+0:00:00.000 D/HID: HID Bridge Running
+0:00:00.000 I/REN: Setting |draw view indicator defaulted to 1.
+0:00:00.000 I/REN: Setting |dim under high G-load or hypoxia defaulted to 1.
+0:00:00.000 I/REN: Setting |draw hi-res planet textures from orbit defaulted to 1.
+0:00:00.000 I/REN: Setting |draw forest fires and balloons defaulted to 0.
+0:00:00.000 I/REN: Setting |draw birds and deer in nice weather defaulted to 0.
+0:00:00.000 I/REN: Setting |draw aircraft carriers and frigates defaulted to 0.
+0:00:00.000 I/REN: Setting |draw Aurora Borealis defaulted to 0.
+0:00:00.000 I/REN: Setting |number of trees defaulted to 2.
+0:00:00.000 I/REN: Setting |number of objects defaulted to 3.
+0:00:00.000 I/REN: Setting |number of roads defaulted to 2.
+0:00:00.000 I/REN: Setting |number of cars defaulted to 1.
+0:00:00.000 I/REN: Setting |world detail distance defaulted to 4.
+0:00:00.000 I/REN: Setting |runway and taxiway smoothness and lighting defaulted to 1.
+0:00:00.000 I/REN: Setting |water reflection detail defaulted to 0.
+0:00:00.000 I/REN: Setting compress textures to save VRAM defaulted to 1.
+0:00:00.000 I/REN: Setting |runways follow terrain contours defaulted to 1.
+0:00:00.000 I/REN: Setting |draw volumetric fog defaulted to 1.
+0:00:00.000 I/REN: Setting |draw per pixel lighting defaulted to 1.
+0:00:00.000 I/REN: Setting |HDR rendering defaulted to 0.
+0:00:00.000 I/REN: Setting |shadow detail defaulted to 1.
+0:00:00.000 I/REN: Setting |atmospheric scattering defaulted to 1.
+0:00:00.000 I/REN: Setting |HDR anti-aliasing defaulted to 0.
+0:00:00.000 I/REN: Setting |3-D bump-maps defaulted to 1.
+0:00:00.000 I/REN: Setting |gritty detail textures defaulted to 1.
+0:00:00.000 I/REN: Setting |Extended DSF Scenery defaulted to 0.
+0:00:00.000 I/REN: Setting |draw parked aircraft at airports defaulted to 0.
+0:00:00.000 I/NET: Skipping interface lo0, flags=8049
+0:00:00.000 I/NET: en0    : 172.31.58.125
+0:00:00.000 I/NET: utun4  : 172.19.0.1
+0:00:00.000 I/NET: utun4  : fdfe:dcba:9876::1
+0:00:00.000 I/ACF: Loading airplane number 0 with Aircraft/General Aviation/Cessna 172SP/Cessna_172SP.acf
+0:00:00.000 I/GPS: Added 19186 airports to the GPS database
+0:00:00.000 I/FLT: Init dat_p0 type:loc_tak apt:KSEA rwy:34R
+0:00:00.000 I/SCN: DSF load time: 110066 for file Custom Scenery/Global Airports/Earth nav data/+40-130/+46-124.dsf (0 tris)
+0:00:00.000 I/SCN: DSF load time: 157251 for file Custom Scenery/Global Airports/Earth nav data/+40-130/+46-122.dsf (0 tris)
+0:00:00.000 I/SCN: DSF load time: 2415349 for file Custom Scenery/KSEA Demo Terrain/Earth nav data/+40-130/+46-122.dsf (190326 tris)
+0:00:00.000 I/SCN: DSF load time: 2610057 for file Custom Scenery/KSEA Demo Terrain/Earth nav data/+40-130/+46-124.dsf (198770 tris)
+0:00:00.000 I/SCN: DSF load time: 2501493 for file Custom Scenery/KSEA Demo Terrain/Earth nav data/+40-130/+47-122.dsf (233697 tris)
+0:00:00.000 I/SCN: DSF load time: 1910962 for file Custom Scenery/KSEA Demo Terrain/Earth nav data/+40-130/+47-124.dsf (229133 tris)
+0:00:00.000 I/SCN: DSF load time: 22172 for file Custom Scenery/Global Airports/Earth nav data/+40-130/+46-123.dsf (0 tris)
+0:00:00.000 I/SCN: DSF load time: 1840623 for file Custom Scenery/KSEA Demo Terrain/Earth nav data/+40-130/+46-123.dsf (184346 tris)
+0:00:00.000 I/SCN: DSF load time: 173028 for file Custom Scenery/Global Airports/Earth nav data/+40-130/+47-123.dsf (0 tris)
+0:00:00.000 E/SCN: Failed to find resource 'test/AGtrees_test.for', referenced from file 'Custom Scenery/KSEA Demo Area/KSEA_objects/'.
+0:00:00.000 E/SCN: Failed to find resource 'test/AGtrees_test.for', referenced from file 'Custom Scenery/KSEA Demo Area/KSEA_objects/'.
+0:00:00.000 E/SCN: Failed to find resource 'test/AGtrees_test.for', referenced from file 'Custom Scenery/KSEA Demo Area/KSEA_objects/'.
+0:00:00.000 E/SCN: Failed to find resource 'test/AGtrees_test.for', referenced from file 'Custom Scenery/KSEA Demo Area/KSEA_objects/'.
+0:00:00.000 W/OBJ: The object Custom Scenery/KSEA Demo Area/KSEA_objects/ConCSlantRoof.obj has a first LOD near distance of 2000.000000 but it should start at 0!
+0:00:00.000 E/SCN: Failed to find resource 'test/AGtrees_test.for', referenced from file 'Custom Scenery/KSEA Demo Area/KSEA_objects/'.
+0:00:00.000 E/SCN: Failed to find resource 'test/AGtrees_test.for', referenced from file 'Custom Scenery/KSEA Demo Area/KSEA_objects/'.
+0:00:00.000 I/SCN: DSF load time: 122520 for file Custom Scenery/KSEA Demo Area/Earth nav data/+40-130/+47-123.dsf (0 tris)
+0:00:00.000 I/SCN: DSF load time: 2894465 for file Custom Scenery/KSEA Demo Terrain/Earth nav data/+40-130/+47-123.dsf (243770 tris)
+0:00:00.811 I/ACF: Loading airplane number 1 with Aircraft/General Aviation/KingAir C90B/KingAirC90B.acf
+0:00:00.811 I/FLT: Init dat_p1 type:loc_general_area lat:46.902032 lon:-122.496785 ele(ft):11467.867561 psi:74.346497 spd(kts):233.849727
+0:00:00.811 I/ACF: Loading airplane number 2 with Aircraft/Heavy Metal/C-130/C-130.acf
+0:00:00.811 I/FLT: Init dat_p2 type:loc_general_area lat:48.184760 lon:-122.396493 ele(ft):7191.373625 psi:96.682198 spd(kts):274.529824
+0:00:00.811 I/ACF: Loading airplane number 3 with Aircraft/General Aviation/Columbia-400/c400.acf
+0:00:00.811 I/FLT: Init dat_p3 type:loc_general_area lat:47.578273 lon:-121.247536 ele(ft):5458.748526 psi:196.432480 spd(kts):166.859629
+0:00:00.811 I/ATC: Aircraft p=1 (N01XP) started at KSEA:Cargo 1-1
+0:00:00.811 I/FLT: Init dat_p1 type:loc_ram apt:KSEA start at:Cargo 1-1
+0:00:00.811 I/ATC: p=2 (N02XP) Popup FP filed to KSEA at 5000 via , type=2
+0:00:00.811 D/ATC: Validating altitude for p=2 (N02XP): filed: 5000 usable_rte_dist: 9.141953 maxDescent: 2000 maxAlt: 3000 minAlt: 5000 chosen_alt: 3000
+0:00:00.811 D/ATC: p=2 (N02XP): Cleared IFR
+0:00:00.811 I/FLT: Init dat_p2 type:loc_specify_lle lat:47.514374 lon:-122.044037 ele(ft):5000.000038 psi:80.000000 spd(kts):300.000011
+0:00:00.811 D/ATC: p=2 (N02XP): Fly Heading: 95
+0:00:00.811 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:00:00.811 I/ATC: Aircraft p=2 (N02XP) started airborne as an arrival at 47.514374, -122.044037, 270.984863
+0:00:00.811 I/ATC: Aircraft p=3 (N03XP) started at KSEA:GA Ramp 1
+0:00:00.811 I/FLT: Init dat_p3 type:loc_ram apt:KSEA start at:GA Ramp 1
+0:00:04.281 D/ATC: p=2 (N02XP): Fly Heading: 190
+0:00:04.281 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:00:04.281 I/ATC: p=3 (N03XP) FP filed - KSEA to KPDX at 9000 via PDX , type=2
+0:00:07.014 I/ATC: p=1 (N01XP) FP filed - KSEA to KGEG at 23000 via MWH , type=2
+0:00:07.089 D/ATC: Validating altitude for p=3 (N03XP): filed: 9000 usable_rte_dist: 89.103577 maxDescent: 22000 maxAlt: 22000 minAlt: 9000 chosen_alt: 9000
+0:00:07.089 D/ATC: p=3 (N03XP): Cleared IFR
+0:00:07.089 W/ATC: Frequency 11920 for flow Calm and South flow runway 16L at KSEA seemed invalid and was overwriten!
+0:00:07.089 D/ATC: p=3 (N03XP): Squawk 4700
+0:00:07.165 D/ATC: Validating altitude for p=1 (N01XP): filed: 23000 usable_rte_dist: 159.059738 maxDescent: 39000 maxAlt: 41000 minAlt: 23000 chosen_alt: 23000
+0:00:07.165 D/ATC: p=1 (N01XP): Cleared IFR
+0:00:07.165 D/ATC: p=1 (N01XP): Squawk 4701
+0:00:07.202 D/ATC: p=3 (N03XP): Taxi (12 points issued)
+0:00:07.282 D/ATC: p=1 (N01XP): Taxi (3 points issued)
+0:00:16.923 D/ATC: p=2 (N02XP): Fly Heading: 198
+0:00:16.923 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:00:37.812 D/ATC: p=2 (N02XP): Fly Heading: 360
+0:00:37.812 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:01:13.454 I/ATC: Adding p=1 (N01XP) into Hold Queue
+0:01:13.454 D/ATC: p=1 (N01XP): Contact controller on 119.90
+0:01:13.486 D/ATC: p=1 (N01XP): Switching frequency to 119.90
+0:01:13.512 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:15.514 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:17.522 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:19.555 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:21.579 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:23.587 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:25.604 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:27.606 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:29.632 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:31.635 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:33.705 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:35.782 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:37.804 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:39.840 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:41.863 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:43.872 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:45.896 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:47.190 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 5115.074707, Cur_Pres: 5115.074707, Last: 5114.122070
+0:01:47.190 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:01:47.918 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:49.950 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:51.969 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:53.995 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:56.004 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:01:58.019 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:00.039 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:02.045 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:04.062 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:06.068 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:08.084 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:10.111 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:12.112 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:14.137 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:16.138 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:17.252 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 5365.854980, Cur_Pres: 5365.854980, Last: 5115.074707
+0:02:17.252 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:02:18.151 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:20.171 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:22.196 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:24.201 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:26.229 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:28.252 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:30.253 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:32.268 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:34.304 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:36.318 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:38.345 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:40.348 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:42.364 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:44.382 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:46.410 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:47.314 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 5571.922363, Cur_Pres: 5571.922363, Last: 5365.854980
+0:02:47.314 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:02:48.436 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:50.452 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:52.456 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:54.457 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:56.481 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:02:58.483 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:00.504 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:02.504 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:04.508 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:06.533 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:08.539 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:10.547 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:12.572 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:14.583 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:15.705 D/ATC: p=2 (N02XP): Fly Heading: 270
+0:03:16.622 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:17.341 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 5770.451172, Cur_Pres: 5770.451172, Last: 5571.922363
+0:03:17.341 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:03:18.632 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:20.654 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:22.668 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:24.679 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:26.714 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:28.719 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:30.739 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:32.747 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:34.752 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:36.765 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:38.802 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:40.804 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:42.819 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:44.832 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:46.858 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:48.860 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:50.890 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:52.912 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:54.934 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:56.947 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:03:58.955 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:00.966 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:02.976 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:04.997 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:07.011 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:09.018 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:11.022 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:13.048 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:15.067 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:17.071 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:17.546 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 5854.890137, Cur_Pres: 5854.890137, Last: 5578.830078
+0:04:17.546 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:04:19.074 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:21.082 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:23.100 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:25.101 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:27.106 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:29.116 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:31.129 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:33.152 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:35.186 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:37.193 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:39.204 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:41.234 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:43.239 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:45.261 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:47.283 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:47.571 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 6077.887207, Cur_Pres: 6077.887207, Last: 5854.890137
+0:04:47.571 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:04:49.293 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:51.294 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:53.331 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:55.335 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:57.370 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:04:59.393 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:01.408 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:03.410 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:05.433 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:07.453 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:09.472 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:11.486 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:13.516 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:14.436 I/ATC: Adding p=3 (N03XP) into Hold Queue
+0:05:14.436 D/ATC: p=3 (N03XP): Contact controller on 119.90
+0:05:14.486 D/ATC: p=3 (N03XP): Switching frequency to 119.90
+0:05:15.525 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:17.553 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:17.654 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 6276.362305, Cur_Pres: 6276.362305, Last: 6077.887207
+0:05:17.654 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:05:19.594 D/ATC: p=3 (N03XP): Taxi (3 points issued)
+0:05:19.594 I/ATC: Removing p=3 (N03XP) from Hold Queue
+0:05:19.594 I/ATC: Adding p=3 (N03XP) into Active Queue
+0:05:21.638 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:23.654 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:25.700 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:27.705 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:29.716 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:31.733 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:33.751 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:35.754 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:37.758 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:39.764 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:41.777 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:42.792 I/ATC: Removing p=3 (N03XP) from Active Queue
+0:05:43.783 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:45.793 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:47.733 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 6349.875977, Cur_Pres: 6349.875488, Last: 6276.362305
+0:05:47.733 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:05:47.802 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:49.809 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:51.816 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:53.819 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:55.821 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:57.848 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:05:59.870 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:01.881 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:03.351 I/ATC: Adding p=3 (N03XP) into Hold Queue
+0:06:03.893 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:05.904 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:07.936 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:09.957 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:11.977 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:13.997 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:16.015 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:18.026 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:19.382 D/ATC: p=2 (N02XP): Fly Heading: 210
+0:06:20.032 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:22.040 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:24.043 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:26.052 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:28.073 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:30.086 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:32.089 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:34.113 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:36.133 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:38.150 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:40.156 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:42.164 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:44.181 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:46.196 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:48.217 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:50.235 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:52.269 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:54.292 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:56.309 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:06:58.322 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:00.335 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:02.353 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:04.374 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:06.392 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:08.413 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:10.426 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:12.447 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:14.457 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:16.473 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:16.800 D/ATC: p=2 (N02XP): Fly Heading: 180
+0:07:16.800 D/ATC: p=2 (N02XP): Report Field in Sight
+0:07:16.835 I/ATC: Adding p=2 (N02XP) into Active Queue
+0:07:16.835 D/ATC: p=2 (N02XP): Contact controller on 119.90
+0:07:16.835 D/ATC: p=2 (N02XP): FlyToPoints
+0:07:16.835 D/ATC: p=2 (N02XP): Cleared VIS approach!
+0:07:16.913 D/ATC: p=2 (N02XP): Switching frequency to 119.90
+0:07:18.478 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:20.494 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:22.509 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:24.519 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:26.541 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:28.565 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:30.569 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:32.593 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:34.619 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:36.659 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:38.666 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:40.667 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:42.676 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:44.689 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:46.707 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:48.732 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:50.764 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:52.792 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:54.801 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:56.807 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:07:58.812 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:00.842 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:02.909 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:04.927 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:06.928 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:08.944 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:10.968 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:12.969 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:14.978 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:17.003 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:19.006 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:21.008 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:23.027 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:25.050 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:27.059 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:29.085 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:31.114 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:33.117 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:33.225 D/ATC: p=2 (N02XP): Land: 16C
+0:08:35.124 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:37.126 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:39.141 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:41.146 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:43.168 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:45.178 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:47.190 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:49.217 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:51.229 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:53.249 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:55.266 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:57.268 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:08:59.279 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:01.293 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:03.312 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:05.319 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:07.326 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:09.346 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:11.356 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:13.363 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:15.386 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:17.414 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:19.449 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:21.466 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:23.467 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:25.476 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:27.486 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:29.504 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:31.539 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:33.560 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:35.584 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:37.613 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:39.619 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:41.625 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:43.659 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:45.685 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:47.704 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:49.716 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:51.731 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:53.746 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:55.772 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:57.806 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:09:59.830 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:01.854 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:03.888 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:05.909 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:07.920 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:09.944 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:11.975 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:14.004 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:16.023 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:18.027 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:18.283 D/ATC: p=0 (N172SP) unknown Aircraft in the way of landing!
+0:10:18.283 I/ATC: Removing p=2 (N02XP) from Active Queue
+0:10:18.283 D/ATC: p=2 (N02XP): Fly Heading: 179
+0:10:18.283 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:10:18.283 D/ATC: p=2 (N02XP): Contact controller on 124.20
+0:10:18.315 D/ATC: p=2 (N02XP): Switching frequency to 124.20
+0:10:20.048 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:22.076 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:24.092 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:26.111 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:28.132 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:28.307 W/ATC: Altitude Alert: p=2 (N02XP), Needs to CLIMB to 3000.000000, Cur_Indi: 627.282104, Cur_Pres: 627.282104, Last: 5359.493164
+0:10:28.307 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:10:30.151 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:32.171 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:34.191 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:36.208 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:38.211 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:40.220 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:42.233 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:44.244 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:45.536 D/ATC: p=2 (N02XP): Fly Heading: 90
+0:10:45.536 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:10:46.245 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:48.271 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:50.287 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:52.292 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:54.316 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:56.340 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:10:58.357 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:00.391 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:02.408 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:04.421 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:06.435 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:08.457 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:10.477 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:12.493 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:14.505 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:16.515 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:18.529 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:20.535 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:22.542 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:24.559 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:26.583 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:28.599 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:30.611 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:32.614 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:34.638 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:36.649 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:38.663 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:40.669 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:42.690 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:44.706 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:46.707 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:48.710 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:50.711 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:52.720 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:54.732 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:56.743 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:11:58.747 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:00.768 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:02.772 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:04.775 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:06.792 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:08.799 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:10.817 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:12.848 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:14.860 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:16.879 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:18.881 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:20.899 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:22.923 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:24.923 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:26.944 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:28.959 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:30.966 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:32.976 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:34.992 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:37.014 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:39.025 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:41.051 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:43.072 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:45.106 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:47.126 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:49.126 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:51.139 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:53.146 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:55.146 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:57.162 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:12:59.174 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:01.181 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:03.215 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:05.240 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:07.261 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:09.261 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:11.278 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:13.280 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:15.292 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:17.316 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:19.350 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:19.563 D/ATC: p=2 (N02XP): Fly Heading: 360
+0:13:21.362 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:23.375 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:25.379 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:27.399 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:28.567 W/ATC: Altitude Alert: p=2 (N02XP), Needs to DESCEND to 2998.687744, Cur_Indi: 3676.873291, Cur_Pres: 3676.873291, Last: 3169.065430
+0:13:28.567 D/ATC: p=2 (N02XP): Maintain 2998ft
+0:13:29.402 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:31.416 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:33.439 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:35.465 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:37.497 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:39.515 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:41.549 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:43.560 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:45.563 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:47.596 D/ATC: p=3 (N03XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:49.610 D/ATC: p=1 (N01XP) cannot depart because p=0 (N172SP) is NORDO in the way on the ground.
+0:13:50.779 D/HID: HID Bridge Shutdown
+----- X-Plane has shut down -----

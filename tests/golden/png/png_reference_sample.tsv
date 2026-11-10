@@ -1,0 +1,112 @@
+path	sha256_raw_samples	w	h	bitdepth	colortype	channels	interlace	plte	trns	inflated
+Aircraft/Fighters/F-4 Phantom/cockpit_3D/generic/aoa_indexer.png	ff6698a6e831ffcf47af2fed388ffc262f319e72b26cd140929d1e19b1246ad4	30	100	8	6	4	0	0	0	12100
+Aircraft/Fighters/F-4 Phantom/objects/F4D_Fuselage_NML.png	325e0c5baef100598fa2be972756bfabd864a3bbd242749e822a8c8ff01d8139	2048	2048	8	6	4	0	0	0	16779264
+Aircraft/Fighters/FA-22 Raptor/objects/Fuselage.png	d176c0b1be0117aee88597d2a613c7aae8af45ff1b2ea2fc51af041cc8f1eecb	2048	2048	8	2	3	0	0	0	12584960
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/EFIS elements primary/el_HSI_tape-1.png	cc2369ef89c6ab475d14fcb9a97fcbad5667ea2de667cb15fb3f964474a65761	860	26	8	6	4	1	0	0	89490
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/EFIS elements primary/el_airspeed-4.png	33b816b21327f22113adef35adecda436d37928eac6fa27908f2e35032d06d59	64	48	8	6	4	1	0	0	12378
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/EFIS elements primary/el_altitude-4.png	d90874603163678607805a34bd487e2f019c37fbd80cc7d167f1dbecd42a18e1	64	72	8	6	4	1	0	0	18567
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/EFIS elements primary/el_horizon-1.png	4a3e3a9e7e7b7946c360fd284eeed6f03d7dc6f32a561096bfa6866baaa9e248	128	256	8	6	4	1	0	0	131552
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/EFIS elements primary/el_horizon-2.png	0d2cda9fe6b49f33932fa48bdc8de1b902454583f5d9b587772c387e57108293	672	106	8	6	4	1	0	0	285128
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/EFIS elements primary/el_horizon_CDI-1.png	4a3e3a9e7e7b7946c360fd284eeed6f03d7dc6f32a561096bfa6866baaa9e248	128	256	8	6	4	1	0	0	131552
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/EFIS elements primary/el_horizon_CDI-2.png	0d2cda9fe6b49f33932fa48bdc8de1b902454583f5d9b587772c387e57108293	672	106	8	6	4	1	0	0	285128
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_TCAS-1.png	839fcb265ebb08d931d684d9bcec11309f2bc684103da61f394b847ec6ad7497	112	56	8	6	4	1	0	0	25193
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_TCAS.png	95163f297f756c33db220bf1476efd2e525c3595b336f473c5a430f6183db103	37	56	8	6	4	1	0	0	8393
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_apt-1.png	c206144f1582ec83ab9c69a9efd8050401c43b851c21b80dc66227e1092e5d72	112	56	8	6	4	1	0	0	25193
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_apt.png	cfa9b4fc36da91a078adea3ef2340fabe0da039ac49e8f0a01af3f2f2b9b19ab	37	56	8	6	4	1	0	0	8393
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_fix-1.png	e213fa63aa6fe861d55abd91720cddd35f57b472695e5ef0348832774c10c30d	112	56	8	6	4	1	0	0	25193
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_fix.png	0408d0d18bc4ef47fa716886770160b24e6c6dfb4739a02bd367a9fdb023bbed	37	56	8	6	4	1	0	0	8393
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_ndb-1.png	8f7c38ea257cc6c548cfd2fc6c8c7d7c7736242784153ddf273dedee2959bdd7	112	56	8	6	4	1	0	0	25193
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_ndb.png	e1bab18b08622533c9519adae5f52cefd9357a4d82b4c9b56a63be5ddd3624c4	37	56	8	6	4	1	0	0	8393
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_vor-1.png	00bb79daaf2941647e3def3bfd2279fa504f8c24f1deaf410f1c6561094f0760	112	56	8	6	4	1	0	0	25193
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_vor.png	5c2dcbdba432af009a5c301d4f6aa97adaed1d378f3d80d5776a9b0a5a002f24	37	56	8	6	4	1	0	0	8393
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_wxr-1.png	176861129ebb634d4bb89e95784fe68af91b28ab94990041b2c8a87ec5983b02	112	56	8	6	4	1	0	0	25193
+Aircraft/Fighters/Viggen JA37/Cockpit/EFIS/but_map_wxr.png	002d8987d74b41e3e2c82a516484575e51ff1ad85cdda9bb49634d9369b57db4	37	56	8	6	4	1	0	0	8393
+Aircraft/Fighters/Viggen JA37/Cockpit/annunciators/ann_auto_ignition-1.png	671aec399fd0ecec4270eba694ff083dca1abf16b4666d7defe72415f005cd79	768	300	8	6	4	1	0	0	922163
+Aircraft/Fighters/Viggen JA37/Cockpit/autopilot/autopilot engage/but_artstab.png	9cb887582ee3e603f86e7cc96c2251edf1931747325972a466e204a4d9e7c6c3	35	35	8	6	4	1	0	0	4967
+Aircraft/Fighters/Viggen JA37/Cockpit/autopilot/autopilot engage/ott_alt_eng_BC.png	557c92543461c3e83dee710ba45857f3eb25df797584e1409444aabb96869b93	35	35	8	6	4	1	0	0	4967
+Aircraft/Fighters/Viggen JA37/Cockpit/autopilot/autopilot engage/ott_syn_eng_BC-1.png	0f21b0788dac0a7e20097c477dbefce4a6f48d793572484d183180e627d15b18	105	35	8	6	4	1	0	0	14767
+Aircraft/Fighters/Viggen JA37/Cockpit/autopilot/autopilot engage/ott_syn_eng_BC.png	9cb887582ee3e603f86e7cc96c2251edf1931747325972a466e204a4d9e7c6c3	35	35	8	6	4	1	0	0	4967
+Aircraft/Fighters/Viggen JA37/Cockpit/autopilot/autopilot engage/ott_vvi_eng_BC.png	557c92543461c3e83dee710ba45857f3eb25df797584e1409444aabb96869b93	35	35	8	6	4	1	0	0	4967
+Aircraft/Fighters/Viggen JA37/Cockpit/autopilot/autopilot engage/ott_winglev_eng_BC-1.png	0f21b0788dac0a7e20097c477dbefce4a6f48d793572484d183180e627d15b18	105	35	8	6	4	1	0	0	14767
+Aircraft/Fighters/Viggen JA37/Cockpit/autopilot/autopilot engage/ott_winglev_eng_BC.png	9cb887582ee3e603f86e7cc96c2251edf1931747325972a466e204a4d9e7c6c3	35	35	8	6	4	1	0	0	4967
+Aircraft/Fighters/Viggen JA37/Cockpit/buttons/but_artstab.png	9cb887582ee3e603f86e7cc96c2251edf1931747325972a466e204a4d9e7c6c3	35	35	8	6	4	1	0	0	4967
+Aircraft/Fighters/Viggen JA37/Cockpit/buttons/but_yawdamp.png	9cb887582ee3e603f86e7cc96c2251edf1931747325972a466e204a4d9e7c6c3	35	35	8	6	4	1	0	0	4967
+Aircraft/Fighters/Viggen JA37/Cockpit/standard six/artificial horizons/all_attitude-1.png	be933f0cd5b157e8f8df7370c173498563ef2404101c8dad41f83eaa49add7e4	252	128	8	2	3	1	0	0	97008
+Aircraft/Fighters/Viggen JA37/Cockpit/standard six/artificial horizons/all_attitude-2.png	a271d027fd90b0e048a9541859e090a125ad98ea955e7e41279dc0090a879abe	600	100	8	6	4	1	0	0	240188
+Aircraft/Fighters/Viggen JA37/Cockpit/standard six/artificial horizons/all_attitude-4_LIT.png	9754e2ae66a856bb3ae2dfdd4d7f370416a650f348f1c6cca741b649b47cedda	152	152	8	6	4	1	0	0	92701
+Aircraft/Fighters/Viggen JA37/Cockpit/standard six/artificial horizons/horizon_small_adj-1.png	1ee509706db5c81ce7d369f95d70db5d58388449e30204793b27d0a20320aa2f	44	120	8	6	4	1	0	0	21345
+Aircraft/Fighters/Viggen JA37/Cockpit/standard six/artificial horizons/horizon_small_adj-4.png	48321655f5f90034abf480f3cb12301cbd2f6793b627b2daff9f6f0270c8b30b	78	78	8	6	4	1	0	0	24483
+Aircraft/Fighters/Viggen JA37/Cockpit/supplement/radar-2.png	6a9283a95c0d778395607389ed2793884b0848d3a864de0a4bed97f34d00766a	82	86	8	6	4	1	0	0	28370
+Aircraft/General Aviation/Baron B58/objects/B58_Wings_NML.png	8723ed08993a60e45f5b319da2f2d26ac965f447e8ff005bcef9d0a0368f731d	4096	2048	8	6	4	0	0	0	33556480
+Aircraft/General Aviation/Baron B58/objects/B58_fuselage_NML.png	10430f806a12ed0edb0e0faa524a7d4bb3c7a237baa4604f12efc5260ac290fd	4096	4096	8	6	4	0	0	0	67112960
+Aircraft/General Aviation/Cessna 172SP/objects/fuse.png	63f2058bfb3dc8365fd002260f4b06492125baa8e043b8bc70ee7a3ad52ba77e	1024	1024	8	6	4	0	0	0	4195328
+Aircraft/General Aviation/Cessna 172SP/objects/fuse_bump.png	34f6d28fd0c8308ec70176a0bd612d71b91d1856c69e709560db9b41ef8643f1	1024	1024	8	2	3	0	0	0	3146752
+Aircraft/General Aviation/Cessna 172SP/objects/glass.png	454607ce84732629b75b33322b3dd0138ed78cecfbf00014d48887cf34a821b9	512	512	8	6	4	0	0	0	1049088
+Aircraft/General Aviation/Cessna 172SP/objects/prop.png	994d5327c79026c9afa495c20389b8fe6cd3cf800215deef6b049638c857ad93	512	256	8	6	4	0	0	0	524544
+Aircraft/General Aviation/Cessna 172SP/objects/wings.png	e714c1f3fa20b92699569facf28645c16dfd4ce9b008b0b269980cb1456e64c0	1024	512	8	6	4	0	0	0	2097664
+Aircraft/General Aviation/Cessna 172SP/objects/wings_bump.png	aadb970efb97aae451279de9c062f771ef46d349ba529ae1f7ac2fc4b5666924	1024	512	8	2	3	0	0	0	1573376
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_alt.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_alt_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_app.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_app_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_arm.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_arm_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_bc.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_bc_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_gs.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_gs_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_hdg.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_hdg_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_ias.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_ias_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_loc.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_loc_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_vnav.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_vnav_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_vs.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/KingAir C90B/cockpit_3D/generic/ap_vs_LIT.png	5514e3463923ca8257bc073bf34413d0426a6b45bf569b5a5b74c7c5298c57a7	50	25	1	3	1	0	2	1	200
+Aircraft/General Aviation/StinsonL5/cockpit/compass/compass_GA-1.png	2521fa49f6fdd46ba95035d7963a7cf9602b66253bac3807c2224d9f41d8220c	435	56	8	2	3	0	0	0	73136
+Aircraft/Helicopters/Robinson R22 Beta/OUT.png	b1fcd823efa10e314404d1216e61689bf2c435fbcf55cefda812156866bdf87b	1024	1024	8	2	3	0	0	0	3146752
+Aircraft/Mega-Planes!/SR-71 Blackbird-D21a/objects/SR-71_exterior.png	7e356720a6c95ed8a03728d7fb9c526a283c4a1b1de5086a7ff7552388c9833e	2048	2048	8	2	3	0	0	0	12584960
+Aircraft/X-Planes/X-15/COCKPIT/generic/APU.png	3d7d14f5cb4d7572e586f03a85a2cb39a5c1d2b8442622172c32a358940ac1ab	122	43	16	6	4	0	0	0	42011
+Aircraft/X-Planes/X-15/COCKPIT/generic/Avionics-1.png	5d894c08df49a67b1d4f4af0bf084927e6dca8fe08fac8163a05c1d80641e789	244	43	16	6	4	0	0	0	83979
+Aircraft/X-Planes/X-15/COCKPIT/generic/Hydr-1.png	d799c16e63f88b3a85f099c84da3b3cf81fb645e49cacb132098ca0ca4b31aeb	244	43	16	6	4	0	0	0	83979
+Aircraft/X-Planes/X-15/COCKPIT/generic/IceDetect.png	c02cbbdf8979391567165522590a18a99054ef8ce08109a10019f5c1f2b0e376	42	122	16	6	4	0	0	0	41114
+Aircraft/X-Planes/X-15/COCKPIT/generic/MastAccept-1.png	ddd3d98d6e36de97f1b4c3974c4a3e584acf9755bdbf9f7aede58dbf3b83897e	244	43	16	6	4	0	0	0	83979
+Aircraft/X-Planes/X-15/COCKPIT/generic/Pitch-1.png	43a78517561ab82efe491dd0f1ba3ca6411bf1f3e12dbca6b949c7c9c7d4a375	106	45	16	6	4	0	0	0	38205
+Aircraft/X-Planes/X-15/COCKPIT/generic/Pitch.png	ccb4f5e676cf19b07bc21a3ac72b895670b8a6e0ca193b3e8c1ce5f11932c45d	53	45	16	6	4	0	0	0	19125
+Aircraft/X-Planes/X-15/COCKPIT/generic/Roll.png	ccb4f5e676cf19b07bc21a3ac72b895670b8a6e0ca193b3e8c1ce5f11932c45d	53	45	16	6	4	0	0	0	19125
+Aircraft/X-Planes/X-15/COCKPIT/generic/Yaw.png	ccb4f5e676cf19b07bc21a3ac72b895670b8a6e0ca193b3e8c1ce5f11932c45d	53	45	16	6	4	0	0	0	19125
+Aircraft/X-Planes/X-15/objects/X15_Glass_NML.png	594d3dedfccfc520a532cfaa54338ecb8a31f09abbc0d74ac76b30a783b2f699	512	512	16	6	4	0	0	0	2097664
+Custom Scenery/KSEA Demo Area/Overlay_Polys/SEATAC.png	cd7a9fed0c6f3b23294c631020a61711467744890c992875672bbfe0a402ba55	2048	6144	8	6	4	0	0	0	50337792
+Extra Aircraft/Aircraft From Previous Versions/Mega-Planes!/Rockwell B-1B Lancer/cockpit/engine/engine tapes/tape_CHT-1.png	868fb6f4a898cd69f4d5be244a5b7af3ca05cc782b5f3df5fb0de0c01ca70224	5	5	8	6	4	0	0	0	105
+Resources/bitmaps/blank.png	f9d9f31ac3b13862add6caf6b9ba47154ebb17249d46fc6f20ad88b365579120	2	2	8	2	3	0	0	0	14
+Resources/bitmaps/cockpit/IOS/IOS_asi-4.png	98659ccef9e388b877d96d4b5ec0afb8cf2176f904412752f8d6ac15f769ff7e	96	48	8	6	4	0	0	0	18480
+Resources/bitmaps/cockpit/radios/markers_BC-2.png	778a91e4b77d22f96aaa70c386f3973c99481855ba14554a5c375d6902fa9182	57	17	8	6	4	0	0	0	3893
+Resources/bitmaps/cockpit/radios/markers_GA-2.png	778a91e4b77d22f96aaa70c386f3973c99481855ba14554a5c375d6902fa9182	57	17	8	6	4	0	0	0	3893
+Resources/bitmaps/missing.png	f9d9f31ac3b13862add6caf6b9ba47154ebb17249d46fc6f20ad88b365579120	2	2	8	2	3	0	0	0	14
+Resources/bitmaps/skycolors/reflections/night.png	32bcf79fcbc79a645726768347df2212c3ce349a1812c4448fd4a6fa17f630cb	8	8	8	6	4	0	0	0	264
+Resources/bitmaps/skycolors/reflections/sun_stratus.png	1cae84bc7e7e7b7146a0a37ab74aa9bda8892487f3bc267ec73073bf312df3bc	1024	1024	8	6	4	0	0	0	4195328
+Resources/default scenery/1000 autogen/US/urban_mid/textures/HighRise2_NML.png	18bd43b6fbeed4a0f7fef0301ffcd70db1d2a3b8e548bd3410c60583d0605837	2048	1024	8	0	1	0	0	0	2098176
+Resources/default scenery/1000 decals/textures/DECAL_GA_stony_dirt3.png	a44f50b7d25285cd986b5a4d921809d772259fab4c4f9f28fc20d2946013a5b7	1024	1024	8	4	2	0	0	0	2098176
+Resources/default scenery/1000 decals/textures/DECAL_GA_stony_dirt_grass_dither.png	22bd42d446cdcdb0d32025541daf8fe1eda9ee168b6a570675aa46f9a871ad34	1024	1024	8	4	2	0	0	0	2098176
+Resources/default scenery/1000 decals/textures/DECAL_GA_stony_dirt_tuft_mask.png	d60708c2656d60c8867189cfefa58ee9a567f33d224e1d7221b61f9110e37fe1	1024	1024	8	4	2	0	0	0	2098176
+Resources/default scenery/1000 decals/textures/DECAL_GS_sand.png	8e7f3d18c80f8786ddee9ab7a4b74c2203096c79a6ce8987d25c1ba103f66276	256	256	8	4	2	0	0	0	131328
+Resources/default scenery/1000 roads/textures/rail_swizzle.png	305323a067cffa90adc1b5b489c6cfc158eb19e1fff8863da08e978b52c54960	1	64	8	2	3	0	0	0	256
+Resources/default scenery/1000 roads/textures/rail_swizzle8.png	4063d136c6623e464f6fa7f4c5e6765f58c19555f7ead8482b76767d39f2db0b	1	64	8	2	3	0	0	0	256
+Resources/default scenery/1000 urban terrain/textures/border/soft.png	674801afea70d0e96d9eaa35ee7c3aabba53334994f070080c918e8896cba5d9	128	64	8	4	2	0	0	0	16448
+Resources/default scenery/1000 urban terrain/textures/urban/noise_clumps.png	281ca1c1261c57fb74a1e79e62e1cd7111eb9985730728aa51be1953e990b3a2	1024	1024	8	0	1	0	0	0	1049600
+Resources/default scenery/1000 world terrain/textures10/border/hard.png	92b40dacd6e1524f1a87dee76091161454ef387e68ef02640a5eba09af773af2	128	64	8	4	2	0	0	0	16448
+Resources/default scenery/1000 world terrain/textures10/border/soft.png	674801afea70d0e96d9eaa35ee7c3aabba53334994f070080c918e8896cba5d9	128	64	8	4	2	0	0	0	16448
+Resources/default scenery/1000 world terrain/textures10/border/xhard.png	df949daa87ced3d7b832dcf69cc4e3c08e0ef5f6060818759aae4ea607741f03	128	64	8	4	2	0	0	0	16448
+Resources/default scenery/700 roads/driving_standards.png	859b30af5334126230fd48389436862e00893cb1c14324b29c8c7e1a6d4c6bf4	360	180	8	0	1	0	0	0	64980
+Resources/default scenery/900 europe objects/european_style_buildings.png	f4f6be0bbc99a306cf3a763bcbe05e7da830fa5ecef5016eaccd8378ef69ef8f	360	180	8	4	2	0	0	0	129780
+Resources/default scenery/900 roads/driving_standards.png	859b30af5334126230fd48389436862e00893cb1c14324b29c8c7e1a6d4c6bf4	360	180	8	0	1	0	0	0	64980
+Resources/default scenery/900 world object placeholders/blank.png	f9d9f31ac3b13862add6caf6b9ba47154ebb17249d46fc6f20ad88b365579120	2	2	8	2	3	0	0	0	14
+Resources/default scenery/airport decals/textures/RGBA_DECAL_grass_rows.png	7d0826ff95cfb9da08dda34092dc1624cf1b06f3f5d7cd9d2ce8bcf2468430d0	1024	1024	8	0	1	0	0	0	1049600
+Resources/default scenery/airport scenery/textures/Roof_Asphalt_NML.png	bf2b657b8e2e2dbc8c7b537929b36fee39c690b21586ee3d148378b9d141b977	16	16	8	0	1	0	0	0	272
+Resources/default scenery/sim objects/apt_aircraft/heavy/DC10_FDX/DC10_FDX_NML.png	c03913999853d8a87d0a22d133b1672bfbacda1bda7cb1a526ae5d3033c68521	2048	2048	8	0	1	0	0	0	4196352
+Resources/default scenery/sim objects/apt_aircraft/heavy/DC10_white/DC10_white_NML.png	c03913999853d8a87d0a22d133b1672bfbacda1bda7cb1a526ae5d3033c68521	2048	2048	8	0	1	0	0	0	4196352
+Resources/default scenery/sim objects/apt_aircraft/prop/C172_white/C172_white_NML.png	467f95a4028fbbae5c09ece5d20a1cb5d4d93c3794a64ac142b58eb44cbe468b	1024	512	8	0	1	0	0	0	524800
+Resources/default scenery/sim objects/apt_aircraft/turboprop/P180_AM/P180_AM_NML.png	155ca591a44c48e972ab63fe39f660cc0c8e3a8218238a6016922d407c9172a1	1024	512	8	0	1	0	0	0	524800
+Resources/default scenery/sim objects/dynamic/Nimitz_lit.png	2be3d36c17b2736a8c0702044f6f6a6314ec4d8f4d0748bdbd482578b9ac63a8	2048	2048	8	2	3	0	0	0	12584960

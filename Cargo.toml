@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+members = ["crates/xp-core", "crates/xp", "crates/xp-ft"]
+
+[profile.dev]
+opt-level = 1
+[profile.release]
+lto = "thin"
+codegen-units = 1

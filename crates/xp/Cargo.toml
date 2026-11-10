@@ -1,0 +1,15 @@
+[package]
+name = "xp"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wgpu = "30"
+winit = "0.30"
+pollster = "1"
+bytemuck = { version = "1", features = ["derive"] }
+log = "0.4"
+env_logger = "0.11"
+anyhow = "1"
+xp-core = { path = "../xp-core" }
+xp-ft = { path = "../xp-ft" }

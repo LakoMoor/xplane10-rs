@@ -1,0 +1,127 @@
+# apt.dat golden — extracted from shipped content, not from port code.
+# NOTE: these files carry NO indentation; the record hierarchy is implied by adjacency.
+# Line 1 is a marker (I or A) and line 2 is "<version> <generator>"; neither counts as a
+# record, which is the same rule the reader applies.
+file_count: 7
+# Custom Scenery/Global Airports/Earth nav data/apt.dat
+file[Custom Scenery/Global Airports/Earth nav data/apt.dat].sha256 = d3dd885fc643c9a87f84be30f86e24ab00c2299b73b38ee6d0a1d4ad1c3295e7
+file[Custom Scenery/Global Airports/Earth nav data/apt.dat].version = 1050
+file[Custom Scenery/Global Airports/Earth nav data/apt.dat].lines = 2667196
+file[Custom Scenery/Global Airports/Earth nav data/apt.dat].records = 2663582
+file[Custom Scenery/Global Airports/Earth nav data/apt.dat].airports = 3455
+# Custom Scenery/KLAL - Lakeland (airshow version)/Earth nav data/apt.dat
+file[Custom Scenery/KLAL - Lakeland (airshow version)/Earth nav data/apt.dat].sha256 = 27c5950d27c792b79cf5378d811c42ceeb1b2b041227114cdd03b9ae086f2fa3
+file[Custom Scenery/KLAL - Lakeland (airshow version)/Earth nav data/apt.dat].version = 1000
+file[Custom Scenery/KLAL - Lakeland (airshow version)/Earth nav data/apt.dat].lines = 5102
+file[Custom Scenery/KLAL - Lakeland (airshow version)/Earth nav data/apt.dat].records = 5098
+file[Custom Scenery/KLAL - Lakeland (airshow version)/Earth nav data/apt.dat].airports = 1
+# Custom Scenery/KOSH - Wittman Regional (airshow version)/Earth nav data/apt.dat
+file[Custom Scenery/KOSH - Wittman Regional (airshow version)/Earth nav data/apt.dat].sha256 = 6ba7bd2c5c90a33b7cb65ee66c3299f4bf27c3a24f90c6a7caf8fcc5de813811
+file[Custom Scenery/KOSH - Wittman Regional (airshow version)/Earth nav data/apt.dat].version = 1000
+file[Custom Scenery/KOSH - Wittman Regional (airshow version)/Earth nav data/apt.dat].lines = 6519
+file[Custom Scenery/KOSH - Wittman Regional (airshow version)/Earth nav data/apt.dat].records = 6515
+file[Custom Scenery/KOSH - Wittman Regional (airshow version)/Earth nav data/apt.dat].airports = 1
+# Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat
+file[Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat].sha256 = 8bd4153eadf7feff79e886bcb4b93f0decee3ae0895d88d066781b6ed6d35362
+file[Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat].version = 1050
+file[Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat].lines = 7156
+file[Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat].records = 7152
+file[Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat].airports = 1
+# Custom Scenery/LOWI Demo Area/Earth nav data/apt.dat
+file[Custom Scenery/LOWI Demo Area/Earth nav data/apt.dat].sha256 = a277943396978d188e12a45b76c39d4d6f6cf9e1b05a1f8eb3d55d9cc33a9ffd
+file[Custom Scenery/LOWI Demo Area/Earth nav data/apt.dat].version = 850
+file[Custom Scenery/LOWI Demo Area/Earth nav data/apt.dat].lines = 3777
+file[Custom Scenery/LOWI Demo Area/Earth nav data/apt.dat].records = 3773
+file[Custom Scenery/LOWI Demo Area/Earth nav data/apt.dat].airports = 1
+# Resources/default scenery/default apt dat/Earth nav data/apt.dat
+file[Resources/default scenery/default apt dat/Earth nav data/apt.dat].sha256 = b6e8ecea11a1ee0f401a685563cb75c1c2102f9f5a0eea9d22e7eeceb325f645
+file[Resources/default scenery/default apt dat/Earth nav data/apt.dat].version = 1050
+file[Resources/default scenery/default apt dat/Earth nav data/apt.dat].lines = 4768067
+file[Resources/default scenery/default apt dat/Earth nav data/apt.dat].records = 4733319
+file[Resources/default scenery/default apt dat/Earth nav data/apt.dat].airports = 28075
+# Resources/default scenery/default apt dat/Mars nav data/apt.dat
+file[Resources/default scenery/default apt dat/Mars nav data/apt.dat].sha256 = 38175c9dcec3bc47a5fd2cd4280129d939ad4306b9a9255a86d349456da82cc6
+file[Resources/default scenery/default apt dat/Mars nav data/apt.dat].version = 715
+file[Resources/default scenery/default apt dat/Mars nav data/apt.dat].lines = 128
+file[Resources/default scenery/default apt dat/Mars nav data/apt.dat].records = 107
+file[Resources/default scenery/default apt dat/Mars nav data/apt.dat].airports = 16
+# KSEA record census
+# Runway field names are only assigned where the value is self-evidently
+# identifiable (a designator string, or a lat/lon pair matching the datum recorded
+# in the 1302 metadata). field[1] is deliberately unnamed: its unit is unverified.
+ksea_record[111] = 3188
+ksea_record[112] = 1555
+ksea_record[120] = 425
+ksea_record[115] = 360
+ksea_record[1202] = 299
+ksea_record[1204] = 257
+ksea_record[1201] = 245
+ksea_record[20] = 135
+ksea_record[1300] = 126
+ksea_record[1301] = 126
+ksea_record[110] = 102
+ksea_record[21] = 102
+ksea_record[113] = 85
+ksea_record[116] = 64
+ksea_record[114] = 29
+ksea_record[1302] = 11
+ksea_record[1100] = 10
+ksea_record[19] = 4
+ksea_record[100] = 3
+ksea_record[1001] = 3
+ksea_record[1000] = 2
+ksea_record[1002] = 2
+ksea_record[1003] = 2
+ksea_record[1004] = 2
+ksea_record[1101] = 2
+ksea_record[55] = 2
+ksea_record[1] = 1
+ksea_record[1200] = 1
+ksea_record[130] = 1
+ksea_record[14] = 1
+ksea_record[18] = 1
+ksea_record[50] = 1
+ksea_record[51] = 1
+ksea_record[52] = 1
+ksea_record[53] = 1
+ksea_record[54] = 1
+ksea_record[99] = 1
+ksea_airport_seq = 433
+ksea_airport_helicopter = 1
+ksea_airport_name = KSEA Seattle Tacoma Intl
+ksea_runway[0].fields = 26
+ksea_runway[0].field[1] = 46.02
+ksea_runway[0].end1_name = 16L
+ksea_runway[0].end1_lat = 47.46379733
+ksea_runway[0].end1_lon = -122.30775222
+ksea_runway[0].end2_name = 34R
+ksea_runway[0].end2_lat = 47.43117533
+ksea_runway[0].end2_lon = -122.30804122
+ksea_runway[1].fields = 26
+ksea_runway[1].field[1] = 46.02
+ksea_runway[1].end1_name = 16C
+ksea_runway[1].end1_lat = 47.46381133
+ksea_runway[1].end1_lon = -122.31098822
+ksea_runway[1].end2_name = 34C
+ksea_runway[1].end2_lat = 47.43797233
+ksea_runway[1].end2_lon = -122.31121322
+ksea_runway[2].fields = 26
+ksea_runway[2].field[1] = 46.02
+ksea_runway[2].end1_name = 16R
+ksea_runway[2].end1_lat = 47.46383763
+ksea_runway[2].end1_lon = -122.31786263
+ksea_runway[2].end2_name = 34L
+ksea_runway[2].end2_lat = 47.44053695
+ksea_runway[2].end2_lon = -122.31806463
+ksea_metadata_count = 11
+ksea_metadata[0] = Seattle
+ksea_metadata[1] = United States
+ksea_metadata[2] = 47.449888889
+ksea_metadata[3] = -122.311777778
+ksea_metadata[4] = SEA
+ksea_metadata[5] = SEA
+ksea_metadata[6] = KSEA
+ksea_metadata[7] = K1
+ksea_metadata[8] = Washington
+ksea_metadata[9] = 18000
+ksea_metadata[10] = 18000

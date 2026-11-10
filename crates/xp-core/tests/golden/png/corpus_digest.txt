@@ -1,0 +1,11 @@
+# PNG corpus golden — measured from the shipped install by the Python reference decoder
+# (png_reference.py, built on zlib), not by the Rust module under test.
+#
+# digest: SHA-256 of the concatenation, over every file under $XP_INSTALL whose name ends in
+# `.png`, of the line "path<TAB>sha256 of the decoded sample array" — path relative to the
+# install root, lines sorted by byte order, each terminated by a newline. 922 302 bytes hashed.
+# The two files spelled `.PNG` are not counted.
+#
+# source: png_reference.tsv, 6 862 rows, 0 decode failures, taken 2026-11-10.
+rows: 6862
+digest: 10ba344dd24aa09e72db08a1c45502c3ce5412e6eb488efd0551dec4f08d4b62

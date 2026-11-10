@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>xplane10-rs — X-Plane 10 in Rust</title>
+<meta name="description" content="An independent Rust + wgpu runtime that loads an X-Plane 10.51 installation and is checked, pixel by pixel, against the original.">
+<style>
+:root{--bg:#0b1118;--panel:#121b26;--line:#223244;--ink:#e6edf5;--dim:#93a4b8;--accent:#5fb4ff;--ok:#5fd38d;--warn:#f2b866}
+@media (prefers-color-scheme:light){:root{--bg:#f6f8fb;--panel:#fff;--line:#d9e1ea;--ink:#16202b;--dim:#56677a;--accent:#0b6bcb;--ok:#1a8f4d;--warn:#a86400}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{padding:56px 0 28px}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.05;margin:0 0 12px;letter-spacing:-.02em}
+h2{font-size:26px;margin:56px 0 12px;letter-spacing:-.01em}
+h3{font-size:17px;margin:0 0 4px}
+.lead{font-size:19px;color:var(--dim);max-width:60ch;margin:0 0 22px}
+.tag{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin-bottom:18px}
+.btns a{display:inline-block;margin:0 10px 10px 0;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:600}
+.btns a.primary{background:var(--accent);border-color:var(--accent);color:#04121f}
+.hero img,.shot img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);background:#000}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+.big{font-size:44px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.dim{color:var(--dim)}.small{font-size:14px}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0 2px}
+.bar i{display:block;height:100%;background:var(--accent)}.bar i.v{background:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:13px}
+td.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto}
+.shots{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.shot p{margin:8px 0 0;font-size:14.5px;color:var(--dim)}
+.shot b{color:var(--ink)}
+code{font:13.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto}pre code{border:0;padding:0;background:none}
+footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid var(--line);padding-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="tag">Early development · not playable yet</span>
+  <h1>X-Plane 10, rebuilt in Rust</h1>
+  <p class="lead">An independent Rust + wgpu runtime that loads your own X-Plane 10.51 installation and is checked against the original, pixel by pixel. No game content is included.</p>
+  <p class="btns"><a class="primary" href="REPO_URL">Source on GitHub</a><a href="#progress">Progress</a><a href="#shots">Screenshots</a></p>
+  <div class="hero"><img src="parity/11_windowed_app.png" alt="The port's own window: the Cessna 172SP cockpit panel at Seattle-Tacoma runway 34R" width="1024" height="800"></div>
+  <p class="small dim">The port's own window today: the default Cessna's 2-D panel on runway 34R at KSEA. Instrument faces are in place; needles, sky and terrain are not.</p>
+</header>
+
+<h2 id="progress">How much is ported</h2>
+<div class="grid">
+  <div class="card"><div class="big">≈ 14 %</div><div class="dim">implemented</div><div class="bar"><i style="width:14%"></i></div></div>
+  <div class="card"><div class="big">≈ 6 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:6%"></i></div></div>
+  <div class="card"><div class="big">99.0 %</div><div class="dim">of loading-screen pixels identical to the original's</div></div>
+</div>
+<p class="small dim">The two percentages are a <b>self-assessed estimate</b>, not a measurement: each subsystem below is weighted by how much of the simulator it is, and scored by hand. “Verified” counts only what has been compared with the running original's own output.</p>
+<div class="tw"><table>
+<tr><th>Subsystem</th><th>Weight</th><th>Implemented</th><th>Verified</th><th>State</th></tr>
+<tr><td>Flight model</td><td class="n">25</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started. Next.</td></tr>
+<tr><td>3-D rendering</td><td class="n">20</td><td class="n">8 %</td><td class="n">2 %</td><td>Forward lighting with the original's sun; no sky, shadows, scattering or fog.</td></tr>
+<tr><td>World &amp; scenery</td><td class="n">12</td><td class="n">5 %</td><td class="n">3 %</td><td>Runway outlines in the original's own coordinate frame; no terrain, taxiways or buildings.</td></tr>
+<tr><td>Content formats</td><td class="n">10</td><td class="n">70 %</td><td class="n">15 %</td><td>ACF, OBJ8, apt.dat, PNG, DDS read across the whole install; DSF terrain only framed.</td></tr>
+<tr><td>2-D cockpit panel</td><td class="n">10</td><td class="n">20 %</td><td class="n">10 %</td><td>All 76 Cessna instrument faces placed from the original's own table; no needles or displays.</td></tr>
+<tr><td>Systems, datarefs, avionics</td><td class="n">8</td><td class="n">2 %</td><td class="n">2 %</td><td>GPS airport database reproduces the original's count exactly (19 186).</td></tr>
+<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">5 %</td><td class="n">5 %</td><td>Menu bar only. No drop-downs, no aircraft chooser.</td></tr>
+<tr><td>Sound, plugins, network, ATC</td><td class="n">5</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started.</td></tr>
+<tr><td>Loading screen</td><td class="n">3</td><td class="n">85 %</td><td class="n">85 %</td><td>Picture, text, bands and progress bar match the original.</td></tr>
+</table></div>
+
+<h2 id="match">What already matches the original</h2>
+<div class="grid">
+  <div class="card"><h3>Loading screen</h3><p class="small dim">99.0 % of pixels identical, 99.7 % within 8 of 255. The picture area is identical everywhere.</p></div>
+  <div class="card"><h3>Menu bar</h3><p class="small dim">96.3 % of the bar's pixels identical, 98.8 % within 2 of 255.</p></div>
+  <div class="card"><h3>GPS airport database</h3><p class="small dim">19 186 airports added — the number the original logs — from 34 744 in the install.</p></div>
+  <div class="card"><h3>Coordinates</h3><p class="small dim">The ported lat/lon → scene transform lands runway 34R within a metre of where the original puts it.</p></div>
+</div>
+
+<h2 id="shots">Screenshots of the port</h2>
+<p class="dim">Every rendering change is recorded as a frame of the port, taken with the original's own camera, and compared with the original's frame. Newest first.</p>
+<div class="shots">
+  <div class="shot"><img loading="lazy" src="parity/12_cockpit_gamma_menubar.png" alt="Cockpit view with menu bar" width="1024" height="768"><p><b>Cockpit and menu bar.</b> 47.6 % of the frame within 16 of 255 of the original; the missing half is sky, terrain, needles and displays.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/10_loading_screen.png" alt="Loading screen" width="1024" height="768"><p><b>Loading screen.</b> 99.0 % of pixels identical to the original's.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/06_cockpit_all_instrument_bases.png" alt="All instrument faces" width="1024" height="768"><p><b>All 76 instrument faces</b>, found through the instrument table read out of the original.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/03_cockpit_panel_background.png" alt="Panel background" width="1024" height="768"><p><b>Panel background</b> placed to the pixel, with the original's off-centre cockpit projection.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/02_forward_lighting_oracle_sun.png" alt="Chase view with forward lighting" width="1024" height="768"><p><b>Chase view</b> lit with the sun direction and colours read from the running original.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/01_oracle_camera_and_pose.png" alt="First frame with the original's camera" width="1024" height="768"><p><b>First frame with the original's camera</b> and aircraft pose, before any lighting was ported.</p></div>
+</div>
+
+<h2 id="method">How it is checked</h2>
+<div class="grid">
+  <div class="card"><h3>The original is the spec</h3><p class="small dim">There is no source for X-Plane. Behaviour is recovered from the shipped files and from the shipped binary, then re-implemented in Rust — never transliterated.</p></div>
+  <div class="card"><h3>Frames from the original</h3><p class="small dim">The original is scripted to take its own screenshots; a small in-process probe reads its camera matrices and light state so the port can be framed identically.</p></div>
+  <div class="card"><h3>Nothing claimed without a comparison</h3><p class="small dim">Fitted numbers are labelled as fitted, placeholders as placeholders. The <a href="REPO_URL/blob/main/docs/COMPATIBILITY.md">compatibility ledger</a> lists what is implemented, wired, content-checked and compared.</p></div>
+</div>
+
+<h2 id="run">Run it</h2>
+<p>You need your own X-Plane 10.51 installation, Rust, and FreeType (<code>brew install freetype pkg-config</code> on macOS). Only macOS has been run so far.</p>
+<pre><code>export XP_INSTALL="/path/to/X-Plane 10"
+cargo run -p xp                                  # window: loading screen, then the cockpit
+cargo run -p xp -- --list-aircraft               # aircraft found in the install
+cargo run -p xp -- --aircraft "Aircraft/General Aviation/Baron B58/Baron_58.acf"</code></pre>
+<p class="small dim">In the window, <code>[</code> and <code>]</code> step through the installed aircraft. That is a stand-in: the original's aircraft chooser is a dialog, which is not ported yet. Nothing flies — there is no flight model.</p>
+
+<footer>
+  <p>Independent project, not affiliated with or endorsed by Laminar Research. X-Plane is a trademark of its owner. Screenshots show content from a user's own installation; none of it is distributed here.</p>
+  <p><a href="REPO_URL">GitHub</a> · <a href="REPO_URL/blob/main/docs/PORT.md">Port plan</a> · <a href="REPO_URL/blob/main/docs/ORACLE.md">How the original is observed</a></p>
+</footer>
+</div>
+</body>
+</html>

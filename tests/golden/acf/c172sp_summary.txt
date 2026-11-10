@@ -1,0 +1,55 @@
+# ACF golden — extracted from the shipped original, not from port code.
+# source: X-Plane 10/Aircraft/General Aviation/Cessna 172SP/Cessna_172SP.acf
+# sha256: 887e69ae4716bce3e400cc0ea90cee19cd3a5f5dfb2bfa3bb7d211284b5eeaf1
+# size_bytes: 1629511
+lines: 51753
+total_lines_including_final_newline: 51754
+version: 1004
+p_lines: 50445
+distinct_normalized_key_shapes: 1435
+distinct_acf_leaves: 1136
+value_classes: int=8589 float=41592 string=264
+panel_2d_instances: 76
+panel_3d_instances: 77
+# key-shape rule: each `/`-separated segment is split on `,`; every component that is an
+# optional sign followed by ASCII digits becomes `#`. 4897 was the digits-only-segment rule.
+# verbatim scalar values (key=value, exactly as written in the file)
+acf/_Gneg=2.0
+acf/_Gpos=4.500000000
+acf/_RSC_idlespeed_ENGN=200.0
+acf/_RSC_maxgreen_ENGN=2650.0
+acf/_RSC_mingreen_ENGN=1900.0
+acf/_RSC_redline_ENGN=2700.0
+acf/_Vfe1_kts=110.0
+acf/_Vfem_kts=85.0
+acf/_Vne_kts=163.0
+acf/_Vno_kts=120.0
+acf/_Vso_kts=47.0
+acf/_green_lo_MP=14.949999809
+acf/_m_fuel_max_tot=350.0
+acf/_max_EGT=1450.0
+acf/_num_engn=1
+acf/_num_prop=1
+acf/_power_max_limit=180.0
+acf/_red_hi_MP=29.899999619
+_cgpt/count=8
+_door/count=20
+_engn/count=8
+_gear/count=10
+_wing/count=56
+_cgpt/0/_w_max=1721.0
+_cgpt/0/_w_now=1721.0
+_cgpt/0/_z_ref=3.299999952
+_cgpt/1/_w_max=175.0
+_cgpt/1/_w_now=192.500000000
+_cgpt/1/_z_ref=3.700000048
+_wing/8/_els=5
+_wing/8/_chord_piv=0.250000000
+_wing/8/_delta_fac=0.034899499
+_wing/8/_incidence/0=3.0
+_wing/8/_is_right_mult=-1.0
+_wing/8/_chord_for_RIB/0=5.199999809
+_wing/8/_c_off_for_RIB/0=0.0
+_wing/8/_co_xyz/0,0=-1.875215173
+_wing/8/_co_xyz/0,1=1.617932796
+_wing/8/_co_xyz/0,2=6.113631248

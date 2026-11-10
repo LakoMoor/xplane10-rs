@@ -1,0 +1,4 @@
+WAIT 30
+CMND sim/operation/screenshot
+WAIT 3
+CMND sim/operation/quit

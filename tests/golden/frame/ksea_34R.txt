@@ -1,0 +1,37 @@
+xp-rs airport frame — self-golden, not parity
+=============================================
+
+Command:
+  XP_INSTALL="<install>" cargo run -q -p xp -- --headless <out.ppm> --airport KSEA --runway 34R
+
+Slice: the default aircraft (`Aircraft/General Aviation/Cessna 172SP/objects`) standing on the
+34R end of KSEA, as the oracle's `Init dat_p0 type:loc_tak apt:KSEA rwy:34R` names it, plus the
+airport's three `100` runways from `Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat`.
+512x512, camera EYE [-9, 10, 36] TARGET [0, 0, -60] UP +y FOV 35 deg, near 0.5, far 8000,
+all in the aircraft's model space.
+
+  objects drawn : 9          (8 aircraft objects + 1 runway mesh)
+  draw calls    : 30         (27 + one per runway)
+  triangles     : 24545      (24539 + 2 per runway)
+  vertices      : 20418      (20406 + 4 per runway)
+  indices       : 73635      (73617 + 6 per runway)
+  textures      : 8 uploaded, 0 substituted by extension, 0 missing
+  coverage      : 53 lit px, 46 near-black px of 262144   (percentages)
+
+Three consecutive runs gave the same FNV-1a-64 digest, 0c504c54aa0ebc45. That is recorded,
+not pinned: the aircraft-only frame is known not to be bit-stable on Metal (see headless.txt).
+`RUST_LOG=wgpu=warn` prints nothing for this run.
+
+What is the original's and what is not:
+
+  from the oracle binary   runway corner positions (`build_rwy_layout`), the lat/lon -> local
+                           transform and planet radius (`UTL_geoid`), the runway end as the
+                           midpoint of the two end corners at airport elevation (`get_rwy_end`)
+  from shipped content     KSEA's runway records, `runways/concrete/rway_pave.dds`
+  PLACEHOLDER              the start point (the surveyed end itself), the gear height (lowest
+                           vertex of the aircraft on the pavement), the frame centre (the start
+                           point), the camera, the lighting, and the pavement UVs (one quad per
+                           runway, texture repeated every runway-width; no markings, no
+                           threshold/touchdown segments, no taxiways, no terrain)
+
+No oracle screenshot exists, so nothing here is compared against a frame of the original.

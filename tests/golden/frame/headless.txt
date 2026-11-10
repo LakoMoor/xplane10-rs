@@ -1,0 +1,51 @@
+xp-rs M2 headless frame — self-golden, not parity
+=================================================
+
+Command:
+  XP_INSTALL="<install>" cargo run -q -p xp -- --headless <out.ppm>
+
+Slice: `Aircraft/General Aviation/Cessna_172SP/` (the default content directory),
+512x512, camera EYE [-13, 7, 1] TARGET [0, 0.2, 2.8] UP +y FOV 35 deg, near 0.1, far 200.
+
+These numbers are stable across runs and are what this golden pins:
+
+  objects drawn : 8
+  draw calls    : 27
+  triangles     : 24539
+  vertices      : 20406
+  indices       : 73617
+  textures      : 7 uploaded, 0 substituted by extension, 0 missing
+  coverage      : 15 lit px, 81 near-black px of 262144   (percentages)
+
+The frame checksum is NOT stable and is recorded as a spread, not a value. Six
+consecutive runs gave six different FNV-1a-64 digests:
+
+  c2d56ac0ac4ba9ae  97a00aa9c980da78  e075e65c21c39886
+  809b28f1ca0a9491  b08c47bc6c9fd3c3  3b33ca86dd678be5
+
+Pairwise the images differ in 2 to 9 texels out of 262 144, and every differing
+texel is off by exactly 1 in one channel. Cause: the prepass depth state is
+`CompareFunction::Less` with depth writes on, so on coplanar OBJ8 triangles the
+fragment that rasterizes first wins and the other is rejected. Metal does not
+define raster order within a draw, so a tie can resolve to either triangle, and
+the two candidates differ in albedo below one 8-bit step. The original GL 2.1
+pipeline has the same freedom; nothing in the install pins an order.
+
+Why this is a self-golden and not a parity check
+------------------------------------------------
+macOS denies this session assistive access, so no oracle screenshot can be
+captured (`osascript is not allowed assistive access. (-25211)`). There is
+therefore no reference frame to compare against. What this golden proves is:
+
+  * the ported WGSL passes compile and build pipelines against real content;
+  * 8 shipped OBJ8 objects load, upload and draw, with the triangle and index
+    counts the scene goldens predict for this directory;
+  * 7 shipped textures resolve and upload with no extension substitution and no
+  * the sun pass lights them: with `XP_PROBE=1` the albedo attachment holds 53 684
+    texels with non-zero RGB and the final target 53 310, so the lit pixels come from
+    the lighting pass and not from the clear.
+
+What it does not prove: that the image resembles what X-Plane 10.51r2 draws. The
+camera placement, the sun direction, and the placeholder lighting uniforms are
+all declared guesses (see docs/PORT.md decision log), and the OBJ8-to-body-axis
+permutation is still unmeasured.

@@ -1,0 +1,4 @@
+target/
+.DS_Store
+# The Steam shim that lets the original boot for oracle runs is kept out of the public repo.
+tests/original_patch/stub/

@@ -1,0 +1,917 @@
+# ins_type<TAB>enum name<TAB>bitmap path under cockpit/ — the oracle's _ins_enum (0x10284dea0) and _ins_path (0x10284c200) tables, 916 entries, dumped by tests/original_patch/re/dumptab.py from build 105101 (sha 6b0ce1e5…)
+0	ins_tailnum	supplement/tailnum.png
+1	but_nav_light	buttons/lights/but_nav_light.png
+2	but_bea_light	buttons/lights/but_beacon.png
+3	but_strobe_light	buttons/lights/but_strobe_light.png
+4	but_taxi_light	buttons/lights/but_taxi_light.png
+5	but_land_light	buttons/lights/but_land_light.png
+6	but_hsi_12	standard six/HSIs/but_hsi_12.png
+7	but_hsi_12GPS	standard six/HSIs/but_hsi_12GPS.png
+8	but_rmi_12	nav displays/RMIs/but_rmi_sel_12.png
+9	but_rmi_12GPS	nav displays/RMIs/but_rmi_sel_12GPS.png
+10	but_disp_VORADF1	EFIS/but_disp_VORADF1.png
+11	but_disp_VORADF2	EFIS/but_disp_VORADF2.png
+12	but_hsi_arc_rose	standard six/HSIs/but_HSI_rose_arc.png
+13	but_map_zoom	EFIS/but_map_zoom.png
+14	but_map_mode	EFIS/but_map_mode.png
+15	but_map_mode_HSI	EFIS/but_map_mode_HSI.png
+16	but_SC_fdir_mode	buttons/but_flitedir_modeSC.png
+17	but_DC_fdir_mode	buttons/but_flitedir_modeDC.png
+18	but_rud_trim_reset	buttons/but_rud_trim_reset.png
+19	but_ail_trim_reset	buttons/but_ail_trim_reset.png
+20	but_ap_src	autopilot/but_autopilot_source.png
+21	but_knots_mach	autopilot/autopilot select/but_knots_mach.png
+22	but_auto_test_HM	autopilot/but_autopilot_test_HM.png
+23	but_auto_test_BC	autopilot/but_autopilot_test_BC.png
+24	but_auto_test_GA	autopilot/but_autopilot_test_GA.png
+25	but_battery	buttons/but_battery.png
+26	but_avionics	buttons/but_avionics.png
+27	but_inverter	buttons/but_inverter.png
+28	but_auto_brake	buttons/but_autobrake.png
+29	but_auto_feather	buttons/but_autofeather.png
+30	but_autoreverse	buttons/but_autoreverse.png
+31	but_hyd_pump_elec	buttons/but_hydraulic_pump.png
+32	but_gear_pump	buttons/but_emer_gear_pump.png
+33	but_flap_pump	buttons/but_emer_flap_pump.png
+34	but_gear_mute	buttons/landing gear/but_gear_mute.png
+35	but_beacon_mute	buttons/but_beacon_mute.png
+36	but_tot_ener_audio	supplement/but_totalenergy_audio.png
+37	but_nosmoke	buttons/pass_no_smoking.png
+38	but_fastbelt	buttons/pass_fasten_belts.png
+39	but_apu	buttons/but_apu.png
+40	but_HUD_power	buttons/but_HUD_power.png
+41	but_artstab	buttons/but_artstab.png
+42	but_yawdamp	buttons/but_yawdamp.png
+43	but_brakes	buttons/but_brakes.png
+44	but_arrest	buttons/but_arrest.png
+45	but_puffer	buttons/but_puffer.png
+46	but_water_scoop	buttons/but_water_scoop.png
+47	but_JATO	buttons/but_JATO.png
+48	but_chute	buttons/but_chute.png
+49	but_jettison	buttons/but_jettison.png
+50	but_drop_tank	buttons/but_drop_tank.png
+51	but_magnetos	buttons/starter/but_ignition.png
+52	but_starter_GA	buttons/starter/but_starter_GA.png
+53	but_starter_BC	buttons/starter/but_starter_BC.png
+54	but_starter_HM	buttons/starter/but_starter_HM.png
+55	but_off_run_start	buttons/starter/but_off_run_start.png
+56	but_mag_l	buttons/engine/but_magneto_lft.png
+57	but_mag_r	buttons/engine/but_magneto_rgt.png
+58	but_igniter	buttons/engine/but_igniter.png
+59	but_idle	buttons/engine/but_idle.png
+60	but_fadec	buttons/engine/but_fadec.png
+61	but_jetsync	buttons/engine/but_jetsync.png
+62	but_propsync	buttons/engine/but_propsync.png
+63	but_burner_enable	buttons/engine/but_afterburner_enable.png
+64	but_burner_level	buttons/engine/but_afterburner_level.png
+65	but_fire_ext	buttons/engine/but_fire_extinguisher.png
+66	but_clutch	buttons/engine/but_clutch.png
+67	clutch_transit	buttons/engine/but_clutch_transit.png
+68	but_prerotate	buttons/engine/but_prerotate.png
+69	but_prerot_level	buttons/engine/but_prerotatelevel.png
+70	but_rotor_brake	buttons/engine/but_rotorbrake.png
+71	but_generator	buttons/engine/but_generator.png
+72	but_generator_apu	buttons/engine/but_generator_apu.png
+73	but_ammeter_volt	buttons/engine/but_ammeter_volt.png
+74	but_ospeed_test	buttons/engine/but_overspeed_test.png
+75	but_fuel_off_any	buttons/fuel/but_fuel_01.png
+76	but_fuel_off_l_r	buttons/fuel/but_fuel_012.png
+77	but_fuel_off_l_any_r	buttons/fuel/but_fuel_012_all.png
+78	but_fuel_off_l_c_r	buttons/fuel/but_fuel_0123.png
+79	but_fuel_off_l_c_r_any	buttons/fuel/but_fuel_0123_all.png
+80	but_xfr_to_l_r	buttons/fuel/but_fuel_xfr_to_012.png
+81	but_xfr_fr_l_r	buttons/fuel/but_fuel_xfr_from_012.png
+82	but_xfr_fr_l_c_r	buttons/fuel/but_fuel_xfr_from_0123.png
+83	but_xfr_to_l_c_r	buttons/fuel/but_fuel_xfr_to_0123.png
+84	but_primer	buttons/fuel/but_primer.png
+85	but_fuel_engine_cutoff	buttons/fuel/but_fuel_on_off.png
+86	but_fuel_pump	buttons/fuel/but_fuelpump.png
+87	but_fuel_dump	buttons/fuel/but_fueldump.png
+88	but_fuel_pump_light	buttons/fuel/but_fuelpump_light.png
+89	wpn_sel_all	weapons/all.png
+90	wpn_sel_gun_roc	weapons/gun_roc.png
+91	wpn_sel_gun_mis	weapons/gun_mis.png
+92	wpn_sel_gun_bom	weapons/gun_bom.png
+93	wpn_sel_roc_mis	weapons/roc_mis.png
+94	wpn_sel_roc_bom	weapons/roc_bom.png
+95	wpn_sel_mis_bom	weapons/mis_bom.png
+96	wpn_sel_gun_roc_mis	weapons/gun_roc_mis.png
+97	wpn_sel_gun_roc_bom	weapons/gun_roc_bom.png
+98	wpn_sel_gun_mis_bom	weapons/gun_mis_bom.png
+99	wpn_sel_roc_mis_bom	weapons/roc_mis_bom.png
+100	wpn_sel_any	weapons/any.png
+101	wpn_fire_mode	weapons/fire_mode.png
+102	wpn_fire_rate	weapons/fire_rate.png
+103	ins_ice_all	de-ice/all_systems.png
+104	ins_ice_inlet_heat	de-ice/inlet_heat.png
+105	ins_ice_prop_heat	de-ice/prop_heat.png
+106	ins_ice_window_heat	de-ice/windshield_heat.png
+107	ins_ice_pitot_heat	de-ice/pitot_heat.png
+108	ins_ice_pitot_heat_cop	de-ice/pitot_heat_copilot.png
+109	ins_ice_AOA_heat	de-ice/AOA_heat.png
+110	ins_ice_surf_heat	de-ice/surface_bleed_air.png
+111	ins_ice_surf_boot	de-ice/surface_pneumatic.png
+112	ins_ice_alt_eng_air_a	de-ice/inertial_separator.png
+113	ins_ice_auto_ignite	de-ice/auto_ignition.png
+114	ins_ice_detect_pwr	de-ice/ice_detect.png
+115	ann_ice	de-ice/ice_detect_ann.png
+116	gear_handle_GA	buttons/landing gear/but_gear_handle_GA.png
+117	gear_handle_BC	buttons/landing gear/but_gear_handle_BC.png
+118	gear_handle_HM	buttons/landing gear/but_gear_handle_HM.png
+119	gear_light_all_up	buttons/landing gear/gear_light_ALL_up.png
+120	gear_light_all_dn	buttons/landing gear/gear_light_ALL_dn.png
+121	gear_light_any_transit	buttons/landing gear/gear_light_ANY_transit.png
+122	gear_light_one_up	buttons/landing gear/but_gear_light_up.png
+123	gear_light_one_dn	buttons/landing gear/but_gear_light_dn.png
+124	gear_light_one_GA	buttons/landing gear/but_gear_light_GA.png
+125	gear_light_one_BC	buttons/landing gear/but_gear_light_BC.png
+126	gear_light_one_HM	buttons/landing gear/but_gear_light_HM.png
+127	rhe_HUD_brt_GA	rheostats/rhe_HUD_brt_GA.png
+128	rhe_HUD_brt_BC	rheostats/rhe_HUD_brt_BC.png
+129	rhe_HUD_brt_HM	rheostats/rhe_HUD_brt_HM.png
+130	rhe_pan_brt_GA	rheostats/rhe_flood_brt_GA.png
+131	rhe_pan_brt_BC	rheostats/rhe_flood_brt_BC.png
+132	rhe_pan_brt_HM	rheostats/rhe_flood_brt_HM.png
+133	rhe_ins_brt_GA	rheostats/rhe_instrument_brt_GA.png
+134	rhe_ins_brt_BC	rheostats/rhe_instrument_brt_BC.png
+135	rhe_ins_brt_HM	rheostats/rhe_instrument_brt_HM.png
+136	rhe_OBS1_GA	rheostats/rhe_OBS_1_GA.png
+137	rhe_OBS1_BC	rheostats/rhe_OBS_1_BC.png
+138	rhe_OBS1_HM	rheostats/rhe_OBS_1_HM.png
+139	rhe_OBS2_GA	rheostats/rhe_OBS_2_GA.png
+140	rhe_OBS2_BC	rheostats/rhe_OBS_2_BC.png
+141	rhe_OBS2_HM	rheostats/rhe_OBS_2_HM.png
+142	rhe_OBS_any_GA	rheostats/rhe_OBS_any_GA.png
+143	rhe_OBS_any_BC	rheostats/rhe_OBS_any_BC.png
+144	rhe_OBS_any_HM	rheostats/rhe_OBS_any_HM.png
+145	rhe_ADF1_GA	nav displays/ADFs/rhe_ADF_1_GA.png
+146	rhe_ADF1_BC	nav displays/ADFs/rhe_ADF_1_BC.png
+147	rhe_ADF1_HM	nav displays/ADFs/rhe_ADF_1_HM.png
+148	rhe_ADF2_GA	nav displays/ADFs/rhe_ADF_2_GA.png
+149	rhe_ADF2_BC	nav displays/ADFs/rhe_ADF_2_BC.png
+150	rhe_ADF2_HM	nav displays/ADFs/rhe_ADF_2_HM.png
+151	rhe_baro_GA	rheostats/rhe_baro_GA.png
+152	rhe_baro_BC	rheostats/rhe_baro_BC.png
+153	rhe_baro_HM	rheostats/rhe_baro_HM.png
+154	rhe_radalt_GA	standard six/altimeters/radioalt_sel_GA.png
+155	rhe_radalt_BC	standard six/altimeters/radioalt_sel_BC.png
+156	rhe_radalt_HM	standard six/altimeters/radioalt_sel_HM.png
+157	rhe_AH_Knob	standard six/artificial horizons/rhe_horizon_Knob.png
+158	rhe_AH_Knob_sm	standard six/artificial horizons/rhe_horizon_Knob_small.png
+159	rhe_DG_hdg	standard six/DGs/Rhe_DG_HDG.png
+160	rhe_DG_syn	standard six/DGs/Rhe_DG_SYN.png
+161	han_left_end	handles/end_left.png
+162	han_rigt_end	handles/end_rigt.png
+163	han_thrott_vern	handles/han_thro_vernier.png
+164	han_thrott_lin	handles/han_thro_linear.png
+165	han_prop_vern	handles/han_prop_vernier.png
+166	han_prop_lin	handles/han_prop_linear.png
+167	han_mixture_vern	handles/han_mixture_vernier.png
+168	han_mixture_lin	handles/han_mixture_linear.png
+169	han_cheat_vern	handles/han_cheat_vernier.png
+170	han_cheat_lin	handles/han_cheat_linear.png
+171	han_cowlflaps	handles/han_cowlflaps.png
+172	han_alt_air	handles/han_alt_air.png
+173	han_primer	handles/han_primer.png
+174	han_sbrake_manual	handles/han_sbrake1.png
+175	han_sbrake_otto	handles/han_sbrake2.png
+176	han_collective	handles/han_collective.png
+177	han_vect	handles/han_vect.png
+178	han_sweep	handles/han_sweep.png
+179	han_dihed	handles/han_dihedral.png
+180	han_incidence	handles/han_incidence.png
+181	han_alt_static	handles/han_alt_static.png
+182	han_tail_lock	handles/han_tailwheel_lock.png
+183	han_displacement	handles/han_displacement.png
+184	han_water_ballast	handles/han_water_ballast.png
+185	han_flap_act_GA	flaps/han_flap_GA.png
+186	han_flap_act_BC	flaps/han_flap_BC.png
+187	han_flap_act_HM	flaps/han_flap_HM.png
+188	flap_ind_rnd	flaps/indicate_flap_round.png
+189	flap_ind_lin	flaps/indicate_flap_linear.png
+190	flap_ind_lab	flaps/indicate_flap_label.png
+191	lgt_flap_up	flaps/flap_light_UP.png
+192	lgt_flap_appr	flaps/flap_light_APPROACH.png
+193	lgt_flap_down	flaps/flap_light_DOWN.png
+194	lgt_flap_tran	flaps/flap_light_TRANSIT.png
+195	han_elv_trim_act	trim/elv_trim_act.png
+196	han_rud_trim_act	trim/rud_trim_act.png
+197	han_ail_trim_act	trim/ail_trim_act.png
+198	han_rot_trim_act	trim/rot_trim_act.png
+199	elv_trim_ind	trim/elv_trim_ind.png
+200	rud_trim_ind	trim/rud_trim_ind.png
+201	ail_trim_ind	trim/ail_trim_ind.png
+202	rot_trim_ind	trim/rot_trim_ind.png
+203	ins_clock_GA	clocks/clock_GA.png
+204	ins_clock_BC	clocks/clock_BC.png
+205	ins_timer_GA	clocks/timer_GA.png
+206	ins_timer_BC	clocks/timer_BC.png
+207	ins_chrono_GA	clocks/chrono_GA.png
+208	ins_chrono_BC	clocks/chrono_BC.png
+209	ins_chrono_HM	clocks/chrono_HM.png
+210	rad_audiopanel_GA	radios/audiopanel_GA.png
+211	rad_audiopanel_BC	radios/audiopanel_BC.png
+212	rad_markers_GA	radios/markers_GA.png
+213	rad_markers_BC	radios/markers_BC.png
+214	rad_nav1_GA	radios/NAV COM/rad_nav1_GA.png
+215	rad_nav1_BC	radios/NAV COM/rad_nav1_BC.png
+216	rad_nav2_GA	radios/NAV COM/rad_nav2_GA.png
+217	rad_nav2_BC	radios/NAV COM/rad_nav2_BC.png
+218	rad_com1_GA	radios/NAV COM/rad_com1_GA.png
+219	rad_com1_BC	radios/NAV COM/rad_com1_BC.png
+220	rad_com2_GA	radios/NAV COM/rad_com2_GA.png
+221	rad_com2_BC	radios/NAV COM/rad_com2_BC.png
+222	rad_navcom1_GA	radios/NAV COM/rad_navcom1_GA.png
+223	rad_navcom1_BC	radios/NAV COM/rad_navcom1_BC.png
+224	rad_navcom2_GA	radios/NAV COM/rad_navcom2_GA.png
+225	rad_navcom2_BC	radios/NAV COM/rad_navcom2_BC.png
+226	rad_ADF1_GA	radios/NAV COM/rad_ADF1_GA.png
+227	rad_ADF1_BC	radios/NAV COM/rad_ADF1_BC.png
+228	rad_ADF2_GA	radios/NAV COM/rad_ADF2_GA.png
+229	rad_ADF2_BC	radios/NAV COM/rad_ADF2_BC.png
+230	rad_DME_frq_GA	radios/DME/DME_frq_GA.png
+231	rad_DME_frq_BC	radios/DME/DME_frq_BC.png
+232	rad_DME_N12_GA	radios/DME/DME_N12_GA.png
+233	rad_DME_N12_BC	radios/DME/DME_N12_BC.png
+234	rad_DME_all_GA	radios/DME/DME_all_GA.png
+235	rad_navcomadfFF_HM	radios/NAV COM/rad_navcomadf_HM.png
+236	rad_navcomadfFF_HM2	radios/NAV COM/rad_NavComADF_HMs.png
+237	rad_transponder_GA	radios/transponder/transponder_GA.png
+238	rad_transponder_BC	radios/transponder/transponder_BC.png
+239	rad_transponder_HM1	radios/transponder/transponder_HM.png
+240	rad_transponder_HM2	radios/transponder/transponder_HMs.png
+241	rad_GPS_GA	radios/GPS FMS/GPS_GA.png
+242	rad_GPS_BC	radios/GPS FMS/GPS_BC.png
+243	rad_GPS_HM	radios/GPS FMS/GPS_HM.png
+244	rad_GPS_430	radios/GPS FMS/Garmin_430.png
+245	rad_FMS	radios/GPS FMS/FMS.png
+246	rad_FMS_small	radios/GPS FMS/FMS_small.png
+247	EFIS_screen_1_GA	EFIS/EFIS panels/blank_Small_GA.png
+248	EFIS_screen_1_BC	EFIS/EFIS panels/blank_Small_BC.png
+249	EFIS_screen_1_HM	EFIS/EFIS panels/blank_Small_HM.png
+250	EFIS_screen_2_GA	EFIS/EFIS panels/blank_Medium_GA.png
+251	EFIS_screen_2_BC	EFIS/EFIS panels/blank_Medium_BC.png
+252	EFIS_screen_2_HM	EFIS/EFIS panels/blank_Medium_HM.png
+253	EFIS_screen_3_GA	EFIS/EFIS panels/blank_Large_GA.png
+254	EFIS_screen_3_BC	EFIS/EFIS panels/blank_Large_BC.png
+255	EFIS_screen_3_HM	EFIS/EFIS panels/blank_Large_HM.png
+256	EFIS_map_mode	EFIS/but_map_options.png
+257	EFIS_map_s_GA	EFIS/EFIS maps/map_s_GA.png
+258	EFIS_map_s_BC	EFIS/EFIS maps/map_s_BC.png
+259	EFIS_map_s_HM	EFIS/EFIS maps/map_s_HM.png
+260	EFIS_map_t_GA	EFIS/EFIS maps/map_t_GA.png
+261	EFIS_map_t_BC	EFIS/EFIS maps/map_t_BC.png
+262	EFIS_map_t_HM	EFIS/EFIS maps/map_t_HM.png
+263	EFIS_argus	supplement/argus.png
+264	EFIS_radar	supplement/radar.png
+265	EFIS_camera	EFIS/camera.png
+266	EFIS_tvguide	weapons/TV_guide.png
+267	EFIS_orbiter_prim	EFIS/orbiter/ORBITER_prim.png
+268	EFIS_orbiter_horz	EFIS/orbiter/ORBITER_horz.png
+269	EFIS_orbiter_vert	EFIS/orbiter/ORBITER_vert.png
+270	avidyne_PFD	EFIS/Avidyne/Avidyne_PFD.png
+271	avidyne_MFD	EFIS/Avidyne/Avidyne_MFD.png
+272	EFIS_HITS	EFIS/EFIS elements primary/HITS.png
+273	EFIS_airspeed	EFIS/EFIS elements primary/el_airspeed.png
+274	EFIS_horizon	EFIS/EFIS elements primary/el_horizon.png
+275	EFIS_horizon_CDIs	EFIS/EFIS elements primary/el_horizon_CDI.png
+276	EFIS_altitude	EFIS/EFIS elements primary/el_altitude.png
+277	EFIS_psi_disp	EFIS/EFIS elements supplement/el_heading.png
+278	EFIS_hsi_tape	EFIS/EFIS elements primary/el_hsi_tape.png
+279	EFIS_hsi_semiround	EFIS/EFIS elements primary/el_hsi_semi_Circle.png
+280	EFIS_hsi_fullround	EFIS/EFIS elements primary/el_hsi_full_Circle.png
+281	EFIS_vvi_adap	EFIS/EFIS elements primary/el_vvi_adaptive.png
+282	EFIS_vvi_vert	EFIS/EFIS elements primary/el_vvi_vert.png
+283	EFIS_vvi_dig	EFIS/EFIS elements primary/el_vvi_dig.png
+284	EFIS_vvi_dig_lim_lo	EFIS/EFIS elements primary/el_vvi_dig_limit_lo.png
+285	EFIS_vvi_dig_lim_hi	EFIS/EFIS elements primary/el_vvi_dig_limit_hi.png
+286	EFIS_localizer	EFIS/EFIS elements supplement/el_localizer.png
+287	EFIS_glideslope	EFIS/EFIS elements supplement/el_glideslope.png
+288	EFIS_baro	EFIS/EFIS elements supplement/el_baro.png
+289	EFIS_decision_height	EFIS/EFIS elements supplement/el_dh.png
+290	EFIS_flap	EFIS/EFIS elements supplement/el_flap.png
+291	EFIS_gear	EFIS/EFIS elements supplement/el_gear.png
+292	EFIS_wind	EFIS/EFIS elements supplement/el_wind.png
+293	EFIS_TAS_GS	EFIS/EFIS elements supplement/el_TAS_GS.png
+294	EFIS_TAS_GS_wind	EFIS/EFIS elements supplement/el_TAS_GS_wind.png
+295	EFIS_groundspeed	EFIS/EFIS elements supplement/el_groundspeed.png
+296	EFIS_orbit_speed	EFIS/EFIS elements supplement/el_ORBITAL_GS.png
+297	EFIS_machnumber	EFIS/EFIS elements supplement/el_machnumber.png
+298	EFIS_asi_trend	EFIS/EFIS elements supplement/el_asi_trend.png
+299	EFIS_el_OBS1	EFIS/EFIS elements supplement/el_OBS1.png
+300	EFIS_el_OBS2	EFIS/EFIS elements supplement/el_OBS2.png
+301	EFIS_DME_voradf1	EFIS/EFIS elements supplement/el_DME_voradf1.png
+302	EFIS_DME_voradf2	EFIS/EFIS elements supplement/el_DME_voradf2.png
+303	EFIS_DME_waypoint	EFIS/EFIS elements supplement/el_DME_waypoint.png
+304	ECAM	ECAM/ECAM.png
+305	ECAM_wide	ECAM/ECAM_wide.png
+306	ECAM_mode	ECAM/ECAM_mode.png
+307	ECAM_carter	ECAM/ECAM_carter.png
+308	ECAM_mode_ENG	ECAM/mode_ENG.png
+309	ECAM_mode_FUEL	ECAM/mode_FUEL.png
+310	ECAM_mode_FCON	ECAM/mode_FCON.png
+311	ECAM_mode_HYD	ECAM/mode_HYD.png
+312	ECAM_mode_FAIL	ECAM/mode_FAIL.png
+313	EFIS_num_PRP	EFIS/EFIS elements engine/dig_RPM_PROP.png
+314	EFIS_num_ENG	EFIS/EFIS elements engine/dig_RPM_engine.png
+315	EFIS_num_N1	EFIS/EFIS elements engine/dig_N1.png
+316	EFIS_num_N2	EFIS/EFIS elements engine/dig_N2.png
+317	EFIS_num_MP	EFIS/EFIS elements engine/dig_MP.png
+318	EFIS_num_EPR	EFIS/EFIS elements engine/dig_EPR.png
+319	EFIS_num_TRQ	EFIS/EFIS elements engine/dig_TRQ.png
+320	EFIS_num_MAS	EFIS/EFIS elements engine/dig_TRQ_mast.png
+321	EFIS_num_pwr	EFIS/EFIS elements engine/dig_pwr.png
+322	EFIS_num_FF	EFIS/EFIS elements engine/dig_FF.png
+323	EFIS_num_ITT	EFIS/EFIS elements engine/dig_ITT.png
+324	EFIS_num_EGT	EFIS/EFIS elements engine/dig_EGT.png
+325	EFIS_num_CHT	EFIS/EFIS elements engine/dig_CHT.png
+326	panel_num_PRP	engine/engine number/dig_RPM_prop.png
+327	panel_num_ENG	engine/engine number/dig_RPM_engine.png
+328	panel_num_N1	engine/engine number/dig_N1.png
+329	panel_num_N2	engine/engine number/dig_N2.png
+330	panel_num_MP	engine/engine number/dig_MP.png
+331	panel_num_EPR	engine/engine number/dig_EPR.png
+332	panel_num_TRQ	engine/engine number/dig_TRQ.png
+333	panel_num_MAS	engine/engine number/dig_TRQ_mast.png
+334	panel_num_pwr	engine/engine number/dig_pwr.png
+335	panel_num_FF	engine/engine number/dig_FF.png
+336	panel_num_ITT	engine/engine number/dig_ITT.png
+337	panel_num_EGT	engine/engine number/dig_EGT.png
+338	panel_num_CHT	engine/engine number/dig_CHT.png
+339	eng_rnd_helo	engine/round_helo.png
+340	eng_rnd_gyro	engine/round_gyro.png
+341	eng_rnd_PRP	engine/engine round/engine_RPM_prop.png
+342	eng_rnd_ENG	engine/engine round/engine_RPM_engine.png
+343	eng_rnd_N1	engine/engine round/engine_N1.png
+344	eng_rnd_N2	engine/engine round/engine_N2.png
+345	eng_rnd_MP	engine/engine round/engine_MP.png
+346	eng_rnd_EPR	engine/engine round/engine_EPR.png
+347	eng_rnd_TRQ	engine/engine round/engine_TRQ.png
+348	eng_rnd_MAS	engine/engine round/engine_TRQ_mast.png
+349	eng_rnd_pwr	engine/engine round/engine_pwr.png
+350	eng_rnd_FF	engine/engine round/engine_FF.png
+351	eng_rnd_ITT	engine/engine round/engine_ITT.png
+352	eng_rnd_EGT	engine/engine round/engine_EGT.png
+353	eng_rnd_CHT	engine/engine round/engine_CHT.png
+354	eng_rnd_N1_APU	engine/engine round/engine_N1_APU.png
+355	eng_rnd_N1_tenth	engine/engine round/engine_N1_tenth.png
+356	eng_rnd_N2_tenth	engine/engine round/engine_N2_tenth.png
+357	eng_rnd_fuelP	engine/engine round/engine_fuelP.png
+358	eng_rnd_oilP	engine/engine round/engine_oilP.png
+359	eng_rnd_oilT	engine/engine round/engine_oilT.png
+360	eng_rnd_oilT_oilP	engine/engine round/engine_oilT_oilP.png
+361	eng_rnd_CHT_EGT	engine/engine round/engine_CHT_EGT.png
+362	eng_rnd_vac	engine/engine round/engine_VAC.png
+363	eng_rnd_bat_amp	engine/engine round/engine_batt_AMPS.png
+364	eng_rnd_bat_volt	engine/engine round/engine_batt_VOLT.png
+365	eng_rnd_gen_amp	engine/engine round/engine_gen_AMPS.png
+366	eng_dig_PRP	engine/engine round dig/engine_dig_RPM_prop.png
+367	eng_dig_ENG	engine/engine round dig/engine_dig_RPM_engine.png
+368	eng_dig_N1	engine/engine round dig/engine_dig_N1.png
+369	eng_dig_N2	engine/engine round dig/engine_dig_N2.png
+370	eng_dig_MP	engine/engine round dig/engine_dig_MP.png
+371	eng_dig_EPR	engine/engine round dig/engine_dig_EPR.png
+372	eng_dig_TRQ	engine/engine round dig/engine_dig_TRQ.png
+373	eng_dig_MAS	engine/engine round dig/engine_dig_TRQ_mast.png
+374	eng_dig_pwr	engine/engine round dig/engine_dig_pwr.png
+375	eng_dig_FF	engine/engine round dig/engine_dig_FF.png
+376	eng_dig_ITT	engine/engine round dig/engine_dig_ITT.png
+377	eng_dig_EGT	engine/engine round dig/engine_dig_EGT.png
+378	eng_dig_CHT	engine/engine round dig/engine_dig_CHT.png
+379	eng_all_PRP	engine/engine round multi/multi_RPM_prop.png
+380	eng_all_ENG	engine/engine round multi/multi_RPM_engine.png
+381	eng_all_N1	engine/engine round multi/multi_N1.png
+382	eng_all_N2	engine/engine round multi/multi_N2.png
+383	eng_all_MP	engine/engine round multi/multi_MP.png
+384	eng_all_EPR	engine/engine round multi/multi_EPR.png
+385	eng_all_TRQ	engine/engine round multi/multi_TRQ.png
+386	eng_all_MAS	engine/engine round multi/multi_TRQ_mast.png
+387	eng_all_pwr	engine/engine round multi/multi_pwr.png
+388	eng_all_FF	engine/engine round multi/multi_FF.png
+389	eng_all_ITT	engine/engine round multi/multi_ITT.png
+390	eng_all_EGT	engine/engine round multi/multi_EGT.png
+391	eng_all_CHT	engine/engine round multi/multi_CHT.png
+392	eng_all_fuelP	engine/engine round multi/multi_fuelP.png
+393	eng_all_oilP	engine/engine round multi/multi_oilP.png
+394	eng_all_oilT	engine/engine round multi/multi_oilT.png
+395	eng_lin_PRP	engine/engine tapes/tape_RPM_prop.png
+396	eng_lin_ENG	engine/engine tapes/tape_RPM_engine.png
+397	eng_lin_N1	engine/engine tapes/tape_N1.png
+398	eng_lin_N2	engine/engine tapes/tape_N2.png
+399	eng_lin_MP	engine/engine tapes/tape_MP.png
+400	eng_lin_EPR	engine/engine tapes/tape_EPR.png
+401	eng_lin_TRQ	engine/engine tapes/tape_TRQ.png
+402	eng_lin_MAS	engine/engine tapes/tape_TRQ_mast.png
+403	eng_lin_pwr	engine/engine tapes/tape_pwr.png
+404	eng_lin_FF	engine/engine tapes/tape_FF.png
+405	eng_lin_ITT	engine/engine tapes/tape_ITT.png
+406	eng_lin_EGT	engine/engine tapes/tape_EGT.png
+407	eng_lin_CHT	engine/engine tapes/tape_CHT.png
+408	ECAM_rnd_PRP	ECAM/mode ENG/engine round/ECAM_rnd_RPM_prop.png
+409	ECAM_rnd_ENG	ECAM/mode ENG/engine round/ECAM_rnd_RPM_engine.png
+410	ECAM_rnd_N1	ECAM/mode ENG/engine round/ECAM_rnd_N1.png
+411	ECAM_rnd_N2	ECAM/mode ENG/engine round/ECAM_rnd_N2.png
+412	ECAM_rnd_MP	ECAM/mode ENG/engine round/ECAM_rnd_mp.png
+413	ECAM_rnd_EPR	ECAM/mode ENG/engine round/ECAM_rnd_EPR.png
+414	ECAM_rnd_TRQ	ECAM/mode ENG/engine round/ECAM_rnd_TRQ.png
+415	ECAM_rnd_MAS	ECAM/mode ENG/engine round/ECAM_rnd_TRQ_mast.png
+416	ECAM_rnd_pwr	ECAM/mode ENG/engine round/ECAM_rnd_pwr.png
+417	ECAM_rnd_FF	ECAM/mode ENG/engine round/ECAM_rnd_FF.png
+418	ECAM_rnd_ITT	ECAM/mode ENG/engine round/ECAM_rnd_ITT.png
+419	ECAM_rnd_EGT	ECAM/mode ENG/engine round/ECAM_rnd_EGT.png
+420	ECAM_rnd_CHT	ECAM/mode ENG/engine round/ECAM_rnd_CHT.png
+421	ECAM_pie_PRP	ECAM/mode ENG/engine pie/ECAM_pie_RPM_prop.png
+422	ECAM_pie_ENG	ECAM/mode ENG/engine pie/ECAM_pie_RPM_engine.png
+423	ECAM_pie_N1	ECAM/mode ENG/engine pie/ECAM_pie_N1.png
+424	ECAM_pie_N2	ECAM/mode ENG/engine pie/ECAM_pie_N2.png
+425	ECAM_pie_MP	ECAM/mode ENG/engine pie/ECAM_pie_mp.png
+426	ECAM_pie_EPR	ECAM/mode ENG/engine pie/ECAM_pie_EPR.png
+427	ECAM_pie_TRQ	ECAM/mode ENG/engine pie/ECAM_pie_TRQ.png
+428	ECAM_pie_MAS	ECAM/mode ENG/engine pie/ECAM_pie_TRQ_mast.png
+429	ECAM_pie_pwr	ECAM/mode ENG/engine pie/ECAM_pie_pwr.png
+430	ECAM_pie_FF	ECAM/mode ENG/engine pie/ECAM_pie_FF.png
+431	ECAM_pie_ITT	ECAM/mode ENG/engine pie/ECAM_pie_ITT.png
+432	ECAM_pie_EGT	ECAM/mode ENG/engine pie/ECAM_pie_EGT.png
+433	ECAM_pie_CHT	ECAM/mode ENG/engine pie/ECAM_pie_CHT.png
+434	ECAM_lin_PRP	ECAM/mode ENG/engine linear/ECAM_lin_RPM_prop.png
+435	ECAM_lin_ENG	ECAM/mode ENG/engine linear/ECAM_lin_RPM_engine.png
+436	ECAM_lin_N1	ECAM/mode ENG/engine linear/ECAM_lin_N1.png
+437	ECAM_lin_N2	ECAM/mode ENG/engine linear/ECAM_lin_N2.png
+438	ECAM_lin_MP	ECAM/mode ENG/engine linear/ECAM_lin_mp.png
+439	ECAM_lin_EPR	ECAM/mode ENG/engine linear/ECAM_lin_EPR.png
+440	ECAM_lin_TRQ	ECAM/mode ENG/engine linear/ECAM_lin_TRQ.png
+441	ECAM_lin_MAS	ECAM/mode ENG/engine linear/ECAM_lin_TRQ_mast.png
+442	ECAM_lin_pwr	ECAM/mode ENG/engine linear/ECAM_lin_pwr.png
+443	ECAM_lin_FF	ECAM/mode ENG/engine linear/ECAM_lin_FF.png
+444	ECAM_lin_ITT	ECAM/mode ENG/engine linear/ECAM_lin_ITT.png
+445	ECAM_lin_EGT	ECAM/mode ENG/engine linear/ECAM_lin_EGT.png
+446	ECAM_lin_CHT	ECAM/mode ENG/engine linear/ECAM_lin_CHT.png
+447	sqr_EGT	engine/engine supplement/sqr_EGT.png
+448	sqr_CHT	engine/engine supplement/sqr_CHT.png
+449	sqr_hydQ	engine/engine supplement/sqr_hyd_quan.png
+450	sqr_hydP	engine/engine supplement/sqr_hyd_press.png
+451	sqr_oilQ	engine/engine supplement/sqr_oil_quan.png
+452	sqr_oilP	engine/engine supplement/sqr_oil_press.png
+453	sqr_oilT	engine/engine supplement/sqr_oil_temp.png
+454	sqr_bat_amp	engine/engine supplement/sqr_batt_amps.png
+455	sqr_bat_volt	engine/engine supplement/sqr_batt_volt.png
+456	sqr_gen_amp	engine/engine supplement/sqr_gen_amps.png
+457	sqr_gen_amp_apu	engine/engine supplement/sqr_gen_amps_apu.png
+458	xmsn_oilP	engine/engine supplement/xmsn_oil_press.png
+459	xmsn_oilT	engine/engine supplement/xmsn_oil_temp.png
+460	dig_oil_p	engine/engine supplement/dig_oil_press.png
+461	dig_oil_t	engine/engine supplement/dig_oil_temp.png
+462	but_ann_test	annunciators/but_ann_test.png
+463	ann_master_caution	annunciators/ann_master_caution.png
+464	ann_master_warning	annunciators/ann_master_warning.png
+465	ann_master_accept	annunciators/ann_master_accept.png
+466	ann_AP_discon	annunciators/ann_AP_discon.png
+467	ann_GPWS	annunciators/ann_GPWS.png
+468	ann_speedbrake_on	annunciators/ann_speedbrake.png
+469	ann_reverse_on	annunciators/ann_reverse.png
+470	ann_low_vacuum	annunciators/ann_low_vacuum.png
+471	ann_low_voltage	annunciators/ann_low_voltage.png
+472	ann_fuel_quant	annunciators/ann_fuel_quantity.png
+473	ann_hyd_press	annunciators/ann_hydraulic_press.png
+474	ann_inverter_off	annunciators/ann_inverter.png
+475	ann_generator_off	annunciators/ann_generator.png
+476	ann_fuel_press_lo	annunciators/ann_fuel_press.png
+477	ann_oil_press_lo	annunciators/ann_oil_press.png
+478	ann_oil_temp_hi	annunciators/ann_oil_temp.png
+479	ann_auto_ignit_on	annunciators/ann_auto_ignition.png
+480	ann_chip_detect	annunciators/ann_chip_detect.png
+481	ann_engine_fire	annunciators/ann_engine_fire.png
+482	ann_pitot_heat_off	annunciators/ann_pitot_heat.png
+483	ann_lo_rotor	annunciators/ann_rotor_low.png
+484	ann_hi_rotor	annunciators/ann_rotor_high.png
+485	press_bleed_air_mini	pressurization/bleed_air.png
+486	press_bleed_air_full	pressurization/bleed_air_full.png
+487	press_cabin_test	pressurization/press_test.png
+488	press_dump_all	pressurization/dump_all_pressure.png
+489	press_dump_to_alt	pressurization/dump_to_emer_alt.png
+490	press_cabin_alt_set	pressurization/set_cabin_alt.png
+491	press_arcft_alt_set	pressurization/set_aircraft_alt.png
+492	press_cabin_vvi_set	pressurization/set_vvi.png
+493	press_cabin_alt	pressurization/cabin_alt.png
+494	press_cabin_vvi	pressurization/cabin_vvi.png
+495	press_combo	pressurization/cabin_combo.png
+496	roc_pos_lon	buttons/rockets/roc_pos_lon.png
+497	roc_neg_lon	buttons/rockets/roc_neg_lon.png
+498	roc_pos_lat	buttons/rockets/roc_pos_lat.png
+499	roc_neg_lat	buttons/rockets/roc_neg_lat.png
+500	roc_pos_vrt	buttons/rockets/roc_pos_vrt.png
+501	roc_neg_vrt	buttons/rockets/roc_neg_vrt.png
+502	ins_fuel_linear_GA	fuel/fuel_linear_GA.png
+503	ins_fuel_round_GA	fuel/fuel_round_GA.png
+504	ins_fuel_round_twin_GA	fuel/Fuel_Round_twin_GA.png
+505	ins_fuel_digital_GA	fuel/fuel_dig_GA.png
+506	ALL_fuel_linear_GA	fuel/fuel_linear_all_GA.png
+507	ALL_fuel_round_GA	fuel/fuel_round_all_GA.png
+508	ALL_fuel_digital_GA	fuel/fuel_dig_all_GA.png
+509	ins_thermo_dig	supplement/thermo_digital.png
+510	ins_thermo_linC	supplement/thermo_linear_C.png
+511	ins_thermo_linF	supplement/thermo_linear_F.png
+512	ins_thermo_rnd	supplement/thermo_round.png
+513	ins_atmo_temp_rnd	supplement/atmo_temp_round.png
+514	ins_atmo_temp_dig	supplement/atmo_temp_digital.png
+515	EFIS_alt_disp	autopilot/autopilot select/EFIS_disp_ALT.png
+516	EFIS_vvi_disp	autopilot/autopilot select/EFIS_disp_VVI.png
+517	EFIS_spd_disp	autopilot/autopilot select/EFIS_disp_SPD.png
+518	EFIS_hdg_disp	autopilot/autopilot select/EFIS_disp_HDG.png
+519	ott_stec55	autopilot/S-TEC_55.png
+520	ott_spd_sel	autopilot/autopilot select/ott_sel_SPD.png
+521	ott_spd_sel_HM	autopilot/autopilot select/ott_sel_SPD_HM.png
+522	ott_hdg_sel	autopilot/autopilot select/ott_sel_HDG.png
+523	ott_hdg_sel_HM	autopilot/autopilot select/ott_sel_HDG_HM.png
+524	ott_alt_sel	autopilot/autopilot select/ott_sel_ALT.png
+525	ott_alt_sel_HM	autopilot/autopilot select/ott_sel_ALT_HM.png
+526	ott_vvi_sel	autopilot/autopilot select/ott_sel_VVI.png
+527	ott_vvi_sel_HM	autopilot/autopilot select/ott_sel_VVI_HM.png
+528	ott_spd_seldisp	autopilot/autopilot select/ott_seldisp_SPD.png
+529	ott_hdg_seldisp	autopilot/autopilot select/ott_seldisp_HDG.png
+530	ott_alt_seldisp	autopilot/autopilot select/ott_seldisp_ALT.png
+531	ott_alt_seldisp_GA	autopilot/autopilot select/ott_seldisp_ALT_GA.png
+532	ott_vvi_seldisp	autopilot/autopilot select/ott_seldisp_VVI.png
+533	ott_vvi_seldisp_GA	autopilot/autopilot select/ott_seldisp_VVI_GA.png
+534	ott_spd_disp	autopilot/autopilot select/ott_disp_SPD.png
+535	ott_hdg_disp	autopilot/autopilot select/ott_disp_HDG.png
+536	ott_alt_disp	autopilot/autopilot select/ott_disp_ALT.png
+537	ott_vvi_disp	autopilot/autopilot select/ott_disp_VVI.png
+538	ott_OBS1_disp	autopilot/autopilot select/ott_disp_OBS1.png
+539	ott_OBS2_disp	autopilot/autopilot select/ott_disp_OBS2.png
+540	ott_atr_ann	autopilot/autopilot annunciators/ott_ann_ATR.png
+541	ott_hdg_ann	autopilot/autopilot annunciators/ott_ann_HDG.png
+542	ott_loc_ann	autopilot/autopilot annunciators/ott_ann_LOC.png
+543	ott_fms_ann	autopilot/autopilot annunciators/ott_ann_VN.png
+544	ott_lev_ann	autopilot/autopilot annunciators/ott_ann_winglev.png
+545	ott_alt_ann	autopilot/autopilot annunciators/ott_ann_ALT.png
+546	ott_vvi_ann	autopilot/autopilot annunciators/ott_ann_VVI.png
+547	ott_gls_ann	autopilot/autopilot annunciators/ott_ann_GS.png
+548	ott_lch_ann	autopilot/autopilot annunciators/ott_ann_LCA.png
+549	ott_pit_ann	autopilot/autopilot annunciators/ott_ann_SYN.png
+550	ott_spd_ann	autopilot/autopilot annunciators/ott_ann_ASI.png
+551	ott_bac_ann	autopilot/autopilot annunciators/ott_ann_BC.png
+552	ott_atr_eng_GA	autopilot/autopilot engage/ott_ATR_eng_GA.png
+553	ott_atr_eng_BC	autopilot/autopilot engage/ott_ATR_eng_BC.png
+554	ott_atr_eng_HM	autopilot/autopilot engage/ott_ATR_eng_HM.png
+555	ott_hdg_eng_GA	autopilot/autopilot engage/ott_HDG_eng_GA.png
+556	ott_hdg_eng_BC	autopilot/autopilot engage/ott_HDG_eng_BC.png
+557	ott_hdg_eng_HM	autopilot/autopilot engage/ott_HDG_eng_HM.png
+558	ott_loc_eng_GA	autopilot/autopilot engage/ott_LOC_eng_GA.png
+559	ott_loc_eng_BC	autopilot/autopilot engage/ott_LOC_eng_BC.png
+560	ott_loc_eng_HM	autopilot/autopilot engage/ott_LOC_eng_HM.png
+561	ott_fms_eng_GA	autopilot/autopilot engage/ott_VN_eng_GA.png
+562	ott_fms_eng_BC	autopilot/autopilot engage/ott_VN_eng_BC.png
+563	ott_fms_eng_HM	autopilot/autopilot engage/ott_VN_eng_HM.png
+564	ott_lev_eng_GA	autopilot/autopilot engage/ott_winglev_eng_GA.png
+565	ott_lev_eng_BC	autopilot/autopilot engage/ott_winglev_eng_BC.png
+566	ott_lev_eng_HM	autopilot/autopilot engage/ott_winglev_eng_HM.png
+567	ott_alt_eng_GA	autopilot/autopilot engage/ott_ALT_eng_GA.png
+568	ott_alt_eng_BC	autopilot/autopilot engage/ott_ALT_eng_BC.png
+569	ott_alt_eng_HM	autopilot/autopilot engage/ott_ALT_eng_HM.png
+570	ott_vvi_eng_GA	autopilot/autopilot engage/ott_VVI_eng_GA.png
+571	ott_vvi_eng_BC	autopilot/autopilot engage/ott_VVI_eng_BC.png
+572	ott_vvi_eng_HM	autopilot/autopilot engage/ott_VVI_eng_HM.png
+573	ott_gls_eng_GA	autopilot/autopilot engage/ott_GS_eng_GA.png
+574	ott_gls_eng_BC	autopilot/autopilot engage/ott_GS_eng_BC.png
+575	ott_gls_eng_HM	autopilot/autopilot engage/ott_GS_eng_HM.png
+576	ott_lch_eng_GA	autopilot/autopilot engage/ott_LCA_eng_GA.png
+577	ott_lch_eng_BC	autopilot/autopilot engage/ott_LCA_eng_BC.png
+578	ott_lch_eng_HM	autopilot/autopilot engage/ott_LCA_eng_HM.png
+579	ott_pit_eng_GA	autopilot/autopilot engage/ott_syn_eng_GA.png
+580	ott_pit_eng_BC	autopilot/autopilot engage/ott_syn_eng_BC.png
+581	ott_pit_eng_HM	autopilot/autopilot engage/ott_syn_eng_HM.png
+582	ott_spd_eng_GA	autopilot/autopilot engage/ott_ASI_eng_GA.png
+583	ott_spd_eng_BC	autopilot/autopilot engage/ott_ASI_eng_BC.png
+584	ott_spd_eng_HM	autopilot/autopilot engage/ott_ASI_eng_HM.png
+585	ott_bac_eng_GA	autopilot/autopilot engage/ott_BC_eng_GA.png
+586	ott_bac_eng_BC	autopilot/autopilot engage/ott_BC_eng_BC.png
+587	ott_bac_eng_HM	autopilot/autopilot engage/ott_BC_eng_HM.png
+588	HUD_glass	HUD/HUD.png
+589	HUD_airspeed	HUD/HUD_airspeed.png
+590	HUD_horizon	HUD/HUD_horizon.png
+591	HUD_altitude	HUD/HUD_altitude.png
+592	HUD_hsi_semiround	HUD/HUD_hsi_round.png
+593	HUD_hsi_tape	HUD/HUD_hsi_tape.png
+594	HUD_loc	HUD/HUD_LNAV_localizer.png
+595	HUD_gls	HUD/HUD_VNAV_glideslope.png
+596	HUD_asi_trend	HUD/HUD_asi_trend.png
+597	HUD_vvi_dig	HUD/HUD_vvi_dig.png
+598	HUD_machnumber	HUD/HUD_machnumber.png
+599	HUD_groundspeed	HUD/HUD_groundspeed.png
+600	HUD_wind	HUD/HUD_wind.png
+601	HUD_radioalt	HUD/HUD_radioalt.png
+602	HUD_mins	HUD/HUD_mins.png
+603	HUD_baro	HUD/HUD_baro.png
+604	HUD_OM	HUD/HUD_marker_O.png
+605	HUD_MM	HUD/HUD_marker_M.png
+606	HUD_IM	HUD/HUD_marker_I.png
+607	HUD_HSI_src	HUD/HUD_HSI_source_ann.png
+608	HUD_vector	HUD/HUD_thrust_vector.png
+609	asi_adap_GA_nodig	standard six/airspeed/asi_adap_GA.png
+610	asi_adap_GA_dig	standard six/airspeed/asi_adap_GA_dig.png
+611	asi_adap_BC_nodig	standard six/airspeed/asi_adap_BC.png
+612	asi_adap_BC_dig	standard six/airspeed/asi_adap_BC_dig.png
+613	asi_adap_HM_nodig	standard six/airspeed/asi_adap_HM.png
+614	asi_adap_HM_dig	standard six/airspeed/asi_adap_HM_dig.png
+615	asi_preset_GA_200	standard six/airspeed/asi_preset_GA_200.png
+616	asi_preset_GA_300	standard six/airspeed/asi_preset_GA_300.png
+617	asi_preset_BC_nodig	standard six/airspeed/asi_preset_BC.png
+618	asi_preset_BC_dig	standard six/airspeed/asi_preset_BC_dig.png
+619	asi_preset_HM_nodig	standard six/airspeed/asi_preset_HM.png
+620	asi_preset_HM_dig	standard six/airspeed/asi_preset_HM_dig.png
+621	asi_preset_small	standard six/airspeed/ASI_preset_HM_small.png
+622	asi_2_need	standard six/airspeed/ASI_twin_needle.png
+623	asi_lin	standard six/airspeed/ASI_Linear.png
+624	mach_adap	standard six/airspeed/mach_round.png
+625	mach_lin	standard six/airspeed/Mach_linear.png
+626	mach_tape_hm	standard six/airspeed/Mach_display_HM.png
+627	mach_tape_bc	standard six/airspeed/Mach_display_BC.png
+628	AOA_round	standard six/airspeed/AOA_round.png
+629	AOA_round_bug	standard six/airspeed/AOA_round_bug.png
+630	AOA_lin	standard six/airspeed/AOA_linear.png
+631	AOA_cue	standard six/airspeed/AOA_cue.png
+632	AOA_stall	standard six/airspeed/AOA_stall.png
+633	horiz_gls_GA	standard six/artificial horizons/horizon_Glass_GA.png
+634	horiz_gls_BC	standard six/artificial horizons/horizon_Glass_BC.png
+635	horiz_gls_HM	standard six/artificial horizons/horizon_Glass_HM.png
+636	horiz_vac	standard six/artificial horizons/horizon_GA_vac.png
+637	horiz_vac_adj	standard six/artificial horizons/horizon_GA_vac_adj.png
+638	horiz_vac_flag	standard six/artificial horizons/horizon_GA_vac_flag.png
+639	horiz_vac_flag_adj	standard six/artificial horizons/horizon_GA_vac_flag_adj.png
+640	horiz_elec_flag	standard six/artificial horizons/horizon_GA_elec_flag.png
+641	horiz_elec_flag_adj	standard six/artificial horizons/horizon_GA_elec_flag_adj.png
+642	horiz_small	standard six/artificial horizons/horizon_small.png
+643	horiz_small_adj	standard six/artificial horizons/horizon_small_adj.png
+644	horiz_90	standard six/artificial horizons/horizon_90_pitch.png
+645	total_attitude	standard six/artificial horizons/all_attitude.png
+646	planet_globe	standard six/artificial horizons/world.png
+647	alt_GA	standard six/altimeters/alt_GA.png
+648	alt_BC	standard six/altimeters/alt_BC.png
+649	alt_HM	standard six/altimeters/alt_HM.png
+650	alt_GA_dig	standard six/altimeters/alt_GA_dig.png
+651	alt_BC_dig	standard six/altimeters/alt_BC_dig.png
+652	alt_HM_dig	standard six/altimeters/alt_HM_dig.png
+653	alt_HM_small	standard six/altimeters/alt_HM_small.png
+654	alt_HM_small_dig	standard six/altimeters/alt_HM_small_dig.png
+655	alt_spd_combo	standard six/altimeters/alt_ias_combo.png
+656	alt_lin	standard six/altimeters/alt_Linear.png
+657	radalt_rnd	standard six/altimeters/radioalt_round.png
+658	radalt_lin	standard six/altimeters/radioalt_linear.png
+659	radalt_dig	standard six/altimeters/radioalt_dig.png
+660	ins_turn	standard six/turn slip/turn.png
+661	ins_needle	standard six/turn slip/needle.png
+662	ins_slip_GA	standard six/turn slip/slip_GA.png
+663	ins_slip_BC	standard six/turn slip/slip_BC.png
+664	ins_slip_HM	standard six/turn slip/slip_HM.png
+665	compass_GA	compass/compass_GA.png
+666	compass_BC	compass/compass_BC.png
+667	compass_HM	compass/compass_HM.png
+668	compass_round	compass/compass_round.png
+669	ins_DG	standard six/DGs/DG.png
+670	ins_DG_SYN	standard six/DGs/DG_SYN.png
+671	ins_DG_HDG_SYN	standard six/DGs/DG_HDG_SYN.png
+672	ins_DG_linear	standard six/DGs/DG_linear.png
+673	ins_HSI_1_GA	standard six/HSIs/HSI_1_GA.png
+674	ins_HSI_1_BC	standard six/HSIs/HSI_1_BC.png
+675	ins_HSI_1_HM	standard six/HSIs/HSI_1_HM.png
+676	ins_HSI_2_GA	standard six/HSIs/HSI_2_GA.png
+677	ins_HSI_2_BC	standard six/HSIs/HSI_2_BC.png
+678	ins_HSI_2_HM	standard six/HSIs/HSI_2_HM.png
+679	ins_HSI_12GPS_GA	standard six/HSIs/HSI_12GPS_GA.png
+680	ins_HSI_12GPS_BC	standard six/HSIs/HSI_12GPS_BC.png
+681	ins_HSI_12GPS_HM	standard six/HSIs/HSI_12GPS_HM.png
+682	ins_HSI_gls_GA	standard six/HSIs/HSI_glass_GA.png
+683	ins_HSI_gls_BC	standard six/HSIs/HSI_glass_BC.png
+684	ins_HSI_gls_HM	standard six/HSIs/HSI_glass_HM.png
+685	ins_HSI_Sandel	standard six/HSIs/HSI_glass_Sandel.png
+686	vvi_adap	standard six/vertical speed/vvi_adap.png
+687	vvi2k_GA	standard six/vertical speed/VVI_2000_GA.png
+688	vvi3k_GA	standard six/vertical speed/VVI_3000_GA.png
+689	vvi2k_BC	standard six/vertical speed/VVI_2000_BC.png
+690	vvi5k_BC	standard six/vertical speed/VVI_5000_BC.png
+691	vvi6k_BC	standard six/vertical speed/VVI_6000_BC.png
+692	vvi2k_HM	standard six/vertical speed/VVI_2000_HM.png
+693	vvi5k_HM	standard six/vertical speed/VVI_5000_HM.png
+694	vvi6k_HM	standard six/vertical speed/VVI_6000_HM.png
+695	vvi6k_HM_small	standard six/vertical speed/VVI_6000_HM_small.png
+696	vvi_lin	standard six/vertical speed/VVI_Linear.png
+697	ins_VOR1	nav displays/VORs/VOR_1.png
+698	ins_VOR2	nav displays/VORs/VOR_2.png
+699	ins_VOR1_OBS	nav displays/VORs/VOR_1_OBS.png
+700	ins_VOR2_OBS	nav displays/VORs/VOR_2_OBS.png
+701	ins_VOR1_OBS_LOC	nav displays/VORs/VOR_1_OBS_wiper_LOC.png
+702	ins_VOR2_OBS_LOC	nav displays/VORs/VOR_2_OBS_wiper_LOC.png
+703	ins_VOR1_OBS_wiper	nav displays/VORs/VOR_1_OBS_wiper.png
+704	ins_VOR2_OBS_wiper	nav displays/VORs/VOR_2_OBS_wiper.png
+705	ins_DME1_dig	nav displays/DMEs/DME1_dig.png
+706	ins_DME2_dig	nav displays/DMEs/DME2_dig.png
+707	ins_DME1_disp	nav displays/DMEs/DME1_disp.png
+708	ins_DME2_disp	nav displays/DMEs/DME2_disp.png
+709	ins_ADF_conven1_GA	nav displays/ADFs/ADF_conven1_GA.png
+710	ins_ADF_conven2_GA	nav displays/ADFs/ADF_conven2_GA.png
+711	ins_ADF_conven12_GA	nav displays/ADFs/ADF_conven12_GA.png
+712	ins_ADF_slaved1_GA	nav displays/ADFs/ADF_slaved1_GA.png
+713	ins_ADF_slaved1_BC	nav displays/ADFs/ADF_slaved1_BC.png
+714	ins_ADF_slaved1_HM	nav displays/ADFs/ADF_slaved1_HM.png
+715	ins_ADF_slaved2_GA	nav displays/ADFs/ADF_slaved2_GA.png
+716	ins_ADF_slaved2_BC	nav displays/ADFs/ADF_slaved2_BC.png
+717	ins_ADF_slaved2_HM	nav displays/ADFs/ADF_slaved2_HM.png
+718	ins_ADF_slaved12_GA	nav displays/ADFs/ADF_slaved12_GA.png
+719	ins_ADF_slaved12_BC	nav displays/ADFs/ADF_slaved12_BC.png
+720	ins_ADF_slaved12_HM	nav displays/ADFs/ADF_slaved12_HM.png
+721	ins_RMI_sel_GA	nav displays/RMIs/RMI_SEL_GA.png
+722	ins_RMI_sel_BC	nav displays/RMIs/RMI_SEL_BC.png
+723	ins_RMI_sel_HM	nav displays/RMIs/RMI_SEL_HM.png
+724	ins_RMI_N12_GA	nav displays/RMIs/RMI_N12_GA.png
+725	ins_RMI_N12_BC	nav displays/RMIs/RMI_N12_BC.png
+726	ins_RMI_N12_HM	nav displays/RMIs/RMI_N12_HM.png
+727	ins_RMI_NADF12_GA	nav displays/RMIs/RMI_NADF12_GA.png
+728	ins_RMI_NADF12_BC	nav displays/RMIs/RMI_NADF12_BC.png
+729	ins_RMI_NADF12_HM	nav displays/RMIs/RMI_NADF12_HM.png
+730	ins_RMI_ADF1VOR2_GA	nav displays/RMIs/RMI_ADF1_VOR2_GA.png
+731	ins_RMI_ADF1VOR2_BC	nav displays/RMIs/RMI_ADF1_VOR2_BC.png
+732	ins_RMI_ADF1VOR2_HM	nav displays/RMIs/RMI_ADF1_VOR2_HM.png
+733	ins_gmeter_round	supplement/gmeter_round.png
+734	ins_gmeter_lin	supplement/gmeter_linear.png
+735	ins_totalenergy_inc	supplement/totalenergy_inc.png
+736	ins_totalenergy_dec	supplement/totalenergy_dec.png
+737	baro_pressure_disp	supplement/baro_pressure_disp.png
+738	baro_pressure_dig	supplement/baro_pressure_dig.png
+739	ins_stormscope	supplement/stormscope.png
+740	ins_stall	supplement/stall_GA.png
+741	ins_hobbs	supplement/hobbs.png
+742	water_quan	supplement/Water.png
+743	ins_suction	supplement/Suction_GA.png
+744	ins_suction_lo	supplement/suction_lo_lite_GA.png
+745	eng_sync	supplement/sync.png
+746	cg_ind	supplement/CG_indicator.png
+747	def_ailn_lin	supplement/def_AILN_lin.png
+748	def_rudd_lin	supplement/def_RUDD_lin.png
+749	def_elev_lin	supplement/def_ELEV_lin.png
+750	def_ailn_rnd	supplement/def_AILN_rnd.png
+751	def_rudd_rnd	supplement/def_RUDD_rnd.png
+752	def_elev_rnd	supplement/def_ELEV_rnd.png
+753	console_ann	annunciators/console_annunciator.png
+754	console_wpn	weapons/console.png
+755	console_ott_GA	autopilot/console_autopilot_GA.png
+756	console_ott_BC	autopilot/console_autopilot_BC.png
+757	console_ott_ann	autopilot/console_autopilot_ann.png
+758	console_ott_filled	autopilot/console_filled_GA.png
+759	EFIS_map_apt	EFIS/but_map_apt.png
+760	EFIS_map_fix	EFIS/but_map_fix.png
+761	EFIS_map_ndb	EFIS/but_map_ndb.png
+762	EFIS_map_tcas	EFIS/but_map_tcas.png
+763	EFIS_map_vor	EFIS/but_map_vor.png
+764	EFIS_map_wxr	EFIS/but_map_wxr.png
+765	ott_app_ann	autopilot/autopilot annunciators/ott_ann_app.png
+766	ott_app_eng_GA	autopilot/autopilot engage/ott_app_eng_GA.png
+767	ott_app_eng_BC	autopilot/autopilot engage/ott_app_eng_BC.png
+768	ott_app_eng_HM	autopilot/autopilot engage/ott_app_eng_HM.png
+769	han_retract	handles/han_retract.png
+770	EFIS_radio_alt	EFIS/EFIS elements supplement/el_radioalt.png
+771	EFIS_re_entry	EFIS/EFIS elements supplement/el_re-entry.png
+772	ott_reentry_eng_GA	autopilot/autopilot engage/ott_re-entry_eng.png
+773	wpn_sel_bom	weapons/bom.png
+774	wpn_sel_gun	weapons/gun.png
+775	wpn_sel_mis	weapons/mis.png
+776	wpn_sel_roc	weapons/roc.png
+777	wpn_but_chaff	weapons/but_chaff.png
+778	wpn_but_flare	weapons/but_flare.png
+779	wpn_ind_chaff	weapons/ind_chaff.png
+780	wpn_ind_flare	weapons/ind_flare.png
+781	wpn_ind_bull	weapons/ind_bullets.png
+782	ott_ter_eng_GA	autopilot/autopilot engage/ott_ter_eng_GA.png
+783	ott_ter_eng_BC	autopilot/autopilot engage/ott_ter_eng_BC.png
+784	ott_ter_eng_HM	autopilot/autopilot engage/ott_ter_eng_HM.png
+785	rhe_ASI_bug_GA	rheostats/rhe_ASI_bug_GA.png
+786	rhe_ASI_bug_BC	rheostats/rhe_ASI_bug_BC.png
+787	rhe_ASI_bug_HM	rheostats/rhe_ASI_bug_HM.png
+788	panel_num_bat_volt	engine/engine number/dig_batt_volt.png
+789	panel_num_bus_volt	engine/engine number/dig_bus_volt.png
+790	panel_num_bat_amps	engine/engine number/dig_batt_amps.png
+791	panel_num_gen_amps	engine/engine number/dig_gen_amps.png
+792	panel_num_FP	engine/engine number/dig_FP.png
+793	side_slip	supplement/sideslip.png
+794	update_HSI_src	nav displays/VORs/VOR_1_source.png
+795	gen_trigger	generic/gen_trigger.png
+796	gen_rotary	generic/gen_rotary.png
+797	gen_rheostat	generic/gen_rheostat.png
+798	gen_radiofreq	generic/gen_radiofreq.png
+799	gen_handle	generic/gen_handle.png
+800	gen_LED	generic/gen_LED.png
+801	gen_rolling	generic/gen_rolling.png
+802	gen_needle	generic/gen_needle.png
+803	gen_pie	generic/gen_pie.png
+804	gen_tape	generic/gen_tape.png
+805	sqr_prop_amp	engine/engine supplement/sqr_prop_amps.png
+806	ann_burner	annunciators/ann_burner.png
+807	ann_transonic	annunciators/ann_transonic.png
+808	but_crosstie	buttons/but_crosstie.png
+809	but_map_zoom_close	EFIS/but_map_zoom_close.png
+810	HUD_dig_heading	HUD/HUD_dig_heading.png
+811	HUD_canopy	HUD/HUD_canopy.png
+812	HUD_gear	HUD/HUD_gear.png
+813	HUD_flap	HUD/HUD_flap.png
+814	HUD_fuel	HUD/HUD_fuel.png
+815	HUD_speedbrake	HUD/HUD_speedbrake.png
+816	HUD_wheelbrake	HUD/HUD_wheelbrake.png
+817	HUD_radar_nav	HUD/HUD_radar_nav.png
+818	HUD_radar_traffic	HUD/HUD_radar_traffic.png
+819	HUD_arrest	HUD/HUD_arrest.png
+820	HUD_wpn_sel	weapons/HUD_sel.png
+821	but_wipers	buttons/but_wiper.png
+822	wiper_left	supplement/wiper_left.png
+823	wiper_right	supplement/wiper_right.png
+824	but_camera_pwr	buttons/but_camera_power.png
+825	elv_trim_ind_rnd	trim/elv_trim_ind_rnd.png
+826	rud_trim_ind_rnd	trim/rud_trim_ind_rnd.png
+827	ail_trim_ind_rnd	trim/ail_trim_ind_rnd.png
+828	apu_running	annunciators/APU_running.png
+829	oxygen_qty	supplement/oxygen_qty.png
+830	eng_rnd_pct_thrust	engine/engine round/engine_percent_thust.png
+831	HUD_AOA_dig	HUD/HUD_AOA_dig.png
+832	HUD_g_load_dig	HUD/HUD_g_load_dig.png
+833	eng_rnd_xmsnP	engine/engine round/engine_xmsnP.png
+834	eng_rnd_xmsnT	engine/engine round/engine_xmsnT.png
+835	eng_rnd_carbT	engine/engine round/engine_carbT.png
+836	eng_rnd_OILQ	engine/engine round/engine_OILQ.png
+837	but_fuel_pump_tank	buttons/fuel/but_fuelpump_tank.png
+838	asi_preset_HM_smalldig	standard six/airspeed/asi_preset_HM_small_dig.png
+839	IOS_asi	IOS/IOS_asi.png
+840	IOS_horiz	IOS/IOS_horiz.png
+841	IOS_alt	IOS/IOS_alt.png
+842	IOS_vvi	IOS/IOS_vvi.png
+843	IOS_hsi	IOS/IOS_hsi.png
+844	IOS_rmi	IOS/IOS_rmi.png
+845	but_govnr	buttons/engine/but_govnr.png
+846	flap_slat_ind_rnd	flaps/indicate_flap_slat_round.png
+847	ins_fuel_round	fuel/fuel_round.png
+848	ins_fuel_tape	fuel/fuel_tape.png
+849	ins_fuel_round_tape	fuel/fuel_round_tape.png
+850	ALL_fuel_round	fuel/fuel_round_all.png
+851	ALL_fuel_tape	fuel/fuel_tape_all.png
+852	ALL_fuel_round_tape	fuel/fuel_round_tape_all.png
+853	rad_DME_all_BC	radios/DME/DME_ALL_BC.png
+854	rad_nav12_BC	radios/NAV COM/rad_NAV12_BC.png
+855	rad_com12_BC	radios/NAV COM/rad_COM12_BC.png
+856	rad_ADF12_BC	radios/NAV COM/rad_ADF12_BC.png
+857	rad_nav1_ff_HM	radios/NAV COM/rad_nav1_FF_HM.png
+858	rad_nav2_ff_HM	radios/NAV COM/rad_nav2_FF_HM.png
+859	rad_com1_ff_HM	radios/NAV COM/rad_com1_FF_HM.png
+860	rad_com2_ff_HM	radios/NAV COM/rad_com2_FF_HM.png
+861	rad_ADF1_ff_HM	radios/NAV COM/rad_ADF1_FF_HM.png
+862	rad_ADF2_ff_HM	radios/NAV COM/rad_ADF2_FF_HM.png
+863	rad_navcom1_ff_GA	radios/NAV COM/rad_NAVCOM1_FF_GA.png
+864	rad_navcom2_ff_GA	radios/NAV COM/rad_NAVCOM2_FF_GA.png
+865	rad_transponder_HM3	radios/transponder/transponder_HM3.png
+866	rad_audiopanel_HM	radios/audiopanel_HM.png
+867	but_otto_pwr	autopilot/but_auto_power.png
+868	but_cmnd_slider	buttons/but_command_slider.png
+869	ann_slats	annunciators/ann_slats.png
+870	but_hsi_1GPS	standard six/HSIs/but_hsi_1GPS.png
+871	ann_flt_dir_on	annunciators/ann_flight_dir.png
+872	ann_ap_on	annunciators/ann_auto_servo.png
+873	ann_yaw_damp_on	annunciators/ann_yaw_damp.png
+874	han_water_rudder	handles/han_water_rudder.png
+875	gen_rheostat_oneway	generic/gen_rheostat_one_way.png
+876	gen_annun	generic/gen_annun.png
+877	but_auto_over_roll	autopilot/override_roll.png
+878	but_auto_over_pitch	autopilot/override_pitch.png
+879	but_fuel_ind_aux	buttons/fuel/but_fuel_ind_aux.png
+880	ott_loc_ann_arm	autopilot/autopilot annunciators/ott_ann_LOC_arm.png
+881	ott_bac_ann_arm	autopilot/autopilot annunciators/ott_ann_BC_arm.png
+882	ott_gls_ann_arm	autopilot/autopilot annunciators/ott_ann_GS_arm.png
+883	ott_alt_ann_arm	autopilot/autopilot annunciators/ott_ann_ALT_arm.png
+884	but_cross_feed	buttons/fuel/but_fuel_crossfeed.png
+885	ott_pwr_ann	autopilot/autopilot annunciators/ott_ann_power.png
+886	ins_slip_inverted	standard six/turn slip/slip_inverted.png
+887	rad_ADF1_4_digit	radios/NAV COM/rad_ADF1_4_digit.png
+888	rad_ADF2_4_digit	radios/NAV COM/rad_ADF2_4_digit.png
+889	ins_group	generic/group.png
+890	gen_pointer	generic/gen_pointer.png
+891	but_artstab_ptch	buttons/but_artstab_ptch.png
+892	but_artstab_roll	buttons/but_artstab_roll.png
+893	gen_text	generic/gen_text.png
+894	wpn_but_paraf	buttons/but_parachute-flare.png
+895	gen_map_nav	generic/gen_map_nav.png
+896	gen_map_tcas	generic/gen_map_tcas.png
+897	gen_map_vnav	generic/gen_map_vnav.png
+898	ott_FD_GA	buttons/but_auto_FD_GA.png
+899	ott_AP_GA	buttons/but_auto_AP_GA.png
+900	radalt_lite	standard six/altimeters/radioalt_light.png
+901	gpu_connected	annunciators/GPU_connected.png
+902	ott_altvvi_seldisp	autopilot/autopilot select/ott_seldisp_ALT_VVI.png
+903	ott_alt_arm_GA	autopilot/autopilot engage/ott_ALT_arm_GA.png
+904	ott_alt_arm_BC	autopilot/autopilot engage/ott_ALT_arm_BC.png
+905	ott_alt_arm_HM	autopilot/autopilot engage/ott_ALT_arm_HM.png
+906	ott_TOGA_eng_GA	autopilot/autopilot engage/ott_TOGA_eng_GA.png
+907	ott_TOGA_eng_BC	autopilot/autopilot engage/ott_TOGA_eng_BC.png
+908	ott_TOGA_eng_HM	autopilot/autopilot engage/ott_TOGA_eng_HM.png
+909	but_spot_light	buttons/lights/but_spot_light.png
+910	but_hyd_pump_engn	buttons/engine/but_hydraulic_pump_engine.png
+911	but_hyd_pump_prop	buttons/engine/but_hydraulic_pump_rotor.png
+912	but_hsi_12GPS12	standard six/HSIs/but_hsi_12GPS12.png
+913	but_hsi_2GPS2	standard six/HSIs/but_hsi_2GPS2.png
+914	rad_GPS_430_screen	radios/GPS FMS/Garmin_430_screen.png
+915	rad_GPS_530_screen	radios/GPS FMS/Garmin_530_screen.png

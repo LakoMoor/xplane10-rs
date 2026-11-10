@@ -1,0 +1,95 @@
+# DSF golden — measured from the shipped install, not from port code.
+dsf_files_total: 1747
+plain_xplnedsf: 1735
+compressed_7z: 12
+unrecognized: 0
+trailer_is_md5_of_preceding_bytes: 1735
+# gap between the last top-level chunk and the 16-byte trailer
+gap_distribution: 0=1735
+# logical chunk names over the whole tree (the file stores each one byte-reversed).
+# Top level is HEAD/DEFN/GEOD/CMDS; TERT, OBJT, POLY, NETW, DEMN, POOL, SCAL, PO32 and
+# SC32 live inside HEAD.
+chunk[POOL] = 14060
+chunk[SCAL] = 14060
+chunk[PO32] = 3470
+chunk[SC32] = 3470
+chunk[HEAD] = 1735
+chunk[PROP] = 1735
+chunk[DEFN] = 1735
+chunk[TERT] = 1735
+chunk[OBJT] = 1735
+chunk[POLY] = 1735
+chunk[NETW] = 1735
+chunk[GEOD] = 1735
+chunk[CMDS] = 1735
+chunk[DEMN] = 1734
+objt_names_total: 51485
+# reference patch: Custom Scenery/KSEA Demo Area/Earth nav data/+40-130/+47-123.dsf
+ref.sha256 = 07fcffa614762385518fd31a4b19fbb4ba20eb5618df31eb5e3b0669348302a3
+ref.size_bytes = 31955
+ref.version = 1
+ref.trailer_is_md5 = true
+ref.gap_bytes = 0
+ref.top_level_chunk_count = 4
+ref.top[0] = HEAD offset=12 size=1380
+ref.top[1] = DEFN offset=1392 size=8811
+ref.top[2] = GEOD offset=10203 size=15235
+ref.top[3] = CMDS offset=25438 size=6501
+ref.chunk_count_total = 54
+ref.chunk[0] = HEAD offset=12 size=1380
+ref.chunk[1] = PROP offset=20 size=1372
+ref.chunk[2] = DEFN offset=1392 size=8811
+ref.chunk[3] = TERT offset=1400 size=8
+ref.chunk[4] = OBJT offset=1408 size=7427
+ref.chunk[5] = POLY offset=8835 size=1352
+ref.chunk[6] = NETW offset=10187 size=8
+ref.chunk[7] = DEMN offset=10195 size=8
+ref.chunk[8] = GEOD offset=10203 size=15235
+ref.chunk[9] = POOL offset=10211 size=25
+ref.chunk[10] = POOL offset=10236 size=37
+ref.chunk[11] = POOL offset=10273 size=73
+ref.chunk[12] = POOL offset=10346 size=1537
+ref.chunk[13] = POOL offset=11883 size=7118
+ref.chunk[14] = SCAL offset=19001 size=32
+ref.chunk[15] = SCAL offset=19033 size=32
+ref.chunk[16] = SCAL offset=19065 size=32
+ref.chunk[17] = SCAL offset=19097 size=32
+ref.chunk[18] = SCAL offset=19129 size=32
+ref.chunk[19] = POOL offset=19161 size=176
+ref.chunk[20] = SCAL offset=19337 size=40
+ref.chunk[21] = POOL offset=19377 size=911
+ref.chunk[22] = POOL offset=20288 size=337
+ref.chunk[23] = POOL offset=20625 size=45
+ref.chunk[24] = POOL offset=20670 size=57
+ref.chunk[25] = POOL offset=20727 size=53
+ref.chunk[26] = POOL offset=20780 size=37
+ref.chunk[27] = SCAL offset=20817 size=24
+ref.chunk[28] = SCAL offset=20841 size=24
+ref.chunk[29] = SCAL offset=20865 size=24
+ref.chunk[30] = SCAL offset=20889 size=24
+ref.chunk[31] = SCAL offset=20913 size=24
+ref.chunk[32] = SCAL offset=20937 size=24
+ref.chunk[33] = POOL offset=20961 size=1925
+ref.chunk[34] = POOL offset=22886 size=117
+ref.chunk[35] = POOL offset=23003 size=61
+ref.chunk[36] = SCAL offset=23064 size=32
+ref.chunk[37] = SCAL offset=23096 size=32
+ref.chunk[38] = SCAL offset=23128 size=32
+ref.chunk[39] = POOL offset=23160 size=916
+ref.chunk[40] = SCAL offset=24076 size=48
+ref.chunk[41] = POOL offset=24124 size=61
+ref.chunk[42] = POOL offset=24185 size=549
+ref.chunk[43] = POOL offset=24734 size=333
+ref.chunk[44] = POOL offset=25067 size=133
+ref.chunk[45] = SCAL offset=25200 size=40
+ref.chunk[46] = SCAL offset=25240 size=40
+ref.chunk[47] = SCAL offset=25280 size=40
+ref.chunk[48] = SCAL offset=25320 size=40
+ref.chunk[49] = PO32 offset=25360 size=17
+ref.chunk[50] = SC32 offset=25377 size=40
+ref.chunk[51] = PO32 offset=25417 size=13
+ref.chunk[52] = SC32 offset=25430 size=8
+ref.chunk[53] = CMDS offset=25438 size=6501
+ref.objt_name_count = 156
+ref.objt_name[0] = lib/airport/Common_Elements/Miscellaneous/Stack_of_Cones.obj
+ref.objt_name[155] = KSEA_objects/Space_Needle.obj

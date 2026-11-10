@@ -1,0 +1,54 @@
+[
+  {
+    "path": "X-Plane.app/Contents/MacOS/X-Plane",
+    "role": "oracle",
+    "format": "mach-o",
+    "arch": "x86_64",
+    "size": 52910352,
+    "sha256": "6b0ce1e56fddb56096a733ada52933f783977fe06c3eb7a51b5d7c0c12e43426",
+    "version": "X-Plane 10.51r2 (build 105101 64-bit, compiled Oct 18 2016)",
+    "note": "Runs on this Apple Silicon host under Rosetta 2. Findings do not carry to other builds."
+  },
+  {
+    "path": "X-Plane.exe",
+    "role": "oracle-windows",
+    "format": "pe",
+    "sha256": "5ea2d0a3c3848291bf1cd1243351ff0999ee94ff223704ff562a9b83055ede60",
+    "size": 25113088,
+    "version": "X-Plane 10.0.4 (Windows PE32+)",
+    "status": "LOST — deleted by a symlink-following rm in an earlier session; no .exe remains on disk. Not used by this port."
+  },
+  {
+    "path": "Resources/dlls/libsteam_api.dylib",
+    "role": "oracle-shim",
+    "sha256": "844236edbaaaec1fbb7fa4063042a18ce31acdfea19b6993433e917ebf9825b9",
+    "note": "Rebuilt 2026-11-10 with probe.c (opt-in matrix and sky-state dump, optional menu-bar poke). Our stub (tests/original_patch/stub/stub_v5.c), replaces the bundled Steam client so the oracle can boot. Not original content."
+  },
+  {
+    "path": "Resources/dlls/libsteam_api.dylib.orig",
+    "role": "original-bundled",
+    "sha256": "9b6507764bf2fb3ff878181ab1a6025c4a98f898cafd6da5e17529677d553887",
+    "note": "Preserved untouched. With it the oracle blocks on 'SteamAPI_Init() failed; ipcserver init failed' instead of booting."
+  },
+  {
+    "path": "Aircraft/General Aviation/Cessna 172SP/Cessna_172SP.acf",
+    "role": "content-golden",
+    "sha256": "887e69ae4716bce3e400cc0ea90cee19cd3a5f5dfb2bfa3bb7d211284b5eeaf1",
+    "size": 1629511
+  },
+  {
+    "path": "Aircraft/General Aviation/Cessna 172SP/objects/fuse.obj",
+    "role": "content-golden",
+    "sha256": "34f1019bd0fef351dd03b6e781b66f083a1484a402beb98e01c991914129645c"
+  },
+  {
+    "path": "Custom Scenery/KSEA Demo Area/Earth nav data/apt.dat",
+    "role": "content-golden",
+    "sha256": "8bd4153eadf7feff79e886bcb4b93f0decee3ae0895d88d066781b6ed6d35362"
+  },
+  {
+    "path": "Custom Scenery/KSEA Demo Area/Earth nav data/+40-130/+47-123.dsf",
+    "role": "content-golden",
+    "sha256": "07fcffa614762385518fd31a4b19fbb4ba20eb5618df31eb5e3b0669348302a3"
+  }
+]

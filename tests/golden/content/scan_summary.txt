@@ -1,0 +1,40 @@
+# Measured from the shipped X-Plane 10.51r2 install by `cargo run -p xp-core --example
+# xp-content -- "$XP_INSTALL"` on 2026-11-09. Every number here is the checker's own output;
+# the resource-kind counts were cross-checked against an independent Python walk of the same
+# tree, and the 13 descriptor-range anomalies against an independent interval-partition test.
+#
+# oracle binary sha256: 6b0ce1e56fddb56096a733ada52933f783977fe06c3eb7a51b5d7c0c12e43426
+
+acf: 40
+acf_legacy_binary: 19
+agp: 72
+apt_dat: 7
+dds: 1901
+dsf: 1735
+dsf_7z_compressed: 12
+for_vegetation: 290
+library_txt: 18
+library_txt_export_line_malformed: 4
+obj_unrecognized: 100
+obj8: 3197
+png: 6862
+shader_source: 52
+packs: 254
+unparseable_files: 0
+findings_info: 31
+findings_warning: 3130
+findings_error: 277
+
+# Every remaining error is the original's own "Failed to find resource" wording; there is no
+# parse error left in the install.
+error_category_failed_to_find_resource: 277
+error_category_other: 0
+
+# OBJ8 index-stream facts, measured across the whole corpus (see docs/COMPATIBILITY.md).
+obj8_v800_with_point_counts_and_descriptors: 3080
+obj8_descriptor_ranges_tile_index_stream: 3067
+obj8_descriptor_ranges_overlap_or_gap: 13
+
+# The two diagnostics the original itself prints, quoted verbatim from its Log.txt.
+oracle_wording_missing_resource: Failed to find resource 'test/AGtrees_test.for', referenced from file 'Custom Scenery/KSEA Demo Area/KSEA_objects/'
+oracle_wording_first_lod: The object Custom Scenery/KSEA Demo Area/KSEA_objects/ConCSlantRoof.obj has a first LOD near distance of 2000.000000 but it should start at 0!

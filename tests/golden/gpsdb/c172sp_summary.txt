@@ -1,0 +1,34 @@
+# GPS airport database for the default aircraft (Cessna_172SP.acf, sha 887e69ae…).
+#
+# `gps.added` is the ORACLE's number: tests read it from tests/golden/original/boot_trace.txt
+# ("I/GPS: Added 19186 airports to the GPS database") and this line must agree with it.
+# Every other line is measured from shipped content by an independent Python walk
+# (flat file scan, struct-rounded f32 arithmetic, libm double cos narrowed to f32), not by
+# the Rust code under test.
+gps.added = 19186
+
+# acf/_min_rwy_len 700.0 (feet), acf/_apt_req_plane 1, acf/_rwy_req_pave 0
+filter.min_rwy_len_m.bits = 0x43555c29
+filter.require_land_airport = 1
+filter.require_paved = 0
+
+# world table: 6 Earth apt.dat files, first identifier wins
+world.apt_files = 6
+world.airports = 34744
+world.land = 28074
+world.seaplane = 583
+world.heliport = 6087
+
+# Resources/GNS430/navdata/Airports.txt
+navdata.airports = 9785
+
+# land airports with a runway (100 or 101) not shorter than the threshold
+gps.kept_by_filter = 27958
+gps.refused.id_in_navdata = 6922
+gps.refused.k_plus_id_in_navdata = 1850
+
+# runways surveyed at 700 ft: f32 bit patterns of the cached length, either side of 0x43555c29
+length.1IN1.bits = 0x43555c3f
+length.3PN9.bits = 0x43555be3
+length.Z55.bits = 0x43555c1d
+length.TS67.bits = 0x43555c39
