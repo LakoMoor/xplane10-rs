@@ -41,7 +41,7 @@
 | OBJ8 → GPU buffers | measured draw-descriptor semantics | `xp_core::scene` | rewrite | **done, golden green** |
 | DDS header / mip correction; PNG decode | all 1 901 `.dds` and all 6 862 `.png` measured | `xp_core::tex`, `xp_core::png` | rewrite (PNG inflate hand-written: no inflate crate is vendored, and adding one is a new dependency) | **done, golden green** |
 | coordinate/units conversion | ACF geometry + oracle `I/FLT` lines | `xp_core::geo` | rewrite | planned — axis convention only partly pinned (Cycle Dump legend) |
-| flight model | oracle `I/FLT`, ACF tables, `Airfoils/` | `xp_core::flight` | rewrite | planned |
+| flight model | oracle `Cycle Dump.txt`, ACF tables, `Airfoils/` | `xp_core::flight` | rewrite | **started — wing element build-up reproduces the oracle's report (94 lines, verbatim)** |
 | deferred renderer | `Resources/shaders/*.glsl` (43 entries, 52 files incl. `dev/`), Log.txt GL caps | `xp::gbuffer`, `xp::passes`, `crates/xp/shaders/*.wgsl` | rewrite (GLSL→WGSL) | **in progress — 5-attachment g-buffer prepass + sun pass ported and drawing real shipped geometry** |
 | texture loading | 3 080 OBJ8 `TEXTURE` lines vs 8 763 shipped files | `xp::textures` | rewrite | **done — resolves, decodes and uploads DDS + all 8 shipped PNG layouts** |
 | mesh upload | `xp_core::scene` buffers | `xp::mesh_gpu` | rewrite | **done, wired into the frame** |
@@ -254,6 +254,8 @@ Order is leaves-first: formats and geometry before anything touches a window.
   | `06_cockpit_all_instrument_bases` | cockpit view: all 76 instrument base bitmaps, resolved through the binary's `_ins_path` table | 44.6 | 47.4 | 49.4 | 43.9 % |
   | `07_menu_bar_background` | **menu bar** (compared with `cockpit_menubar.png`): the bar from `interface.png` | 40.8 | 43.1 | 44.7 | 46.3 % |
   | `08_menu_bar_titles` | the nine menu titles through FreeType, blended in linear light | 40.7 | 43.0 | 44.6 | 46.5 % |
+  | `10_loading_screen` | loading screen complete: PNG gamma, bands, text, progress bar — **99.0 % of pixels identical** | 1.1 | 1.3 | 1.4 | 98.5 % |
+  | `12_cockpit_gamma_menubar` | cockpit + menu bar with the PNG gamma and font gamma tables | 38.6 | 41.0 | 42.6 | 47.6 % |
 
   The numbers for 01 were taken against the first oracle frame; the committed frame was replaced by
   a later run of the same script that also carries the sky block, so they are indicative.
@@ -322,4 +324,37 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - Menu titles are a constant list read off the oracle frame; drop-down menus, hover highlight and
   the original's own menu tables are not ported. `XP_PROBE_MENU=<n>` (open menu `n`) is written but
   untested.
+- **PNG gamma is the original's, read from its loader.** `TEX_load_png` calls
+  `png_set_gamma(screen, file)` with the file's `gAMA`, or with 1/1.8 (the double at
+  `0x1010b5718`) when the file has none. `intro.png` and `Panel.png` are untagged and come out
+  brightened by the power 0.818; `interface.png` is tagged 0.45454 and comes out unchanged. With
+  the table applied the loading picture is **identical** to the oracle over all 532 480 pixels
+  above the text. Only interface bitmaps go through it so far (`TextureStore::get_ui`); whether
+  OBJ8 textures do is not established.
+- **Font gamma, and a retraction.** Glyph coverage goes through `s_font_gamma[i] =
+  (u8)(pow(i/255, 0.8)·255)` (initializer at `0x1000a71f4`, applied in `OGL_font::require_char`)
+  and is blended on the encoded values. The earlier entry that explained the menu titles by
+  linear-light blending was wrong: it fitted white-on-grey by coincidence and predicted dark text
+  on the loading screen the wrong way round. With the table the menu strip went from 92.2 % to
+  96.3 % identical.
+- **Loading screen geometry is measured, its cells are found.** Bands, rules and text baselines
+  are read off the oracle frame (`ui.rs`); the progress bar's two cells were located in
+  `interface.png` by compositing every atlas column over the picture and matching the oracle's
+  columns. The loading screen's own draw code has not been read.
+- **The window runs** (`cargo run -p xp`): loading screen, then the 2-D cockpit with the menu bar
+  under the pointer, drawn at 1024×768 and scaled to the window. Its start state is the oracle's
+  cockpit probe embedded as data — every aircraft is shown from the Cessna's pilot eye, standing
+  where the oracle's Cessna stood — because neither the view code nor the flight model can yet
+  produce one. `[`/`]` cycle aircraft; that is not the original's control. The original opens an
+  aircraft chooser at start-up (reported by the user; no oracle frame of it yet, the QA-script
+  runs skip it) — not ported.
+- **Flight model, first piece** (`xp_core::flight::wing`): strips per wing with
+  `area = (c1 + c2)/2 · (semilen/els) · cos(sweep)`, `MAC = 2/3·(c1² + c1c2 + c2²)/(c1 + c2)`,
+  incidence per strip, feet → metres. Derived from the report and the ACF and then checked on every
+  line: 54 `Element #` lines and 8 wing areas, plus the 32 airfoil lines, match as printed. The
+  joined-wing block (aspect ratio, Oswald's efficiency) is located in the decompiled
+  `load_veh` (lines 1036–2499 of the Ghidra output) and not ported: the printed aspect ratios
+  (9.14, 3.47, 2.66) do not follow from `(2s)²/2S` with the semi-lengths printed beside them.
+- **Published** as a public GitHub repository with a Pages site from `docs/`. The Steam shim is
+  kept out of it (`.gitignore`).
 

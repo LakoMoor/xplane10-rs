@@ -10,6 +10,7 @@ pub mod airport;
 pub mod aptdat;
 pub mod content;
 pub mod dsf;
+pub mod flight;
 pub mod geoid;
 pub mod gpsdb;
 pub mod obj8;

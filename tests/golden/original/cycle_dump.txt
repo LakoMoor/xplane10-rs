@@ -1,0 +1,357 @@
+••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+X-Plane, by Austin Meyer
+Simulating Aircraft/General Aviation/Cessna 172SP/Cessna_172SP.acf
+••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+x location positive aft      x force positive right    pitch/alpha pos nose up
+y location positive right    y force positive up       roll pos right
+z location positive up       z force positive aft      yaw/beta pos nose right
+
+elevator, aileron, spoiler positive control surface up
+rudder                     positive control surface right
+drag-yaw                   positive control surface deployed
+pitch cyclic prop pitch    positive request nose up
+roll  cyclic prop pitch    positive request nose right
+
+Finite-Wing & Element Build-Up for PROPELLER 1:
+	root lo Re:  Clark-Y (root).afl.
+	root hi Re:  Clark-Y (root).afl.
+	tip  lo Re:  Clark-Y (good propeller).afl.
+	tip  hi Re:  Clark-Y (good propeller).afl.
+	Element # 0: S=   0.016 sqr mtrs, MAC=   0.17 mtrs, incidence=  77.83 deg.
+	Element # 1: S=   0.015 sqr mtrs, MAC=   0.17 mtrs, incidence=  57.09 deg.
+	Element # 2: S=   0.015 sqr mtrs, MAC=   0.16 mtrs, incidence=  42.83 deg.
+	Element # 3: S=   0.014 sqr mtrs, MAC=   0.15 mtrs, incidence=  33.51 deg.
+	Element # 4: S=   0.013 sqr mtrs, MAC=   0.14 mtrs, incidence=  27.25 deg.
+	Element # 5: S=   0.012 sqr mtrs, MAC=   0.14 mtrs, incidence=  22.85 deg.
+	Element # 6: S=   0.012 sqr mtrs, MAC=   0.13 mtrs, incidence=  19.62 deg.
+	Element # 7: S=   0.011 sqr mtrs, MAC=   0.12 mtrs, incidence=  17.17 deg.
+	Element # 8: S=   0.010 sqr mtrs, MAC=   0.11 mtrs, incidence=  15.25 deg.
+	Element # 9: S=   0.010 sqr mtrs, MAC=   0.11 mtrs, incidence=  13.71 deg.
+	Wing area for this wing=0.13.
+	When joined to other wings, we have semi-length=0.91, sweep25=0.00, area=0.13, AR=13.09.
+	After any wing-joining, our semi-length        is     0.91 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     0.18 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     0.10 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is     1.19 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is     0.00 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is    13.09.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.57.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     0.00 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=   77.83 deg, tip=   13.71 deg)
+	Oswalds efficiency is therefore  0.9863.
+
+Finite-Wing & Element Build-Up for LEFT WING 1:
+	root lo Re:  NACA 2412.afl.
+	root hi Re:  NACA 2412.afl.
+	tip  lo Re:  NACA 2412.afl.
+	tip  hi Re:  NACA 2412.afl.
+	Element # 0: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 1: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 2: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 3: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 4: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Wing area for this wing=3.74.
+	NOTE! I AM ADDING LEFT WING 2 TO THE TIP OF LEFT WING 1 (through any intermediate wings) TO FORM ONE CONTINUOUS WING! (side_S=7.87)
+	When joined to other wings, we have semi-length=6.00, sweep25=1.28, area=7.87, AR=9.14.
+	After any wing-joining, our semi-length        is     6.00 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     1.58 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     1.10 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is     2.45 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is     1.28 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is     9.14.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.69.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     4.00 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=    3.00 deg, tip=   -1.00 deg)
+	Oswalds efficiency is therefore  0.9887.
+
+Finite-Wing & Element Build-Up for RIGT WING 1:
+	root lo Re:  NACA 2412.afl.
+	root hi Re:  NACA 2412.afl.
+	tip  lo Re:  NACA 2412.afl.
+	tip  hi Re:  NACA 2412.afl.
+	Element # 0: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 1: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 2: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 3: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Element # 4: S=   0.749 sqr mtrs, MAC=   1.58 mtrs, incidence=   3.00 deg.
+	Wing area for this wing=3.74.
+	NOTE! I AM ADDING RIGT WING 2 TO THE TIP OF RIGT WING 1 (through any intermediate wings) TO FORM ONE CONTINUOUS WING! (side_S=7.87)
+	When joined to other wings, we have semi-length=6.00, sweep25=1.28, area=7.87, AR=9.14.
+	After any wing-joining, our semi-length        is     6.00 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     1.58 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     1.10 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is     2.45 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is     1.28 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is     9.14.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.69.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     4.00 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=    3.00 deg, tip=   -1.00 deg)
+	Oswalds efficiency is therefore  0.9887.
+
+Finite-Wing & Element Build-Up for LEFT WING 2:
+	root lo Re:  NACA 2412.afl.
+	root hi Re:  NACA 2412.afl.
+	tip  lo Re:  NACA 2412.afl.
+	tip  hi Re:  NACA 2412.afl.
+	Element # 0: S=   0.681 sqr mtrs, MAC=   1.55 mtrs, incidence=   3.00 deg.
+	Element # 1: S=   0.650 sqr mtrs, MAC=   1.48 mtrs, incidence=   3.00 deg.
+	Element # 2: S=   0.620 sqr mtrs, MAC=   1.41 mtrs, incidence=   3.00 deg.
+	Element # 3: S=   0.589 sqr mtrs, MAC=   1.34 mtrs, incidence=   2.50 deg.
+	Element # 4: S=   0.559 sqr mtrs, MAC=   1.27 mtrs, incidence=   1.20 deg.
+	Element # 5: S=   0.528 sqr mtrs, MAC=   1.20 mtrs, incidence=   0.00 deg.
+	Element # 6: S=   0.497 sqr mtrs, MAC=   1.13 mtrs, incidence=  -1.00 deg.
+	Wing area for this wing=4.12.
+	NOTE! I AM ADDING LEFT WING 1 TO THE ROOT OF LEFT WING 2 (through any intermediate wings) TO FORM ONE CONTINUOUS WING! (side_S=7.87)
+	When joined to other wings, we have semi-length=6.00, sweep25=1.28, area=7.87, AR=9.14.
+	After any wing-joining, our semi-length        is     6.00 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     1.58 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     1.10 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is     2.45 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is     1.28 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is     9.14.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.69.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     4.00 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=    3.00 deg, tip=   -1.00 deg)
+	Oswalds efficiency is therefore  0.9887.
+
+Finite-Wing & Element Build-Up for RIGT WING 2:
+	root lo Re:  NACA 2412.afl.
+	root hi Re:  NACA 2412.afl.
+	tip  lo Re:  NACA 2412.afl.
+	tip  hi Re:  NACA 2412.afl.
+	Element # 0: S=   0.681 sqr mtrs, MAC=   1.55 mtrs, incidence=   3.00 deg.
+	Element # 1: S=   0.650 sqr mtrs, MAC=   1.48 mtrs, incidence=   3.00 deg.
+	Element # 2: S=   0.620 sqr mtrs, MAC=   1.41 mtrs, incidence=   3.00 deg.
+	Element # 3: S=   0.589 sqr mtrs, MAC=   1.34 mtrs, incidence=   2.50 deg.
+	Element # 4: S=   0.559 sqr mtrs, MAC=   1.27 mtrs, incidence=   1.20 deg.
+	Element # 5: S=   0.528 sqr mtrs, MAC=   1.20 mtrs, incidence=   0.00 deg.
+	Element # 6: S=   0.497 sqr mtrs, MAC=   1.13 mtrs, incidence=  -1.00 deg.
+	Wing area for this wing=4.12.
+	NOTE! I AM ADDING RIGT WING 1 TO THE ROOT OF RIGT WING 2 (through any intermediate wings) TO FORM ONE CONTINUOUS WING! (side_S=7.87)
+	When joined to other wings, we have semi-length=6.00, sweep25=1.28, area=7.87, AR=9.14.
+	After any wing-joining, our semi-length        is     6.00 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     1.58 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     1.10 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is     2.45 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is     1.28 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is     9.14.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.69.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     4.00 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=    3.00 deg, tip=   -1.00 deg)
+	Oswalds efficiency is therefore  0.9887.
+
+Finite-Wing & Element Build-Up for LEFT H STAB:
+	root lo Re:  NACA 0006 (symmetrical).afl.
+	root hi Re:  NACA 0006 (symmetrical).afl.
+	tip  lo Re:  NACA 0006 (symmetrical).afl.
+	tip  hi Re:  NACA 0006 (symmetrical).afl.
+	Element # 0: S=   0.319 sqr mtrs, MAC=   1.19 mtrs, incidence=   1.50 deg.
+	Element # 1: S=   0.302 sqr mtrs, MAC=   1.13 mtrs, incidence=   1.50 deg.
+	Element # 2: S=   0.286 sqr mtrs, MAC=   1.07 mtrs, incidence=   1.50 deg.
+	Element # 3: S=   0.270 sqr mtrs, MAC=   1.01 mtrs, incidence=   0.50 deg.
+	Element # 4: S=   0.253 sqr mtrs, MAC=   0.95 mtrs, incidence=   0.50 deg.
+	Element # 5: S=   0.237 sqr mtrs, MAC=   0.88 mtrs, incidence=   0.50 deg.
+	Wing area for this wing=1.67.
+	When joined to other wings, we have semi-length=1.71, sweep25=4.73, area=1.67, AR=3.47.
+	After any wing-joining, our semi-length        is     1.71 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     1.22 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     0.85 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is     7.78 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is     4.73 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is     3.47.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.70.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     1.00 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=    1.50 deg, tip=    0.50 deg)
+	Oswalds efficiency is therefore  0.9893.
+
+Finite-Wing & Element Build-Up for RIGT H STAB:
+	root lo Re:  NACA 0006 (symmetrical).afl.
+	root hi Re:  NACA 0006 (symmetrical).afl.
+	tip  lo Re:  NACA 0006 (symmetrical).afl.
+	tip  hi Re:  NACA 0006 (symmetrical).afl.
+	Element # 0: S=   0.319 sqr mtrs, MAC=   1.19 mtrs, incidence=   1.50 deg.
+	Element # 1: S=   0.302 sqr mtrs, MAC=   1.13 mtrs, incidence=   1.50 deg.
+	Element # 2: S=   0.286 sqr mtrs, MAC=   1.07 mtrs, incidence=   1.50 deg.
+	Element # 3: S=   0.270 sqr mtrs, MAC=   1.01 mtrs, incidence=   0.50 deg.
+	Element # 4: S=   0.253 sqr mtrs, MAC=   0.95 mtrs, incidence=   0.50 deg.
+	Element # 5: S=   0.237 sqr mtrs, MAC=   0.88 mtrs, incidence=   0.50 deg.
+	Wing area for this wing=1.67.
+	When joined to other wings, we have semi-length=1.71, sweep25=4.73, area=1.67, AR=3.47.
+	After any wing-joining, our semi-length        is     1.71 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     1.22 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     0.85 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is     7.78 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is     4.73 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is     3.47.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.70.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     1.00 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=    1.50 deg, tip=    0.50 deg)
+	Oswalds efficiency is therefore  0.9893.
+
+Finite-Wing & Element Build-Up for VERT STAB 1:
+	root lo Re:  NACA 0009 (symmetrical).afl.
+	root hi Re:  NACA 0009 (symmetrical).afl.
+	tip  lo Re:  NACA 0009 (symmetrical).afl.
+	tip  hi Re:  NACA 0009 (symmetrical).afl.
+	Element # 0: S=   0.372 sqr mtrs, MAC=   1.76 mtrs, incidence=   0.30 deg.
+	Element # 1: S=   0.343 sqr mtrs, MAC=   1.62 mtrs, incidence=   0.20 deg.
+	Element # 2: S=   0.314 sqr mtrs, MAC=   1.48 mtrs, incidence=   0.10 deg.
+	Element # 3: S=   0.284 sqr mtrs, MAC=   1.34 mtrs, incidence=   0.00 deg.
+	Element # 4: S=   0.255 sqr mtrs, MAC=   1.20 mtrs, incidence=   0.00 deg.
+	Element # 5: S=   0.225 sqr mtrs, MAC=   1.07 mtrs, incidence=   0.00 deg.
+	Element # 6: S=   0.196 sqr mtrs, MAC=   0.93 mtrs, incidence=   0.00 deg.
+	Element # 7: S=   0.166 sqr mtrs, MAC=   0.79 mtrs, incidence=   0.00 deg.
+	Wing area for this wing=2.15.
+	When joined to other wings, we have semi-length=2.15, sweep25=38.00, area=2.15, AR=2.66.
+	After any wing-joining, our semi-length        is     2.15 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our root chord         is     1.83 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our tip chord          is     0.72 mtrs. (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our leading-edge sweep is    43.40 deg.  (for purposes of                        Delta-Wing factor determination only)
+	After any wing-joining, our mean aero    sweep is    38.00 deg.  (for purposes of Oswalds Efficiency                       determination only)
+	After any wing-joining, our aspect ratio       is     2.66.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our taper ratio        is     0.39.      (for purposes of Oswalds Efficiency and Delta-Wing factor determination only)
+	After any wing-joining, our washout            is     0.30 deg.  (for purposes of Oswalds Efficiency and Delta-Wing factor determination only, root=    0.30 deg, tip=    0.00 deg)
+	Oswalds efficiency is therefore  0.9847.
+
+The PROPELLER 1 DISC AREA is broken down into rings for propwash distribution as follows:
+	element number  0, rad1=   0.00, rad2=   0.09, ring area=   0.026 square meters.
+	element number  1, rad1=   0.09, rad2=   0.18, ring area=   0.079 square meters.
+	element number  2, rad1=   0.18, rad2=   0.27, ring area=   0.131 square meters.
+	element number  3, rad1=   0.27, rad2=   0.37, ring area=   0.184 square meters.
+	element number  4, rad1=   0.37, rad2=   0.46, ring area=   0.236 square meters.
+	element number  5, rad1=   0.46, rad2=   0.55, ring area=   0.289 square meters.
+	element number  6, rad1=   0.55, rad2=   0.64, ring area=   0.341 square meters.
+	element number  7, rad1=   0.64, rad2=   0.73, ring area=   0.394 square meters.
+	element number  8, rad1=   0.73, rad2=   0.82, ring area=   0.447 square meters.
+	element number  9, rad1=   0.82, rad2=   0.91, ring area=   0.499 square meters.
+	TOTAL DISC AREA=   2.627 square meters.
+
+Before any tip weights, the PROPELLER 1 weighs      12.30 kg, and the MI is       4.35 kg*m*m.
+The SEMI-SPAN of the blades is    0.91 m, and the moment of inertia in rotation about the HUB (for RPM change) is       4.35 kg*m*m.
+
+Critical altitude=0.00 mtrs, rho at crit alt=1.23 kg/mmm, rho at SL=1.23 kg/mmm, engine power boosted to  1.0000 of original.
+
+After LEFT WING 1, the RUNNING TOTAL wetted area is    3.744 square meters for all wings listed so far.
+After RIGT WING 1, the RUNNING TOTAL wetted area is    7.488 square meters for all wings listed so far.
+After LEFT WING 2, the RUNNING TOTAL wetted area is   11.613 square meters for all wings listed so far.
+After RIGT WING 2, the RUNNING TOTAL wetted area is   15.737 square meters for all wings listed so far.
+After LEFT H STAB, the RUNNING TOTAL wetted area is   17.405 square meters for all wings listed so far.
+After RIGT H STAB, the RUNNING TOTAL wetted area is   19.073 square meters for all wings listed so far.
+After VERT STAB 1, the RUNNING TOTAL wetted area is   21.228 square meters for all wings listed so far.
+
+
+Now for MI from FUSELAGE:
+The frontal       area                        is    1.710 square meters.
+The side          area                        is    6.950 square meters.
+The top           area                        is    6.102 square meters.
+The longitudinal  centroid                    is    0.85 meters.
+The lateral       centroid                    is    0.00 meters.
+The vertical      centroid                    is   -0.09 meters.
+The RUNNING TOTAL wetted area                 is   44.927 square meters, for the entire craft, including all wings, top and bottom surfaces, and all bodies listed so far.
+The RUNNING TOTAL radius of gyration in roll  is    1.60 meters.
+The RUNNING TOTAL radius of gyration in pitch is    1.91 meters.
+The RUNNING TOTAL radius of gyration in yaw   is    2.41 meters.
+
+
+Now for MI from NACELLE 1:
+The frontal       area                        is    0.089 square meters.
+The side          area                        is    0.076 square meters.
+The top           area                        is    0.074 square meters.
+The longitudinal  centroid                    is   -2.21 meters.
+The lateral       centroid                    is    0.00 meters.
+The vertical      centroid                    is   -0.12 meters.
+The RUNNING TOTAL wetted area                 is   45.268 square meters, for the entire craft, including all wings, top and bottom surfaces, and all bodies listed so far.
+The RUNNING TOTAL radius of gyration in roll  is    1.60 meters.
+The RUNNING TOTAL radius of gyration in pitch is    1.92 meters.
+The RUNNING TOTAL radius of gyration in yaw   is    2.41 meters.
+
+
+Now for MI from W-FAIRING 1:
+The frontal       area                        is    0.068 square meters.
+The side          area                        is    0.220 square meters.
+The top           area                        is    0.149 square meters.
+The longitudinal  centroid                    is   -1.23 meters.
+The lateral       centroid                    is    0.00 meters.
+The vertical      centroid                    is   -1.20 meters.
+The RUNNING TOTAL wetted area                 is   45.918 square meters, for the entire craft, including all wings, top and bottom surfaces, and all bodies listed so far.
+The RUNNING TOTAL radius of gyration in roll  is    1.59 meters.
+The RUNNING TOTAL radius of gyration in pitch is    1.91 meters.
+The RUNNING TOTAL radius of gyration in yaw   is    2.39 meters.
+
+
+Now for MI from W-FAIRING 2:
+The frontal       area                        is    0.075 square meters.
+The side          area                        is    0.254 square meters.
+The top           area                        is    0.161 square meters.
+The longitudinal  centroid                    is    0.61 meters.
+The lateral       centroid                    is   -1.20 meters.
+The vertical      centroid                    is   -1.09 meters.
+The RUNNING TOTAL wetted area                 is   46.652 square meters, for the entire craft, including all wings, top and bottom surfaces, and all bodies listed so far.
+The RUNNING TOTAL radius of gyration in roll  is    1.59 meters.
+The RUNNING TOTAL radius of gyration in pitch is    1.91 meters.
+The RUNNING TOTAL radius of gyration in yaw   is    2.38 meters.
+
+
+Now for MI from W-FAIRING 3:
+The frontal       area                        is    0.075 square meters.
+The side          area                        is    0.254 square meters.
+The top           area                        is    0.161 square meters.
+The longitudinal  centroid                    is    0.61 meters.
+The lateral       centroid                    is    1.20 meters.
+The vertical      centroid                    is   -1.09 meters.
+The RUNNING TOTAL wetted area                 is   47.387 square meters, for the entire craft, including all wings, top and bottom surfaces, and all bodies listed so far.
+The RUNNING TOTAL radius of gyration in roll  is    1.59 meters.
+The RUNNING TOTAL radius of gyration in pitch is    1.90 meters.
+The RUNNING TOTAL radius of gyration in yaw   is    2.37 meters.
+
+Engines have mass 143.03 kg (18.32% of total):
+	The radius of gyration of the engines in roll is     0.12 m, based on all engine powers/thrusts and locations.
+	The radius of gyration of the engines in pitch is    2.23 m, based on all engine powers/thrusts and locations.
+	The radius of gyration of the engines in yaw is      2.23 m, based on all engine powers/thrusts and locations.
+
+Remainder of the craft has mass 637.61 (81.68% of total):
+	The radius of gyration of the shell in roll is     1.59 m, based on mass-distribution across the shell of the craft with a 50% weighting on all of the flying surfaces.
+	The radius of gyration of the shell in pitch is    1.90 m, based on mass-distribution across the shell of the craft with a 50% weighting on all of the flying surfaces.
+	The radius of gyration of the shell in yaw is      2.37 m, based on mass-distribution across the shell of the craft with a 50% weighting on all of the flying surfaces.
+
+Final combined results:
+	The radius of gyration in roll is     1.44 m.
+	The radius of gyration in pitch is    1.96 m.
+	The radius of gyration in yaw is      2.34 m.
+
+
+The centroid of all foils is at          1.31 m (positive aft from CG) when the 25% chord is assumed to be the element location.
+The centroid of all foils is at          1.32 m (positive aft from CG) when the wing is looked at partially as a delta-wing based on taper ratio.
+The average chord of all foils is        1.30 m.
+So you could say the static margin is    1.00 (positive stable) when the 25% chord is assumed to be the element location.
+So you could say the static margin is    1.01 (positive stable) when the wing is looked at partially as a delta-wing based on taper ratio.
+
+Critical altitude=0.00 mtrs, rho at crit alt=1.23 kg/mmm, rho at SL=1.23 kg/mmm, engine power boosted to  1.0000 of original.
+
+After LEFT WING 1, the RUNNING TOTAL wetted area is    8.184 square meters for all wings listed so far.
+After RIGT WING 1, the RUNNING TOTAL wetted area is   16.369 square meters for all wings listed so far.
+After LEFT WING 2, the RUNNING TOTAL wetted area is   16.435 square meters for all wings listed so far.
+After RIGT WING 2, the RUNNING TOTAL wetted area is   16.500 square meters for all wings listed so far.
+After LEFT H STAB, the RUNNING TOTAL wetted area is   19.116 square meters for all wings listed so far.
+After RIGT H STAB, the RUNNING TOTAL wetted area is   21.732 square meters for all wings listed so far.
+After VERT STAB 1, the RUNNING TOTAL wetted area is   22.481 square meters for all wings listed so far.
+
+Critical altitude=4876.800 mtrs, rho at crit alt=0.746 kg/mmm, rho at SL=1.225 kg/mmm, engine power boosted to  1.6415 of original.
+
+After LEFT WING 1, the RUNNING TOTAL wetted area is    1.845 square meters for all wings listed so far.
+After RIGT WING 1, the RUNNING TOTAL wetted area is    3.690 square meters for all wings listed so far.
+After LEFT WING 2, the RUNNING TOTAL wetted area is    6.589 square meters for all wings listed so far.
+After RIGT WING 2, the RUNNING TOTAL wetted area is    9.488 square meters for all wings listed so far.
+After LEFT WING 3, the RUNNING TOTAL wetted area is   10.939 square meters for all wings listed so far.
+After RIGT WING 3, the RUNNING TOTAL wetted area is   12.389 square meters for all wings listed so far.
+After LEFT WING 4, the RUNNING TOTAL wetted area is   12.784 square meters for all wings listed so far.
+After RIGT WING 4, the RUNNING TOTAL wetted area is   13.179 square meters for all wings listed so far.
+After LEFT H STAB, the RUNNING TOTAL wetted area is   14.802 square meters for all wings listed so far.
+After RIGT H STAB, the RUNNING TOTAL wetted area is   16.425 square meters for all wings listed so far.
+After VERT STAB 1, the RUNNING TOTAL wetted area is   18.543 square meters for all wings listed so far.
+After VERT STAB 2, the RUNNING TOTAL wetted area is   18.663 square meters for all wings listed so far.
+
+Critical altitude=0.000 mtrs, rho at crit alt=1.225 kg/mmm, rho at SL=1.225 kg/mmm, engine power boosted to  1.0000 of original.
+
+After LEFT WING 1, the RUNNING TOTAL wetted area is    3.744 square meters for all wings listed so far.
+After RIGT WING 1, the RUNNING TOTAL wetted area is    7.488 square meters for all wings listed so far.
+After LEFT WING 2, the RUNNING TOTAL wetted area is   11.613 square meters for all wings listed so far.
+After RIGT WING 2, the RUNNING TOTAL wetted area is   15.737 square meters for all wings listed so far.
+After LEFT H STAB, the RUNNING TOTAL wetted area is   17.405 square meters for all wings listed so far.
+After RIGT H STAB, the RUNNING TOTAL wetted area is   19.073 square meters for all wings listed so far.
+After VERT STAB 1, the RUNNING TOTAL wetted area is   21.228 square meters for all wings listed so far.
+

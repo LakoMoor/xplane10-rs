@@ -11,7 +11,7 @@ Early development; nothing flies yet. The window shows the loading screen and th
 aircraft's 2-D cockpit panel on runway 34R at KSEA; `[` and `]` step through the installed
 aircraft (a stand-in for the original's chooser dialog).
 
-Self-assessed, weighted by subsystem: about **14 % implemented, 6 % verified against the
+Self-assessed, weighted by subsystem: about **15 % implemented, 7 % verified against the
 original**. The loading screen is 99.0 % pixel-identical to the original's, the menu bar 96.3 %.
 See the project site (`docs/index.html`), [docs/PORT.md](docs/PORT.md) for the plan and decision
 log, and [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) for what is implemented, wired,

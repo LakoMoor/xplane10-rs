@@ -53,20 +53,20 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 
 <h2 id="progress">How much is ported</h2>
 <div class="grid">
-  <div class="card"><div class="big">≈ 14 %</div><div class="dim">implemented</div><div class="bar"><i style="width:14%"></i></div></div>
-  <div class="card"><div class="big">≈ 6 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:6%"></i></div></div>
+  <div class="card"><div class="big">≈ 15 %</div><div class="dim">implemented</div><div class="bar"><i style="width:15%"></i></div></div>
+  <div class="card"><div class="big">≈ 7 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:7%"></i></div></div>
   <div class="card"><div class="big">99.0 %</div><div class="dim">of loading-screen pixels identical to the original's</div></div>
 </div>
 <p class="small dim">The two percentages are a <b>self-assessed estimate</b>, not a measurement: each subsystem below is weighted by how much of the simulator it is, and scored by hand. “Verified” counts only what has been compared with the running original's own output.</p>
 <div class="tw"><table>
 <tr><th>Subsystem</th><th>Weight</th><th>Implemented</th><th>Verified</th><th>State</th></tr>
-<tr><td>Flight model</td><td class="n">25</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started. Next.</td></tr>
+<tr><td>Flight model</td><td class="n">25</td><td class="n">2 %</td><td class="n">2 %</td><td>Wing strip build-up reproduces the original's own report line for line; no forces, engine, gear or integration yet.</td></tr>
 <tr><td>3-D rendering</td><td class="n">20</td><td class="n">8 %</td><td class="n">2 %</td><td>Forward lighting with the original's sun; no sky, shadows, scattering or fog.</td></tr>
 <tr><td>World &amp; scenery</td><td class="n">12</td><td class="n">5 %</td><td class="n">3 %</td><td>Runway outlines in the original's own coordinate frame; no terrain, taxiways or buildings.</td></tr>
 <tr><td>Content formats</td><td class="n">10</td><td class="n">70 %</td><td class="n">15 %</td><td>ACF, OBJ8, apt.dat, PNG, DDS read across the whole install; DSF terrain only framed.</td></tr>
 <tr><td>2-D cockpit panel</td><td class="n">10</td><td class="n">20 %</td><td class="n">10 %</td><td>All 76 Cessna instrument faces placed from the original's own table; no needles or displays.</td></tr>
 <tr><td>Systems, datarefs, avionics</td><td class="n">8</td><td class="n">2 %</td><td class="n">2 %</td><td>GPS airport database reproduces the original's count exactly (19 186).</td></tr>
-<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">5 %</td><td class="n">5 %</td><td>Menu bar only. No drop-downs, no aircraft chooser.</td></tr>
+<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">5 %</td><td class="n">5 %</td><td>Menu bar only. No drop-downs, and no start-up aircraft chooser yet.</td></tr>
 <tr><td>Sound, plugins, network, ATC</td><td class="n">5</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started.</td></tr>
 <tr><td>Loading screen</td><td class="n">3</td><td class="n">85 %</td><td class="n">85 %</td><td>Picture, text, bands and progress bar match the original.</td></tr>
 </table></div>
@@ -76,6 +76,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
   <div class="card"><h3>Loading screen</h3><p class="small dim">99.0 % of pixels identical, 99.7 % within 8 of 255. The picture area is identical everywhere.</p></div>
   <div class="card"><h3>Menu bar</h3><p class="small dim">96.3 % of the bar's pixels identical, 98.8 % within 2 of 255.</p></div>
   <div class="card"><h3>GPS airport database</h3><p class="small dim">19 186 airports added — the number the original logs — from 34 744 in the install.</p></div>
+  <div class="card"><h3>Wing build-up</h3><p class="small dim">All 94 lines the original prints about the Cessna's eight wings' strips — areas, chords, incidences — reproduced verbatim.</p></div>
   <div class="card"><h3>Coordinates</h3><p class="small dim">The ported lat/lon → scene transform lands runway 34R within a metre of where the original puts it.</p></div>
 </div>
 
