@@ -46,7 +46,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
   <span class="tag">Early development · not playable yet</span>
   <h1>X-Plane 10, rebuilt in Rust</h1>
   <p class="lead">An independent Rust + wgpu runtime that loads your own X-Plane 10.51 installation and is checked against the original, pixel by pixel. No game content is included.</p>
-  <p class="btns"><a class="primary" href="REPO_URL">Source on GitHub</a><a href="#progress">Progress</a><a href="#shots">Screenshots</a></p>
+  <p class="btns"><a class="primary" href="https://github.com/LakoMoor/xplane10-rs">Source on GitHub</a><a href="#progress">Progress</a><a href="#shots">Screenshots</a></p>
   <div class="hero"><img src="parity/11_windowed_app.png" alt="The port's own window: the Cessna 172SP cockpit panel at Seattle-Tacoma runway 34R" width="1024" height="800"></div>
   <p class="small dim">The port's own window today: the default Cessna's 2-D panel on runway 34R at KSEA. Instrument faces are in place; needles, sky and terrain are not.</p>
 </header>
@@ -94,7 +94,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <div class="grid">
   <div class="card"><h3>The original is the spec</h3><p class="small dim">There is no source for X-Plane. Behaviour is recovered from the shipped files and from the shipped binary, then re-implemented in Rust — never transliterated.</p></div>
   <div class="card"><h3>Frames from the original</h3><p class="small dim">The original is scripted to take its own screenshots; a small in-process probe reads its camera matrices and light state so the port can be framed identically.</p></div>
-  <div class="card"><h3>Nothing claimed without a comparison</h3><p class="small dim">Fitted numbers are labelled as fitted, placeholders as placeholders. The <a href="REPO_URL/blob/main/docs/COMPATIBILITY.md">compatibility ledger</a> lists what is implemented, wired, content-checked and compared.</p></div>
+  <div class="card"><h3>Nothing claimed without a comparison</h3><p class="small dim">Fitted numbers are labelled as fitted, placeholders as placeholders. The <a href="https://github.com/LakoMoor/xplane10-rs/blob/main/docs/COMPATIBILITY.md">compatibility ledger</a> lists what is implemented, wired, content-checked and compared.</p></div>
 </div>
 
 <h2 id="run">Run it</h2>
@@ -107,7 +107,7 @@ cargo run -p xp -- --aircraft "Aircraft/General Aviation/Baron B58/Baron_58.acf"
 
 <footer>
   <p>Independent project, not affiliated with or endorsed by Laminar Research. X-Plane is a trademark of its owner. Screenshots show content from a user's own installation; none of it is distributed here.</p>
-  <p><a href="REPO_URL">GitHub</a> · <a href="REPO_URL/blob/main/docs/PORT.md">Port plan</a> · <a href="REPO_URL/blob/main/docs/ORACLE.md">How the original is observed</a></p>
+  <p><a href="https://github.com/LakoMoor/xplane10-rs">GitHub</a> · <a href="https://github.com/LakoMoor/xplane10-rs/blob/main/docs/PORT.md">Port plan</a> · <a href="https://github.com/LakoMoor/xplane10-rs/blob/main/docs/ORACLE.md">How the original is observed</a></p>
 </footer>
 </div>
 </body>
