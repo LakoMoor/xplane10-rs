@@ -42,6 +42,8 @@ pub struct Place {
     pub ox: f32,
     pub oy: f32,
     pub h: f32,
+    /// Extra rows down for the tab strip (full-screen windows, measured on the oracle frames).
+    pub tab_dy: f32,
 }
 
 impl Place {
@@ -148,17 +150,27 @@ fn digit_centres(w: &Widget, p: &Place) -> Vec<f32> {
 fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
     let (x, y) = (p.sx(w.x), p.sy(w.y));
     match w.kind {
+        // BTN_bool (0x1003d90b0): the box cell centred on x (x − 9 … x + 9 with its margin),
+        // labels at x ∓ 12.
         Kind::Bool => Rect {
-            l: x - 4.0,
+            l: x - 6.0,
             t: y - 12.0,
-            r: x + 10.0,
+            r: x + 8.0,
             b: y + 2.0,
         },
         // As wide as the longest item + 28 (arrow box included), centred on x + 12: texture
         // resolution 368…456, number of cars 440…584 in the oracle frame.
         Kind::Popup => {
-            let wid = w.items.iter().map(|s| ui.measure(s)).fold(0.0, f32::max) + 28.0;
-            let l = (x + 12.0 - wid / 2.0).round();
+            // `a` = 1: the failure-window variant of BTN_textlist, longest item × 0.95 (min 20).
+            let longest = w.items.iter().map(|s| ui.measure(s)).fold(0.0, f32::max);
+            // OGL_measure_string sums unhinted advances, about 2 px over the port's hinted
+            // measure for these items (oracle frame of System Failures).
+            let wid = if w.a == 1.0 {
+                (longest * 0.95).max(20.0) + 2.0
+            } else {
+                longest
+            } + 28.0;
+            let l = (x + 10.0 - wid / 2.0).round();
             Rect {
                 l,
                 t: y - 12.0,
@@ -166,13 +178,16 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
                 b: y + 3.0,
             }
         }
+        // BTN_flt_range (0x1003dcd20): BTN_frame1 type 9, 10·n + 15 wide, centred on
+        // (x + 5·n − 1, y + 3); labels at x − 12 and past the box.
         Kind::Number => {
-            let c = digit_centres(w, p);
+            let n = w.a.max(1.0);
+            let l = x + 5.0 * n - 1.0 - (5.0 * n + 7.5).floor();
             Rect {
-                l: c[0] - 15.0,
-                t: y - 12.0,
-                r: c[c.len() - 1] + 10.0,
-                b: y + 3.0,
+                l,
+                t: y - 11.0,
+                r: l + 10.0 * n + 15.0,
+                b: y + 4.0,
             }
         }
         Kind::Radio => Rect {
@@ -196,7 +211,8 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
         // Tabs: 86 wide, 88 apart from x 10, top 25 below the window's top (Instructions).
         Kind::Tab => {
             let l = p.ox + 10.0 + 88.0 * w.x;
-            let t = p.oy + 25.0;
+            // BTN_tab's second argument is the row; rows are 32 apart (failure sub-tabs).
+            let t = p.oy + 25.0 + p.tab_dy + 32.0 * w.y;
             Rect {
                 l,
                 t,
@@ -334,22 +350,51 @@ pub fn layers(
                     [8.0, 0.0, 25.0, 0.0],
                     [0.0; 4],
                 ));
-                let i = prefs.widget_value(w).max(0.0) as usize;
+                let v = prefs.widget_value(w);
+                let i = v.max(0.0) as usize;
+                // BTN_textlist in the failures window: green while working, red when
+                // inoperative, amber for any timed or triggered failure.
+                let rgb = if w.a == 1.0 {
+                    xp_core::menu::palette(match v as i32 {
+                        0 => 0x49,
+                        6 => 0x69,
+                        n if n < 0 => 0x2f,
+                        _ => 0x51,
+                    })
+                } else {
+                    [255; 3]
+                };
                 if let Some(item) = w.items.get(i).or(w.items.first()) {
                     l.push(ui.text_centred(
                         d,
                         q,
                         item,
                         [((r.l + r.r) * 0.5).floor() - 10.0, y - 1.0],
-                        [255; 3],
+                        rgb,
                     )?);
                 }
-                label_lines(ui, d, q, left, r.l - 1.0, y, true, &mut l)?;
+                let gap = if w.a == 1.0 { 4.0 } else { 1.0 };
+                label_lines(ui, d, q, left, r.l - gap, y, true, &mut l)?;
                 label_lines(ui, d, q, right, r.r + 6.0, y, false, &mut l)?;
             }
             Kind::Number => {
-                l.push(ui.fill([r.l, r.t, r.r - r.l, r.b - r.t], [255, 255, 255, 255]));
+                l.extend(ui.nine_slice(
+                    r,
+                    [264.0, 358.0, 312.0, 373.0],
+                    [4.0, 4.0, 4.0, 4.0],
+                    [0.0; 4],
+                ));
                 let c = digit_centres(w, &p);
+                // OGL_number: a comma after every three integer digits of the field, between
+                // the digit columns (not taking one).
+                let int_digits = (w.a - w.b.max(0.0)).max(0.0) as usize;
+                for m in [3, 6, 9] {
+                    if int_digits > m {
+                        if let Some(cx) = c.get(int_digits - m - 1) {
+                            l.push(ui.text_centred(d, q, ",", [cx + 5.0, y], [0; 3])?);
+                        }
+                    }
+                }
                 let text = number_text(w, prefs.widget_value(w));
                 let mut col = 0;
                 for ch in text {
@@ -374,7 +419,7 @@ pub fn layers(
                         ui.atlas_cell([86.0, 319.0, 95.0, 329.0], [cx - 4.0, y + 3.0, 9.0, 10.0]),
                     );
                 }
-                label_lines(ui, d, q, left, r.l - 3.0, y, true, &mut l)?;
+                label_lines(ui, d, q, left, r.l - 4.0, y, true, &mut l)?;
                 label_lines(ui, d, q, right, r.r + 5.0, y, false, &mut l)?;
             }
             Kind::Radio => {
@@ -429,28 +474,25 @@ pub fn layers(
                 if w.x == 0.0 {
                     l.push(ui.atlas_cell(
                         [110.0, 3.0, 190.0, 11.0],
-                        [p.ox, p.oy + 41.0, win.size.0, 8.0],
+                        [p.ox, p.oy + 41.0 + p.tab_dy + 32.0 * w.y, win.size.0, 8.0],
                     ));
                 }
+                // The cell's opaque part (210…296 × 3…24) covers the tab's 86 columns.
                 let cell = Rect {
-                    l: r.l,
+                    l: r.l - 7.0,
                     t: r.t - 3.0,
-                    r: r.r,
+                    r: r.r + 7.0,
                     b: r.t + 23.0,
                 };
-                let mut q9 = ui.nine_slice(
+                // Selected: the green cell 203…303 × 0…26; unselected: the grey outline cell
+                // right below it (× 27…53).
+                let v = if sel { 0.0 } else { 27.0 };
+                let q9 = ui.nine_slice(
                     cell,
-                    [203.0, 0.0, 303.0, 26.0],
+                    [203.0, v, 303.0, v + 26.0],
                     [8.0, 0.0, 8.0, 0.0],
                     [0.0; 4],
                 );
-                if !sel {
-                    // PLACEHOLDER: the unselected tab is a grey translucent cell not yet located
-                    // in the atlas; the green one greyed out stands in.
-                    for c in &mut q9 {
-                        c.tint = [0.75, 0.62, 0.75, 0.55];
-                    }
-                }
                 l.extend(q9);
                 let rgb = if sel { [0; 3] } else { [96, 96, 96] };
                 l.push(ui.text_at(d, q, &w.label, [r.l + 3.0, r.t + 14.0], rgb)?);

@@ -1,6 +1,5 @@
-import os
 # gen_window.py <asm name> <start_win id> <W> <H> : widget table for one window from btnemu.py
-import json, subprocess, sys
+import json, os, subprocess, sys
 name, wid = sys.argv[1], int(sys.argv[2])
 # Window sizes set by wins_class::start_win (0x10040fe60); the others fill the screen.
 FIXED = {1: (651, 753), 5: (572, 268), 9: (620, 438), 10: (1020, 766), 11: (700, 500), 15: (530, 650),
@@ -109,11 +108,15 @@ def build(W, H):
 INST = {0: [0x114bc88, 0x114bd80, 0x114bee0, 0x11643b8], 1: [0x114bf48, 0x114bfc0, 0x114c040, 0x114c098, 0x11643b8],
         2: [0x114c130, 0x114c158, 0x114c1b0, 0x114c218, 0x11643b8], 3: [0x114c2f8, 0x114c348, 0x114c388, 0x114c3d8, 0x11643b8],
         4: [0x114c468, 0x114c4f0, 0x11643b8]}
+CUR = {}
+HERE = os.path.dirname(os.path.abspath(__file__))
+XP = os.environ['XP_INSTALL'] + '/X-Plane.app/Contents/MacOS/X-Plane'
 def extras(W, H, row):
+  CUR.clear()
   if name == 'inst_wind':
     # The tab's paragraphs are concatenated at run time (not seen by btnemu); the strings are the
     # binary's own, in the order they sit in __cstring, one block per tab.
-    B = open(os.environ['XP_INSTALL'] + '/X-Plane.app/Contents/MacOS/X-Plane', 'rb').read()
+    B = open(XP, 'rb').read()
     cs = lambda a: B[a - 0x100000000 + 0x100000000 - 0x100000000 + 0x100000000 - 0x100000000: B.index(b'\0', a - 0x100000000)].decode('latin-1')
     for t, addrs in INST.items():
         text = '¶'.join(B[a - 0x100000000:B.index(b'\0', a - 0x100000000)].decode('latin-1') for a in addrs)
@@ -121,7 +124,7 @@ def extras(W, H, row):
   if name == 'dout_wind':
     # Data Set rows: dout_class::get_line_object(io, i) names each line (jump table at
     # 0x100458918; 119 and 133 are built outside it). Drawn 66 right of the row's first box.
-    names = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dout_names.json')))
+    names = json.load(open(os.path.join(HERE, 'dout_names.json')))
     names[119], names[133] = 'weapon status', 'cruise stats'
     starts = [40.0, 295.0, 550.0, 805.0]
     for r in list(rows):
@@ -129,6 +132,66 @@ def extras(W, H, row):
             col = min((c for c in starts if c > r[1]), default=None)
             if col is not None and int(r[8]) < len(names):
                 row('text', col + 64.0, r[2], 9999.0, 52, label=names[int(r[8])], cond=r[10])
+  if name == 'fail_wind':
+    # The failure list: fail_wind (0x10078c780) loops over the 560 failures with the static
+    # tables fail_group / fail_sub_group / fail_ui (0x1010bbc60, +0x8c0, +0x1180). Labels,
+    # tab names and veh_class::can_break for the default aircraft come from the original itself
+    # (probe plugin, XP_PROBE_FAIL).
+    import struct
+    B = open(XP, 'rb').read()
+    arr = lambda a: list(struct.unpack('<560i', B[a - 0x100000000:a - 0x100000000 + 2240]))
+    grp, sub, ui = arr(0x1010bbc60), arr(0x1010bc520), arr(0x1010bcde0)
+    lab, ok, tabs, subs = {}, {}, {}, {}
+    for l in open(os.path.join(HERE, 'fail_labels.tsv')):
+        f = l.rstrip('\n').split('\t')
+        if f[0] == 'fail': lab[int(f[1])] = f[3]; ok[int(f[1])] = f[2] == '1'
+        if f[0] == 'tab': tabs[int(f[1])] = f[2]
+        if f[0] == 'sub' and f[3]: subs.setdefault(int(f[1]), []).append(f[3])
+    T = 'fail_class::fail_wind()::g1_tab'
+    # fail_class fields +0 / +4 are the prf's _use_MTBF / _real_MTBF_hours (the oracle shows
+    # the box ticked and 10,000 with the user's prf at 1 / 10000).
+    for r in rows:
+        r[7] = {'this+0x0': '_use_MTBF', 'this+0x4': '_real_MTBF_hours'}.get(r[7], r[7])
+    rows[:] = [r for r in rows if not (r[0] in ('popup', 'dob', 'tab') and not r[10])]
+    # BTN_subwin(top, -1, -1, -1, 16): top margin 64 under the second tab row (Aircraft,
+    # Instruments, Engines), 32 otherwise; the emulated walk only saw g1_tab = 0.
+    sw = [r for r in rows if r[0] == 'subwin' and not r[10]]
+    if sw:
+        r0 = rows.index(sw[0]); rows.remove(sw[0])
+        for g in range(6):
+            r = list(sw[0]); r[4] = sw[0][4] - (32.0 if g in (1, 2, 3) else 0.0); r[10] = f'{T}={g}'
+            rows.insert(r0 + g, r)
+    for t in range(6):
+        row('tab', t, 0, t, key=T, label=tabs.get(t, ''))
+    for g, names in subs.items():
+        for j, n in enumerate(names):
+            row('tab', j, 1, j, key=f'fail_class::fail_wind()::g2_tab{g}', label=n, cond=f'{T}={g}')
+    for g in range(6):
+        y0 = float(H) - (110.0 if g in (1, 2, 3) else 80.0)
+        x, y = 185.0, y0
+        for i in range(560):
+            if grp[i] != g: continue
+            for s_ in sorted({sub[i]}):
+                pass
+            cond = f'{T}={g}' + (f',fail_class::fail_wind()::g2_tab{g}={sub[i]}' if sub[i] != -1 else '')
+            # positions run per sub-tab: keep one cursor per (group, sub-tab)
+            key = (g, sub[i] if sub[i] != -1 else None)
+            cur = CUR.setdefault(key, [185.0, y0])
+            x, y = cur
+            if ui[i] == 1:
+                y -= 35.0
+                if y < 20.0: x, y = x + 325.0, y0
+            elif ui[i] == 2:
+                x, y = x + 325.0, y0
+            elif y < 20.0:
+                x, y = x + 325.0, y0
+            if ok.get(i):
+                k = f'm:fail{i}'
+                row('popup', x, y, 1, key=k, label=lab.get(i, ''), items='always working-mean time until failure-exact time until failure-fail at exact speed KIAS-fail at exact altitude AGL-fail if CTRL f or JOY-inoperative', cond=cond)
+                for mode, unit, lo in ((1, '|min', 1.0), (2, '|min', 1.0), (3, '|kts', 10.0), (4, '|ft', 10.0)):
+                    row('dob', x + 95.0, y, 4, 0, lo, 9999.0, key=f'm:fail{i}v{mode}', label=unit, cond=cond + f',{k}={mode}')
+                y -= 35.0
+            cur[0], cur[1] = x, y
   if name == 'xtim_wind':
     # Month names: a loop over a string table, x = (i - 5.5) * 500 / 12 + 286 - 12 (xtim_wind).
     for i, m in enumerate('Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()):
@@ -169,6 +232,6 @@ else:
                 cells.append(f(va))
         lines.append('\t'.join(cells))
     size = 'screen'
-out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..') + f'/crates/xp-core/data/windows/{wid}.tsv'
+out = os.path.join(HERE, '../../../crates/xp-core/data/windows', f'{wid}.tsv')
 open(out, 'w').write(f'# kind\tx\ty\ta\tb\tc\td\tkey\tlabel\titems\tcond — start_win {wid}, {name},\n# generated by re/gen_window.py from the BTN_* calls re/btnemu.py records. x, y: GL window coordinates;\n# base~kw,kh = base + kw*(screen W - 1024) + kh*(screen H - 768).\n# size {size}\n' + '\n'.join(lines) + '\n')
 print(wid, name, len(lines), 'rows', size)

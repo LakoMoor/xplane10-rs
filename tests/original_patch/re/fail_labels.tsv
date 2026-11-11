@@ -1,0 +1,626 @@
+fail	0	1	control lock still in!
+fail	1	1	door still open!
+fail	2	1	external power still on!
+fail	3	1	passenger O-2 on!
+fail	4	1	vertigo
+fail	5	1	fuel cap left off!
+fail	6	1	water in fuel!
+fail	7	1	fueled with wrong gas!
+fail	8	1	fuel tank vent block #1
+fail	9	1	fuel tank vent block #2
+fail	10	0	fuel tank vent block #3
+fail	11	0	fuel tank vent block #4
+fail	12	0	fuel tank vent block #5
+fail	13	0	fuel tank vent block #6
+fail	14	0	fuel tank vent block #7
+fail	15	0	fuel tank vent block #8
+fail	16	0	fuel tank vent block #9
+fail	17	1	VASI/PAPI lights
+fail	18	1	runway lights
+fail	19	1	bird strike
+fail	20	1	microburst
+fail	21	1	smoke in cockpit
+fail	22	1	brown-out
+fail	23	1	electrical bus #1
+fail	24	0	electrical bus #2
+fail	25	0	electrical bus #3
+fail	26	0	electrical bus #4
+fail	27	0	electrical bus #5
+fail	28	0	electrical bus #6
+fail	29	1	inverter #1
+fail	30	0	inverter #2
+fail	31	1	generator 1
+fail	32	0	generator 2
+fail	33	0	generator 3
+fail	34	0	generator 4
+fail	35	0	generator 5
+fail	36	0	generator 6
+fail	37	0	generator 7
+fail	38	0	generator 8
+fail	39	1	battery 1
+fail	40	0	battery 2
+fail	41	0	battery 3
+fail	42	0	battery 4
+fail	43	0	battery 5
+fail	44	0	battery 6
+fail	45	0	battery 7
+fail	46	0	battery 8
+fail	47	1	generator 1 lo volt
+fail	48	1	generator 1 hi volt
+fail	49	1	generator 2 lo volt
+fail	50	1	generator 2 hi volt
+fail	51	1	battery 1 lo volt
+fail	52	1	battery 1 hi volt
+fail	53	1	battery 2 lo volt
+fail	54	1	battery 2 hi volt
+fail	55	1	lites: nav
+fail	56	1	lites: strobe
+fail	57	1	lites: beacon
+fail	58	1	lites: taxi
+fail	59	1	lites: landing
+fail	60	1	lites: instruments
+fail	61	1	lites: floodlight
+fail	62	1	lites: HUD
+fail	63	1	stability augmentation
+fail	64	1	yaw-damper
+fail	65	1	autopilot computer
+fail	66	1	autopilot runaway
+fail	67	1	autopilot servos
+fail	68	1	autopilot aileron servo
+fail	69	1	autopilot elevator servo
+fail	70	1	auto-throttle
+fail	71	1	yaw control LEFT
+fail	72	1	yaw control RIGHT
+fail	73	1	roll control LEFT
+fail	74	1	roll control RIGHT
+fail	75	1	pitch control UP
+fail	76	1	pitch control DOWN
+fail	77	1	rudder trim actuator
+fail	78	1	aileron trim actuator
+fail	79	1	elevator trim actuator
+fail	80	1	rudder trim runaway
+fail	81	1	aileron trim runaway
+fail	82	1	elevator trim runaway
+fail	83	1	slats
+fail	84	1	flap actuator system
+fail	85	1	left flap activate
+fail	86	1	right flap activate
+fail	87	1	left flap remove
+fail	88	1	right flap remove
+fail	89	0	gear actuator system
+fail	90	0	gear indicator system
+fail	91	1	left brakes
+fail	92	1	right brakes
+fail	93	0	nosewheel actuator jam
+fail	94	0	left main gear actuator jam
+fail	95	0	right main gear actuator jam
+fail	96	0	landing gear actuator jam
+fail	97	0	landing gear actuator jam
+fail	98	0	landing gear actuator jam
+fail	99	0	landing gear actuator jam
+fail	100	0	landing gear actuator jam
+fail	101	0	landing gear actuator jam
+fail	102	0	landing gear actuator jam
+fail	103	0	nosewheel actuator collapse
+fail	104	0	left main gear actuator collapse
+fail	105	0	right main gear actuator collapse
+fail	106	0	landing gear actuator collapse
+fail	107	0	landing gear actuator collapse
+fail	108	0	landing gear actuator collapse
+fail	109	0	landing gear actuator collapse
+fail	110	0	landing gear actuator collapse
+fail	111	0	landing gear actuator collapse
+fail	112	0	landing gear actuator collapse
+fail	113	1	nosewheel tire
+fail	114	1	left main gear tire
+fail	115	1	right main gear tire
+fail	116	0	landing gear tire
+fail	117	0	landing gear tire
+fail	118	0	landing gear tire
+fail	119	0	landing gear tire
+fail	120	0	landing gear tire
+fail	121	0	landing gear tire
+fail	122	0	landing gear tire
+fail	123	1	ice: detector
+fail	124	1	ice: all systems
+fail	125	1	ice: window heat
+fail	126	1	ice: brake heat
+fail	127	1	ice: pitot heat 1
+fail	128	1	ice: pitot heat 2
+fail	129	1	ice: static heat 1
+fail	130	1	ice: static heat 2
+fail	131	1	ice: AOA heat 1
+fail	132	1	ice: AOA heat 2
+fail	133	1	ice: wing heat left
+fail	134	1	ice: wing heat right
+fail	135	1	ice: engn alt air 1
+fail	136	1	ice: engn alt air 2
+fail	137	1	ice: inlet heat 1
+fail	138	0	ice: inlet heat 2
+fail	139	0	ice: inlet heat 3
+fail	140	0	ice: inlet heat 4
+fail	141	0	ice: inlet heat 5
+fail	142	0	ice: inlet heat 6
+fail	143	0	ice: inlet heat 7
+fail	144	0	ice: inlet heat 8
+fail	145	1	ice: prop heat 1
+fail	146	0	ice: prop heat 2
+fail	147	0	ice: prop heat 3
+fail	148	0	ice: prop heat 4
+fail	149	0	ice: prop heat 5
+fail	150	0	ice: prop heat 6
+fail	151	0	ice: prop heat 7
+fail	152	0	ice: prop heat 8
+fail	153	1	HVAC system
+fail	154	1	bleed air: left engine
+fail	155	1	bleed air: right engine
+fail	156	1	bleed-air: APU
+fail	157	1	slow depressurization
+fail	158	1	rapid depressurization
+fail	159	1	elec hydraulic pump
+fail	160	1	engine-driven hydraulic pump #1
+fail	161	0	engine-driven hydraulic pump #2
+fail	162	0	engine-driven hydraulic pump #3
+fail	163	0	engine-driven hydraulic pump #4
+fail	164	0	engine-driven hydraulic pump #5
+fail	165	0	engine-driven hydraulic pump #6
+fail	166	0	engine-driven hydraulic pump #7
+fail	167	0	engine-driven hydraulic pump #8
+fail	168	1	leak hydraulic system #1
+fail	169	1	leak hydraulic system #2
+fail	170	1	overpressure hydraulic system #1
+fail	171	1	overpressure hydraulic system #2
+fail	172	1	throttle jam at idle
+fail	173	1	throttle jam at max
+fail	174	1	throttle jam at current
+fail	175	1	prop sync
+fail	176	1	auto-feather
+fail	177	1	tail-rotor transmission
+fail	178	1	vacuum pump #1
+fail	179	1	vacuum pump #2
+fail	180	1	pitot-tube #1 blockage
+fail	181	1	pitot-tube #2 blockage
+fail	182	1	static-port #1 blockage
+fail	183	1	static-port #2 blockage
+fail	184	1	static-port #1 error
+fail	185	1	static-port #2 error
+fail	186	1	OAT sensor
+fail	187	1	fuel quantity sensor
+fail	188	1	pilot airspeed indicator
+fail	189	1	pilot artificial horizon
+fail	190	1	pilot altimeter
+fail	191	1	pilot turn indicator
+fail	192	1	pilot heading indicator
+fail	193	1	pilot vertical velocity
+fail	194	1	copilot airspeed indicator
+fail	195	1	copilot artificial horizon
+fail	196	1	copilot altimeter
+fail	197	1	copilot turn indicator
+fail	198	1	copilot heading indicator
+fail	199	1	copilot vertical velocity
+fail	200	1	EFIS PFD
+fail	201	1	EFIS MFD
+fail	202	1	AOA indicator
+fail	203	1	stall warning system
+fail	204	0	gear warning system
+fail	205	1	nav/com-1 radio
+fail	206	1	nav/com-2 radio
+fail	207	1	nav-1 radio
+fail	208	1	nav-2 radio
+fail	209	1	com-1 radio
+fail	210	1	com-2 radio
+fail	211	1	ADF 1
+fail	212	1	ADF 2
+fail	213	1	GPS 1
+fail	214	1	GPS 2
+fail	215	1	DME
+fail	216	1	localizer antennae
+fail	217	1	glideslope antennae
+fail	218	1	WAAS GP reciever
+fail	219	1	transponder
+fail	220	1	marker beacons
+fail	221	1	RPM 1
+fail	222	0	RPM 2
+fail	223	0	N1 1
+fail	224	0	N1 2
+fail	225	0	N2 1
+fail	226	0	N2 2
+fail	227	1	manifold pressure 1
+fail	228	0	manifold pressure 2
+fail	229	1	torque 1
+fail	230	0	torque 2
+fail	231	0	EPR 1
+fail	232	0	EPR 2
+fail	233	1	CHT 1
+fail	234	0	CHT 2
+fail	235	1	ITT 1
+fail	236	0	ITT 2
+fail	237	1	EGT 1
+fail	238	0	EGT 2
+fail	239	1	fuel flow 1
+fail	240	0	fuel flow 2
+fail	241	1	fuel pressure 1
+fail	242	0	fuel pressure 2
+fail	243	1	oil pressure 1
+fail	244	0	oil pressure 2
+fail	245	1	oil temp 1
+fail	246	0	oil temp 2
+fail	247	1	GPS rcvr in Garmin 430 #1
+fail	248	1	GPS rcvr in Garmin 430 #2
+fail	249	1	nav/com in Garmin 430 #1
+fail	250	1	nav/com in Garmin 430 #2
+fail	251	1	GIA 1
+fail	252	1	GIA 2
+fail	253	1	GEA
+fail	254	1	ADC
+fail	255	1	AHRS
+fail	256	1	G1000 airspeed
+fail	257	1	G1000 altimeter
+fail	258	1	G1000 magntmtr
+fail	259	1	G1000 vvi
+fail	260	1	generator 1 amp indication
+fail	261	1	generator 2 amp indication
+fail	262	1	battery 1 amp indication
+fail	263	1	battery 2 amp indication
+fail	264	1	bus 1 volt indication
+fail	265	1	bus 2 volt indication
+fail	266	1	left magneto 1
+fail	267	0	left magneto 2
+fail	268	0	left magneto 3
+fail	269	0	left magneto 4
+fail	270	0	left magneto 5
+fail	271	0	left magneto 6
+fail	272	0	left magneto 7
+fail	273	0	left magneto 8
+fail	274	1	right magneto 1
+fail	275	0	right magneto 2
+fail	276	0	right magneto 3
+fail	277	0	right magneto 4
+fail	278	0	right magneto 5
+fail	279	0	right magneto 6
+fail	280	0	right magneto 7
+fail	281	0	right magneto 8
+fail	282	1	engine fire 1
+fail	283	0	engine fire 2
+fail	284	0	engine fire 3
+fail	285	0	engine fire 4
+fail	286	0	engine fire 5
+fail	287	0	engine fire 6
+fail	288	0	engine fire 7
+fail	289	0	engine fire 8
+fail	290	1	engine flame-out 1
+fail	291	0	engine flame-out 2
+fail	292	0	engine flame-out 3
+fail	293	0	engine flame-out 4
+fail	294	0	engine flame-out 5
+fail	295	0	engine flame-out 6
+fail	296	0	engine flame-out 7
+fail	297	0	engine flame-out 8
+fail	298	1	engine fail 1
+fail	299	0	engine fail 2
+fail	300	0	engine fail 3
+fail	301	0	engine fail 4
+fail	302	0	engine fail 5
+fail	303	0	engine fail 6
+fail	304	0	engine fail 7
+fail	305	0	engine fail 8
+fail	306	1	engine separation 1
+fail	307	0	engine separation 2
+fail	308	0	engine separation 3
+fail	309	0	engine separation 4
+fail	310	0	engine separation 5
+fail	311	0	engine separation 6
+fail	312	0	engine separation 7
+fail	313	0	engine separation 8
+fail	314	1	engine-driven fuel pump 1
+fail	315	0	engine-driven fuel pump 2
+fail	316	0	engine-driven fuel pump 3
+fail	317	0	engine-driven fuel pump 4
+fail	318	0	engine-driven fuel pump 5
+fail	319	0	engine-driven fuel pump 6
+fail	320	0	engine-driven fuel pump 7
+fail	321	0	engine-driven fuel pump 8
+fail	322	1	electric fuel pump 1
+fail	323	0	electric fuel pump 2
+fail	324	0	electric fuel pump 3
+fail	325	0	electric fuel pump 4
+fail	326	0	electric fuel pump 5
+fail	327	0	electric fuel pump 6
+fail	328	0	electric fuel pump 7
+fail	329	0	electric fuel pump 8
+fail	330	1	fuel flow restricted 1
+fail	331	0	fuel flow restricted 2
+fail	332	0	fuel flow restricted 3
+fail	333	0	fuel flow restricted 4
+fail	334	0	fuel flow restricted 5
+fail	335	0	fuel flow restricted 6
+fail	336	0	fuel flow restricted 7
+fail	337	0	fuel flow restricted 8
+fail	338	1	air flow restricted 1
+fail	339	0	air flow restricted 2
+fail	340	0	air flow restricted 3
+fail	341	0	air flow restricted 4
+fail	342	0	air flow restricted 5
+fail	343	0	air flow restricted 6
+fail	344	0	air flow restricted 7
+fail	345	0	air flow restricted 8
+fail	346	1	fuel flow fluctuation 1
+fail	347	0	fuel flow fluctuation 2
+fail	348	0	fuel flow fluctuation 3
+fail	349	0	fuel flow fluctuation 4
+fail	350	0	fuel flow fluctuation 5
+fail	351	0	fuel flow fluctuation 6
+fail	352	0	fuel flow fluctuation 7
+fail	353	0	fuel flow fluctuation 8
+fail	354	1	compressor stall 1
+fail	355	0	compressor stall 2
+fail	356	0	compressor stall 3
+fail	357	0	compressor stall 4
+fail	358	0	compressor stall 5
+fail	359	0	compressor stall 6
+fail	360	0	compressor stall 7
+fail	361	0	compressor stall 8
+fail	362	1	starter 1
+fail	363	0	starter 2
+fail	364	0	starter 3
+fail	365	0	starter 4
+fail	366	0	starter 5
+fail	367	0	starter 6
+fail	368	0	starter 7
+fail	369	0	starter 8
+fail	370	1	igniter 1
+fail	371	0	igniter 2
+fail	372	0	igniter 3
+fail	373	0	igniter 4
+fail	374	0	igniter 5
+fail	375	0	igniter 6
+fail	376	0	igniter 7
+fail	377	0	igniter 8
+fail	378	1	hung start (weak starter) 1
+fail	379	0	hung start (weak starter) 2
+fail	380	0	hung start (weak starter) 3
+fail	381	0	hung start (weak starter) 4
+fail	382	0	hung start (weak starter) 5
+fail	383	0	hung start (weak starter) 6
+fail	384	0	hung start (weak starter) 7
+fail	385	0	hung start (weak starter) 8
+fail	386	1	hung start (clogged nozzles) 1
+fail	387	0	hung start (clogged nozzles) 2
+fail	388	0	hung start (clogged nozzles) 3
+fail	389	0	hung start (clogged nozzles) 4
+fail	390	0	hung start (clogged nozzles) 5
+fail	391	0	hung start (clogged nozzles) 6
+fail	392	0	hung start (clogged nozzles) 7
+fail	393	0	hung start (clogged nozzles) 8
+fail	394	1	hot start (extra fuel) 1
+fail	395	0	hot start (extra fuel) 2
+fail	396	0	hot start (extra fuel) 3
+fail	397	0	hot start (extra fuel) 4
+fail	398	0	hot start (extra fuel) 5
+fail	399	0	hot start (extra fuel) 6
+fail	400	0	hot start (extra fuel) 7
+fail	401	0	hot start (extra fuel) 8
+fail	402	1	runaway ITT (low airflow) 1
+fail	403	0	runaway ITT (low airflow) 2
+fail	404	0	runaway ITT (low airflow) 3
+fail	405	0	runaway ITT (low airflow) 4
+fail	406	0	runaway ITT (low airflow) 5
+fail	407	0	runaway ITT (low airflow) 6
+fail	408	0	runaway ITT (low airflow) 7
+fail	409	0	runaway ITT (low airflow) 8
+fail	410	1	prop governor fail-to-fine 1
+fail	411	0	prop governor fail-to-fine 2
+fail	412	0	prop governor fail-to-fine 3
+fail	413	0	prop governor fail-to-fine 4
+fail	414	0	prop governor fail-to-fine 5
+fail	415	0	prop governor fail-to-fine 6
+fail	416	0	prop governor fail-to-fine 7
+fail	417	0	prop governor fail-to-fine 8
+fail	418	1	prop governor fail-to-coarse 1
+fail	419	0	prop governor fail-to-coarse 2
+fail	420	0	prop governor fail-to-coarse 3
+fail	421	0	prop governor fail-to-coarse 4
+fail	422	0	prop governor fail-to-coarse 5
+fail	423	0	prop governor fail-to-coarse 6
+fail	424	0	prop governor fail-to-coarse 7
+fail	425	0	prop governor fail-to-coarse 8
+fail	426	1	drive shaft 1
+fail	427	0	drive shaft 2
+fail	428	0	drive shaft 3
+fail	429	0	drive shaft 4
+fail	430	0	drive shaft 5
+fail	431	0	drive shaft 6
+fail	432	0	drive shaft 7
+fail	433	0	drive shaft 8
+fail	434	1	engine seize 1
+fail	435	0	engine seize 2
+fail	436	0	engine seize 3
+fail	437	0	engine seize 4
+fail	438	0	engine seize 5
+fail	439	0	engine seize 6
+fail	440	0	engine seize 7
+fail	441	0	engine seize 8
+fail	442	1	reverser-retract 1
+fail	443	0	reverser-retract 2
+fail	444	0	reverser-retract 3
+fail	445	0	reverser-retract 4
+fail	446	0	reverser-retract 5
+fail	447	0	reverser-retract 6
+fail	448	0	reverser-retract 7
+fail	449	0	reverser-retract 8
+fail	450	1	reverser-deploy 1
+fail	451	0	reverser-deploy 2
+fail	452	0	reverser-deploy 3
+fail	453	0	reverser-deploy 4
+fail	454	0	reverser-deploy 5
+fail	455	0	reverser-deploy 6
+fail	456	0	reverser-deploy 7
+fail	457	0	reverser-deploy 8
+fail	458	1	reverser-lock 1
+fail	459	0	reverser-lock 2
+fail	460	0	reverser-lock 3
+fail	461	0	reverser-lock 4
+fail	462	0	reverser-lock 5
+fail	463	0	reverser-lock 6
+fail	464	0	reverser-lock 7
+fail	465	0	reverser-lock 8
+fail	466	1	afterburner 1
+fail	467	0	afterburner 2
+fail	468	0	afterburner 3
+fail	469	0	afterburner 4
+fail	470	0	afterburner 5
+fail	471	0	afterburner 6
+fail	472	0	afterburner 7
+fail	473	0	afterburner 8
+fail	474	1	throttle governor 1
+fail	475	0	throttle governor 2
+fail	476	0	throttle governor 3
+fail	477	0	throttle governor 4
+fail	478	0	throttle governor 5
+fail	479	0	throttle governor 6
+fail	480	0	throttle governor 7
+fail	481	0	throttle governor 8
+fail	482	1	engine FADEC 1
+fail	483	0	engine FADEC 2
+fail	484	0	engine FADEC 3
+fail	485	0	engine FADEC 4
+fail	486	0	engine FADEC 5
+fail	487	0	engine FADEC 6
+fail	488	0	engine FADEC 7
+fail	489	0	engine FADEC 8
+fail	490	1	oil pump 1
+fail	491	0	oil pump 2
+fail	492	0	oil pump 3
+fail	493	0	oil pump 4
+fail	494	0	oil pump 5
+fail	495	0	oil pump 6
+fail	496	0	oil pump 7
+fail	497	0	oil pump 8
+fail	498	1	chip detect 1
+fail	499	0	chip detect 2
+fail	500	0	chip detect 3
+fail	501	0	chip detect 4
+fail	502	0	chip detect 5
+fail	503	0	chip detect 6
+fail	504	0	chip detect 7
+fail	505	0	chip detect 8
+fail	506	1	LEFT WING 1
+fail	507	1	RIGT WING 1
+fail	508	1	LEFT WING 2
+fail	509	1	RIGT WING 2
+fail	510	0	LEFT WING 3
+fail	511	0	RIGT WING 3
+fail	512	0	LEFT WING 4
+fail	513	0	RIGT WING 4
+fail	514	1	LEFT H STAB
+fail	515	1	RIGT H STAB
+fail	516	1	VERT STAB 1
+fail	517	0	VERT STAB 2
+fail	518	0	MISC WING 1
+fail	519	0	MISC WING 2
+fail	520	0	MISC WING 3
+fail	521	0	MISC WING 4
+fail	522	0	MISC WING 5
+fail	523	0	MISC WING 6
+fail	524	0	MISC WING 7
+fail	525	0	MISC WING 8
+fail	526	0	MISC WING 9
+fail	527	0	MISC WING 10
+fail	528	0	MISC WING 11
+fail	529	0	MISC WING 12
+fail	530	0	MISC WING 13
+fail	531	0	MISC WING 14
+fail	532	0	MISC WING 15
+fail	533	0	MISC WING 16
+fail	534	0	MISC WING 17
+fail	535	0	MISC WING 18
+fail	536	0	MISC WING 19
+fail	537	0	MISC WING 20
+fail	538	0	ENG PYLN 1a
+fail	539	0	ENG PYLN 2a
+fail	540	0	ENG PYLN 3a
+fail	541	0	ENG PYLN 4a
+fail	542	0	ENG PYLN 5a
+fail	543	0	ENG PYLN 6a
+fail	544	0	ENG PYLN 7a
+fail	545	0	ENG PYLN 8a
+fail	546	0	ENG PYLN 1b
+fail	547	0	ENG PYLN 2b
+fail	548	0	ENG PYLN 3b
+fail	549	0	ENG PYLN 4b
+fail	550	0	ENG PYLN 5b
+fail	551	0	ENG PYLN 6b
+fail	552	0	ENG PYLN 7b
+fail	553	0	ENG PYLN 8b
+fail	554	1	elec system overhead
+fail	555	1	avionics overhead
+fail	556	1	rel_bus0_plugin
+fail	557	1	rel_bus1_plugin
+fail	558	1	rel_bus2_plugin
+fail	559	1	rel_bus3_plugin
+tab	0	World
+tab	1	Aircraft
+tab	2	Instruments
+tab	3	Engines
+tab	4	Wings
+tab	5	NAVAIDs
+sub	0	0	
+sub	0	1	
+sub	0	2	
+sub	0	3	
+sub	0	4	
+sub	0	5	
+sub	0	6	
+sub	0	7	
+sub	0	8	
+sub	0	9	
+sub	1	0	Electrical
+sub	1	1	Lights
+sub	1	2	Autopilot
+sub	1	3	Controls
+sub	1	4	Landing Gear
+sub	1	5	De-Ice
+sub	1	6	Equipment
+sub	1	7	
+sub	1	8	
+sub	1	9	
+sub	2	0	Sensor
+sub	2	1	Primary
+sub	2	2	Navigation
+sub	2	3	Engine
+sub	2	4	G430
+sub	2	5	G1000
+sub	2	6	
+sub	2	7	
+sub	2	8	
+sub	2	9	
+sub	3	0	Failures
+sub	3	1	Fuel/Air
+sub	3	2	Start
+sub	3	3	Prop
+sub	3	4	Reverse
+sub	3	5	Accessory
+sub	3	6	
+sub	3	7	
+sub	3	8	
+sub	3	9	
+sub	4	0	
+sub	4	1	
+sub	4	2	
+sub	4	3	
+sub	4	4	
+sub	4	5	
+sub	4	6	
+sub	4	7	
+sub	4	8	
+sub	4	9	
+sub	5	0	
+sub	5	1	
+sub	5	2	
+sub	5	3	
+sub	5	4	
+sub	5	5	
+sub	5	6	
+sub	5	7	
+sub	5	8	
+sub	5	9	

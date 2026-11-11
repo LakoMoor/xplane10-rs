@@ -15,6 +15,7 @@ pub mod flight;
 pub mod geoid;
 pub mod gpsdb;
 pub mod menu;
+pub mod navaid;
 pub mod obj8;
 pub mod oracle;
 pub mod panel;

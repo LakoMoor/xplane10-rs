@@ -180,12 +180,44 @@ pub fn load(id: i32, title: &str, screen: (f32, f32)) -> Result<Option<Window>> 
         15 => include_str!("../data/windows/15.tsv"),
         16 => include_str!("../data/windows/16.tsv"),
         17 => include_str!("../data/windows/17.tsv"),
+        18 => include_str!("../data/windows/18.tsv"),
         19 => include_str!("../data/windows/19.tsv"),
         20 => include_str!("../data/windows/20.tsv"),
+        21 => include_str!("../data/windows/21.tsv"),
         22 => include_str!("../data/windows/22.tsv"),
         _ => return Ok(None),
     };
-    parse(id, title, text, screen).map(Some)
+    parse(id, start_win_title(id).unwrap_or(title), text, screen).map(Some)
+}
+
+/// The title start_win (0x10040fe60) gives window `id` (`_mnw`), which can differ from the
+/// menu item that opens it ("System Failures" for Equipment Failures).
+pub fn start_win_title(id: i32) -> Option<&'static str> {
+    Some(match id {
+        1 => "Select Airport",
+        2 => "Data Input & Output",
+        3 => "Net Connections",
+        4 => "Weather",
+        5 => "Date & Time",
+        6 => "Weight & Balance & Fuel",
+        7 => "System Failures",
+        8 => "Aircraft & Situations",
+        9 => "Sound",
+        10 => "Rendering Options",
+        11 => "Video Recording Options",
+        12 => "Flight Data Recorder: Xavion",
+        13 => "Flight Data Recorder: file",
+        14 => "Joystick & Equipment",
+        15 => "Operations & Warnings",
+        16 => "Local Region",
+        17 => "Planet",
+        18 => "Pilot Logbook",
+        19 => "Instructions",
+        20 => "Environment Properties",
+        21 => "Flight Plan",
+        22 => "QuickFlight Setup",
+        _ => return None,
+    })
 }
 
 /// Settings values by pref name.

@@ -450,7 +450,8 @@ Order is leaves-first: formats and geometry before anything touches a window.
 
 - `wins_class::start_win` (0x10040fe60) sets the size per window: 1 651×753, 5 572×268,
   9 620×438, 10 1020×766, 11 700×500, 15 530×650, 17 1020×750, 18 831×636, 19 600×400,
-  20 550×425, 21 550×300, 22 1024×768; every other window takes the screen size. The GL origin
+  20 550×425, 21 550×300, 22 1024×768; every other window takes `_DAT_102f2b23c`, the UI size
+  1024×768 (corrected below: not the screen size). The GL origin
   is ((screen − size)·0.5 + 0.5) truncated, at least 0. On the oracle frames the top edge sits at
   ⌊(H − h − 1)/2⌋ and windows as tall as the screen (less 2) have their widgets 2 rows lower —
   measured, not yet traced.
@@ -458,7 +459,7 @@ Order is leaves-first: formats and geometry before anything touches a window.
   3 inet, 4 wxr_region, 5 xtim (Date & Time — earlier wrongly qtim), 6 wegt, 7 fail, 8 acft,
   9 soun, 10 reno, 11 qtim (movie), 12 xavi, 13 fldr, 14 joys, 15 warn, 16 pmap, 17 glob, 18 book,
   19 inst, 20 envi, 21 aitc, 22 qflt.
-- Full-screen windows lay out from the screen size. `gen_window.py` walks them at 1024×768,
+- (Superseded: full-screen windows are 1024×768 centred, see below.) `gen_window.py` walks them at 1024×768,
   1124×768 and 1024×868 and writes each number as `base~kw,kh` (base + kw·(W − 1024) +
   kh·(H − 768)); the port evaluates it for the actual screen and again on resize.
 - `btnemu.py` now always follows the control flow, with state snapshots per branch. A loop runs
@@ -482,3 +483,35 @@ Order is leaves-first: formats and geometry before anything touches a window.
   analysis (`DecompileFns.java`) decompiles single functions in seconds.
 - Not yet: the failure lists (driven by a data table), the maps and globe, the airport list,
   QuickFlight's buttons, run-time read-outs (slider captions, sim values).
+
+## 2026-11-11 — System Failures, BTN_bool/BTN_textlist/BTN_flt_range from code
+
+- Windows without a size in `start_win` are the UI size 1024×768, centred: an oracle frame at
+  1920×1052 shows System Failures 1024×768 at (448, 141). The port lays them out at
+  `UI_SCREEN` and centres them; the earlier "follows the screen size" was wrong.
+- Window titles are `start_win`'s `_mnw`, not the menu text: 7 "System Failures",
+  16 "Local Region", 17 "Planet", 12 "Flight Data Recorder: Xavion", 22 "QuickFlight Setup"…
+  (`btnwin::start_win_title`).
+- `fail_wind` (0x10078c780): `BTN_subwin(top, −1, −1, −1, 16)` with top 64 under the second tab
+  row (Aircraft, Instruments, Engines) and 32 otherwise.
+- `BTN_textlist(float, float, int*, string, string, char)` (0x100dbe2c0): frame width
+  max(20, longest·0.95) + 28 (system_info 1/4/5; 0.9 for 2/3), centred on x + 10; left label
+  right-aligned at x − 0.5·w − 5, right label at x + 0.5·w + 30; text centred on x. In window 7
+  the text colour follows the value: 0 → palette 0x49 (green), 6 → 0x69 (red), < 0 → 0x2f,
+  else 0x51 (amber). `OGL_measure_string` sums unhinted advances / font scale; the port's
+  hinted measure is ~2 px short for these items (measured correction).
+- `BTN_bool` (0x1003d90b0): box cell centred on x (x − 9 … x + 9 incl. margin), labels at
+  x ∓ 12. The port had the box 2 px right, an error absorbed by the Rendering Options popups
+  calibrated at x + 12; with both from code every window measures equal or better.
+- `BTN_flt_range` (0x1003dcd20): `BTN_frame1` type 9, 10·n + 15 wide centred on
+  (x + 5n − 1, y + 3), digits by `OGL_number` at x + 4; `OGL_number` puts a comma after every 3
+  integer digits whenever the field has more than 3 ("10,000").
+- NAVAIDs tab: navaids from the geoid index around the aircraft, bubble-sorted by name, check
+  boxes (`BTN_xbyt` → `BTN_bool`) labelled `-|-name (TYPE)` from (20, H − 73), 15 down, 200
+  right per column. At KSEA the list is exactly earth_nav.dat in 46…48° N × 124…122° W plus the
+  eight boat navaids `IO_nav` puts first in `__vec_nav` (USS Nimitz / USS Perry LOC, GLS, DME,
+  VOR). Equal names keep file order in the port; the original's query order differs for two
+  pairs (ASTORIA, SEATTLE).
+- Interface palette extended to 128 entries (probe read at 3·128 floats).
+- fail_class fields +0/+4 are the prf's `_use_MTBF` / `_real_MTBF_hours`.
+- Identical pixels vs the oracle: System Failures tabs 92.5 / 93.1 / 93.3 / 93.9 / 94.8 / 88.3 %.

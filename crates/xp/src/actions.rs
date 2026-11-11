@@ -46,11 +46,15 @@ fn centred(size: (f32, f32), screen: (f32, f32)) -> Rect {
     }
 }
 
-/// Oracle frames: in windows as tall as the screen (less 2) the widgets sit 2 rows lower than
-/// the frame's centring gives (Rendering Options 1020×766, every full-screen window); smaller
-/// windows match it. Measured, not yet traced in start_win.
-fn content_drop(size: (f32, f32), screen: (f32, f32)) -> f32 {
-    if size.1 >= screen.1 - 2.0 {
+/// The size `start_win` calls the screen (`_DAT_102f2b23c`): the interface's 1024×768, not the
+/// window's. An oracle frame at 1920×1052 keeps "full-screen" windows 1024×768, centred.
+pub(crate) const UI_SCREEN: (f32, f32) = (1024.0, 768.0);
+
+/// Oracle frames: in windows 766 rows or taller the widgets sit 2 rows lower than the frame's
+/// centring gives (Rendering Options 1020×766, every 1024×768 window); smaller windows match it.
+/// Measured, not yet traced in start_win.
+fn content_drop(size: (f32, f32)) -> f32 {
+    if size.1 >= UI_SCREEN.1 - 2.0 {
         2.0
     } else {
         0.0
@@ -63,6 +67,7 @@ impl Win {
             ox: self.rect.l,
             oy: self.rect.t,
             h: self.rect.h() + self.drop,
+            tab_dy: 2.0 * self.drop,
         }
     }
 }
@@ -316,7 +321,7 @@ impl Renderer {
     /// otherwise the framed placeholder.
     fn open_window(&mut self, item: i32, title: &str, start_win: Option<i32>) {
         let screen = (self.screen.0 as f32, self.screen.1 as f32);
-        let def = match start_win.map(|n| xp_core::btnwin::load(n, title, screen)) {
+        let def = match start_win.map(|n| xp_core::btnwin::load(n, title, UI_SCREEN)) {
             Some(Ok(d)) => d,
             Some(Err(e)) => {
                 log::error!("{e:#}");
@@ -326,8 +331,19 @@ impl Renderer {
         };
         match def {
             None => self.toggle_window(item, title, not_ported(title)),
-            Some(def) => {
-                let drop = content_drop(def.size, screen);
+            Some(mut def) => {
+                if start_win == Some(7) {
+                    // The NAVAIDs tab lists the navaids around the start airport (KSEA).
+                    let all = xp_core::navaid::load(&self.install);
+                    if let Some((lat, lon)) =
+                        xp_core::navaid::airport_position(&self.install, "KSEA")
+                    {
+                        let list = xp_core::navaid::fail_list(&all, lat, lon);
+                        def.widgets
+                            .extend(xp_core::navaid::fail_widgets(&list, def.size.1));
+                    }
+                }
+                let drop = content_drop(def.size);
                 self.windows_cache = None;
                 if let Some(i) = self.windows.iter().position(|w| w.item == item) {
                     self.windows.remove(i);
@@ -335,7 +351,7 @@ impl Renderer {
                 }
                 self.windows.push(Win {
                     item,
-                    title: title.to_string(),
+                    title: def.title.clone(),
                     lines: Vec::new(),
                     rect: centred(def.size, screen),
                     def: Some(def),
@@ -372,18 +388,13 @@ impl Renderer {
         });
     }
 
-    /// Re-centre the open windows on a new screen size, keeping their stacking offsets. Windows
-    /// with a widget table are laid out again: the full-screen ones take the new size.
+    /// Re-centre the open windows on a new screen size, keeping their stacking offsets.
     pub(crate) fn place_windows(&mut self) {
         let (sw, sh) = (self.screen.0 as f32, self.screen.1 as f32);
         self.windows_cache = None;
         for win in self.windows.iter_mut() {
             if let Some(def) = &win.def {
-                if let Ok(Some(d)) = xp_core::btnwin::load(def.id, &def.title, (sw, sh)) {
-                    win.rect = centred(d.size, (sw, sh));
-                    win.drop = content_drop(d.size, (sw, sh));
-                    win.def = Some(d);
-                }
+                win.rect = centred(def.size, (sw, sh));
             }
         }
         for (k, win) in self
@@ -537,6 +548,13 @@ impl Renderer {
             "menu" => {
                 self.open_menu = arg.parse().ok();
                 self.menu_cache = None;
+            }
+            "click" => {
+                if let Some((x, y)) = arg.split_once(',') {
+                    let (x, y) = (x.parse().unwrap_or(0.0), y.parse().unwrap_or(0.0));
+                    self.click_windows(x, y);
+                    self.release();
+                }
             }
             "point" => {
                 if let Some((x, y)) = arg.split_once(',') {

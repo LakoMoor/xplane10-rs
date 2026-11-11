@@ -54,7 +54,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 
 <h2 id="progress">How much is ported</h2>
 <div class="grid">
-  <div class="card"><div class="big">≈ 21 %</div><div class="dim">implemented</div><div class="bar"><i style="width:21%"></i></div></div>
+  <div class="card"><div class="big">≈ 22 %</div><div class="dim">implemented</div><div class="bar"><i style="width:22%"></i></div></div>
   <div class="card"><div class="big">≈ 9 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:9%"></i></div></div>
   <div class="card"><div class="big">99.0 %</div><div class="dim">of loading-screen pixels identical to the original's</div></div>
 </div>
@@ -67,7 +67,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <tr><td>Content formats</td><td class="n">10</td><td class="n">70 %</td><td class="n">15 %</td><td>ACF, OBJ8, apt.dat, PNG, DDS read across the whole install; DSF terrain only framed.</td></tr>
 <tr><td>2-D cockpit panel</td><td class="n">10</td><td class="n">20 %</td><td class="n">10 %</td><td>All 76 Cessna instrument faces placed from the original's own table; no needles or displays.</td></tr>
 <tr><td>Systems, datarefs, avionics</td><td class="n">8</td><td class="n">2 %</td><td class="n">2 %</td><td>GPS airport database reproduces the original's count exactly (19 186).</td></tr>
-<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">75 %</td><td class="n">60 %</td><td>Menu bar, drop-downs and every item working. All settings windows are drawn from the original's own widget calls, extracted from the binary per window, per tab and per loop iteration, at the sizes <code>start_win</code> sets; full-screen windows follow the screen size. 65–94 % of their pixels identical to the original's (Date &amp; Time, Load Xavion, Sound, Instructions, Joystick, Failures…). Failure lists, the maps, the airport list and QuickFlight are still partial.</td></tr>
+<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">78 %</td><td class="n">63 %</td><td>Menu bar, drop-downs and every item working. All settings windows are drawn from the original's own widget calls, extracted from the binary per window, per tab and per loop iteration, at the sizes and with the titles <code>start_win</code> sets; full-screen windows are laid out at 1024×768 and centred, as the original does. 65–95 % of their pixels identical to the original's (Date &amp; Time, Load Xavion, Sound, Instructions, Joystick, Failures…). System Failures is complete: all six tabs with the 560-entry failure table, popups coloured by mode and the NAVAIDs list read from earth_nav.dat (92–95 % identical; 88 % on NAVAIDs). The maps, the airport list and QuickFlight are still partial.</td></tr>
 <tr><td>Sound, plugins, network, ATC</td><td class="n">5</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started.</td></tr>
 <tr><td>Loading screen</td><td class="n">3</td><td class="n">85 %</td><td class="n">85 %</td><td>Picture, text, bands and progress bar match the original.</td></tr>
 </table></div>
@@ -84,6 +84,8 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <h2 id="shots">Screenshots of the port</h2>
 <p class="dim">Every rendering change is recorded as a frame of the port, taken with the original's own camera, and compared with the original's frame. Newest first.</p>
 <div class="shots">
+  <div class="shot"><img loading="lazy" src="parity/25_window_7.png" alt="System Failures" width="1024" height="768"><p><b>System Failures</b>, Aircraft › Electrical: the failure table, can-break test and labels come from the original. Popup width, label spacing and green/amber/red text follow its <code>BTN_textlist</code> code; 93.1 % identical to the original's frame.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/25_window_7_navaids.png" alt="System Failures, NAVAIDs" width="1024" height="768"><p><b>NAVAIDs tab</b>: one check box per navaid in the 2×2 degree tiles around the aircraft plus the carrier and frigate, sorted by name as <code>fail_wind</code> sorts them.</p></div>
   <div class="shot"><img loading="lazy" src="parity/25_window_4.png" alt="Weather" width="1024" height="768"><p><b>Weather</b>: its four modes are separate sections switched by the radio buttons, and the three cloud and wind layers are unrolled from the original's loops. Full-screen windows now take the screen size and lay out from it, as in the original.</p></div>
   <div class="shot"><img loading="lazy" src="parity/25_window_2.png" alt="Data Input and Output" width="1024" height="768"><p><b>Data Input &amp; Output</b>: 134 data-set rows with their names, read from <code>dout_class::get_line_object</code>'s jump table.</p></div>
   <div class="shot"><img loading="lazy" src="parity/25_window_5.png" alt="Date and Time" width="1024" height="768"><p><b>Date &amp; Time</b>: 93.9 % of the frame identical to the original's. Window sizes now come from <code>start_win</code> itself (572×268 here).</p></div>
