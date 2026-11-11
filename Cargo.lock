@@ -2774,6 +2774,7 @@ dependencies = [
  "anyhow",
  "cc",
  "pkg-config",
+ "xp-core",
 ]
 
 [[package]]

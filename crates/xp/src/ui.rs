@@ -65,20 +65,6 @@ fn font_gamma(coverage: u8) -> u8 {
     (x.powf(f64::from(0.8_f32)) * 255.0) as u8
 }
 
-/// The menu bar's titles, left to right. Read off the oracle frame `cockpit_menubar.png`; the
-/// original builds the list from its own tables (`mbar_class`), which are not ported.
-pub const MENU_TITLES: [&str; 9] = [
-    "About",
-    "File",
-    "Aircraft",
-    "Location",
-    "Environment",
-    "Settings",
-    "View",
-    "Special",
-    "Plugins",
-];
-
 /// Menu layout. `mbar_draw_menu_bar` (oracle `0x100df9ab0`) draws each title at its item's
 /// x + 10. The baseline row (13) and the spacing are measured on the oracle frame: first ink of
 /// the nine titles is at x = 10, 72, 119, 188, 262, 358, 431, 486, 555, which, less the 10 and
@@ -86,7 +72,6 @@ pub const MENU_TITLES: [&str; 9] = [
 /// every step is the title's hinted advance plus exactly 30.
 const MENU_BASELINE_Y: f32 = 13.0;
 const MENU_TEXT_INSET: f32 = 10.0;
-const MENU_ITEM_GAP: f64 = 30.0;
 const MENU_BAR_HEIGHT: f32 = 18.0;
 
 /// Loading screen geometry, measured on `tests/golden/original/frames/loading.png` (the
@@ -364,6 +349,151 @@ impl Ui {
         ))
     }
 
+    /// `OGL_measure_string`: the hinted advance of `text` in the interface font.
+    pub fn measure(&self, text: &str) -> f32 {
+        xp_ft::render_line(&self.face, text, xp_ft::LOAD_TARGET_LIGHT)
+            .map(|b| b.advance as f32)
+            .unwrap_or(0.0)
+    }
+
+    /// A filled rectangle in a palette colour at an opacity (`OGL_fillrect`).
+    pub fn palette_fill(&self, r: xp_core::menu::Rect, index: usize, alpha: f32) -> Layer {
+        let c = xp_core::menu::palette(index);
+        self.solid(
+            [r.l, r.t, r.w(), r.h()],
+            [
+                f32::from(c[0]) / 255.0,
+                f32::from(c[1]) / 255.0,
+                f32::from(c[2]) / 255.0,
+                alpha,
+            ],
+        )
+    }
+
+    /// A one-pixel horizontal line from `x0` to `x1` (inclusive) on row `y` (`OGL_line`).
+    pub fn hline(&self, x0: f32, x1: f32, y: f32, index: usize) -> Layer {
+        self.palette_fill(
+            xp_core::menu::Rect {
+                l: x0,
+                t: y,
+                r: x1 + 1.0,
+                b: y + 1.0,
+            },
+            index,
+            1.0,
+        )
+    }
+
+    /// Nine-slice an atlas cell over `dst`. `cell` is the cell's texels (l, t, r, b) and
+    /// `border` its fixed left, top, right and bottom widths; `grow` pushes the drawn quad out
+    /// past `dst` by that much on each side (a cell whose drop shadow lies outside the box).
+    pub fn nine_slice(
+        &self,
+        dst: xp_core::menu::Rect,
+        cell: [f32; 4],
+        border: [f32; 4],
+        grow: [f32; 4],
+    ) -> Vec<Layer> {
+        let (l, t, r, b) = (
+            dst.l - grow[0],
+            dst.t - grow[1],
+            dst.r + grow[2],
+            dst.b + grow[3],
+        );
+        let xs = [l, l + border[0], r - border[2], r];
+        let ys = [t, t + border[1], b - border[3], b];
+        let us = [cell[0], cell[0] + border[0], cell[2] - border[2], cell[2]];
+        let vs = [cell[1], cell[1] + border[1], cell[3] - border[3], cell[3]];
+        let mut out = Vec::with_capacity(9);
+        for j in 0..3 {
+            for i in 0..3 {
+                if xs[i + 1] <= xs[i] || ys[j + 1] <= ys[j] {
+                    continue;
+                }
+                out.push(Layer {
+                    view: self.atlas.clone(),
+                    rect: [xs[i], ys[j], xs[i + 1] - xs[i], ys[j + 1] - ys[j]],
+                    tint: [1.0; 4],
+                    src: Some([us[i], vs[j], us[i + 1], vs[j + 1]]),
+                    linear: false,
+                });
+            }
+        }
+        out
+    }
+
+    /// An open drop-down, as `mbar_draw_menus` draws it: the frame (`BTN_frame2` type 0x14), the
+    /// open title and the hovered item filled with palette 0x2d at 25 %, separators as two
+    /// lines, item text at (left + 18, bottom − 2) in palette 0x2f, and `[key]` right-aligned 10
+    /// pixels inside the right edge.
+    pub fn drop_down(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        menu: &xp_core::menu::Menu,
+        hover: Option<usize>,
+        checked: &dyn Fn(i32) -> bool,
+    ) -> Result<Vec<Layer>> {
+        use xp_core::menu::{KEY_INSET, TEXT_INSET};
+        let mut l = Vec::new();
+        if menu.items.is_empty() {
+            return Ok(l);
+        }
+        // `BTN_frame2` type 0x14 is the cell at texels x 78…103, y 157…183 of `interface.png`
+        // with its drop shadow around it (x 71…110, y 156…194). Located by matching the
+        // frame's rows and columns in the oracle frame `menu_1_about.png` against the atlas;
+        // the slice widths are where the cell's edge profiles become constant.
+        l.extend(self.nine_slice(
+            menu.frame,
+            [71.0, 156.0, 111.0, 195.0],
+            [11.0, 6.0, 11.0, 20.0],
+            [7.0, 1.0, 7.0, 11.0],
+        ));
+        l.push(self.palette_fill(menu.title_rect, 0x2d, 0.25));
+        if let Some(h) = hover.and_then(|h| menu.items.get(h)) {
+            l.push(self.palette_fill(h.rect, 0x2d, 0.25));
+        }
+        let text_rgb = xp_core::menu::palette(0x2f);
+        for it in &menu.items {
+            if it.separator {
+                l.push(self.hline(it.rect.l, it.rect.r - 1.0, it.rect.t, 0x2c));
+                l.push(self.hline(it.rect.l, it.rect.r - 1.0, it.rect.b - 1.0, 0x2e));
+                continue;
+            }
+            let baseline = it.rect.b - 2.0;
+            if it.checkable {
+                // `BTN_util_element(l + 8, b + 6, 109, 187|206, 9, 9)`: an 18x18 atlas element
+                // centred on texel (109, v) in GL texture space, i.e. image rows 512 − v ± 9.
+                // v = 187 is the unchecked mark, 206 the checked one.
+                let v = if checked(it.id) { 206.0 } else { 187.0 };
+                l.push(Layer {
+                    view: self.atlas.clone(),
+                    rect: [it.rect.l + 8.0 - 9.0, it.rect.b - 6.0 - 9.0, 18.0, 18.0],
+                    tint: [1.0; 4],
+                    src: Some([100.0, 512.0 - v - 9.0, 118.0, 512.0 - v + 9.0]),
+                    linear: false,
+                });
+            }
+            l.push(self.text_at(
+                device,
+                queue,
+                &it.text,
+                [it.rect.l + TEXT_INSET, baseline],
+                text_rgb,
+            )?);
+            if !it.key.is_empty() {
+                l.push(self.text_right(
+                    device,
+                    queue,
+                    &format!("[{}]", it.key),
+                    [it.rect.r - KEY_INSET, baseline],
+                    text_rgb,
+                )?);
+            }
+        }
+        Ok(l)
+    }
+
     /// The menu bar across the top of a screen `width` pixels wide.
     ///
     /// Background: `mbar_draw_menu_bar` draws it with `BTN_frame1(0x48, …)`; the pixels are the
@@ -375,6 +505,7 @@ impl Ui {
         device: &wgpu::Device,
         queue: &wgpu::Queue,
         width: f32,
+        menus: &[xp_core::menu::Menu],
     ) -> Result<Vec<Layer>> {
         const CAP: f32 = 3.0;
         let cell = |x: f32, w: f32, l: f32, r: f32| Layer {
@@ -389,16 +520,13 @@ impl Ui {
             cell(CAP, width - 2.0 * CAP, 50.0, 51.0),
             cell(width - CAP, CAP, 98.0, 101.0),
         ];
-        let mut item_x = 0.0f64;
-        for title in MENU_TITLES {
-            let (view, baseline, advance) = self.text(device, queue, title, [255; 3])?;
-            let layer = Layer::bitmap(
+        for m in menus {
+            let (view, baseline, _) = self.text(device, queue, &m.title, [255; 3])?;
+            layers.push(Layer::bitmap(
                 view,
-                [item_x as f32 + MENU_TEXT_INSET, MENU_BASELINE_Y - baseline],
+                [m.title_rect.l + MENU_TEXT_INSET, MENU_BASELINE_Y - baseline],
                 [1.0; 4],
-            );
-            layers.push(layer);
-            item_x += advance + MENU_ITEM_GAP;
+            ));
         }
         Ok(layers)
     }

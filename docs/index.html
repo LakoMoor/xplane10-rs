@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>xplane10-rs — X-Plane 10 in Rust</title>
+<link rel="icon" href="icon.png">
 <meta name="description" content="An independent Rust + wgpu runtime that loads an X-Plane 10.51 installation and is checked, pixel by pixel, against the original.">
 <style>
 :root{--bg:#0b1118;--panel:#121b26;--line:#223244;--ink:#e6edf5;--dim:#93a4b8;--accent:#5fb4ff;--ok:#5fd38d;--warn:#f2b866}
@@ -43,18 +44,18 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <body>
 <div class="wrap">
 <header>
-  <span class="tag">Early development · not playable yet</span>
+  <img src="icon.png" alt="" width="72" height="72" style="border-radius:16px;display:block;margin-bottom:14px"><span class="tag">Early development · not playable yet</span>
   <h1>X-Plane 10, rebuilt in Rust</h1>
   <p class="lead">An independent Rust + wgpu runtime that loads your own X-Plane 10.51 installation and is checked against the original, pixel by pixel. No game content is included.</p>
-  <p class="btns"><a class="primary" href="https://github.com/LakoMoor/xplane10-rs">Source on GitHub</a><a href="#progress">Progress</a><a href="#shots">Screenshots</a></p>
+  <p class="btns"><a class="primary" href="https://github.com/LakoMoor/xplane10-rs/releases/latest">Download for macOS</a><a href="https://github.com/LakoMoor/xplane10-rs">Source on GitHub</a><a href="#progress">Progress</a><a href="#shots">Screenshots</a></p>
   <div class="hero"><img src="parity/11_windowed_app.png" alt="The port's own window: the Cessna 172SP cockpit panel at Seattle-Tacoma runway 34R" width="1024" height="800"></div>
   <p class="small dim">The port's own window today: the default Cessna's 2-D panel on runway 34R at KSEA. Instrument faces are in place; needles, sky and terrain are not.</p>
 </header>
 
 <h2 id="progress">How much is ported</h2>
 <div class="grid">
-  <div class="card"><div class="big">≈ 15 %</div><div class="dim">implemented</div><div class="bar"><i style="width:15%"></i></div></div>
-  <div class="card"><div class="big">≈ 7 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:7%"></i></div></div>
+  <div class="card"><div class="big">≈ 17 %</div><div class="dim">implemented</div><div class="bar"><i style="width:17%"></i></div></div>
+  <div class="card"><div class="big">≈ 9 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:9%"></i></div></div>
   <div class="card"><div class="big">99.0 %</div><div class="dim">of loading-screen pixels identical to the original's</div></div>
 </div>
 <p class="small dim">The two percentages are a <b>self-assessed estimate</b>, not a measurement: each subsystem below is weighted by how much of the simulator it is, and scored by hand. “Verified” counts only what has been compared with the running original's own output.</p>
@@ -66,7 +67,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <tr><td>Content formats</td><td class="n">10</td><td class="n">70 %</td><td class="n">15 %</td><td>ACF, OBJ8, apt.dat, PNG, DDS read across the whole install; DSF terrain only framed.</td></tr>
 <tr><td>2-D cockpit panel</td><td class="n">10</td><td class="n">20 %</td><td class="n">10 %</td><td>All 76 Cessna instrument faces placed from the original's own table; no needles or displays.</td></tr>
 <tr><td>Systems, datarefs, avionics</td><td class="n">8</td><td class="n">2 %</td><td class="n">2 %</td><td>GPS airport database reproduces the original's count exactly (19 186).</td></tr>
-<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">5 %</td><td class="n">5 %</td><td>Menu bar only. No drop-downs, and no start-up aircraft chooser yet.</td></tr>
+<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">35 %</td><td class="n">25 %</td><td>Menu bar and all drop-downs from the original's own menu file, laid out and drawn by its decompiled rules; every item's action recovered. Open-aircraft dialog works; the other 19 windows are not ported.</td></tr>
 <tr><td>Sound, plugins, network, ATC</td><td class="n">5</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started.</td></tr>
 <tr><td>Loading screen</td><td class="n">3</td><td class="n">85 %</td><td class="n">85 %</td><td>Picture, text, bands and progress bar match the original.</td></tr>
 </table></div>
@@ -74,7 +75,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <h2 id="match">What already matches the original</h2>
 <div class="grid">
   <div class="card"><h3>Loading screen</h3><p class="small dim">99.0 % of pixels identical, 99.7 % within 8 of 255. The picture area is identical everywhere.</p></div>
-  <div class="card"><h3>Menu bar</h3><p class="small dim">96.3 % of the bar's pixels identical, 98.8 % within 2 of 255.</p></div>
+  <div class="card"><h3>Menus</h3><p class="small dim">Bar 99.8 % within 4 of 255. Drop-downs land on the original's pixels: frame edges, text, separators, key shortcuts.</p></div>
   <div class="card"><h3>GPS airport database</h3><p class="small dim">19 186 airports added — the number the original logs — from 34 744 in the install.</p></div>
   <div class="card"><h3>Wing build-up</h3><p class="small dim">All 94 lines the original prints about the Cessna's eight wings' strips — areas, chords, incidences — reproduced verbatim.</p></div>
   <div class="card"><h3>Coordinates</h3><p class="small dim">The ported lat/lon → scene transform lands runway 34R within a metre of where the original puts it.</p></div>
@@ -83,6 +84,8 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <h2 id="shots">Screenshots of the port</h2>
 <p class="dim">Every rendering change is recorded as a frame of the port, taken with the original's own camera, and compared with the original's frame. Newest first.</p>
 <div class="shots">
+  <div class="shot"><img loading="lazy" src="parity/16_menu_view.png" alt="View menu open" width="1024" height="768"><p><b>View menu</b>, laid out and drawn by the original's own rules: check mark on the current view, key shortcuts from its key file.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/14_menu_file.png" alt="File menu" width="1024" height="768"><p><b>File menu.</b> Same frame, separators and <code>[SHIFT-space]</code> keys as the original's own frame.</p></div>
   <div class="shot"><img loading="lazy" src="parity/12_cockpit_gamma_menubar.png" alt="Cockpit view with menu bar" width="1024" height="768"><p><b>Cockpit and menu bar.</b> 47.6 % of the frame within 16 of 255 of the original; the missing half is sky, terrain, needles and displays.</p></div>
   <div class="shot"><img loading="lazy" src="parity/10_loading_screen.png" alt="Loading screen" width="1024" height="768"><p><b>Loading screen.</b> 99.0 % of pixels identical to the original's.</p></div>
   <div class="shot"><img loading="lazy" src="parity/06_cockpit_all_instrument_bases.png" alt="All instrument faces" width="1024" height="768"><p><b>All 76 instrument faces</b>, found through the instrument table read out of the original.</p></div>
@@ -104,7 +107,8 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 cargo run -p xp                                  # window: loading screen, then the cockpit
 cargo run -p xp -- --list-aircraft               # aircraft found in the install
 cargo run -p xp -- --aircraft "Aircraft/General Aviation/Baron B58/Baron_58.acf"</code></pre>
-<p class="small dim">In the window, <code>[</code> and <code>]</code> step through the installed aircraft. That is a stand-in: the original's aircraft chooser is a dialog, which is not ported yet. Nothing flies — there is no flight model.</p>
+<p>Or download the macOS app from the <a href="https://github.com/LakoMoor/xplane10-rs/releases/latest">latest release</a>: it finds your X-Plane 10 folder by itself (next to the app, in the usual places, or with Spotlight).</p>
+<p class="small dim">The window opens on the aircraft dialog; the menus work (Aircraft &gt; Open Aircraft, View &gt; Chase / Forwards with Panel, File &gt; Quit). Nothing flies yet — the flight model is being ported.</p>
 
 <footer>
   <p>Independent project, not affiliated with or endorsed by Laminar Research. X-Plane is a trademark of its owner. Screenshots show content from a user's own installation; none of it is distributed here.</p>

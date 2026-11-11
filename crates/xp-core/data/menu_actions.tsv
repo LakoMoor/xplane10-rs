@@ -1,0 +1,82 @@
+# item_id	kind	value	command — what APP_handlemenu (oracle 0x1005de650) does for each menu item id;
+# kind 'win' = wins_class::start_win(value), 'cmd' = cmnd_class::single_press(value). Recovered from the
+# dispatcher's control flow (tests/original_patch/re/menu_actions.py) and cross-checked with the decompile.
+0	special	0	MACIBM_about()
+600	special	0	ioui_class::opensave_modal_livery() — the Open dialog
+302	special	0	save situation (opensave_modal 1000, IO_sta)
+303	special	0	load situation (opensave_modal 999, init_flight_from_situation_file)
+305	special	0	save replay
+306	special	0	load replay (init_flight_from_replay_file)
+1	win	19	
+300	win	22	
+308	win	12	
+309	win	13	
+311	cmd	2	sim/operation/screenshot
+312	cmd	1150	sim/operation/video_record_toggle
+313	cmd	1151	sim/operation/configure_video_recording
+315	cmd	1163	sim/operation/toggle_logbook
+317	cmd	1	sim/operation/quit
+602	win	6	
+603	win	7	
+604	win	8	
+606	cmd	1170	sim/operation/toggle_ai_flies
+607	cmd	1197	sim/view/ai_controls_views
+609	cmd	599	sim/flight_controls/smoke_toggle
+610	cmd	1230	sim/view/3d_path_toggle
+611	cmd	1231	sim/view/3d_path_reset
+613	cmd	1152	sim/replay/replay_toggle
+900	win	1	
+901	win	16	
+902	win	17	
+1200	win	4	
+1201	win	5	
+1500	win	2	
+1501	win	3	
+1503	win	14	
+1504	win	10	
+1505	win	9	
+1507	win	15	
+1800	cmd	1199	sim/view/forward_with_panel
+1801	cmd	1200	sim/view/forward_with_hud
+1802	cmd	1201	sim/view/forward_with_nothing
+1804	cmd	1210	sim/view/3d_cockpit_cmnd_look
+1806	cmd	1207	sim/view/ridealong
+1807	cmd	1209	sim/view/chase
+1808	cmd	1205	sim/view/circle
+1809	cmd	1203	sim/view/still_spot
+1810	cmd	1202	sim/view/linear_spot
+1812	cmd	1206	sim/view/tower
+1813	cmd	1204	sim/view/runway
+1814	cmd	1208	sim/view/track_weapon
+1815	cmd	1198	sim/view/free_camera
+1817	cmd	1255	sim/general/left
+1818	cmd	1256	sim/general/right
+1820	cmd	1258	sim/general/down
+1821	cmd	1259	sim/general/forward
+1822	cmd	1260	sim/general/backward
+1824	cmd	1289	sim/general/rot_left
+1825	cmd	1290	sim/general/rot_right
+1826	cmd	1287	sim/general/rot_up
+1827	cmd	1288	sim/general/rot_down
+1828	cmd	1261	sim/general/zoom_in
+1829	cmd	1262	sim/general/zoom_out
+1831	cmd	1212	sim/view/cinema_verite
+1833	cmd	1214	sim/view/night_vision
+1834	cmd	1215	sim/view/flashlight_red
+2100	cmd	5	sim/operation/stab_deriv_pitch
+2101	cmd	6	sim/operation/stab_deriv_heading
+2103	cmd	1232	sim/view/show_physics_model
+2104	cmd	4	sim/operation/cycle_dump
+2107	cmd	1165	sim/operation/text_file_toggle
+2110	cmd	1166	sim/operation/checklist_toggle
+2112	cmd	17	sim/operation/toggle_controllers_window
+2114	win	20	
+2115	cmd	1299	sim/general/toggle_artificial_stab_win
+2116	cmd	1300	sim/general/toggle_autopilot_constants_win
+2117	cmd	1301	sim/general/toggle_fadec_win
+2118	cmd	1302	sim/general/toggle_control_deflections_win
+2119	cmd	1303	sim/general/toggle_bouncers_win
+2120	cmd	1304	sim/general/toggle_weapon_guidance_win
+2121	cmd	1305	sim/general/toggle_projection_win
+2122	cmd	1306	sim/operation/toggle_sky_colors_win
+2123	cmd	11	sim/operation/dev_console

@@ -1,0 +1,1308 @@
+# index	enum	command	description	low32	default_key	q4 — the oracle's _default_commands table (0x1028befe0, 40-byte rows), build 105101
+0	cmnd_nothing	sim/none/none	Do nothing at all!	3	0	0
+1	cmnd_quit	sim/operation/quit	Quit the simulation.	2	0	0
+2	cmnd_scrshot	sim/operation/screenshot	Take a screenshot.	2	32	1
+3	cmnd_regen_wxr	sim/operation/regen_weather	Regenerate Weather.	2	0	0
+4	cmnd_cycle_dump	sim/operation/cycle_dump	Print out a cycle dump for this frame.	2	77	1
+5	cmnd_stab_ptch	sim/operation/stab_deriv_pitch	Print longitudinal stability derivative.	2	0	0
+6	cmnd_stab_hdng	sim/operation/stab_deriv_heading	Print lateral stability derivative.	2	0	0
+7	cmnd_recording	sim/operation/recording	Toggle user interaction recording pane.	2	0	0
+8	cmnd_snap_marker	sim/operation/create_snap_marker	Drop a snapshot marker for replay mode.	2	88	4
+9	cmnd_test_data_ref	sim/operation/test_data_ref	Test dataref: Run from 0 to 1 and back	2	183	4
+10	cmnd_show_fps	sim/operation/show_fps	Toggle displaying the simulator's frames per second onscreen.	2	70	5
+11	cmnd_show_console	sim/operation/dev_console	Toggle dev console.	2	0	0
+12	cmnd_tog_full_screen	sim/operation/toggle_full_screen	Toggle full-screen mode.	2	0	0
+13	cmnd_load_acf	sim/operation/load_aircraft	Load an airplane.	2	0	0
+14	cmnd_scan_wxr	sim/operation/load_real_weather	Scan real weather files.	2	0	0
+15	cmnd_fail_now	sim/operation/fail_system	Fail selected in failures screen.	3	70	4
+16	cmnd_panelshot	sim/operation/make_panel_previews	Makes screenshots of your panels.	2	32	7
+17	cmnd_tog_controllers	sim/operation/toggle_controllers_window	Toggle list of nearby ATC.	2	65	0
+18	cmnd_close_windows	sim/operation/close_windows	Close any windows to get back to cockpit.	2	0	0
+19	cmnd_sit_1	sim/operation/load_situation_1	Load situation	3	0	0
+20	cmnd_sit_2	sim/operation/load_situation_2	Load situation	3	0	0
+21	cmnd_sit_3	sim/operation/load_situation_3	Load situation	3	0	0
+22	cmnd_trackir_toggle	sim/view/track-ir_toggle	Toggle Track-IR control.	2	0	0
+23	cmnd_oculus_reset	sim/view/oculus_reset	Reset your Oculus Rift head orientation.	2	0	0
+24	cmnd_oculus_ipd_inc	sim/view/oculus_IPD_inc	Increase eye distance for Oculus Rift.	2	0	0
+25	cmnd_oculus_ipd_dec	sim/view/oculus_IPD_dec	Decrease eye distance for Oculus Rift.	2	0	0
+26	cmnd_oculus_pred_tog	sim/view/oculus_predict_toggle	Toggle motion prediction for Oculus Rift.	2	0	0
+27	cmnd_map	sim/map/show_current	Bring up the map.	2	77	0
+28	cmnd_map_loen	sim/map/show_low_enroute	Bring up the low enroute map.	2	0	0
+29	cmnd_map_hien	sim/map/show_high_enroute	Bring up the high enroute map.	2	0	0
+30	cmnd_map_sect	sim/map/show_sectional	Bring up the sectional map.	2	0	0
+31	cmnd_map_text	sim/map/show_textured	Bring up the textured map.	2	0	0
+32	cmnd_slider_01	sim/operation/slider_01	Slider #1 On/Off control.	2	112	1
+33	cmnd_slider_02	sim/operation/slider_02	Slider #2 On/Off control.	2	113	1
+34	cmnd_slider_03	sim/operation/slider_03	Slider #3 On/Off control.	2	114	1
+35	cmnd_slider_04	sim/operation/slider_04	Slider #4 On/Off control.	2	115	1
+36	cmnd_slider_05	sim/operation/slider_05	Slider #5 On/Off control.	2	116	1
+37	cmnd_slider_06	sim/operation/slider_06	Slider #6 On/Off control.	2	117	1
+38	cmnd_slider_07	sim/operation/slider_07	Slider #7 On/Off control.	2	118	1
+39	cmnd_slider_08	sim/operation/slider_08	Slider #8 On/Off control.	2	119	1
+40	cmnd_slider_09	sim/operation/slider_09	Slider #9 On/Off control.	2	120	1
+41	cmnd_slider_10	sim/operation/slider_10	Slider #10 On/Off control.	2	121	1
+42	cmnd_slider_11	sim/operation/slider_11	Slider #11 On/Off control.	2	122	1
+43	cmnd_slider_12	sim/operation/slider_12	Slider #12 On/Off control.	2	123	1
+44	cmnd_slider_13	sim/operation/slider_13	Slider #13 On/Off control.	2	124	1
+45	cmnd_slider_14	sim/operation/slider_14	Slider #14 On/Off control.	2	125	1
+46	cmnd_slider_15	sim/operation/slider_15	Slider #15 On/Off control.	2	126	1
+47	cmnd_slider_16	sim/operation/slider_16	Slider #16 On/Off control.	2	127	1
+48	cmnd_slider_17	sim/operation/slider_17	Slider #17 On/Off control.	2	0	0
+49	cmnd_slider_18	sim/operation/slider_18	Slider #18 On/Off control.	2	0	0
+50	cmnd_slider_19	sim/operation/slider_19	Slider #19 On/Off control.	2	0	0
+51	cmnd_slider_20	sim/operation/slider_20	Slider #20 On/Off control.	2	0	0
+52	cmnd_slider_21	sim/operation/slider_21	Slider #21 On/Off control.	2	0	0
+53	cmnd_slider_22	sim/operation/slider_22	Slider #22 On/Off control.	2	0	0
+54	cmnd_slider_23	sim/operation/slider_23	Slider #23 On/Off control.	2	0	0
+55	cmnd_slider_24	sim/operation/slider_24	Slider #24 On/Off control.	2	0	0
+56	cmnd_mag_1_dn	sim/magnetos/magnetos_down_1	Magnetos down one notch for engine #1.	2	0	0
+57	cmnd_mag_2_dn	sim/magnetos/magnetos_down_2	Magnetos down one notch for engine #2.	2	0	0
+58	cmnd_mag_3_dn	sim/magnetos/magnetos_down_3	Magnetos down one notch for engine #3.	2	0	0
+59	cmnd_mag_4_dn	sim/magnetos/magnetos_down_4	Magnetos down one notch for engine #4.	2	0	0
+60	cmnd_mag_5_dn	sim/magnetos/magnetos_down_5	Magnetos down one notch for engine #5.	2	0	0
+61	cmnd_mag_6_dn	sim/magnetos/magnetos_down_6	Magnetos down one notch for engine #6.	2	0	0
+62	cmnd_mag_7_dn	sim/magnetos/magnetos_down_7	Magnetos down one notch for engine #7.	2	0	0
+63	cmnd_mag_8_dn	sim/magnetos/magnetos_down_8	Magnetos down one notch for engine #8.	2	0	0
+64	cmnd_mag_1_up	sim/magnetos/magnetos_up_1	Magnetos up one notch for engine #1.	2	0	0
+65	cmnd_mag_2_up	sim/magnetos/magnetos_up_2	Magnetos up one notch for engine #2.	2	0	0
+66	cmnd_mag_3_up	sim/magnetos/magnetos_up_3	Magnetos up one notch for engine #3.	2	0	0
+67	cmnd_mag_4_up	sim/magnetos/magnetos_up_4	Magnetos up one notch for engine #4.	2	0	0
+68	cmnd_mag_5_up	sim/magnetos/magnetos_up_5	Magnetos up one notch for engine #5.	2	0	0
+69	cmnd_mag_6_up	sim/magnetos/magnetos_up_6	Magnetos up one notch for engine #6.	2	0	0
+70	cmnd_mag_7_up	sim/magnetos/magnetos_up_7	Magnetos up one notch for engine #7.	2	0	0
+71	cmnd_mag_8_up	sim/magnetos/magnetos_up_8	Magnetos up one notch for engine #8.	2	0	0
+72	cmnd_mag_1_off	sim/magnetos/magnetos_off_1	Magnetos off for engine #1.	2	0	0
+73	cmnd_mag_2_off	sim/magnetos/magnetos_off_2	Magnetos off for engine #2.	2	0	0
+74	cmnd_mag_3_off	sim/magnetos/magnetos_off_3	Magnetos off for engine #3.	2	0	0
+75	cmnd_mag_4_off	sim/magnetos/magnetos_off_4	Magnetos off for engine #4.	2	0	0
+76	cmnd_mag_5_off	sim/magnetos/magnetos_off_5	Magnetos off for engine #5.	2	0	0
+77	cmnd_mag_6_off	sim/magnetos/magnetos_off_6	Magnetos off for engine #6.	2	0	0
+78	cmnd_mag_7_off	sim/magnetos/magnetos_off_7	Magnetos off for engine #7.	2	0	0
+79	cmnd_mag_8_off	sim/magnetos/magnetos_off_8	Magnetos off for engine #8.	2	0	0
+80	cmnd_mag_1_left	sim/magnetos/magnetos_left_1	Magnetos left for engine #1.	2	0	0
+81	cmnd_mag_2_left	sim/magnetos/magnetos_left_2	Magnetos left for engine #2.	2	0	0
+82	cmnd_mag_3_left	sim/magnetos/magnetos_left_3	Magnetos left for engine #3.	2	0	0
+83	cmnd_mag_4_left	sim/magnetos/magnetos_left_4	Magnetos left for engine #4.	2	0	0
+84	cmnd_mag_5_left	sim/magnetos/magnetos_left_5	Magnetos left for engine #5.	2	0	0
+85	cmnd_mag_6_left	sim/magnetos/magnetos_left_6	Magnetos left for engine #6.	2	0	0
+86	cmnd_mag_7_left	sim/magnetos/magnetos_left_7	Magnetos left for engine #7.	2	0	0
+87	cmnd_mag_8_left	sim/magnetos/magnetos_left_8	Magnetos left for engine #8.	2	0	0
+88	cmnd_mag_1_right	sim/magnetos/magnetos_right_1	Magnetos right for engine #1.	2	0	0
+89	cmnd_mag_2_right	sim/magnetos/magnetos_right_2	Magnetos right for engine #2.	2	0	0
+90	cmnd_mag_3_right	sim/magnetos/magnetos_right_3	Magnetos right for engine #3.	2	0	0
+91	cmnd_mag_4_right	sim/magnetos/magnetos_right_4	Magnetos right for engine #4.	2	0	0
+92	cmnd_mag_5_right	sim/magnetos/magnetos_right_5	Magnetos right for engine #5.	2	0	0
+93	cmnd_mag_6_right	sim/magnetos/magnetos_right_6	Magnetos right for engine #6.	2	0	0
+94	cmnd_mag_7_right	sim/magnetos/magnetos_right_7	Magnetos right for engine #7.	2	0	0
+95	cmnd_mag_8_right	sim/magnetos/magnetos_right_8	Magnetos right for engine #8.	2	0	0
+96	cmnd_mag_1_both	sim/magnetos/magnetos_both_1	Magnetos both for engine #1.	2	0	0
+97	cmnd_mag_2_both	sim/magnetos/magnetos_both_2	Magnetos both for engine #2.	2	0	0
+98	cmnd_mag_3_both	sim/magnetos/magnetos_both_3	Magnetos both for engine #3.	2	0	0
+99	cmnd_mag_4_both	sim/magnetos/magnetos_both_4	Magnetos both for engine #4.	2	0	0
+100	cmnd_mag_5_both	sim/magnetos/magnetos_both_5	Magnetos both for engine #5.	2	0	0
+101	cmnd_mag_6_both	sim/magnetos/magnetos_both_6	Magnetos both for engine #6.	2	0	0
+102	cmnd_mag_7_both	sim/magnetos/magnetos_both_7	Magnetos both for engine #7.	2	0	0
+103	cmnd_mag_8_both	sim/magnetos/magnetos_both_8	Magnetos both for engine #8.	2	0	0
+104	cmnd_igniter_darm_1	sim/igniters/igniter_arm_off_1	Igniter #1 arm off.	2	0	0
+105	cmnd_igniter_darm_2	sim/igniters/igniter_arm_off_2	Igniter #2 arm off.	2	0	0
+106	cmnd_igniter_darm_3	sim/igniters/igniter_arm_off_3	Igniter #3 arm off.	2	0	0
+107	cmnd_igniter_darm_4	sim/igniters/igniter_arm_off_4	Igniter #4 arm off.	2	0	0
+108	cmnd_igniter_darm_5	sim/igniters/igniter_arm_off_5	Igniter #5 arm off.	2	0	0
+109	cmnd_igniter_darm_6	sim/igniters/igniter_arm_off_6	Igniter #6 arm off.	2	0	0
+110	cmnd_igniter_darm_7	sim/igniters/igniter_arm_off_7	Igniter #7 arm off.	2	0	0
+111	cmnd_igniter_darm_8	sim/igniters/igniter_arm_off_8	Igniter #8 arm off.	2	0	0
+112	cmnd_igniter_arm_1	sim/igniters/igniter_arm_on_1	Igniter #1 arm on.	2	0	0
+113	cmnd_igniter_arm_2	sim/igniters/igniter_arm_on_2	Igniter #2 arm on.	2	0	0
+114	cmnd_igniter_arm_3	sim/igniters/igniter_arm_on_3	Igniter #3 arm on.	2	0	0
+115	cmnd_igniter_arm_4	sim/igniters/igniter_arm_on_4	Igniter #4 arm on.	2	0	0
+116	cmnd_igniter_arm_5	sim/igniters/igniter_arm_on_5	Igniter #5 arm on.	2	0	0
+117	cmnd_igniter_arm_6	sim/igniters/igniter_arm_on_6	Igniter #6 arm on.	2	0	0
+118	cmnd_igniter_arm_7	sim/igniters/igniter_arm_on_7	Igniter #7 arm on.	2	0	0
+119	cmnd_igniter_arm_8	sim/igniters/igniter_arm_on_8	Igniter #8 arm on.	2	0	0
+120	cmnd_igniter_off_1	sim/igniters/igniter_contin_off_1	Igniter #1 contin-ignition off.	2	0	0
+121	cmnd_igniter_off_2	sim/igniters/igniter_contin_off_2	Igniter #2 contin-ignition off.	2	0	0
+122	cmnd_igniter_off_3	sim/igniters/igniter_contin_off_3	Igniter #3 contin-ignition off.	2	0	0
+123	cmnd_igniter_off_4	sim/igniters/igniter_contin_off_4	Igniter #4 contin-ignition off.	2	0	0
+124	cmnd_igniter_off_5	sim/igniters/igniter_contin_off_5	Igniter #5 contin-ignition off.	2	0	0
+125	cmnd_igniter_off_6	sim/igniters/igniter_contin_off_6	Igniter #6 contin-ignition off.	2	0	0
+126	cmnd_igniter_off_7	sim/igniters/igniter_contin_off_7	Igniter #7 contin-ignition off.	2	0	0
+127	cmnd_igniter_off_8	sim/igniters/igniter_contin_off_8	Igniter #8 contin-ignition off.	2	0	0
+128	cmnd_igniter_on_1	sim/igniters/igniter_contin_on_1	Igniter #1 contin-ignition on.	2	0	0
+129	cmnd_igniter_on_2	sim/igniters/igniter_contin_on_2	Igniter #2 contin-ignition on.	2	0	0
+130	cmnd_igniter_on_3	sim/igniters/igniter_contin_on_3	Igniter #3 contin-ignition on.	2	0	0
+131	cmnd_igniter_on_4	sim/igniters/igniter_contin_on_4	Igniter #4 contin-ignition on.	2	0	0
+132	cmnd_igniter_on_5	sim/igniters/igniter_contin_on_5	Igniter #5 contin-ignition on.	2	0	0
+133	cmnd_igniter_on_6	sim/igniters/igniter_contin_on_6	Igniter #6 contin-ignition on.	2	0	0
+134	cmnd_igniter_on_7	sim/igniters/igniter_contin_on_7	Igniter #7 contin-ignition on.	2	0	0
+135	cmnd_igniter_on_8	sim/igniters/igniter_contin_on_8	Igniter #8 contin-ignition on.	2	0	0
+136	cmnd_start_1	sim/starters/engage_starter_1	Engage starter #1.	3	49	4
+137	cmnd_start_2	sim/starters/engage_starter_2	Engage starter #2.	3	50	4
+138	cmnd_start_3	sim/starters/engage_starter_3	Engage starter #3.	2	51	4
+139	cmnd_start_4	sim/starters/engage_starter_4	Engage starter #4.	2	52	4
+140	cmnd_start_5	sim/starters/engage_starter_5	Engage starter #5.	2	53	4
+141	cmnd_start_6	sim/starters/engage_starter_6	Engage starter #6.	2	54	4
+142	cmnd_start_7	sim/starters/engage_starter_7	Engage starter #7.	2	55	4
+143	cmnd_start_8	sim/starters/engage_starter_8	Engage starter #8.	2	56	4
+144	cmnd_thro_1_dn	sim/engines/throttle_down_1	Throttle down a bit for engine #1.	2	0	0
+145	cmnd_thro_2_dn	sim/engines/throttle_down_2	Throttle down a bit for engine #2.	2	0	0
+146	cmnd_thro_3_dn	sim/engines/throttle_down_3	Throttle down a bit for engine #3.	2	0	0
+147	cmnd_thro_4_dn	sim/engines/throttle_down_4	Throttle down a bit for engine #4.	2	0	0
+148	cmnd_thro_5_dn	sim/engines/throttle_down_5	Throttle down a bit for engine #5.	2	0	0
+149	cmnd_thro_6_dn	sim/engines/throttle_down_6	Throttle down a bit for engine #6.	2	0	0
+150	cmnd_thro_7_dn	sim/engines/throttle_down_7	Throttle down a bit for engine #7.	2	0	0
+151	cmnd_thro_8_dn	sim/engines/throttle_down_8	Throttle down a bit for engine #8.	2	0	0
+152	cmnd_thro_1_up	sim/engines/throttle_up_1	Throttle up a bit for engine #1.	2	0	0
+153	cmnd_thro_2_up	sim/engines/throttle_up_2	Throttle up a bit for engine #2.	2	0	0
+154	cmnd_thro_3_up	sim/engines/throttle_up_3	Throttle up a bit for engine #3.	2	0	0
+155	cmnd_thro_4_up	sim/engines/throttle_up_4	Throttle up a bit for engine #4.	2	0	0
+156	cmnd_thro_5_up	sim/engines/throttle_up_5	Throttle up a bit for engine #5.	2	0	0
+157	cmnd_thro_6_up	sim/engines/throttle_up_6	Throttle up a bit for engine #6.	2	0	0
+158	cmnd_thro_7_up	sim/engines/throttle_up_7	Throttle up a bit for engine #7.	2	0	0
+159	cmnd_thro_8_up	sim/engines/throttle_up_8	Throttle up a bit for engine #8.	2	0	0
+160	cmnd_prop_1_dn	sim/engines/prop_down_1	Prop down a bit for engine #1.	2	0	0
+161	cmnd_prop_2_dn	sim/engines/prop_down_2	Prop down a bit for engine #2.	2	0	0
+162	cmnd_prop_3_dn	sim/engines/prop_down_3	Prop down a bit for engine #3.	2	0	0
+163	cmnd_prop_4_dn	sim/engines/prop_down_4	Prop down a bit for engine #4.	2	0	0
+164	cmnd_prop_5_dn	sim/engines/prop_down_5	Prop down a bit for engine #5.	2	0	0
+165	cmnd_prop_6_dn	sim/engines/prop_down_6	Prop down a bit for engine #6.	2	0	0
+166	cmnd_prop_7_dn	sim/engines/prop_down_7	Prop down a bit for engine #7.	2	0	0
+167	cmnd_prop_8_dn	sim/engines/prop_down_8	Prop down a bit for engine #8.	2	0	0
+168	cmnd_prop_1_up	sim/engines/prop_up_1	Prop up a bit for engine #1.	2	0	0
+169	cmnd_prop_2_up	sim/engines/prop_up_2	Prop up a bit for engine #2.	2	0	0
+170	cmnd_prop_3_up	sim/engines/prop_up_3	Prop up a bit for engine #3.	2	0	0
+171	cmnd_prop_4_up	sim/engines/prop_up_4	Prop up a bit for engine #4.	2	0	0
+172	cmnd_prop_5_up	sim/engines/prop_up_5	Prop up a bit for engine #5.	2	0	0
+173	cmnd_prop_6_up	sim/engines/prop_up_6	Prop up a bit for engine #6.	2	0	0
+174	cmnd_prop_7_up	sim/engines/prop_up_7	Prop up a bit for engine #7.	2	0	0
+175	cmnd_prop_8_up	sim/engines/prop_up_8	Prop up a bit for engine #8.	2	0	0
+176	cmnd_mixt_1_dn	sim/engines/mixture_down_1	Mixure down a bit for engine #1.	2	0	0
+177	cmnd_mixt_2_dn	sim/engines/mixture_down_2	Mixure down a bit for engine #2.	2	0	0
+178	cmnd_mixt_3_dn	sim/engines/mixture_down_3	Mixure down a bit for engine #3.	2	0	0
+179	cmnd_mixt_4_dn	sim/engines/mixture_down_4	Mixure down a bit for engine #4.	2	0	0
+180	cmnd_mixt_5_dn	sim/engines/mixture_down_5	Mixure down a bit for engine #5.	2	0	0
+181	cmnd_mixt_6_dn	sim/engines/mixture_down_6	Mixure down a bit for engine #6.	2	0	0
+182	cmnd_mixt_7_dn	sim/engines/mixture_down_7	Mixure down a bit for engine #7.	2	0	0
+183	cmnd_mixt_8_dn	sim/engines/mixture_down_8	Mixure down a bit for engine #8.	2	0	0
+184	cmnd_mixt_1_up	sim/engines/mixture_up_1	Mixure up a bit for engine #1.	2	0	0
+185	cmnd_mixt_2_up	sim/engines/mixture_up_2	Mixure up a bit for engine #2.	2	0	0
+186	cmnd_mixt_3_up	sim/engines/mixture_up_3	Mixure up a bit for engine #3.	2	0	0
+187	cmnd_mixt_4_up	sim/engines/mixture_up_4	Mixure up a bit for engine #4.	2	0	0
+188	cmnd_mixt_5_up	sim/engines/mixture_up_5	Mixure up a bit for engine #5.	2	0	0
+189	cmnd_mixt_6_up	sim/engines/mixture_up_6	Mixure up a bit for engine #6.	2	0	0
+190	cmnd_mixt_7_up	sim/engines/mixture_up_7	Mixure up a bit for engine #7.	2	0	0
+191	cmnd_mixt_8_up	sim/engines/mixture_up_8	Mixure up a bit for engine #8.	2	0	0
+192	cmnd_beta_1_togg	sim/engines/beta_toggle_1	Toggle Beta prop #1.	2	0	0
+193	cmnd_beta_2_togg	sim/engines/beta_toggle_2	Toggle Beta prop #2.	2	0	0
+194	cmnd_beta_3_togg	sim/engines/beta_toggle_3	Toggle Beta prop #3.	2	0	0
+195	cmnd_beta_4_togg	sim/engines/beta_toggle_4	Toggle Beta prop #4.	2	0	0
+196	cmnd_beta_5_togg	sim/engines/beta_toggle_5	Toggle Beta prop #5.	2	0	0
+197	cmnd_beta_6_togg	sim/engines/beta_toggle_6	Toggle Beta prop #6.	2	0	0
+198	cmnd_beta_7_togg	sim/engines/beta_toggle_7	Toggle Beta prop #7.	2	0	0
+199	cmnd_beta_8_togg	sim/engines/beta_toggle_8	Toggle Beta prop #8.	2	0	0
+200	cmnd_trev_1_togg	sim/engines/thrust_reverse_toggle_1	Toggle thrust reversers #1.	2	0	0
+201	cmnd_trev_2_togg	sim/engines/thrust_reverse_toggle_2	Toggle thrust reversers #2.	2	0	0
+202	cmnd_trev_3_togg	sim/engines/thrust_reverse_toggle_3	Toggle thrust reversers #3.	2	0	0
+203	cmnd_trev_4_togg	sim/engines/thrust_reverse_toggle_4	Toggle thrust reversers #4.	2	0	0
+204	cmnd_trev_5_togg	sim/engines/thrust_reverse_toggle_5	Toggle thrust reversers #5.	2	0	0
+205	cmnd_trev_6_togg	sim/engines/thrust_reverse_toggle_6	Toggle thrust reversers #6.	2	0	0
+206	cmnd_trev_7_togg	sim/engines/thrust_reverse_toggle_7	Toggle thrust reversers #7.	2	0	0
+207	cmnd_trev_8_togg	sim/engines/thrust_reverse_toggle_8	Toggle thrust reversers #8.	2	0	0
+208	cmnd_trev_1_hold	sim/engines/thrust_reverse_hold_1	Hold thrust reverse at max #1.	2	0	0
+209	cmnd_trev_2_hold	sim/engines/thrust_reverse_hold_2	Hold thrust reverse at max #2.	2	0	0
+210	cmnd_trev_3_hold	sim/engines/thrust_reverse_hold_3	Hold thrust reverse at max #3.	2	0	0
+211	cmnd_trev_4_hold	sim/engines/thrust_reverse_hold_4	Hold thrust reverse at max #4.	2	0	0
+212	cmnd_trev_5_hold	sim/engines/thrust_reverse_hold_5	Hold thrust reverse at max #5.	2	0	0
+213	cmnd_trev_6_hold	sim/engines/thrust_reverse_hold_6	Hold thrust reverse at max #6.	2	0	0
+214	cmnd_trev_7_hold	sim/engines/thrust_reverse_hold_7	Hold thrust reverse at max #7.	2	0	0
+215	cmnd_trev_8_hold	sim/engines/thrust_reverse_hold_8	Hold thrust reverse at max #8.	2	0	0
+216	cmnd_shut_down_1	sim/starters/shut_down_1	Pull fuel and mags for shut-down #1.	2	0	0
+217	cmnd_shut_down_2	sim/starters/shut_down_2	Pull fuel and mags for shut-down #2.	2	0	0
+218	cmnd_shut_down_3	sim/starters/shut_down_3	Pull fuel and mags for shut-down #3.	2	0	0
+219	cmnd_shut_down_4	sim/starters/shut_down_4	Pull fuel and mags for shut-down #4.	2	0	0
+220	cmnd_shut_down_5	sim/starters/shut_down_5	Pull fuel and mags for shut-down #5.	2	0	0
+221	cmnd_shut_down_6	sim/starters/shut_down_6	Pull fuel and mags for shut-down #6.	2	0	0
+222	cmnd_shut_down_7	sim/starters/shut_down_7	Pull fuel and mags for shut-down #7.	2	0	0
+223	cmnd_shut_down_8	sim/starters/shut_down_8	Pull fuel and mags for shut-down #8.	2	0	0
+224	cmnd_cowl_1_closed	sim/flight_controls/cowl_flaps_closed_1	Move cowl flaps 1 closed a bit.	2	0	0
+225	cmnd_cowl_2_closed	sim/flight_controls/cowl_flaps_closed_2	Move cowl flaps 2 closed a bit.	2	0	0
+226	cmnd_cowl_3_closed	sim/flight_controls/cowl_flaps_closed_3	Move cowl flaps 3 closed a bit.	2	0	0
+227	cmnd_cowl_4_closed	sim/flight_controls/cowl_flaps_closed_4	Move cowl flaps 4 closed a bit.	2	0	0
+228	cmnd_cowl_5_closed	sim/flight_controls/cowl_flaps_closed_5	Move cowl flaps 5 closed a bit.	2	0	0
+229	cmnd_cowl_6_closed	sim/flight_controls/cowl_flaps_closed_6	Move cowl flaps 6 closed a bit.	2	0	0
+230	cmnd_cowl_7_closed	sim/flight_controls/cowl_flaps_closed_7	Move cowl flaps 7 closed a bit.	2	0	0
+231	cmnd_cowl_8_closed	sim/flight_controls/cowl_flaps_closed_8	Move cowl flaps 8 closed a bit.	2	0	0
+232	cmnd_cowl_1_open	sim/flight_controls/cowl_flaps_open_1	Move cowl flaps 1 open a bit.	2	0	0
+233	cmnd_cowl_2_open	sim/flight_controls/cowl_flaps_open_2	Move cowl flaps 2 open a bit.	2	0	0
+234	cmnd_cowl_3_open	sim/flight_controls/cowl_flaps_open_3	Move cowl flaps 3 open a bit.	2	0	0
+235	cmnd_cowl_4_open	sim/flight_controls/cowl_flaps_open_4	Move cowl flaps 4 open a bit.	2	0	0
+236	cmnd_cowl_5_open	sim/flight_controls/cowl_flaps_open_5	Move cowl flaps 5 open a bit.	2	0	0
+237	cmnd_cowl_6_open	sim/flight_controls/cowl_flaps_open_6	Move cowl flaps 6 open a bit.	2	0	0
+238	cmnd_cowl_7_open	sim/flight_controls/cowl_flaps_open_7	Move cowl flaps 7 open a bit.	2	0	0
+239	cmnd_cowl_8_open	sim/flight_controls/cowl_flaps_open_8	Move cowl flaps 8 open a bit.	2	0	0
+240	cmnd_fadec_1_off	sim/fadec/fadec_1_off	fadec 1 off.	2	0	0
+241	cmnd_fadec_2_off	sim/fadec/fadec_2_off	fadec 2 off.	2	0	0
+242	cmnd_fadec_3_off	sim/fadec/fadec_3_off	fadec 3 off.	2	0	0
+243	cmnd_fadec_4_off	sim/fadec/fadec_4_off	fadec 4 off.	2	0	0
+244	cmnd_fadec_5_off	sim/fadec/fadec_5_off	fadec 5 off.	2	0	0
+245	cmnd_fadec_6_off	sim/fadec/fadec_6_off	fadec 6 off.	2	0	0
+246	cmnd_fadec_7_off	sim/fadec/fadec_7_off	fadec 7 off.	2	0	0
+247	cmnd_fadec_8_off	sim/fadec/fadec_8_off	fadec 8 off.	2	0	0
+248	cmnd_fadec_1_on	sim/fadec/fadec_1_on	fadec 1 on.	2	0	0
+249	cmnd_fadec_2_on	sim/fadec/fadec_2_on	fadec 2 on.	2	0	0
+250	cmnd_fadec_3_on	sim/fadec/fadec_3_on	fadec 3 on.	2	0	0
+251	cmnd_fadec_4_on	sim/fadec/fadec_4_on	fadec 4 on.	2	0	0
+252	cmnd_fadec_5_on	sim/fadec/fadec_5_on	fadec 5 on.	2	0	0
+253	cmnd_fadec_6_on	sim/fadec/fadec_6_on	fadec 6 on.	2	0	0
+254	cmnd_fadec_7_on	sim/fadec/fadec_7_on	fadec 7 on.	2	0	0
+255	cmnd_fadec_8_on	sim/fadec/fadec_8_on	fadec 8 on.	2	0	0
+256	cmnd_generator_1_off	sim/electrical/generator_1_off	Generator 1 off.	2	0	0
+257	cmnd_generator_2_off	sim/electrical/generator_2_off	Generator 2 off.	2	0	0
+258	cmnd_generator_3_off	sim/electrical/generator_3_off	Generator 3 off.	2	0	0
+259	cmnd_generator_4_off	sim/electrical/generator_4_off	Generator 4 off.	2	0	0
+260	cmnd_generator_5_off	sim/electrical/generator_5_off	Generator 5 off.	2	0	0
+261	cmnd_generator_6_off	sim/electrical/generator_6_off	Generator 6 off.	2	0	0
+262	cmnd_generator_7_off	sim/electrical/generator_7_off	Generator 7 off.	2	0	0
+263	cmnd_generator_8_off	sim/electrical/generator_8_off	Generator 8 off.	2	0	0
+264	cmnd_generator_1_on	sim/electrical/generator_1_on	Generator 1 on.	2	0	0
+265	cmnd_generator_2_on	sim/electrical/generator_2_on	Generator 2 on.	2	0	0
+266	cmnd_generator_3_on	sim/electrical/generator_3_on	Generator 3 on.	2	0	0
+267	cmnd_generator_4_on	sim/electrical/generator_4_on	Generator 4 on.	2	0	0
+268	cmnd_generator_5_on	sim/electrical/generator_5_on	Generator 5 on.	2	0	0
+269	cmnd_generator_6_on	sim/electrical/generator_6_on	Generator 6 on.	2	0	0
+270	cmnd_generator_7_on	sim/electrical/generator_7_on	Generator 7 on.	2	0	0
+271	cmnd_generator_8_on	sim/electrical/generator_8_on	Generator 8 on.	2	0	0
+272	cmnd_generator_1_res	sim/electrical/generator_1_reset	Generator 1 reset.	2	0	0
+273	cmnd_generator_2_res	sim/electrical/generator_2_reset	Generator 2 reset.	2	0	0
+274	cmnd_generator_3_res	sim/electrical/generator_3_reset	Generator 3 reset.	2	0	0
+275	cmnd_generator_4_res	sim/electrical/generator_4_reset	Generator 4 reset.	2	0	0
+276	cmnd_generator_5_res	sim/electrical/generator_5_reset	Generator 5 reset.	2	0	0
+277	cmnd_generator_6_res	sim/electrical/generator_6_reset	Generator 6 reset.	2	0	0
+278	cmnd_generator_7_res	sim/electrical/generator_7_reset	Generator 7 reset.	2	0	0
+279	cmnd_generator_8_res	sim/electrical/generator_8_reset	Generator 8 reset.	2	0	0
+280	cmnd_alt_airA_off_1	sim/altair/alternate_air_off_1	Alternate air #1 off.	2	0	0
+281	cmnd_alt_airA_off_2	sim/altair/alternate_air_off_2	Alternate air #2 off.	2	0	0
+282	cmnd_alt_airA_off_3	sim/altair/alternate_air_off_3	Alternate air #3 off.	2	0	0
+283	cmnd_alt_airA_off_4	sim/altair/alternate_air_off_4	Alternate air #4 off.	2	0	0
+284	cmnd_alt_airA_off_5	sim/altair/alternate_air_off_5	Alternate air #5 off.	2	0	0
+285	cmnd_alt_airA_off_6	sim/altair/alternate_air_off_6	Alternate air #6 off.	2	0	0
+286	cmnd_alt_airA_off_7	sim/altair/alternate_air_off_7	Alternate air #7 off.	2	0	0
+287	cmnd_alt_airA_off_8	sim/altair/alternate_air_off_8	Alternate air #8 off.	2	0	0
+288	cmnd_alt_airA_on_1	sim/altair/alternate_air_on_1	Alternate air #1 on.	2	0	0
+289	cmnd_alt_airA_on_2	sim/altair/alternate_air_on_2	Alternate air #2 on.	2	0	0
+290	cmnd_alt_airA_on_3	sim/altair/alternate_air_on_3	Alternate air #3 on.	2	0	0
+291	cmnd_alt_airA_on_4	sim/altair/alternate_air_on_4	Alternate air #4 on.	2	0	0
+292	cmnd_alt_airA_on_5	sim/altair/alternate_air_on_5	Alternate air #5 on.	2	0	0
+293	cmnd_alt_airA_on_6	sim/altair/alternate_air_on_6	Alternate air #6 on.	2	0	0
+294	cmnd_alt_airA_on_7	sim/altair/alternate_air_on_7	Alternate air #7 on.	2	0	0
+295	cmnd_alt_airA_on_8	sim/altair/alternate_air_on_8	Alternate air #8 on.	2	0	0
+296	cmnd_alt_airB_off_1	sim/altair/alternate_air_backup_off_1	Alternate air backup #1 off.	2	0	0
+297	cmnd_alt_airB_off_2	sim/altair/alternate_air_backup_off_2	Alternate air backup #2 off.	2	0	0
+298	cmnd_alt_airB_off_3	sim/altair/alternate_air_backup_off_3	Alternate air backup #3 off.	2	0	0
+299	cmnd_alt_airB_off_4	sim/altair/alternate_air_backup_off_4	Alternate air backup #4 off.	2	0	0
+300	cmnd_alt_airB_off_5	sim/altair/alternate_air_backup_off_5	Alternate air backup #5 off.	2	0	0
+301	cmnd_alt_airB_off_6	sim/altair/alternate_air_backup_off_6	Alternate air backup #6 off.	2	0	0
+302	cmnd_alt_airB_off_7	sim/altair/alternate_air_backup_off_7	Alternate air backup #7 off.	2	0	0
+303	cmnd_alt_airB_off_8	sim/altair/alternate_air_backup_off_8	Alternate air backup #8 off.	2	0	0
+304	cmnd_alt_airB_on_1	sim/altair/alternate_air_backup_on_1	Alternate air backup #1 on.	2	0	0
+305	cmnd_alt_airB_on_2	sim/altair/alternate_air_backup_on_2	Alternate air backup #2 on.	2	0	0
+306	cmnd_alt_airB_on_3	sim/altair/alternate_air_backup_on_3	Alternate air backup #3 on.	2	0	0
+307	cmnd_alt_airB_on_4	sim/altair/alternate_air_backup_on_4	Alternate air backup #4 on.	2	0	0
+308	cmnd_alt_airB_on_5	sim/altair/alternate_air_backup_on_5	Alternate air backup #5 on.	2	0	0
+309	cmnd_alt_airB_on_6	sim/altair/alternate_air_backup_on_6	Alternate air backup #6 on.	2	0	0
+310	cmnd_alt_airB_on_7	sim/altair/alternate_air_backup_on_7	Alternate air backup #7 on.	2	0	0
+311	cmnd_alt_airB_on_8	sim/altair/alternate_air_backup_on_8	Alternate air backup #8 on.	2	0	0
+312	cmnd_fire_ext_1_off	sim/engines/fire_ext_1_off	fire_ext 1 off.	2	0	0
+313	cmnd_fire_ext_2_off	sim/engines/fire_ext_2_off	fire_ext 2 off.	2	0	0
+314	cmnd_fire_ext_3_off	sim/engines/fire_ext_3_off	fire_ext 3 off.	2	0	0
+315	cmnd_fire_ext_4_off	sim/engines/fire_ext_4_off	fire_ext 4 off.	2	0	0
+316	cmnd_fire_ext_5_off	sim/engines/fire_ext_5_off	fire_ext 5 off.	2	0	0
+317	cmnd_fire_ext_6_off	sim/engines/fire_ext_6_off	fire_ext 6 off.	2	0	0
+318	cmnd_fire_ext_7_off	sim/engines/fire_ext_7_off	fire_ext 7 off.	2	0	0
+319	cmnd_fire_ext_8_off	sim/engines/fire_ext_8_off	fire_ext 8 off.	2	0	0
+320	cmnd_fire_ext_1_on	sim/engines/fire_ext_1_on	fire_ext 1 on.	2	0	0
+321	cmnd_fire_ext_2_on	sim/engines/fire_ext_2_on	fire_ext 2 on.	2	0	0
+322	cmnd_fire_ext_3_on	sim/engines/fire_ext_3_on	fire_ext 3 on.	2	0	0
+323	cmnd_fire_ext_4_on	sim/engines/fire_ext_4_on	fire_ext 4 on.	2	0	0
+324	cmnd_fire_ext_5_on	sim/engines/fire_ext_5_on	fire_ext 5 on.	2	0	0
+325	cmnd_fire_ext_6_on	sim/engines/fire_ext_6_on	fire_ext 6 on.	2	0	0
+326	cmnd_fire_ext_7_on	sim/engines/fire_ext_7_on	fire_ext 7 on.	2	0	0
+327	cmnd_fire_ext_8_on	sim/engines/fire_ext_8_on	fire_ext 8 on.	2	0	0
+328	cmnd_mag_off	sim/magnetos/magnetos_off	Magnetos off.	3	0	0
+329	cmnd_mag_both	sim/magnetos/magnetos_both	Magnetos both.	3	0	0
+330	cmnd_start_all	sim/engines/engage_starters	Engage starters.	3	0	0
+331	cmnd_thro_dn	sim/engines/throttle_down	Throttle down a bit.	3	112	0
+332	cmnd_thro_up	sim/engines/throttle_up	Throttle up a bit.	3	113	0
+333	cmnd_thro_TOGA	sim/engines/TOGA_power	Engage TOGA power.	3	124	0
+334	cmnd_prop_dn	sim/engines/prop_down	Prop coarse a bit.	3	114	0
+335	cmnd_prop_up	sim/engines/prop_up	Prop fine a bit.	3	115	0
+336	cmnd_mix_cutoff	sim/engines/mixture_min	Mixture to cut off.	3	118	0
+337	cmnd_mixt_dn	sim/engines/mixture_down	Mixture lean a bit.	3	116	0
+338	cmnd_mixt_up	sim/engines/mixture_up	Mixture rich a bit.	3	117	0
+339	cmnd_mix_full	sim/engines/mixture_max	Mixture to full rich.	3	119	0
+340	cmnd_carb_off	sim/engines/carb_heat_off	Carb heat off.	3	120	0
+341	cmnd_carb_on	sim/engines/carb_heat_on	Carb heat on.	3	121	0
+342	cmnd_carb_tog	sim/engines/carb_heat_toggle	Carb heat toggle.	3	122	0
+343	cmnd_fadec_tog	sim/fadec/fadec_toggle	FADEC toggle.	3	0	0
+344	cmnd_idle_hilo	sim/engines/idle_hi_lo_toggle	Idle Hi-Lo toggle.	2	123	0
+345	cmnd_govnr_on	sim/engines/governor_on	Throttle-governor on.	2	0	0
+346	cmnd_govnr_off	sim/engines/governor_off	Throttle-governor off.	2	0	0
+347	cmnd_govnr_tog	sim/engines/governor_toggle	Throttle-governor toggle.	3	0	0
+348	cmnd_clutch_on	sim/engines/clutch_on	Clutch on.	2	0	0
+349	cmnd_clutch_off	sim/engines/clutch_off	Clutch off.	2	0	0
+350	cmnd_clutch_tog	sim/engines/clutch_toggle	Clutch toggle.	2	0	0
+351	cmnd_beta_togg	sim/engines/beta_toggle	Toggle Beta prop.	3	184	0
+352	cmnd_trev_togg	sim/engines/thrust_reverse_toggle	Toggle thrust reversers.	3	184	1
+353	cmnd_trev_hold	sim/engines/thrust_reverse_hold	Hold thrust reverse at max.	3	0	0
+354	cmnd_shut_down	sim/starters/shut_down	Pull fuel and mags for shut-down.	2	0	0
+355	cmnd_flaps_up	sim/flight_controls/flaps_up	Flaps up a notch.	3	49	0
+356	cmnd_flaps_dn	sim/flight_controls/flaps_down	Flaps down a notch.	3	50	0
+357	cmnd_cowl_open	sim/flight_controls/cowl_flaps_open	Move cowl flaps open a bit.	2	0	0
+358	cmnd_cowl_closed	sim/flight_controls/cowl_flaps_closed	Move cowl flaps to closed a bit.	2	0	0
+359	cmnd_vctswpaft	sim/flight_controls/vector_sweep_aft	Vector or sweep aft.	3	0	0
+360	cmnd_vctswpfwd	sim/flight_controls/vector_sweep_forward	Vector or sweep forward.	3	0	0
+361	cmnd_blimp_dn	sim/flight_controls/blimp_lift_down	Blimp lift down a bit.	2	0	0
+362	cmnd_blimp_up	sim/flight_controls/blimp_lift_up	Blimp lift up a bit.	2	0	0
+363	cmnd_sbrk_dn_one	sim/flight_controls/speed_brakes_down_one	Speedbrakes extend one.	3	52	0
+364	cmnd_sbrk_up_one	sim/flight_controls/speed_brakes_up_one	Speedbrakes retract one.	3	51	0
+365	cmnd_sbrk_dn_all	sim/flight_controls/speed_brakes_down_all	Speedbrakes extend full.	3	0	0
+366	cmnd_sbrk_up_all	sim/flight_controls/speed_brakes_up_all	Speedbrakes retract full.	3	0	0
+367	cmnd_sbrk_tog	sim/flight_controls/speed_brakes_toggle	Speedbrakes toggle.	2	0	0
+368	cmnd_gear_dn	sim/flight_controls/landing_gear_down	Landing gear down.	3	68	4
+369	cmnd_gear_up	sim/flight_controls/landing_gear_up	Landing gear up.	3	85	4
+370	cmnd_gear_tog	sim/flight_controls/landing_gear_toggle	Landing gear toggle.	3	71	0
+371	cmnd_gear_emer_on	sim/flight_controls/landing_gear_emer_on	Landing gear emergency override down.	2	0	0
+372	cmnd_gear_emer_off	sim/flight_controls/landing_gear_emer_off	Landing gear emergency override off.	2	0	0
+373	cmnd_tog_nwsteer	sim/flight_controls/nwheel_steer_toggle	Nosewheel steer toggle.	3	0	0
+374	cmnd_tw_lock_tog	sim/flight_controls/tail_wheel_lock_toggle	Toggle tailwheel lock.	3	0	0
+375	cmnd_tw_lock_eng	sim/flight_controls/tail_wheel_lock_engage	Engage tailwheel lock.	2	0	0
+376	cmnd_lft_brake	sim/flight_controls/left_brake	Hold brake left.	3	0	0
+377	cmnd_rgt_brake	sim/flight_controls/right_brake	Hold brake right.	3	0	0
+378	cmnd_brakes_REG_togg	sim/flight_controls/brakes_toggle_regular	Toggle brakes regular effort.	3	66	0
+379	cmnd_brakes_MAX_togg	sim/flight_controls/brakes_toggle_max	Toggle brakes max effort.	3	86	0
+380	cmnd_brakes_REG_hold	sim/flight_controls/brakes_regular	Hold brakes regular.	3	0	0
+381	cmnd_brakes_MAX_hold	sim/flight_controls/brakes_max	Hold brakes maximum.	2	0	0
+382	cmnd_brakes_AUT_togg	sim/flight_controls/brakes_toggle_auto	Toggle auto-brakes.	2	0	0
+383	cmnd_brakes_AUT_dn	sim/flight_controls/brakes_dn_auto	Auto-brakes down.	2	0	0
+384	cmnd_brakes_AUT_up	sim/flight_controls/brakes_up_auto	Auto-brakes up.	2	0	0
+385	cmnd_yaw_damp_on	sim/systems/yaw_damper_on	Yaw-damp on.	2	0	0
+386	cmnd_yaw_damp_off	sim/systems/yaw_damper_off	Yaw-damp off.	2	0	0
+387	cmnd_yaw_damp_tog	sim/systems/yaw_damper_toggle	Toggle Yaw-damp.	3	0	0
+388	cmnd_prop_sync_on	sim/systems/prop_sync_on	Prop sync on.	2	0	0
+389	cmnd_prop_sync_off	sim/systems/prop_sync_off	Prop sync off.	2	0	0
+390	cmnd_prop_sync_tog	sim/systems/prop_sync_toggle	Prop sync toggle.	2	0	0
+391	cmnd_feather_dn	sim/systems/feather_mode_down	Auto-feather mode down.	2	0	0
+392	cmnd_feather_up	sim/systems/feather_mode_up	Auto-feather mode up.	2	0	0
+393	cmnd_feather_off	sim/systems/feather_mode_off	Auto-feather off.	2	0	0
+394	cmnd_feather_arm	sim/systems/feather_mode_arm	Auto-feather on.	2	0	0
+395	cmnd_feather_test	sim/systems/feather_mode_test	Auto-feather test.	2	0	0
+396	cmnd_pump_hydr_on	sim/flight_controls/hydraulic_on	Engine-driven hydraulic pumps on	2	0	0
+397	cmnd_pump_hydr_off	sim/flight_controls/hydraulic_off	Engine-driven hydraulic pumps off	2	0	0
+398	cmnd_pump_hydr_tog	sim/flight_controls/hydraulic_tog	Engine-driven hydraulic pumps tog	2	0	0
+399	cmnd_tailhook_dn	sim/flight_controls/tailhook_down	Tailhook down.	2	81	2
+400	cmnd_tailhook_up	sim/flight_controls/tailhook_up	Tailhook up.	2	87	2
+401	cmnd_tailhook_tog	sim/flight_controls/tailhook_toggle	Toggle the tailhook.	3	0	0
+402	cmnd_canopy_open	sim/flight_controls/canopy_open	Canopy open.	2	0	0
+403	cmnd_canopy_close	sim/flight_controls/canopy_close	Canopy close.	2	0	0
+404	cmnd_canopy_toggle	sim/flight_controls/canopy_toggle	Canopy toggle.	2	0	0
+405	cmnd_rotor_brake	sim/flight_controls/rotor_brake_toggle	Toggle rotor brake.	2	0	0
+406	cmnd_art_stab	sim/systems/artificial_stability_toggle	Toggle art-stab power.	2	0	0
+407	cmnd_puffers	sim/flight_controls/puffers_toggle	Toggle puffers	2	0	0
+408	cmnd_rock_up	sim/engines/rockets_up	Orbital maneuver rockets up.	3	0	0
+409	cmnd_rock_dn	sim/engines/rockets_down	Orbital maneuver rockets down.	3	0	0
+410	cmnd_rock_lft	sim/engines/rockets_left	Orbital maneuver rockets left.	3	0	0
+411	cmnd_rock_rgt	sim/engines/rockets_right	Orbital maneuver rockets right.	3	0	0
+412	cmnd_rock_for	sim/engines/rockets_forward	Orbital maneuver rockets fore.	3	0	0
+413	cmnd_rock_aft	sim/engines/rockets_aft	Orbital maneuver rockets aft.	3	0	0
+414	cmnd_fuel_lft_one	sim/fuel/fuel_tank_selector_lft_one	Select fuel tank left one.	2	0	0
+415	cmnd_fuel_rgt_one	sim/fuel/fuel_tank_selector_rgt_one	Select fuel tank right one.	2	0	0
+416	cmnd_sel_fuel_none	sim/fuel/fuel_selector_none	Set fuel selector to NONE (shut-off).	2	0	0
+417	cmnd_sel_fuel_lft	sim/fuel/fuel_selector_lft	Set fuel selector to left tanks.	2	0	0
+418	cmnd_sel_fuel_ctr	sim/fuel/fuel_selector_ctr	Set fuel selector to center tanks.	2	0	0
+419	cmnd_sel_fuel_rgt	sim/fuel/fuel_selector_rgt	Set fuel selector to right tanks.	2	0	0
+420	cmnd_sel_fuel_all	sim/fuel/fuel_selector_all	Set fuel selector to ALL tanks.	2	0	0
+421	cmnd_fuel_to_lft	sim/fuel/fuel_transfer_to_lft	Transfer fuel to left.	2	0	0
+422	cmnd_fuel_to_ctr	sim/fuel/fuel_transfer_to_ctr	Transfer fuel to center.	2	0	0
+423	cmnd_fuel_to_rgt	sim/fuel/fuel_transfer_to_rgt	Transfer fuel to right.	2	0	0
+424	cmnd_fuel_to_off	sim/fuel/fuel_transfer_to_off	Transfer fuel to none.	2	0	0
+425	cmnd_fuel_fr_lft	sim/fuel/fuel_transfer_from_lft	Transfer fuel from left.	2	0	0
+426	cmnd_fuel_fr_ctr	sim/fuel/fuel_transfer_from_ctr	Transfer fuel from center.	2	0	0
+427	cmnd_fuel_fr_rgt	sim/fuel/fuel_transfer_from_rgt	Transfer fuel from right.	2	0	0
+428	cmnd_fuel_fr_off	sim/fuel/fuel_transfer_from_off	Transfer fuel from none.	2	0	0
+429	cmnd_fuel_xf_lft	sim/fuel/fuel_crossfeed_from_lft_tank	Cross-feed fuel from left tank.	2	0	0
+430	cmnd_fuel_xf_off	sim/fuel/fuel_crossfeed_off	Cross-feed fuel off.	2	0	0
+431	cmnd_fuel_xf_rgt	sim/fuel/fuel_crossfeed_from_rgt_tank	Cross-feed fuel from right tank.	2	0	0
+432	cmnd_fuel_lft_on	sim/fuel/fuel_firewall_valve_lft_open	Firewall fuel valve left open.	2	0	0
+433	cmnd_fuel_lft_off	sim/fuel/fuel_firewall_valve_lft_closed	Firewall fuel valve left closed.	2	0	0
+434	cmnd_fuel_rgt_on	sim/fuel/fuel_firewall_valve_rgt_open	Firewall fuel valve right open.	2	0	0
+435	cmnd_fuel_rgt_off	sim/fuel/fuel_firewall_valve_rgt_closed	Firewall fuel valve right closed.	2	0	0
+436	cmnd_fuelpumps_on	sim/fuel/fuel_pumps_on	Fuel pumps on.	2	0	0
+437	cmnd_fuelpumps_off	sim/fuel/fuel_pumps_off	Fuel pumps off.	2	0	0
+438	cmnd_fuelpumps_tog	sim/fuel/fuel_pumps_tog	Fuel pumps toggle.	2	0	0
+439	cmnd_fuelpump1_on	sim/fuel/fuel_pump_1_on	Fuel pump for engine #1 on.	2	0	0
+440	cmnd_fuelpump2_on	sim/fuel/fuel_pump_2_on	Fuel pump for engine #2 on.	2	0	0
+441	cmnd_fuelpump3_on	sim/fuel/fuel_pump_3_on	Fuel pump for engine #3 on.	2	0	0
+442	cmnd_fuelpump4_on	sim/fuel/fuel_pump_4_on	Fuel pump for engine #4 on.	2	0	0
+443	cmnd_fuelpump5_on	sim/fuel/fuel_pump_5_on	Fuel pump for engine #5 on.	2	0	0
+444	cmnd_fuelpump6_on	sim/fuel/fuel_pump_6_on	Fuel pump for engine #6 on.	2	0	0
+445	cmnd_fuelpump7_on	sim/fuel/fuel_pump_7_on	Fuel pump for engine #7 on.	2	0	0
+446	cmnd_fuelpump8_on	sim/fuel/fuel_pump_8_on	Fuel pump for engine #8 on.	2	0	0
+447	cmnd_fuelpump1_off	sim/fuel/fuel_pump_1_off	Fuel pump for engine #1 off.	2	0	0
+448	cmnd_fuelpump2_off	sim/fuel/fuel_pump_2_off	Fuel pump for engine #2 off.	2	0	0
+449	cmnd_fuelpump3_off	sim/fuel/fuel_pump_3_off	Fuel pump for engine #3 off.	2	0	0
+450	cmnd_fuelpump4_off	sim/fuel/fuel_pump_4_off	Fuel pump for engine #4 off.	2	0	0
+451	cmnd_fuelpump5_off	sim/fuel/fuel_pump_5_off	Fuel pump for engine #5 off.	2	0	0
+452	cmnd_fuelpump6_off	sim/fuel/fuel_pump_6_off	Fuel pump for engine #6 off.	2	0	0
+453	cmnd_fuelpump7_off	sim/fuel/fuel_pump_7_off	Fuel pump for engine #7 off.	2	0	0
+454	cmnd_fuelpump8_off	sim/fuel/fuel_pump_8_off	Fuel pump for engine #8 off.	2	0	0
+455	cmnd_fuelpump1_tog	sim/fuel/fuel_pump_1_tog	Fuel pump for engine #1 toggle.	2	0	0
+456	cmnd_fuelpump2_tog	sim/fuel/fuel_pump_2_tog	Fuel pump for engine #2 toggle.	2	0	0
+457	cmnd_fuelpump3_tog	sim/fuel/fuel_pump_3_tog	Fuel pump for engine #3 toggle.	2	0	0
+458	cmnd_fuelpump4_tog	sim/fuel/fuel_pump_4_tog	Fuel pump for engine #4 toggle.	2	0	0
+459	cmnd_fuelpump5_tog	sim/fuel/fuel_pump_5_tog	Fuel pump for engine #5 toggle.	2	0	0
+460	cmnd_fuelpump6_tog	sim/fuel/fuel_pump_6_tog	Fuel pump for engine #6 toggle.	2	0	0
+461	cmnd_fuelpump7_tog	sim/fuel/fuel_pump_7_tog	Fuel pump for engine #7 toggle.	2	0	0
+462	cmnd_fuelpump8_tog	sim/fuel/fuel_pump_8_tog	Fuel pump for engine #8 toggle.	2	0	0
+463	cmnd_fuelpump1_prime	sim/fuel/fuel_pump_1_prime	Fuel pump PRIME for engine #1 on.	2	0	0
+464	cmnd_fuelpump2_prime	sim/fuel/fuel_pump_2_prime	Fuel pump PRIME for engine #2 on.	2	0	0
+465	cmnd_fuelpump3_prime	sim/fuel/fuel_pump_3_prime	Fuel pump PRIME for engine #3 on.	2	0	0
+466	cmnd_fuelpump4_prime	sim/fuel/fuel_pump_4_prime	Fuel pump PRIME for engine #4 on.	2	0	0
+467	cmnd_fuelpump5_prime	sim/fuel/fuel_pump_5_prime	Fuel pump PRIME for engine #5 on.	2	0	0
+468	cmnd_fuelpump6_prime	sim/fuel/fuel_pump_6_prime	Fuel pump PRIME for engine #6 on.	2	0	0
+469	cmnd_fuelpump7_prime	sim/fuel/fuel_pump_7_prime	Fuel pump PRIME for engine #7 on.	2	0	0
+470	cmnd_fuelpump8_prime	sim/fuel/fuel_pump_8_prime	Fuel pump PRIME for engine #8 on.	2	0	0
+471	cmnd_cross_tie_on	sim/electrical/cross_tie_on	Cross-tie on.	2	0	0
+472	cmnd_cross_tie_off	sim/electrical/cross_tie_off	Cross-tie off.	2	0	0
+473	cmnd_cross_tie_tog	sim/electrical/cross_tie_toggle	Cross-tie toggle.	2	0	0
+474	cmnd_inverters_on	sim/electrical/inverters_on	Inverters on.	2	0	0
+475	cmnd_inverters_off	sim/electrical/inverters_off	Inverters off.	2	0	0
+476	cmnd_inverters_tog	sim/electrical/inverters_toggle	Inverters toggle.	2	0	0
+477	cmnd_inverter_1_on	sim/electrical/inverter_1_on	Inverter_1 on.	2	0	0
+478	cmnd_inverter_1_off	sim/electrical/inverter_1_off	Inverter_1 off.	2	0	0
+479	cmnd_inverter_1_tog	sim/electrical/inverter_1_toggle	Inverter_1 toggle.	2	0	0
+480	cmnd_inverter_2_on	sim/electrical/inverter_2_on	Inverter_2 on.	2	0	0
+481	cmnd_inverter_2_off	sim/electrical/inverter_2_off	Inverter_2 off.	2	0	0
+482	cmnd_inverter_2_tog	sim/electrical/inverter_2_toggle	Inverter_2 toggle.	2	0	0
+483	cmnd_battery_1_on	sim/electrical/battery_1_on	Battery 1 on.	2	0	0
+484	cmnd_battery_1_off	sim/electrical/battery_1_off	Battery 1 off.	2	0	0
+485	cmnd_battery_2_on	sim/electrical/battery_2_on	Battery 2 on.	2	0	0
+486	cmnd_battery_2_off	sim/electrical/battery_2_off	Battery 2 off.	2	0	0
+487	cmnd_batteries_tog	sim/electrical/batteries_toggle	Batteries all toggle.	2	0	0
+488	cmnd_generators_tog	sim/electrical/generators_toggle	Generators all toggle.	2	0	0
+489	cmnd_apu_start	sim/electrical/APU_start	APU start.	2	0	0
+490	cmnd_apu_on	sim/electrical/APU_on	APU on.	2	0	0
+491	cmnd_apu_off	sim/electrical/APU_off	APU off.	2	0	0
+492	cmnd_apu_gen_on	sim/electrical/APU_generator_on	APU generator on.	2	0	0
+493	cmnd_apu_gen_off	sim/electrical/APU_generator_off	APU generator off.	2	0	0
+494	cmnd_gpu_on	sim/electrical/GPU_on	GPU on.	2	0	0
+495	cmnd_gpu_off	sim/electrical/GPU_off	GPU off.	2	0	0
+496	cmnd_gpu_toggle	sim/electrical/GPU_toggle	GPU toggle.	2	0	0
+497	cmnd_nav_lites_on	sim/lights/nav_lights_on	Nav lights on.	2	0	0
+498	cmnd_nav_lites_off	sim/lights/nav_lights_off	Nav lights off.	2	0	0
+499	cmnd_nav_lites_tog	sim/lights/nav_lights_toggle	Nav lights toggle.	2	0	0
+500	cmnd_beacon_on	sim/lights/beacon_lights_on	Beacon lights on.	2	0	0
+501	cmnd_beacon_off	sim/lights/beacon_lights_off	Beacon lights off.	2	0	0
+502	cmnd_beacon_tog	sim/lights/beacon_lights_toggle	Beacon lights toggle.	2	0	0
+503	cmnd_strobe_on	sim/lights/strobe_lights_on	Strobe lights on.	2	0	0
+504	cmnd_strobe_off	sim/lights/strobe_lights_off	Strobe lights off.	2	0	0
+505	cmnd_strobe_tog	sim/lights/strobe_lights_toggle	Strobe lights toggle.	2	0	0
+506	cmnd_taxi_lites_on	sim/lights/taxi_lights_on	Taxi lights on.	2	0	0
+507	cmnd_taxi_lites_off	sim/lights/taxi_lights_off	Taxi lights off.	2	0	0
+508	cmnd_taxi_lites_tog	sim/lights/taxi_lights_toggle	Taxi lights toggle.	2	0	0
+509	cmnd_lan_lites_on	sim/lights/landing_lights_on	Landing lights on.	3	0	0
+510	cmnd_lan_lites_off	sim/lights/landing_lights_off	Landing lights off.	3	0	0
+511	cmnd_lan_lites_tog	sim/lights/landing_lights_toggle	Landing lights toggle.	3	0	0
+512	cmnd_spot_on	sim/lights/spot_lights_on	Spot lights on.	3	0	0
+513	cmnd_spot_off	sim/lights/spot_lights_off	Spot lights off.	3	0	0
+514	cmnd_spot_tog	sim/lights/spot_lights_toggle	Spot lights toggle.	3	0	0
+515	cmnd_avionics_on	sim/systems/avionics_on	Avionics on.	2	0	0
+516	cmnd_avionics_off	sim/systems/avionics_off	Avionics off.	2	0	0
+517	cmnd_avionics_tog	sim/systems/avionics_toggle	Avionics toggle.	2	0	0
+518	cmnd_bleed_dn	sim/bleed_air/bleed_air_down	Bleed air mode down.	2	0	0
+519	cmnd_bleed_up	sim/bleed_air/bleed_air_up	Bleed air mode up.	2	0	0
+520	cmnd_bleed_apu	sim/bleed_air/bleed_air_apu	Bleed air from apu.	2	0	0
+521	cmnd_bleed_lft	sim/bleed_air/bleed_air_left	Bleed air from left engine.	2	0	0
+522	cmnd_bleed_auto	sim/bleed_air/bleed_air_auto	Bleed air from either engine.	2	0	0
+523	cmnd_bleed_rgt	sim/bleed_air/bleed_air_right	Bleed air from right engine.	2	0	0
+524	cmnd_bleed_off	sim/bleed_air/bleed_air_off	Bleed air off.	2	0	0
+525	cmnd_bleed_lft_on	sim/bleed_air/bleed_air_left_on	Bleed air left-engine on.	2	0	0
+526	cmnd_bleed_lft_ins	sim/bleed_air/bleed_air_left_ins_only	Bleed air left-engine instruments only.	2	0	0
+527	cmnd_bleed_lft_off	sim/bleed_air/bleed_air_left_off	Bleed air left-engine off.	2	0	0
+528	cmnd_bleed_rgt_on	sim/bleed_air/bleed_air_right_on	Bleed air right-engine on.	2	0	0
+529	cmnd_bleed_rgt_ins	sim/bleed_air/bleed_air_right_ins_only	Bleed air right-engine instruments only.	2	0	0
+530	cmnd_bleed_rgt_off	sim/bleed_air/bleed_air_right_off	Bleed air right-engine off.	2	0	0
+531	cmnd_press_test	sim/pressurization/test	Pressurization test.	2	0	0
+532	cmnd_press_dump_on	sim/pressurization/dump_on	Dump pressurization on!	2	0	0
+533	cmnd_press_dump_off	sim/pressurization/dump_off	Dump pressurization off!	2	0	0
+534	cmnd_press_vvi_down	sim/pressurization/vvi_down	Cabin vertical speed down.	2	0	0
+535	cmnd_press_vvi_up	sim/pressurization/vvi_up	Cabin vertical speed up.	2	0	0
+536	cmnd_press_cabn_down	sim/pressurization/cabin_alt_down	Cabin altitude down.	2	0	0
+537	cmnd_press_cabn_up	sim/pressurization/cabin_alt_up	Cabin altitude up.	2	0	0
+538	cmnd_ice_all	sim/ice/anti_ice_toggle	Anti-ice: toggle-ALL.	3	0	0
+539	cmnd_alt_static	sim/ice/alternate_static_port	Toggle alternate static port.	2	0	0
+540	cmnd_pitot_heat0_on	sim/ice/pitot_heat0_on	Anti-ice: LEFT pitot heat on.	2	0	0
+541	cmnd_pitot_heat0_off	sim/ice/pitot_heat0_off	Anti-ice: LEFT pitot heat off.	2	0	0
+542	cmnd_pitot_heat0_tog	sim/ice/pitot_heat0_tog	Anti-ice: LEFT pitot heat toggle.	2	0	0
+543	cmnd_pitot_heat1_on	sim/ice/pitot_heat1_on	Anti-ice: RIGT pitot heat on.	2	0	0
+544	cmnd_pitot_heat1_off	sim/ice/pitot_heat1_off	Anti-ice: RIGT pitot heat off.	2	0	0
+545	cmnd_pitot_heat1_tog	sim/ice/pitot_heat1_tog	Anti-ice: RIGT pitot heat toggle.	2	0	0
+546	cmnd_stat_heat0_on	sim/ice/static_heat0_on	Anti-ice: LEFT static heat on.	2	0	0
+547	cmnd_stat_heat0_off	sim/ice/static_heat0_off	Anti-ice: LEFT static heat off.	2	0	0
+548	cmnd_stat_heat1_on	sim/ice/static_heat1_on	Anti-ice: RIGT static heat on.	2	0	0
+549	cmnd_stat_heat1_off	sim/ice/static_heat1_off	Anti-ice: RIGT static heat off.	2	0	0
+550	cmnd_AOA_heat0_on	sim/ice/AOA_heat0_on	Anti-ice: AOA on.	2	0	0
+551	cmnd_AOA_heat0_off	sim/ice/AOA_heat0_off	Anti-ice: AOA off.	2	0	0
+552	cmnd_AOA_heat1_on	sim/ice/AOA_heat1_on	Anti-ice: AOA on.	2	0	0
+553	cmnd_AOA_heat1_off	sim/ice/AOA_heat1_off	Anti-ice: AOA off.	2	0	0
+554	cmnd_window_heat_on	sim/ice/window_heat_on	Anti-ice: window heat on.	2	0	0
+555	cmnd_window_heat_off	sim/ice/window_heat_off	Anti-ice: window heat off.	2	0	0
+556	cmnd_wing_heat0_on	sim/ice/wing_heat0_on	Anti-ice: LEFT wing-de-ice on.	2	0	0
+557	cmnd_wing_heat0_off	sim/ice/wing_heat0_off	Anti-ice: LEFT wing-de-ice off.	2	0	0
+558	cmnd_wing_heat1_on	sim/ice/wing_heat1_on	Anti-ice: RIGT wing-de-ice on.	2	0	0
+559	cmnd_wing_heat1_off	sim/ice/wing_heat1_off	Anti-ice: RIGT wing-de-ice off.	2	0	0
+560	cmnd_wing_heat_on	sim/ice/wing_heat_on	Anti-ice: all wing-de-ice on.	2	0	0
+561	cmnd_wing_heat_off	sim/ice/wing_heat_off	Anti-ice: all wing-de-ice off.	2	0	0
+562	cmnd_inlet_heat0_on	sim/ice/inlet_heat0_on	Anti-ice: engine #1 inlet-heat on.	2	0	0
+563	cmnd_inlet_heat0_off	sim/ice/inlet_heat0_off	Anti-ice: engine #1 inlet-heat off.	2	0	0
+564	cmnd_inlet_heat1_on	sim/ice/inlet_heat1_on	Anti-ice: engine #2 inlet-heat on.	2	0	0
+565	cmnd_inlet_heat1_off	sim/ice/inlet_heat1_off	Anti-ice: engine #2 inlet-heat off.	2	0	0
+566	cmnd_inlet_heat2_on	sim/ice/inlet_heat2_on	Anti-ice: engine #3 inlet-heat on.	2	0	0
+567	cmnd_inlet_heat2_off	sim/ice/inlet_heat2_off	Anti-ice: engine #3 inlet-heat off.	2	0	0
+568	cmnd_inlet_heat3_on	sim/ice/inlet_heat3_on	Anti-ice: engine #4 inlet-heat on.	2	0	0
+569	cmnd_inlet_heat3_off	sim/ice/inlet_heat3_off	Anti-ice: engine #4 inlet-heat off.	2	0	0
+570	cmnd_inlet_heat4_on	sim/ice/inlet_heat4_on	Anti-ice: engine #5 inlet-heat on.	2	0	0
+571	cmnd_inlet_heat4_off	sim/ice/inlet_heat4_off	Anti-ice: engine #5 inlet-heat off.	2	0	0
+572	cmnd_inlet_heat5_on	sim/ice/inlet_heat5_on	Anti-ice: engine #6 inlet-heat on.	2	0	0
+573	cmnd_inlet_heat5_off	sim/ice/inlet_heat5_off	Anti-ice: engine #6 inlet-heat off.	2	0	0
+574	cmnd_inlet_heat6_on	sim/ice/inlet_heat6_on	Anti-ice: engine #7 inlet-heat on.	2	0	0
+575	cmnd_inlet_heat6_off	sim/ice/inlet_heat6_off	Anti-ice: engine #7 inlet-heat off.	2	0	0
+576	cmnd_inlet_heat7_on	sim/ice/inlet_heat7_on	Anti-ice: engine #8 inlet-heat on.	2	0	0
+577	cmnd_inlet_heat7_off	sim/ice/inlet_heat7_off	Anti-ice: engine #8 inlet-heat off.	2	0	0
+578	cmnd_prop_heat0_on	sim/ice/prop_heat0_on	Anti-ice: engine #1 prop heat on.	2	0	0
+579	cmnd_prop_heat0_off	sim/ice/prop_heat0_off	Anti-ice: engine #1 prop heat off.	2	0	0
+580	cmnd_prop_heat1_on	sim/ice/prop_heat1_on	Anti-ice: engine #2 prop heat on.	2	0	0
+581	cmnd_prop_heat1_off	sim/ice/prop_heat1_off	Anti-ice: engine #2 prop heat off.	2	0	0
+582	cmnd_prop_heat2_on	sim/ice/prop_heat2_on	Anti-ice: engine #3 prop heat on.	2	0	0
+583	cmnd_prop_heat2_off	sim/ice/prop_heat2_off	Anti-ice: engine #3 prop heat off.	2	0	0
+584	cmnd_prop_heat3_on	sim/ice/prop_heat3_on	Anti-ice: engine #4 prop heat on.	2	0	0
+585	cmnd_prop_heat3_off	sim/ice/prop_heat3_off	Anti-ice: engine #4 prop heat off.	2	0	0
+586	cmnd_prop_heat4_on	sim/ice/prop_heat4_on	Anti-ice: engine #5 prop heat on.	2	0	0
+587	cmnd_prop_heat4_off	sim/ice/prop_heat4_off	Anti-ice: engine #5 prop heat off.	2	0	0
+588	cmnd_prop_heat5_on	sim/ice/prop_heat5_on	Anti-ice: engine #6 prop heat on.	2	0	0
+589	cmnd_prop_heat5_off	sim/ice/prop_heat5_off	Anti-ice: engine #6 prop heat off.	2	0	0
+590	cmnd_prop_heat6_on	sim/ice/prop_heat6_on	Anti-ice: engine #7 prop heat on.	2	0	0
+591	cmnd_prop_heat6_off	sim/ice/prop_heat6_off	Anti-ice: engine #7 prop heat off.	2	0	0
+592	cmnd_prop_heat7_on	sim/ice/prop_heat7_on	Anti-ice: engine #8 prop heat on.	2	0	0
+593	cmnd_prop_heat7_off	sim/ice/prop_heat7_off	Anti-ice: engine #8 prop heat off.	2	0	0
+594	cmnd_prop_heat_on	sim/ice/prop_heat_on	Anti-ice: all prop heat on.	2	0	0
+595	cmnd_prop_heat_off	sim/ice/prop_heat_off	Anti-ice: all prop heat off.	2	0	0
+596	cmnd_ice_detect_on	sim/ice/detect_on	Anti-ice: ice-detection on.	2	0	0
+597	cmnd_ice_detect_off	sim/ice/detect_off	Anti-ice: ice-detection off.	2	0	0
+598	cmnd_paraf	sim/flight_controls/parachute_flares	Deploy parachute-flares.	3	0	0
+599	cmnd_smoke	sim/flight_controls/smoke_toggle	Toggle smoke-puffing.	3	88	0
+600	cmnd_scoop	sim/flight_controls/water_scoop_toggle	Toggle water scoop.	3	0	0
+601	cmnd_JATO	sim/flight_controls/ignite_jato	Ignite JATO.	3	0	0
+602	cmnd_jettison	sim/flight_controls/jettison_payload	Jettison the payload.	3	0	0
+603	cmnd_dump_fuel	sim/flight_controls/dump_fuel_toggle	Dump fuel!	3	0	0
+604	cmnd_chute	sim/flight_controls/deploy_parachute	Deploy/jettison chute!	3	0	0
+605	cmnd_eject	sim/flight_controls/eject	Eject!	3	0	0
+606	cmnd_weapon_re_arm	sim/weapons/re_arm_aircraft	Re-arm aircraft to default specs.	2	0	0
+607	cmnd_master_arm_on	sim/weapons/master_arm_on	Master Arm. Hit this for master arm ON.	2	0	0
+608	cmnd_master_arm_off	sim/weapons/master_arm_off	Master Arm. Hit this for master arm OFF.	2	0	0
+609	cmnd_fire_mode_dn	sim/weapons/fire_mode_down	Weapon single/pair/ripple/salvo dn.	2	0	0
+610	cmnd_fire_mode_up	sim/weapons/fire_mode_up	Weapon single/pair/ripple/salvo up.	2	0	0
+611	cmnd_fire_rate_dn	sim/weapons/fire_rate_down	Weapon fire rate down.	2	0	0
+612	cmnd_fire_rate_up	sim/weapons/fire_rate_up	Weapon fire rate up.	2	0	0
+613	cmnd_fire_sel_dn	sim/weapons/weapon_select_down	Weapon select down.	3	0	0
+614	cmnd_fire_sel_up	sim/weapons/weapon_select_up	Weapon select up.	3	0	0
+615	cmnd_fire_gun	sim/weapons/fire_guns	Fire guns!	3	0	0
+616	cmnd_fire_air	sim/weapons/fire_air_to_air	Fire air-air selection!	2	0	0
+617	cmnd_fire_gnd	sim/weapons/fire_air_to_ground	Fire air-ground selection!	2	0	0
+618	cmnd_fire_any	sim/weapons/fire_any_armed	Fire all armed selections!	3	0	0
+619	cmnd_GPS_lock_here	sim/weapons/GPS_lock_here	Target camera pointer in GPS.	3	0	0
+620	cmnd_targ_dn	sim/weapons/weapon_target_down	Target select down.	3	179	1
+621	cmnd_targ_up	sim/weapons/weapon_target_up	Target select up.	3	178	1
+622	cmnd_chaff	sim/weapons/deploy_chaff	Deploy chaff.	3	0	0
+623	cmnd_flares	sim/weapons/deploy_flares	Deploy flares.	3	0	0
+624	cmnd_quick_start	sim/operation/quick_start	Quick-start to engines running	2	0	0
+625	cmnd_fix_now	sim/operation/fix_all_systems	Fix all failed systems.	2	0	0
+626	cmnd_prev_livery	sim/operation/prev_livery	Load previous livery.	2	0	0
+627	cmnd_next_livery	sim/operation/next_livery	Load next livery.	2	0	0
+628	cmnd_belts	sim/systems/seatbelt_sign_toggle	Toggle seatbelt sign.	2	0	0
+629	cmnd_smoking	sim/systems/no_smoking_toggle	Toggle smoking sign.	2	0	0
+630	cmnd_wiper_dn	sim/systems/wipers_dn	Windshield wipers down.	2	0	0
+631	cmnd_wiper_up	sim/systems/wipers_up	Windshield wipers up.	2	0	0
+632	cmnd_door_1_open	sim/flight_controls/door_open_1	Door 1 open.	2	0	0
+633	cmnd_door_2_open	sim/flight_controls/door_open_2	Door 2 open.	2	0	0
+634	cmnd_door_3_open	sim/flight_controls/door_open_3	Door 3 open.	2	0	0
+635	cmnd_door_4_open	sim/flight_controls/door_open_4	Door 4 open.	2	0	0
+636	cmnd_door_5_open	sim/flight_controls/door_open_5	Door 5 open.	2	0	0
+637	cmnd_door_6_open	sim/flight_controls/door_open_6	Door 6 open.	2	0	0
+638	cmnd_door_7_open	sim/flight_controls/door_open_7	Door 7 open.	2	0	0
+639	cmnd_door_8_open	sim/flight_controls/door_open_8	Door 8 open.	2	0	0
+640	cmnd_door_9_open	sim/flight_controls/door_open_9	Door 9 open.	2	0	0
+641	cmnd_door_10_open	sim/flight_controls/door_open_10	Door 10 open..	2	0	0
+642	cmnd_door_1_closed	sim/flight_controls/door_close_1	Door 1 close.	2	0	0
+643	cmnd_door_2_closed	sim/flight_controls/door_close_2	Door 2 close.	2	0	0
+644	cmnd_door_3_closed	sim/flight_controls/door_close_3	Door 3 close.	2	0	0
+645	cmnd_door_4_closed	sim/flight_controls/door_close_4	Door 4 close.	2	0	0
+646	cmnd_door_5_closed	sim/flight_controls/door_close_5	Door 5 close.	2	0	0
+647	cmnd_door_6_closed	sim/flight_controls/door_close_6	Door 6 close.	2	0	0
+648	cmnd_door_7_closed	sim/flight_controls/door_close_7	Door 7 close.	2	0	0
+649	cmnd_door_8_closed	sim/flight_controls/door_close_8	Door 8 close.	2	0	0
+650	cmnd_door_9_closed	sim/flight_controls/door_close_9	Door 9 close.	2	0	0
+651	cmnd_door_10_closed	sim/flight_controls/door_close_10	Door 10 close.	2	0	0
+652	cmnd_drop_tank	sim/flight_controls/drop_tank	Drop all drop-tanks.	3	0	0
+653	cmnd_lite_lft	sim/lights/spot_light_left	Aim spot-light left.	3	0	0
+654	cmnd_lite_rgt	sim/lights/spot_light_right	Aim spot-light right.	3	0	0
+655	cmnd_lite_up	sim/lights/spot_light_up	Aim spot-light up.	3	0	0
+656	cmnd_lite_dn	sim/lights/spot_light_down	Aim spot-light down.	3	0	0
+657	cmnd_lite_center	sim/lights/spot_light_center	Aim spot-light to center.	3	0	0
+658	cmnd_gen_go	sim/general/action	General simulator command: action.	2	32	0
+659	cmnd_tow_go	sim/flight_controls/glider_tow_release	Release tow-plane cable for gliders.	2	0	0
+660	cmnd_win_go	sim/flight_controls/winch_release	Release winch (for gliders).	2	0	0
+661	cmnd_tow_win_go	sim/flight_controls/glider_all_release	Release tow-plane and winch for gliders.	2	0	0
+662	cmnd_cat_shot	sim/flight_controls/engage_cat_shot	Engage catapault.	2	0	0
+663	cmnd_tow_lft	sim/flight_controls/glider_tow_left	Tow-plane for gliders: Take me left.	2	0	0
+664	cmnd_tow_straight	sim/flight_controls/glider_tow_straight	Tow-plane for gliders: Take me straight.	2	0	0
+665	cmnd_tow_rgt	sim/flight_controls/glider_tow_right	Tow-plane for gliders: Take me right.	2	0	0
+666	cmnd_pwr_nav1_off	sim/radios/power_nav1_off	Power nav1 off.	2	0	0
+667	cmnd_pwr_nav1_on	sim/radios/power_nav1_on	Power nav1 on.	2	0	0
+668	cmnd_pwr_nav2_off	sim/radios/power_nav2_off	Power nav2 off.	2	0	0
+669	cmnd_pwr_nav2_on	sim/radios/power_nav2_on	Power nav2 on.	2	0	0
+670	cmnd_pwr_com1_off	sim/radios/power_com1_off	Power com1 off.	2	0	0
+671	cmnd_pwr_com1_on	sim/radios/power_com1_on	Power com1 on.	2	0	0
+672	cmnd_pwr_com2_off	sim/radios/power_com2_off	Power com2 off.	2	0	0
+673	cmnd_pwr_com2_on	sim/radios/power_com2_on	Power com2 on.	2	0	0
+674	cmnd_pwr_adf1_dn	sim/radios/power_adf1_dn	Power adf1 dn.	2	0	0
+675	cmnd_pwr_adf1_up	sim/radios/power_adf1_up	Power adf1 up.	2	0	0
+676	cmnd_pwr_adf2_dn	sim/radios/power_adf2_dn	Power adf2 dn.	2	0	0
+677	cmnd_pwr_adf2_up	sim/radios/power_adf2_up	Power adf2 up.	2	0	0
+678	cmnd_pwr_adf1_off	sim/radios/adf1_power_mode_0	ADF 1 off.	2	0	0
+679	cmnd_pwr_adf1_ant	sim/radios/adf1_power_mode_1	ADF 1 antenna.	2	0	0
+680	cmnd_pwr_adf1_on	sim/radios/adf1_power_mode_2	ADF 1 on.	2	0	0
+681	cmnd_pwr_adf1_tone	sim/radios/adf1_power_mode_3	ADF 1 tone.	2	0	0
+682	cmnd_pwr_adf1_test	sim/radios/adf1_power_mode_4	ADF 1 test.	2	0	0
+683	cmnd_pwr_adf2_off	sim/radios/adf2_power_mode_0	ADF 2 off.	2	0	0
+684	cmnd_pwr_adf2_ant	sim/radios/adf2_power_mode_1	ADF 2 antenna.	2	0	0
+685	cmnd_pwr_adf2_on	sim/radios/adf2_power_mode_2	ADF 2 on.	2	0	0
+686	cmnd_pwr_adf2_tone	sim/radios/adf2_power_mode_3	ADF 2 tone.	2	0	0
+687	cmnd_pwr_adf2_test	sim/radios/adf2_power_mode_4	ADF 2 test.	2	0	0
+688	cmnd_com1_1actv	sim/radios/actv_com1_coarse_down	COM 1 coarse down.	2	0	0
+689	cmnd_com1_2actv	sim/radios/actv_com1_coarse_up	COM 1 coarse up.	2	0	0
+690	cmnd_com1_3actv	sim/radios/actv_com1_fine_down	COM 1 fine down (25kHz).	2	0	0
+691	cmnd_com1_4actv	sim/radios/actv_com1_fine_up	COM 1 fine up (25kHz).	2	0	0
+692	cmnd_com1_3actv_833	sim/radios/actv_com1_fine_down_833	COM 1 fine down (8.33 kHz).	2	0	0
+693	cmnd_com1_4actv_833	sim/radios/actv_com1_fine_up_833	COM 1 fine up (8.33 kHz).	2	0	0
+694	cmnd_com1_1stby	sim/radios/stby_com1_coarse_down	COM 1 standby coarse down.	2	0	0
+695	cmnd_com1_2stby	sim/radios/stby_com1_coarse_up	COM 1 standby coarse up.	2	0	0
+696	cmnd_com1_3stby	sim/radios/stby_com1_fine_down	COM 1 standby fine down (25kHz).	2	0	0
+697	cmnd_com1_4stby	sim/radios/stby_com1_fine_up	COM 1 standby fine up (25kHz).	2	0	0
+698	cmnd_com1_3stby_833	sim/radios/stby_com1_fine_down_833	COM 1 standby fine down (8.33kHz).	2	0	0
+699	cmnd_com1_4stby_833	sim/radios/stby_com1_fine_up_833	COM 1 standby fine up (8.33kHz).	2	0	0
+700	cmnd_com2_1actv	sim/radios/actv_com2_coarse_down	COM 2 coarse down.	2	0	0
+701	cmnd_com2_2actv	sim/radios/actv_com2_coarse_up	COM 2 coarse up.	2	0	0
+702	cmnd_com2_3actv	sim/radios/actv_com2_fine_down	COM 2 fine down (25kHz).	2	0	0
+703	cmnd_com2_4actv	sim/radios/actv_com2_fine_up	COM 2 fine up (25kHz).	2	0	0
+704	cmnd_com2_3actv_833	sim/radios/actv_com2_fine_down_833	COM 2 fine down (8.33kHz).	2	0	0
+705	cmnd_com2_4actv_833	sim/radios/actv_com2_fine_up_833	COM 2 fine up (8.33kHz).	2	0	0
+706	cmnd_com2_1stby	sim/radios/stby_com2_coarse_down	COM 2 standby coarse down.	2	0	0
+707	cmnd_com2_2stby	sim/radios/stby_com2_coarse_up	COM 2 standby coarse up.	2	0	0
+708	cmnd_com2_3stby	sim/radios/stby_com2_fine_down	COM 2 standby fine down (25kHz).	2	0	0
+709	cmnd_com2_4stby	sim/radios/stby_com2_fine_up	COM 2 standby fine up (25kHz).	2	0	0
+710	cmnd_com2_3stby_833	sim/radios/stby_com2_fine_down_833	COM 2 standby fine down (8.33kHz).	2	0	0
+711	cmnd_com2_4stby_833	sim/radios/stby_com2_fine_up_833	COM 2 standby fine up (8.33kHz).	2	0	0
+712	cmnd_nav1_1actv	sim/radios/actv_nav1_coarse_down	NAV 1 coarse down.	2	0	0
+713	cmnd_nav1_2actv	sim/radios/actv_nav1_coarse_up	NAV 1 coarse up.	2	0	0
+714	cmnd_nav1_3actv	sim/radios/actv_nav1_fine_down	NAV 1 fine down.	2	0	0
+715	cmnd_nav1_4actv	sim/radios/actv_nav1_fine_up	NAV 1 fine up.	2	0	0
+716	cmnd_nav1_1stby	sim/radios/stby_nav1_coarse_down	NAV 1 standby coarse down.	2	0	0
+717	cmnd_nav1_2stby	sim/radios/stby_nav1_coarse_up	NAV 1 standby coarse up.	2	0	0
+718	cmnd_nav1_3stby	sim/radios/stby_nav1_fine_down	NAV 1 standby fine down.	2	0	0
+719	cmnd_nav1_4stby	sim/radios/stby_nav1_fine_up	NAV 1 standby fine up.	2	0	0
+720	cmnd_nav2_1actv	sim/radios/actv_nav2_coarse_down	NAV 2 coarse down.	2	0	0
+721	cmnd_nav2_2actv	sim/radios/actv_nav2_coarse_up	NAV 2 coarse up.	2	0	0
+722	cmnd_nav2_3actv	sim/radios/actv_nav2_fine_down	NAV 2 fine down.	2	0	0
+723	cmnd_nav2_4actv	sim/radios/actv_nav2_fine_up	NAV 2 fine up.	2	0	0
+724	cmnd_nav2_1stby	sim/radios/stby_nav2_coarse_down	NAV 2 standby coarse down.	2	0	0
+725	cmnd_nav2_2stby	sim/radios/stby_nav2_coarse_up	NAV 2 standby coarse up.	2	0	0
+726	cmnd_nav2_3stby	sim/radios/stby_nav2_fine_down	NAV 2 standby fine down.	2	0	0
+727	cmnd_nav2_4stby	sim/radios/stby_nav2_fine_up	NAV 2 standby fine up.	2	0	0
+728	cmnd_dme_1actv	sim/radios/actv_dme_coarse_down	DME coarse down.	2	0	0
+729	cmnd_dme_2actv	sim/radios/actv_dme_coarse_up	DME coarse up.	2	0	0
+730	cmnd_dme_3actv	sim/radios/actv_dme_fine_down	DME fine down.	2	0	0
+731	cmnd_dme_4actv	sim/radios/actv_dme_fine_up	DME fine up.	2	0	0
+732	cmnd_dme_1stby	sim/radios/stby_dme_coarse_down	DME standby coarse down.	2	0	0
+733	cmnd_dme_2stby	sim/radios/stby_dme_coarse_up	DME standby coarse up.	2	0	0
+734	cmnd_dme_3stby	sim/radios/stby_dme_fine_down	DME standby fine down.	2	0	0
+735	cmnd_dme_4stby	sim/radios/stby_dme_fine_up	DME standby fine up.	2	0	0
+736	cmnd_adf1_1actv	sim/radios/actv_adf1_hundreds_down	ADF 1 hundreds down.	2	0	0
+737	cmnd_adf1_2actv	sim/radios/actv_adf1_hundreds_up	ADF 1 hundreds up.	2	0	0
+738	cmnd_adf1_3actv	sim/radios/actv_adf1_tens_down	ADF 1 tens down.	2	0	0
+739	cmnd_adf1_4actv	sim/radios/actv_adf1_tens_up	ADF 1 tens up.	2	0	0
+740	cmnd_adf1_5actv	sim/radios/actv_adf1_ones_down	ADF 1 ones down.	2	0	0
+741	cmnd_adf1_6actv	sim/radios/actv_adf1_ones_up	ADF 1 ones up.	2	0	0
+742	cmnd_adf1_7actv	sim/radios/actv_adf1_ones_tens_down	ADF 1 ones and tens down.	2	0	0
+743	cmnd_adf1_8actv	sim/radios/actv_adf1_ones_tens_up	ADF 1 ones and tens up.	2	0	0
+744	cmnd_adf1_9actv	sim/radios/actv_adf1_hundreds_thous_down	ADF 1 hundreds and thousands down.	2	0	0
+745	cmnd_adf1_0actv	sim/radios/actv_adf1_hundreds_thous_up	ADF 1 hundreds and thousands up.	2	0	0
+746	cmnd_adf1_1stby	sim/radios/stby_adf1_hundreds_down	ADF 1 hundreds down.	2	0	0
+747	cmnd_adf1_2stby	sim/radios/stby_adf1_hundreds_up	ADF 1 hundreds up.	2	0	0
+748	cmnd_adf1_3stby	sim/radios/stby_adf1_tens_down	ADF 1 tens down.	2	0	0
+749	cmnd_adf1_4stby	sim/radios/stby_adf1_tens_up	ADF 1 tens up.	2	0	0
+750	cmnd_adf1_5stby	sim/radios/stby_adf1_ones_down	ADF 1 ones down.	2	0	0
+751	cmnd_adf1_6stby	sim/radios/stby_adf1_ones_up	ADF 1 ones up.	2	0	0
+752	cmnd_adf1_7stby	sim/radios/stby_adf1_ones_tens_down	ADF 1 ones and tens down.	2	0	0
+753	cmnd_adf1_8stby	sim/radios/stby_adf1_ones_tens_up	ADF 1 ones and tens up.	2	0	0
+754	cmnd_adf1_9stby	sim/radios/stby_adf1_hundreds_thous_down	ADF 1 hundreds and thousands down.	2	0	0
+755	cmnd_adf1_0stby	sim/radios/stby_adf1_hundreds_thous_up	ADF 1 hundreds and thousands up.	2	0	0
+756	cmnd_adf2_1actv	sim/radios/actv_adf2_hundreds_down	ADF 2 hundreds down.	2	0	0
+757	cmnd_adf2_2actv	sim/radios/actv_adf2_hundreds_up	ADF 2 hundreds up.	2	0	0
+758	cmnd_adf2_3actv	sim/radios/actv_adf2_tens_down	ADF 2 tens down.	2	0	0
+759	cmnd_adf2_4actv	sim/radios/actv_adf2_tens_up	ADF 2 tens up.	2	0	0
+760	cmnd_adf2_5actv	sim/radios/actv_adf2_ones_down	ADF 2 ones down.	2	0	0
+761	cmnd_adf2_6actv	sim/radios/actv_adf2_ones_up	ADF 2 ones up.	2	0	0
+762	cmnd_adf2_7actv	sim/radios/actv_adf2_ones_tens_down	ADF 2 ones and tens down.	2	0	0
+763	cmnd_adf2_8actv	sim/radios/actv_adf2_ones_tens_up	ADF 2 ones and tens up.	2	0	0
+764	cmnd_adf2_9actv	sim/radios/actv_adf2_hundreds_thous_down	ADF 2 hundreds and thousands down.	2	0	0
+765	cmnd_adf2_0actv	sim/radios/actv_adf2_hundreds_thous_up	ADF 2 hundreds and thousands up.	2	0	0
+766	cmnd_adf2_1stby	sim/radios/stby_adf2_hundreds_down	ADF 2 hundreds down.	2	0	0
+767	cmnd_adf2_2stby	sim/radios/stby_adf2_hundreds_up	ADF 2 hundreds up.	2	0	0
+768	cmnd_adf2_3stby	sim/radios/stby_adf2_tens_down	ADF 2 tens down.	2	0	0
+769	cmnd_adf2_4stby	sim/radios/stby_adf2_tens_up	ADF 2 tens up.	2	0	0
+770	cmnd_adf2_5stby	sim/radios/stby_adf2_ones_down	ADF 2 ones down.	2	0	0
+771	cmnd_adf2_6stby	sim/radios/stby_adf2_ones_up	ADF 2 ones up.	2	0	0
+772	cmnd_adf2_7stby	sim/radios/stby_adf2_ones_tens_down	ADF 2 ones and tens down.	2	0	0
+773	cmnd_adf2_8stby	sim/radios/stby_adf2_ones_tens_up	ADF 2 ones and tens up.	2	0	0
+774	cmnd_adf2_9stby	sim/radios/stby_adf2_hundreds_thous_down	ADF 2 hundreds and thousands down.	2	0	0
+775	cmnd_adf2_0stby	sim/radios/stby_adf2_hundreds_thous_up	ADF 2 hundreds and thousands up.	2	0	0
+776	cmnd_transpon_d0	sim/transponder/transponder_digit_0	Transponder digit to 0.	2	0	0
+777	cmnd_transpon_d1	sim/transponder/transponder_digit_1	Transponder digit to 1.	2	0	0
+778	cmnd_transpon_d2	sim/transponder/transponder_digit_2	Transponder digit to 2.	2	0	0
+779	cmnd_transpon_d3	sim/transponder/transponder_digit_3	Transponder digit to 3.	2	0	0
+780	cmnd_transpon_d4	sim/transponder/transponder_digit_4	Transponder digit to 4.	2	0	0
+781	cmnd_transpon_d5	sim/transponder/transponder_digit_5	Transponder digit to 5.	2	0	0
+782	cmnd_transpon_d6	sim/transponder/transponder_digit_6	Transponder digit to 6.	2	0	0
+783	cmnd_transpon_d7	sim/transponder/transponder_digit_7	Transponder digit to 7.	2	0	0
+784	cmnd_transpon_CLR	sim/transponder/transponder_CLR	Transponder reset to first digit.	2	0	0
+785	cmnd_transpon_1	sim/transponder/transponder_thousands_down	Transponder thousands down.	2	0	0
+786	cmnd_transpon_2	sim/transponder/transponder_thousands_up	Transponder thousands up.	2	0	0
+787	cmnd_transpon_3	sim/transponder/transponder_hundreds_down	Transponder hundreds down.	2	0	0
+788	cmnd_transpon_4	sim/transponder/transponder_hundreds_up	Transponder hundreds up.	2	0	0
+789	cmnd_transpon_5	sim/transponder/transponder_tens_down	Transponder tens down.	2	0	0
+790	cmnd_transpon_6	sim/transponder/transponder_tens_up	Transponder tens up.	2	0	0
+791	cmnd_transpon_7	sim/transponder/transponder_ones_down	Transponder ones down.	2	0	0
+792	cmnd_transpon_8	sim/transponder/transponder_ones_up	Transponder ones up.	2	0	0
+793	cmnd_transpon_9	sim/transponder/transponder_12_down	Transponder digits 1 and 2 down.	2	0	0
+794	cmnd_transpon_10	sim/transponder/transponder_12_up	Transponder digits 1 and 2 up.	2	0	0
+795	cmnd_transpon_11	sim/transponder/transponder_34_down	Transponder digits 3 and 4 down.	2	0	0
+796	cmnd_transpon_12	sim/transponder/transponder_34_up	Transponder digits 3 and 4 up.	2	0	0
+797	cmnd_xmt_audio_com1	sim/audio_panel/transmit_audio_com1	Transmit audio: COM1.	2	0	0
+798	cmnd_xmt_audio_com2	sim/audio_panel/transmit_audio_com2	Transmit audio: COM2.	2	0	0
+799	cmnd_mon_audio_com1	sim/audio_panel/monitor_audio_com1	Monitor audio: COM1.	2	0	0
+800	cmnd_mon_audio_com2	sim/audio_panel/monitor_audio_com2	Monitor audio: COM2.	2	0	0
+801	cmnd_mon_audio_nav1	sim/audio_panel/monitor_audio_nav1	Monitor audio: NAV1.	2	0	0
+802	cmnd_mon_audio_nav2	sim/audio_panel/monitor_audio_nav2	Monitor audio: NAV2.	2	0	0
+803	cmnd_mon_audio_adf1	sim/audio_panel/monitor_audio_adf1	Monitor audio: ADF2.	2	0	0
+804	cmnd_mon_audio_adf2	sim/audio_panel/monitor_audio_adf2	Monitor audio: ADF2.	2	0	0
+805	cmnd_mon_audio_dme	sim/audio_panel/monitor_audio_dme	Monitor audio: DME.	2	0	0
+806	cmnd_mon_audio_mkr	sim/audio_panel/monitor_audio_mkr	Monitor audio: MKR.	2	0	0
+807	cmnd_tran_ID	sim/transponder/transponder_ident	Transponder ID.	2	0	0
+808	cmnd_tran_off	sim/transponder/transponder_off	Transponder off.	2	0	0
+809	cmnd_tran_standby	sim/transponder/transponder_standby	Transponder standby.	2	0	0
+810	cmnd_tran_on	sim/transponder/transponder_on	Transponder on.	2	0	0
+811	cmnd_tran_alt	sim/transponder/transponder_alt	Transponder alt.	2	0	0
+812	cmnd_tran_test	sim/transponder/transponder_test	Transponder test.	2	0	0
+813	cmnd_tran_ground	sim/transponder/transponder_ground	Transponder ground.	2	0	0
+814	cmnd_tran_dn	sim/transponder/transponder_dn	Transponder mode down.	2	0	0
+815	cmnd_tran_up	sim/transponder/transponder_up	Transponder mode up.	2	0	0
+816	cmnd_tog_nav1	sim/radios/nav1_standy_flip	NAV 1 flip standby.	2	57	4
+817	cmnd_tog_nav2	sim/radios/nav2_standy_flip	NAV 2 flip standby.	2	48	4
+818	cmnd_tog_com1	sim/radios/com1_standy_flip	COM 1 flip standby.	2	177	4
+819	cmnd_tog_com2	sim/radios/com2_standy_flip	COM 2 flip standby.	2	176	4
+820	cmnd_tog_adf1	sim/radios/adf1_standy_flip	ADF 1 flip standby.	2	0	0
+821	cmnd_tog_adf2	sim/radios/adf2_standy_flip	ADF 2 flip standby.	2	0	0
+822	cmnd_tog_dme	sim/radios/dme_standby_flip	DME flip standby.	2	0	0
+823	cmnd_RMI_L_tog	sim/radios/RMI_L_tog	RMI left NAV toggle VOR/NDB.	2	0	0
+824	cmnd_RMI_R_tog	sim/radios/RMI_R_tog	RMI right NAV toggle VOR/NDB.	2	0	0
+825	cmnd_RMI_L_tog_cop	sim/radios/copilot_RMI_L_tog_cop	Copilot RMI left NAV toggle VOR/NDB.	2	0	0
+826	cmnd_RMI_R_tog_cop	sim/radios/copilot_RMI_R_tog_cop	Copilot RMI right NAV toggle VOR/NDB.	2	0	0
+827	cmnd_ecam_up	sim/instruments/ECAM_mode_up	ECAM mode up.	2	0	0
+828	cmnd_ecam_dn	sim/instruments/ECAM_mode_down	ECAM mode down.	2	0	0
+829	cmnd_EFIS_zoom_in	sim/instruments/map_zoom_in	Zoom in EFIS map.	3	0	0
+830	cmnd_EFIS_zoom_out	sim/instruments/map_zoom_out	Zoom out EFIS map.	3	0	0
+831	cmnd_EFIS_wxr	sim/instruments/EFIS_wxr	EFIS map EFIS_wxr.	3	0	0
+832	cmnd_EFIS_tcas	sim/instruments/EFIS_tcas	EFIS map EFIS_tcas.	3	0	0
+833	cmnd_EFIS_apt	sim/instruments/EFIS_apt	EFIS map EFIS_apt.	3	0	0
+834	cmnd_EFIS_fix	sim/instruments/EFIS_fix	EFIS map EFIS_fix.	3	0	0
+835	cmnd_EFIS_vor	sim/instruments/EFIS_vor	EFIS map EFIS_vor.	3	0	0
+836	cmnd_EFIS_ndb	sim/instruments/EFIS_ndb	EFIS map EFIS_ndb.	3	0	0
+837	cmnd_EFIS_page_up	sim/instruments/EFIS_page_up	EFIS page UP	2	0	0
+838	cmnd_EFIS_page_dn	sim/instruments/EFIS_page_dn	EFIS page DOWN.	2	0	0
+839	cmnd_EFIS_mode_up	sim/instruments/EFIS_mode_up	EFIS mode UP APP->VOR->MAP->PLN	2	0	0
+840	cmnd_EFIS_mode_dn	sim/instruments/EFIS_mode_dn	EFIS mode DOWN PLN->MAP->VOR->APP	2	0	0
+841	cmnd_EFIS1_pil_dn	sim/instruments/EFIS_1_pilot_sel_dn	EFIS 1 selection pilot down ADF-OFF-VOR	2	0	0
+842	cmnd_EFIS1_pil_up	sim/instruments/EFIS_1_pilot_sel_up	EFIS 1 selection pilot up ADF-OFF-VOR	2	0	0
+843	cmnd_EFIS1_cop_dn	sim/instruments/EFIS_1_copilot_sel_dn	EFIS 1 selection copilot down ADF-OFF-VOR	2	0	0
+844	cmnd_EFIS1_cop_up	sim/instruments/EFIS_1_copilot_sel_up	EFIS 1 selection copilot up ADF-OFF-VOR	2	0	0
+845	cmnd_EFIS2_pil_dn	sim/instruments/EFIS_2_pilot_sel_dn	EFIS 2 selection pilot down ADF-OFF-VOR	2	0	0
+846	cmnd_EFIS2_pil_up	sim/instruments/EFIS_2_pilot_sel_up	EFIS 2 selection pilot up ADF-OFF-VOR	2	0	0
+847	cmnd_EFIS2_cop_dn	sim/instruments/EFIS_2_copilot_sel_dn	EFIS 2 selection copilot down ADF-OFF-VOR	2	0	0
+848	cmnd_EFIS2_cop_up	sim/instruments/EFIS_2_copilot_sel_up	EFIS 2 selection copilot up ADF-OFF-VOR	2	0	0
+849	cmnd_obs1dn	sim/radios/obs1_down	OBS 1 down.	2	0	0
+850	cmnd_obs1up	sim/radios/obs1_up	OBS 1 up.	2	0	0
+851	cmnd_obs2dn	sim/radios/obs2_down	OBS 2 down.	2	0	0
+852	cmnd_obs2up	sim/radios/obs2_up	OBS 2 up.	2	0	0
+853	cmnd_obs_hsi_dn	sim/radios/obs_HSI_down	OBS HSI down.	2	0	0
+854	cmnd_obs_hsi_up	sim/radios/obs_HSI_up	OBS HSI up.	2	0	0
+855	cmnd_adf1dn	sim/radios/adf1_card_down	ADF card 1 down.	2	0	0
+856	cmnd_adf1up	sim/radios/adf1_card_up	ADF card 1 up.	2	0	0
+857	cmnd_adf2dn	sim/radios/adf2_card_down	ADF card 2 down.	2	0	0
+858	cmnd_adf2up	sim/radios/adf2_card_up	ADF card 2 up.	2	0	0
+859	cmnd_obs1dn_cop	sim/radios/copilot_obs1_down	Copilot OBS 1 down.	2	0	0
+860	cmnd_obs1up_cop	sim/radios/copilot_obs1_up	Copilot OBS 1 up.	2	0	0
+861	cmnd_obs2dn_cop	sim/radios/copilot_obs2_down	Copilot OBS 2 down.	2	0	0
+862	cmnd_obs2up_cop	sim/radios/copilot_obs2_up	Copilot OBS 2 up.	2	0	0
+863	cmnd_obs_hsi_dn_cop	sim/radios/copilot_obs_HSI_down	Copilot OBS HSI down.	2	0	0
+864	cmnd_obs_hsi_up_cop	sim/radios/copilot_obs_HSI_up	Copilot OBS HSI up.	2	0	0
+865	cmnd_adf1dn_cop	sim/radios/copilot_adf1_card_down	Copilot ADF card 1 down.	2	0	0
+866	cmnd_adf1up_cop	sim/radios/copilot_adf1_card_up	Copilot ADF card 1 up.	2	0	0
+867	cmnd_adf2dn_cop	sim/radios/copilot_adf2_card_down	Copilot ADF card 2 down.	2	0	0
+868	cmnd_adf2up_cop	sim/radios/copilot_adf2_card_up	Copilot ADF card 2 up.	2	0	0
+869	cmnd_hsi_dn	sim/autopilot/hsi_select_down	HSI select down one.	2	0	0
+870	cmnd_hsi_up	sim/autopilot/hsi_select_up	HSI select up one.	2	0	0
+871	cmnd_hsi_0	sim/autopilot/hsi_select_nav_1	HSI shows nav 1.	3	0	0
+872	cmnd_hsi_1	sim/autopilot/hsi_select_nav_2	HSI shows nav 2.	3	0	0
+873	cmnd_hsi_2	sim/autopilot/hsi_select_gps	HSI shows GPS.	3	0	0
+874	cmnd_hsi_dn_cop	sim/autopilot/hsi_select_copilot_down	HSI select down one, copilot.	2	0	0
+875	cmnd_hsi_up_cop	sim/autopilot/hsi_select_copilot_up	HSI select up one, copilot.	2	0	0
+876	cmnd_hsi_0_cop	sim/autopilot/hsi_select_copilot_nav_1	HSI shows nav 1, copilot.	2	0	0
+877	cmnd_hsi_1_cop	sim/autopilot/hsi_select_copilot_nav_2	HSI shows nav 2, copilot.	2	0	0
+878	cmnd_hsi_2_cop	sim/autopilot/hsi_select_copilot_gps	HSI shows GPS, copilot.	2	0	0
+879	cmnd_carrier_ILS	sim/flight_controls/carrier_ILS	Set the radios for the Carrier ILS.	2	0	0
+880	cmnd_otto_src	sim/autopilot/source_01	Autopilot pitot static source, 0 or 1	2	0	0
+881	cmnd_fdir_1	sim/autopilot/fdir_on	Flight director on.	2	0	0
+882	cmnd_fdir_01	sim/autopilot/fdir_toggle	Flight director toggle.	2	0	0
+883	cmnd_fdir_2	sim/autopilot/servos_on	Servos on.	2	0	0
+884	cmnd_fdir_02	sim/autopilot/servos_toggle	Servos toggle.	2	0	0
+885	cmnd_fdir_dn	sim/autopilot/fdir_servos_down_one	Flight-Dir down (on-fdir-off).	3	0	0
+886	cmnd_fdir_up	sim/autopilot/fdir_servos_up_one	Flight-Dir up (off-fdir-on).	3	0	0
+887	cmnd_fdir_0	sim/autopilot/servos_fdir_off	Disco servos, flt dir.	2	0	0
+888	cmnd_fdir_0_yaw	sim/autopilot/servos_fdir_yawd_off	Disco servos, flt dir, yawdamp.	2	0	0
+889	cmnd_fdir_0_yaw_trm	sim/autopilot/servos_fdir_yawd_trim_off	Disco servos, flt dir, yawdamp, trim.	2	0	0
+890	cmnd_ott_CWS	sim/autopilot/control_wheel_steer	Control-wheel steer.	3	0	0
+891	cmnd_ott_atr_on	sim/autopilot/autothrottle_on	Autopilot auto-throttle on.	2	0	0
+892	cmnd_ott_atr_off	sim/autopilot/autothrottle_off	Autopilot auto-throttle off.	2	0	0
+893	cmnd_ott_atr_tog	sim/autopilot/autothrottle_toggle	Autopilot auto-throttle toggle.	2	0	0
+894	cmnd_ott_hdg	sim/autopilot/heading	Autopilot heading-hold.	2	0	0
+895	cmnd_ott_rol	sim/autopilot/wing_leveler	Autopilot wing-level.	2	0	0
+896	cmnd_ott_nav	sim/autopilot/NAV	Autopilot VOR/LOC arm.	2	0	0
+897	cmnd_ott_vvi_now	sim/autopilot/vertical_speed	Autopilot vertical speed, at current VSI.	2	0	0
+898	cmnd_ott_vvi_sel	sim/autopilot/vertical_speed_pre_sel	Autopilot vertical speed, at pre-sel VSI.	2	0	0
+899	cmnd_ott_pit	sim/autopilot/pitch_sync	Autopilot pitch-sync.	2	0	0
+900	cmnd_ott_spd	sim/autopilot/level_change	Autopilot level change.	2	0	0
+901	cmnd_ott_alt	sim/autopilot/altitude_hold	Autopilot altitude select or hold.	2	0	0
+902	cmnd_ott_ter	sim/autopilot/terrain_following	Autopilot terrain-mode following.	2	0	0
+903	cmnd_ott_TOGA	sim/autopilot/take_off_go_around	Autopilot take-off go-around.	2	0	0
+904	cmnd_ott_ree	sim/autopilot/reentry	Autopilot re-entry.	2	0	0
+905	cmnd_ott_gls	sim/autopilot/glide_slope	Autopilot glideslope.	2	0	0
+906	cmnd_ott_vnv	sim/autopilot/vnav	Autopilot VNAV for G1000.	2	0	0
+907	cmnd_asi_sync	sim/autopilot/airspeed_sync	Autopilot airspeed sync.	2	0	0
+908	cmnd_hdg_sync	sim/autopilot/heading_sync	Autopilot heading sync.	2	0	0
+909	cmnd_vvi_sync	sim/autopilot/vertical_speed_sync	Autopilot VVI sync.	2	0	0
+910	cmnd_alt_sync	sim/autopilot/altitude_sync	Autopilot altitude sync.	2	0	0
+911	cmnd_hdg_dn	sim/autopilot/heading_down	Autopilot heading down.	2	0	0
+912	cmnd_hdg_up	sim/autopilot/heading_up	Autopilot heading up.	2	0	0
+913	cmnd_hdg_dn_cop	sim/autopilot/heading_copilot_down	Autopilot heading copilot down.	2	0	0
+914	cmnd_hdg_up_cop	sim/autopilot/heading_copilot_up	Autopilot heading copilot up.	2	0	0
+915	cmnd_asi_dn	sim/autopilot/airspeed_down	Autopilot airspeed down.	2	0	0
+916	cmnd_asi_up	sim/autopilot/airspeed_up	Autopilot airspeed up.	2	0	0
+917	cmnd_vvi_dn	sim/autopilot/vertical_speed_down	Autopilot VVI down.	2	0	0
+918	cmnd_vvi_up	sim/autopilot/vertical_speed_up	Autopilot VVI up.	2	0	0
+919	cmnd_alt_dn	sim/autopilot/altitude_down	Autopilot altitude down.	2	0	0
+920	cmnd_alt_up	sim/autopilot/altitude_up	Autopilot altitude up.	2	0	0
+921	cmnd_nose_dn	sim/autopilot/nose_down	Autopilot nose down.	2	0	0
+922	cmnd_nose_up	sim/autopilot/nose_up	Autopilot nose up.	2	0	0
+923	cmnd_nose_dn_ptch	sim/autopilot/nose_down_pitch_mode	Autopilot nose down, go into pitch mode.	2	0	0
+924	cmnd_nose_up_ptch	sim/autopilot/nose_up_pitch_mode	Autopilot nose up, go into pitch mode	2	0	0
+925	cmnd_override_left	sim/autopilot/override_left	Autopilot override left: Go to ROL mode.	2	0	0
+926	cmnd_override_right	sim/autopilot/override_right	Autopilot override right: Go to ROL mode.	2	0	0
+927	cmnd_override_up	sim/autopilot/override_up	Autopilot override up: Go to SYN mode.	2	0	0
+928	cmnd_override_down	sim/autopilot/override_down	Autopilot override down: Go to SYN mode.	2	0	0
+929	cmnd_ott_alt_arm	sim/autopilot/altitude_arm	Autopilot altitude-hold ARM.	2	0	0
+930	cmnd_ott_app	sim/autopilot/approach	Autopilot approach.	2	0	0
+931	cmnd_ott_bac	sim/autopilot/back_course	Autopilot back-course.	2	0	0
+932	cmnd_knots_mach	sim/autopilot/knots_mach_toggle	Toggle knots-Mach airspeeed hold.	2	0	0
+933	cmnd_ott_fms	sim/autopilot/FMS	Autopilot FMS altitude.	2	0	0
+934	cmnd_bank_limit_dn	sim/autopilot/bank_limit_down	Bank angle limit down.	2	0	0
+935	cmnd_bank_limit_up	sim/autopilot/bank_limit_up	Bank angle limit up.	2	0	0
+936	cmnd_bank_limit_tog	sim/autopilot/bank_limit_toggle	Bank angle limit toggle.	2	0	0
+937	cmnd_soft_ride_tog	sim/autopilot/soft_ride_toggle	Soft ride toggle.	2	0	0
+938	cmnd_dc_volt_dn	sim/electrical/dc_volt_dn	DC Voltmeter down.	2	0	0
+939	cmnd_dc_volt_up	sim/electrical/dc_volt_up	DC Voltmeter up.	2	0	0
+940	cmnd_dc_volt_ext	sim/electrical/dc_volt_ext	DC Voltmeter external power.	2	0	0
+941	cmnd_dc_volt_ctr	sim/electrical/dc_volt_ctr	DC Voltmeter center.	2	0	0
+942	cmnd_dc_volt_lft	sim/electrical/dc_volt_lft	DC Voltmeter left.	2	0	0
+943	cmnd_dc_volt_rgt	sim/electrical/dc_volt_rgt	DC Voltmeter right.	2	0	0
+944	cmnd_dc_volt_tpl	sim/electrical/dc_volt_tpl	DC Voltmeter TPL-fed.	2	0	0
+945	cmnd_dc_volt_bat	sim/electrical/dc_volt_bat	DC Voltmeter battery.	2	0	0
+946	cmnd_HUD_pwr	sim/HUD/power_toggle	HUD toggle power.	2	0	0
+947	cmnd_HUD_brt	sim/HUD/brightness_toggle	HUD toggle brightness.	2	186	0
+948	cmnd_te_audio	sim/systems/total_energy_audio_toggle	Toggle total-energy audio.	2	0	0
+949	cmnd_thermo_units	sim/instruments/thermo_units_toggle	Toggle english/metric thermometer.	2	0	0
+950	cmnd_baro_2992	sim/instruments/barometer_2992	Baro pressure selection 2992.	2	0	0
+951	cmnd_DG_sync_dn	sim/instruments/DG_sync_down	DG sync down.	2	0	0
+952	cmnd_DG_sync_up	sim/instruments/DG_sync_up	DG sync up.	2	0	0
+953	cmnd_DG_sync_dn_cop	sim/instruments/copilot_DG_sync_down	Copilot DG sync down.	2	0	0
+954	cmnd_DG_sync_up_cop	sim/instruments/copilot_DG_sync_up	Copilot DG sync up.	2	0	0
+955	cmnd_ahref_dn	sim/instruments/ah_ref_down	Horizon reference down a bit.	2	0	0
+956	cmnd_ahref_up	sim/instruments/ah_ref_up	Horizon reference up a bit.	2	0	0
+957	cmnd_ahref_dn_cop	sim/instruments/ah_ref_copilot_down	Horizon reference down a bit, copilot.	2	0	0
+958	cmnd_ahref_up_cop	sim/instruments/ah_ref_copilot_up	Horizon reference down a bit, copilot.	2	0	0
+959	cmnd_baro_dn	sim/instruments/barometer_down	Baro selection down a bit.	2	0	0
+960	cmnd_baro_up	sim/instruments/barometer_up	Baro selection up a bit.	2	0	0
+961	cmnd_baro_dn_cop	sim/instruments/barometer_copilot_down	Baro selection down a bit, copilot.	2	0	0
+962	cmnd_baro_up_cop	sim/instruments/barometer_copilot_up	Baro selection up a bit, copilot.	2	0	0
+963	cmnd_dhref_dn	sim/instruments/dh_ref_down	Decision-height reference down.	2	0	0
+964	cmnd_dhref_up	sim/instruments/dh_ref_up	Decision-height reference up.	2	0	0
+965	cmnd_dhref_dn_cop	sim/instruments/dh_ref_copilot_down	Decision-height reference copilot down.	2	0	0
+966	cmnd_dhref_up_cop	sim/instruments/dh_ref_copilot_up	Decision-height reference copilot up.	2	0	0
+967	cmnd_pan_bri_dn	sim/instruments/panel_bright_down	Panel brightness down a bit.	2	183	5
+968	cmnd_pan_bri_up	sim/instruments/panel_bright_up	Panel brightness up a bit.	2	185	5
+969	cmnd_ins_bri_dn	sim/instruments/instrument_bright_down	Instrument brightness down a bit.	2	0	0
+970	cmnd_ins_bri_up	sim/instruments/instrument_bright_up	Instrument brightness up a bit.	2	0	0
+971	cmnd_annun_test	sim/annunciator/test_all_annunciators	Test all annunciators.	2	0	0
+972	cmnd_stall_test	sim/annunciator/test_stall	Test stall warn.	2	0	0
+973	cmnd_annun_fire_1	sim/annunciator/test_fire_1_annun	Test fire 1 annunciator.	2	0	0
+974	cmnd_annun_fire_2	sim/annunciator/test_fire_2_annun	Test fire 2 annunciator.	2	0	0
+975	cmnd_annun_fire_3	sim/annunciator/test_fire_3_annun	Test fire 3 annunciator.	2	0	0
+976	cmnd_annun_fire_4	sim/annunciator/test_fire_4_annun	Test fire 4 annunciator.	2	0	0
+977	cmnd_annun_fire_5	sim/annunciator/test_fire_5_annun	Test fire 5 annunciator.	2	0	0
+978	cmnd_annun_fire_6	sim/annunciator/test_fire_6_annun	Test fire 6 annunciator.	2	0	0
+979	cmnd_annun_fire_7	sim/annunciator/test_fire_7_annun	Test fire 7 annunciator.	2	0	0
+980	cmnd_annun_fire_8	sim/annunciator/test_fire_8_annun	Test fire 8 annunciator.	2	0	0
+981	cmnd_master_caution	sim/annunciator/clear_master_caution	Clear master caution.	2	0	0
+982	cmnd_master_warning	sim/annunciator/clear_master_warning	Clear master warning.	2	0	0
+983	cmnd_master_accept	sim/annunciator/clear_master_accept	Clear master accept.	2	0	0
+984	cmnd_fms_ls_1l	sim/FMS/ls_1l	FMS: ls_1l	2	0	0
+985	cmnd_fms_ls_2l	sim/FMS/ls_2l	FMS: ls_2l	2	0	0
+986	cmnd_fms_ls_3l	sim/FMS/ls_3l	FMS: ls_3l	2	0	0
+987	cmnd_fms_ls_4l	sim/FMS/ls_4l	FMS: ls_4l	2	0	0
+988	cmnd_fms_ls_5l	sim/FMS/ls_5l	FMS: ls_5l	2	0	0
+989	cmnd_fms_ls_6l	sim/FMS/ls_6l	FMS: ls_6l	2	0	0
+990	cmnd_fms_ls_1r	sim/FMS/ls_1r	FMS: ls_1r	2	0	0
+991	cmnd_fms_ls_2r	sim/FMS/ls_2r	FMS: ls_2r	2	0	0
+992	cmnd_fms_ls_3r	sim/FMS/ls_3r	FMS: ls_3r	2	0	0
+993	cmnd_fms_ls_4r	sim/FMS/ls_4r	FMS: ls_4r	2	0	0
+994	cmnd_fms_ls_5r	sim/FMS/ls_5r	FMS: ls_5r	2	0	0
+995	cmnd_fms_ls_6r	sim/FMS/ls_6r	FMS: ls_6r	2	0	0
+996	cmnd_fms_init	sim/FMS/init	FMS: init	2	0	0
+997	cmnd_fms_prev	sim/FMS/prev	FMS: prev	2	0	0
+998	cmnd_fms_next	sim/FMS/next	FMS: next	2	0	0
+999	cmnd_fms_clear	sim/FMS/clear	FMS: clear	2	0	0
+1000	cmnd_fms_direct	sim/FMS/direct	FMS: direct	2	0	0
+1001	cmnd_fms_sign	sim/FMS/sign	FMS: sign	2	0	0
+1002	cmnd_fms_apt	sim/FMS/type_apt	FMS: apt	2	0	0
+1003	cmnd_fms_vor	sim/FMS/type_vor	FMS: vor	2	0	0
+1004	cmnd_fms_ndb	sim/FMS/type_ndb	FMS: ndb	2	0	0
+1005	cmnd_fms_fix	sim/FMS/type_fix	FMS: fix	2	0	0
+1006	cmnd_fms_latlon	sim/FMS/type_latlon	FMS: lat/lon	2	0	0
+1007	cmnd_fms_key_0	sim/FMS/key_0	FMS: key_0	2	0	0
+1008	cmnd_fms_key_1	sim/FMS/key_1	FMS: key_1	2	0	0
+1009	cmnd_fms_key_2	sim/FMS/key_2	FMS: key_2	2	0	0
+1010	cmnd_fms_key_3	sim/FMS/key_3	FMS: key_3	2	0	0
+1011	cmnd_fms_key_4	sim/FMS/key_4	FMS: key_4	2	0	0
+1012	cmnd_fms_key_5	sim/FMS/key_5	FMS: key_5	2	0	0
+1013	cmnd_fms_key_6	sim/FMS/key_6	FMS: key_6	2	0	0
+1014	cmnd_fms_key_7	sim/FMS/key_7	FMS: key_7	2	0	0
+1015	cmnd_fms_key_8	sim/FMS/key_8	FMS: key_8	2	0	0
+1016	cmnd_fms_key_9	sim/FMS/key_9	FMS: key_9	2	0	0
+1017	cmnd_fms_key_A	sim/FMS/key_A	FMS: key_A	2	0	0
+1018	cmnd_fms_key_B	sim/FMS/key_B	FMS: key_B	2	0	0
+1019	cmnd_fms_key_C	sim/FMS/key_C	FMS: key_C	2	0	0
+1020	cmnd_fms_key_D	sim/FMS/key_D	FMS: key_D	2	0	0
+1021	cmnd_fms_key_E	sim/FMS/key_E	FMS: key_E	2	0	0
+1022	cmnd_fms_key_F	sim/FMS/key_F	FMS: key_F	2	0	0
+1023	cmnd_fms_key_G	sim/FMS/key_G	FMS: key_G	2	0	0
+1024	cmnd_fms_key_H	sim/FMS/key_H	FMS: key_H	2	0	0
+1025	cmnd_fms_key_I	sim/FMS/key_I	FMS: key_I	2	0	0
+1026	cmnd_fms_key_J	sim/FMS/key_J	FMS: key_J	2	0	0
+1027	cmnd_fms_key_K	sim/FMS/key_K	FMS: key_K	2	0	0
+1028	cmnd_fms_key_L	sim/FMS/key_L	FMS: key_L	2	0	0
+1029	cmnd_fms_key_M	sim/FMS/key_M	FMS: key_M	2	0	0
+1030	cmnd_fms_key_N	sim/FMS/key_N	FMS: key_N	2	0	0
+1031	cmnd_fms_key_O	sim/FMS/key_O	FMS: key_O	2	0	0
+1032	cmnd_fms_key_P	sim/FMS/key_P	FMS: key_P	2	0	0
+1033	cmnd_fms_key_Q	sim/FMS/key_Q	FMS: key_Q	2	0	0
+1034	cmnd_fms_key_R	sim/FMS/key_R	FMS: key_R	2	0	0
+1035	cmnd_fms_key_S	sim/FMS/key_S	FMS: key_S	2	0	0
+1036	cmnd_fms_key_T	sim/FMS/key_T	FMS: key_T	2	0	0
+1037	cmnd_fms_key_U	sim/FMS/key_U	FMS: key_U	2	0	0
+1038	cmnd_fms_key_V	sim/FMS/key_V	FMS: key_V	2	0	0
+1039	cmnd_fms_key_W	sim/FMS/key_W	FMS: key_W	2	0	0
+1040	cmnd_fms_key_X	sim/FMS/key_X	FMS: key_X	2	0	0
+1041	cmnd_fms_key_Y	sim/FMS/key_Y	FMS: key_Y	2	0	0
+1042	cmnd_fms_key_Z	sim/FMS/key_Z	FMS: key_Z	2	0	0
+1043	cmnd_fms_key_period	sim/FMS/key_period	FMS: key_period	2	0	0
+1044	cmnd_fms_key_back	sim/FMS/key_back	FMS: key_back	2	0	0
+1045	cmnd_fms_key_space	sim/FMS/key_space	FMS: key_space	2	0	0
+1046	cmnd_fms_key_load	sim/FMS/key_load	FMS: key_load	2	0	0
+1047	cmnd_fms_key_save	sim/FMS/key_save	FMS: key_save	2	0	0
+1048	cmnd_fms_fix_next	sim/FMS/fix_next	FMS: next fix	2	0	0
+1049	cmnd_fms_fix_prev	sim/FMS/fix_prev	FMS: prev fix	2	0	0
+1050	cmnd_gear_mute	sim/annunciator/gear_warning_mute	Mute gear warning horn.	2	0	0
+1051	cmnd_mark_mute	sim/annunciator/marker_beacon_mute	Mute marker beacons.	2	0	0
+1052	cmnd_prerotate	sim/systems/pre_rotate_toggle	Toggle pre-rotate.	2	0	0
+1053	cmnd_pump_flap	sim/flight_controls/pump_flaps	Pump flaps up/down.	2	0	0
+1054	cmnd_pump_gear	sim/flight_controls/pump_gear	Pump gear up/down.	2	0	0
+1055	cmnd_gps_apt	sim/GPS/mode_airport	GPS mode: airports.	2	0	0
+1056	cmnd_gps_vor	sim/GPS/mode_VOR	GPS mode: VORs.	2	0	0
+1057	cmnd_gps_ndb	sim/GPS/mode_NDB	GPS mode: NDBs.	2	0	0
+1058	cmnd_gps_fix	sim/GPS/mode_waypoint	GPS mode: waypoints.	2	0	0
+1059	cmnd_gps_fine_sel_dn	sim/GPS/fine_select_down	GPS fine select down.	2	0	0
+1060	cmnd_gps_fine_sel_up	sim/GPS/fine_select_up	GPS fine select up.	2	0	0
+1061	cmnd_gps_crse_sel_dn	sim/GPS/coarse_select_down	GPS coarse select down.	2	0	0
+1062	cmnd_gps_crse_sel_up	sim/GPS/coarse_select_up	GPS coarse select up.	2	0	0
+1063	cmnd_g430_1_1	sim/GPS/g430n1_coarse_down	G430 COM/NAV 1 coarse down.	2	0	0
+1064	cmnd_g430_2_1	sim/GPS/g430n1_coarse_up	G430 COM/NAV 1 coarse up.	2	0	0
+1065	cmnd_g430_3_1	sim/GPS/g430n1_fine_down	G430 COM/NAV 1 fine down.	2	0	0
+1066	cmnd_g430_4_1	sim/GPS/g430n1_fine_up	G430 COM/NAV 1 fine up.	2	0	0
+1067	cmnd_g430_1_2	sim/GPS/g430n2_coarse_down	G430 COM/NAV 2 coarse down.	2	0	0
+1068	cmnd_g430_2_2	sim/GPS/g430n2_coarse_up	G430 COM/NAV 2 coarse up.	2	0	0
+1069	cmnd_g430_3_2	sim/GPS/g430n2_fine_down	G430 COM/NAV 2 fine down.	2	0	0
+1070	cmnd_g430_4_2	sim/GPS/g430n2_fine_up	G430 COM/NAV 2 fine up.	2	0	0
+1071	cmnd_430n1_chapt_up	sim/GPS/g430n1_chapter_up	G-430 Nav-1 chapter up.	2	0	0
+1072	cmnd_430n1_chapt_dn	sim/GPS/g430n1_chapter_dn	G-430 Nav-1 chapter dn.	2	0	0
+1073	cmnd_430n1_page_up	sim/GPS/g430n1_page_up	G-430 Nav-1 page up.	2	0	0
+1074	cmnd_430n1_page_dn	sim/GPS/g430n1_page_dn	G-430 Nav-1 page dn.	2	0	0
+1075	cmnd_430n2_chapt_up	sim/GPS/g430n2_chapter_up	G-430 Nav-2 chapter up.	2	0	0
+1076	cmnd_430n2_chapt_dn	sim/GPS/g430n2_chapter_dn	G-430 Nav-2 chapter dn.	2	0	0
+1077	cmnd_430n2_page_up	sim/GPS/g430n2_page_up	G-430 Nav-2 page up.	2	0	0
+1078	cmnd_430n2_page_dn	sim/GPS/g430n2_page_dn	G-430 Nav-2 page dn.	2	0	0
+1079	cmnd_430n1_zoom_in	sim/GPS/g430n1_zoom_in	G-430 Nav-1 zoom_in.	2	0	0
+1080	cmnd_430n1_zoom_out	sim/GPS/g430n1_zoom_out	G-430 Nav-1 zoom_out.	2	0	0
+1081	cmnd_430n1_nc_tog	sim/GPS/g430n1_nav_com_tog	G-430 Nav-1 nav_com_tog.	2	0	0
+1082	cmnd_430n1_cdi	sim/GPS/g430n1_cdi	G-430 Nav-1 cdi.	2	0	0
+1083	cmnd_430n1_obs	sim/GPS/g430n1_obs	G-430 Nav-1 obs.	2	0	0
+1084	cmnd_430n1_msg	sim/GPS/g430n1_msg	G-430 Nav-1 msg.	2	0	0
+1085	cmnd_430n1_fpl	sim/GPS/g430n1_fpl	G-430 Nav-1 fpl.	2	0	0
+1086	cmnd_430n1_proc	sim/GPS/g430n1_proc	G-430 Nav-1 proc.	2	0	0
+1087	cmnd_430n1_vnav	sim/GPS/g430n1_vnav	G-430 Nav-1 vnav.	2	0	0
+1088	cmnd_430n1_direct	sim/GPS/g430n1_direct	G-430 Nav-1 direct.	2	0	0
+1089	cmnd_430n1_menu	sim/GPS/g430n1_menu	G-430 Nav-1 menu.	2	0	0
+1090	cmnd_430n1_clr	sim/GPS/g430n1_clr	G-430 Nav-1 clr.	2	0	0
+1091	cmnd_430n1_ent	sim/GPS/g430n1_ent	G-430 Nav-1 ent.	2	0	0
+1092	cmnd_430n1_com_ff	sim/GPS/g430n1_com_ff	G-430 Nav-1 com_ff.	2	0	0
+1093	cmnd_430n1_nav_ff	sim/GPS/g430n1_nav_ff	G-430 Nav-1 nav_ff.	2	0	0
+1094	cmnd_430n2_zoom_in	sim/GPS/g430n2_zoom_in	G-430 Nav-2 zoom_in.	2	0	0
+1095	cmnd_430n2_zoom_out	sim/GPS/g430n2_zoom_out	G-430 Nav-2 zoom_out.	2	0	0
+1096	cmnd_430n2_nc_tog	sim/GPS/g430n2_nav_com_tog	G-430 Nav-2 nav_com_tog.	2	0	0
+1097	cmnd_430n2_cdi	sim/GPS/g430n2_cdi	G-430 Nav-2 cdi.	2	0	0
+1098	cmnd_430n2_obs	sim/GPS/g430n2_obs	G-430 Nav-2 obs.	2	0	0
+1099	cmnd_430n2_msg	sim/GPS/g430n2_msg	G-430 Nav-2 msg.	2	0	0
+1100	cmnd_430n2_fpl	sim/GPS/g430n2_fpl	G-430 Nav-2 fpl.	2	0	0
+1101	cmnd_430n2_proc	sim/GPS/g430n2_proc	G-430 Nav-2 proc.	2	0	0
+1102	cmnd_430n2_vnav	sim/GPS/g430n2_vnav	G-430 Nav-2 vnav.	2	0	0
+1103	cmnd_430n2_direct	sim/GPS/g430n2_direct	G-430 Nav-2 direct.	2	0	0
+1104	cmnd_430n2_menu	sim/GPS/g430n2_menu	G-430 Nav-2 menu.	2	0	0
+1105	cmnd_430n2_clr	sim/GPS/g430n2_clr	G-430 Nav-2 clr.	2	0	0
+1106	cmnd_430n2_ent	sim/GPS/g430n2_ent	G-430 Nav-2 ent.	2	0	0
+1107	cmnd_430n2_com_ff	sim/GPS/g430n2_com_ff	G-430 Nav-2 com_ff.	2	0	0
+1108	cmnd_430n2_nav_ff	sim/GPS/g430n2_nav_ff	G-430 Nav-2 nav_ff.	2	0	0
+1109	cmnd_430n1_cursor	sim/GPS/g430n1_cursor	G-430 Nav-1 push cursor.	2	0	0
+1110	cmnd_430n1_popup	sim/GPS/g430n1_popup	G-430 Nav-1 toggle popup.	2	0	0
+1111	cmnd_430n2_cursor	sim/GPS/g430n2_cursor	G-430 Nav-2 push cursor.	2	0	0
+1112	cmnd_430n2_popup	sim/GPS/g430n2_popup	G-430 Nav-2 toggle popup.	2	0	0
+1113	cmnd_overspeed_test	sim/systems/overspeed_test	Prop overspeed-test.	2	0	0
+1114	cmnd_fuel_ind_aux	sim/fuel/indicate_aux	Fuel tanks show auxiliary tanks.	2	0	0
+1115	cmnd_auto_test	sim/autopilot/test_auto_annunciators	Autopilot test annunciators.	2	0	0
+1116	cmnd_trm_up	sim/flight_controls/pitch_trim_up	Pitch trim up.	3	178	0
+1117	cmnd_trm_dn	sim/flight_controls/pitch_trim_down	Pitch trim down.	3	179	0
+1118	cmnd_ail_lft	sim/flight_controls/aileron_trim_left	Aileron trim left.	3	56	0
+1119	cmnd_ail_rgt	sim/flight_controls/aileron_trim_right	Aileron trim right.	3	48	0
+1120	cmnd_rud_lft	sim/flight_controls/rudder_trim_left	Rudder trim left.	3	53	0
+1121	cmnd_rud_rgt	sim/flight_controls/rudder_trim_right	Rudder trim rigt.	3	55	0
+1122	cmnd_rot_trm_up	sim/flight_controls/gyro_rotor_trim_up	Gyro rotor trim up.	2	0	0
+1123	cmnd_rot_trm_dn	sim/flight_controls/gyro_rotor_trim_down	Gyro rotor trim down.	2	0	0
+1124	cmnd_rpm_trm_up	sim/flight_controls/rotor_rpm_trim_up	Rotor RPM trim up.	2	0	0
+1125	cmnd_rpm_trm_dn	sim/flight_controls/rotor_rpm_trim_down	Rotor RPM trim down.	2	0	0
+1126	cmnd_elv_takeoff	sim/flight_controls/pitch_trim_takeoff	Pitch trim takeoff.	3	0	0
+1127	cmnd_ail_cntr	sim/flight_controls/aileron_trim_center	Aileron trim center.	3	57	0
+1128	cmnd_rud_cntr	sim/flight_controls/rudder_trim_center	Rudder trim center.	3	54	0
+1129	cmnd_B_rud_lft	sim/flight_controls/rudder_lft	Rudder left.	2	0	0
+1130	cmnd_B_rud_ctr	sim/flight_controls/rudder_ctr	Rudder center.	2	0	0
+1131	cmnd_B_rud_rgt	sim/flight_controls/rudder_rgt	Rudder right.	2	0	0
+1132	cmnd_set_kas297_vvi	sim/autopilot/set_ott_seldisp_ALT_VVI_vvi	Let ott_seldisp_ALT_VVI show VVI.	2	0	0
+1133	cmnd_set_kas297_alt	sim/autopilot/set_ott_seldisp_ALT_VVI_alt	Let ott_seldisp_ALT_VVI show ALT.	2	0	0
+1134	cmnd_gnd_speed	sim/operation/ground_speed_change	Sim 1x 2x 4x ground speed.	3	84	2
+1135	cmnd_freeze	sim/operation/freeze_toggle	Freeze the groundspeed of the simulation.	2	0	0
+1136	cmnd_tim_start	sim/instruments/timer_start_stop	Start or stop the timer.	2	0	0
+1137	cmnd_tim_reset	sim/instruments/timer_reset	Reset the timer.	2	0	0
+1138	cmnd_tim_show_date	sim/instruments/timer_show_date	Show date on the chrono.	2	0	0
+1139	cmnd_tim_mode	sim/instruments/timer_mode	Timer/Clock mode for chronos.	2	0	0
+1140	cmnd_tim_cycle	sim/instruments/timer_cycle	Timer start-stop-reset.	2	0	0
+1141	cmnd_time_dn	sim/operation/time_down	Time: a little earlier.	2	75	0
+1142	cmnd_time_up	sim/operation/time_up	Time: a little later.	2	76	0
+1143	cmnd_time_DN	sim/operation/time_down_lots	Time: a good bit earlier.	2	75	1
+1144	cmnd_time_UP	sim/operation/time_up_lots	Time: a good bit later.	2	76	1
+1145	cmnd_date_dn	sim/operation/date_down	Date: a little earlier.	2	0	0
+1146	cmnd_date_up	sim/operation/date_up	Date: a little later.	2	0	0
+1147	cmnd_tim_is_gmt	sim/instruments/timer_is_GMT	Timer is GMT.	2	0	0
+1148	cmnd_flt_speed	sim/operation/flightmodel_speed_change	Sim 1x 2x 4x sim speed.	3	84	4
+1149	cmnd_pause	sim/operation/pause_toggle	Pause the simulation.	3	80	0
+1150	cmnd_avi_movie	sim/operation/video_record_toggle	Toggle AVI movie recording.	2	32	4
+1151	cmnd_avi_movie_configure	sim/operation/configure_video_recording	Configure AVI movie recording.	2	0	0
+1152	cmnd_replay_toggle	sim/replay/replay_toggle	Toggle replay mode on/off.	3	82	2
+1153	cmnd_replay_off	sim/replay/replay_off	Replay mode off.	3	0	0
+1154	rep_begin	sim/replay/rep_begin	Replay mode: begin.	2	0	0
+1155	rep_play_frev	sim/replay/rep_play_fr	Replay mode: play fas-rev.	2	0	0
+1156	rep_play_rrev	sim/replay/rep_play_rr	Replay mode: play reg-rev.	2	0	0
+1157	rep_play_srev	sim/replay/rep_play_sr	Replay mode: play slo-rev.	2	0	0
+1158	rep_pause	sim/replay/rep_pause	Replay mode: pause.	2	0	0
+1159	rep_play_sfwd	sim/replay/rep_play_sf	Replay mode: play slo-fwd.	2	0	0
+1160	rep_play_rfwd	sim/replay/rep_play_rf	Replay mode: play reg-fwd.	2	0	0
+1161	rep_play_ffwd	sim/replay/rep_play_ff	Replay mode: play fas-fwd.	2	0	0
+1162	rep_end	sim/replay/rep_end	Replay mode: end.	2	0	0
+1163	cmnd_toggle_logbook	sim/operation/toggle_logbook	Toggle logbook window.	2	0	0
+1164	cmnd_environment_properties	sim/operation/set_environment_properties	Toggle the Set Environment Properties window.	2	0	0
+1165	cmnd_tog_textfile	sim/operation/text_file_toggle	Toggle text file selected in 'Special'.	2	0	0
+1166	cmnd_tog_checklist	sim/operation/checklist_toggle	Toggle checklist selected in 'Special'.	2	0	0
+1167	cmnd_nxt_checklist	sim/operation/checklist_next	NEXT item in checklist in 'Special'.	2	0	0
+1168	cmnd_prv_checklist	sim/operation/checklist_previous	PREV item in checklist in 'Special'.	2	0	0
+1169	cmnd_con_atc	sim/operation/contact_atc	Contact ATC.	3	13	0
+1170	cmnd_ai_flies	sim/operation/toggle_ai_flies	Toggle AI flying your aircraft.	2	0	0
+1171	cmnd_toggle_yoke	sim/operation/toggle_yoke	Toggle yoke visibility	2	0	0
+1172	cmnd_reset_flt	sim/operation/reset_flight	Reset to last reset done.	3	0	0
+1173	cmnd_reset_apt	sim/operation/go_to_default	Reset to nearest airport.	2	0	0
+1174	cmnd_reset_rwy	sim/operation/reset_to_runway	Reset to nearest runway.	3	0	0
+1175	cmnd_init_Grass_Field_Takeoff	sim/operation/Grass_Field_Takeoff	Grass Field Takeoff	2	0	0
+1176	cmnd_init_Dirt_Field_Takeoff	sim/operation/Dirt_Field_Takeoff	Dirt Field Takeoff	2	0	0
+1177	cmnd_init_Gravel_Field_Takeoff	sim/operation/Gravel_Field_Takeoff	Gravel Field Takeoff	2	0	0
+1178	cmnd_init_Water_Way_Takeoff	sim/operation/Water_Way_Takeoff	Water-Way Takeoff 	2	0	0
+1179	cmnd_init_Helipad_Takeoff	sim/operation/Helipad_Takeoff	Helipad Takeoff	2	0	0
+1180	cmnd_init_Carrier_Catshot	sim/operation/Carrier_Catshot	Carrier Catshot	2	0	0
+1181	cmnd_init_Glider_Winch	sim/operation/Glider_Winch	Glider-Winch	2	0	0
+1182	cmnd_init_Glider_Tow	sim/operation/Glider_Tow	Glider-Tow	2	0	0
+1183	cmnd_init_Air_Drop_from_B_52	sim/operation/Air_Drop_from_B_52	Air-Drop from B-52	2	0	0
+1184	cmnd_init_Piggyback_Shuttle_on_747	sim/operation/Piggyback_Shuttle_on_747	Piggyback Shuttle on 747	2	0	0
+1185	cmnd_init_Formation_Flying	sim/operation/Formation_Flying	Formation Flying	2	0	0
+1186	cmnd_init_Air_Refuel_Boom	sim/operation/Air_Refuel_Boom	Air-Refuel Boom	2	0	0
+1187	cmnd_init_Air_Refuel_Basket	sim/operation/Air_Refuel_Basket	Air-Refuel Basket	2	0	0
+1188	cmnd_init_Aircraft_Carrier_Approach	sim/operation/Aircraft_Carrier_Approach	Aircraft Carrier Approach	2	0	0
+1189	cmnd_init_Frigate_Approach	sim/operation/Frigate_Approach	Frigate Approach	2	0	0
+1190	cmnd_init_Medium_Oil_Rig_Approach	sim/operation/Medium_Oil_Rig_Approach	Medium Oil Rig Approach	2	0	0
+1191	cmnd_init_Large_Oil_Platform_Approach	sim/operation/Large_Oil_Platform_Approach	Large Oil Platform Approach	2	0	0
+1192	cmnd_init_Forest_Fire_Approach	sim/operation/Forest_Fire_Approach	Forest Fire Approach	2	0	0
+1193	cmnd_init_Space_Shuttle_Full_Re_entry	sim/operation/Space_Shuttle_Full_Re_entry	Space Shuttle: Full Re-entry	2	0	0
+1194	cmnd_init_Space_Shuttle_Final_Re_entry	sim/operation/Space_Shuttle_Final_Re_entry	Space Shuttle: Final Re-entry	2	0	0
+1195	cmnd_init_Space_Shuttle_Full_Approach	sim/operation/Space_Shuttle_Full_Approach	Space Shuttle: Full Approach	2	0	0
+1196	cmnd_init_Space_Shuttle_Final_Approach	sim/operation/Space_Shuttle_Final_Approach	Space Shuttle: Final Approach	2	0	0
+1197	cmnd_ai_views	sim/view/ai_controls_views	Toggle AI controls your views.	2	0	0
+1198	cmnd_v_mah	sim/view/free_camera	View: free camera.	2	67	0
+1199	cmnd_v_pan	sim/view/forward_with_panel	View: fwd with panel.	3	87	0
+1200	cmnd_v_fwh	sim/view/forward_with_hud	View: fwd with HUD.	3	87	1
+1201	cmnd_v_fnh	sim/view/forward_with_nothing	View: fwd with nothing.	3	87	4
+1202	cmnd_v_lin	sim/view/linear_spot	View: linear spot.	3	49	1
+1203	cmnd_v_spo	sim/view/still_spot	View: still spot.	3	50	1
+1204	cmnd_v_run	sim/view/runway	View: runway.	3	51	1
+1205	cmnd_v_cir	sim/view/circle	View: circle.	3	52	1
+1206	cmnd_v_twr	sim/view/tower	View: tower.	3	53	1
+1207	cmnd_v_rid	sim/view/ridealong	View: ride-along.	3	54	1
+1208	cmnd_v_wpn	sim/view/track_weapon	View: track weapon.	2	55	1
+1209	cmnd_v_cha	sim/view/chase	View: chase.	3	56	1
+1210	cmnd_3d_cock_cmnd	sim/view/3d_cockpit_cmnd_look	View: 3-D cockpit cmd-look.	3	57	1
+1211	cmnd_3d_cock_tog	sim/view/3d_cockpit_toggle	View: toggle 3-D cockpit.	2	0	0
+1212	cmnd_cinema_verite	sim/view/cinema_verite	View: cinema verite.	3	67	1
+1213	cmnd_sunglasses	sim/view/sunglasses	View: sunglasses.	3	83	1
+1214	cmnd_night_vis	sim/view/night_vision	View: night vision.	2	78	1
+1215	cmnd_flashlight_red	sim/view/flashlight_red	Toggle the red flashlight.	2	0	0
+1216	cmnd_flashlight_wht	sim/view/flashlight_wht	Toggle the white flashlight.	2	0	0
+1217	cmnd_v_l90_glance	sim/view/glance_left	View: glance left.	3	0	0
+1218	cmnd_v_r90_glance	sim/view/glance_right	View: glance right.	3	0	0
+1219	cmnd_v_l90_up	sim/view/up_left	View: up-left.	3	0	0
+1220	cmnd_v_r90_up	sim/view/up_right	View: up-right.	3	0	0
+1221	cmnd_v_sup	sim/view/straight_up	View: straight up.	3	0	0
+1222	cmnd_v_sdn	sim/view/straight_down	View: straight down.	3	0	0
+1223	cmnd_v_l45	sim/view/left_45	View: 45 degrees left.	3	0	0
+1224	cmnd_v_r45	sim/view/right_45	View: 45 degrees right.	3	0	0
+1225	cmnd_v_l90	sim/view/left_90	View: 90 degrees left.	3	0	0
+1226	cmnd_v_r90	sim/view/right_90	View: 90 degrees right.	3	0	0
+1227	cmnd_v_l135	sim/view/left_135	View: 135 degrees left.	3	0	0
+1228	cmnd_v_r135	sim/view/right_135	View: 135 degrees right.	3	0	0
+1229	cmnd_v_back	sim/view/back	View: backward.	3	0	0
+1230	cmnd_3d_path_toggle	sim/view/3d_path_toggle	View: 3-D path toggle.	2	80	4
+1231	cmnd_3d_path_reset	sim/view/3d_path_reset	View: 3-D path reset.	2	80	1
+1232	cmnd_show_model	sim/view/show_physics_model	View: show physics model.	2	77	4
+1233	cmnd_show_click	sim/view/mouse_click_regions_toggle	View: mouse-click regions.	2	0	0
+1234	cmnd_show_inst_desc	sim/view/instrument_descriptions_toggle	View: instrument descriptions.	2	0	0
+1235	cmnd_qv_0_rec	sim/view/quick_look_0	View: 3-D cockpit location # 1	2	96	0
+1236	cmnd_qv_1_rec	sim/view/quick_look_1	View: 3-D cockpit location # 2	2	97	0
+1237	cmnd_qv_2_rec	sim/view/quick_look_2	View: 3-D cockpit location # 3	2	98	0
+1238	cmnd_qv_3_rec	sim/view/quick_look_3	View: 3-D cockpit location # 4	2	99	0
+1239	cmnd_qv_4_rec	sim/view/quick_look_4	View: 3-D cockpit location # 5	2	100	0
+1240	cmnd_qv_5_rec	sim/view/quick_look_5	View: 3-D cockpit location # 6	2	101	0
+1241	cmnd_qv_6_rec	sim/view/quick_look_6	View: 3-D cockpit location # 7	2	102	0
+1242	cmnd_qv_7_rec	sim/view/quick_look_7	View: 3-D cockpit location # 8	2	103	0
+1243	cmnd_qv_8_rec	sim/view/quick_look_8	View: 3-D cockpit location # 9	2	104	0
+1244	cmnd_qv_9_rec	sim/view/quick_look_9	View: 3-D cockpit location # 10	2	105	0
+1245	cmnd_qv_0_mem	sim/view/quick_look_0_mem	View: 3-D cockpit location # 1 MEMORIZE	2	96	4
+1246	cmnd_qv_1_mem	sim/view/quick_look_1_mem	View: 3-D cockpit location # 2 MEMORIZE	2	97	4
+1247	cmnd_qv_2_mem	sim/view/quick_look_2_mem	View: 3-D cockpit location # 3 MEMORIZE	2	98	4
+1248	cmnd_qv_3_mem	sim/view/quick_look_3_mem	View: 3-D cockpit location # 4 MEMORIZE	2	99	4
+1249	cmnd_qv_4_mem	sim/view/quick_look_4_mem	View: 3-D cockpit location # 5 MEMORIZE	2	100	4
+1250	cmnd_qv_5_mem	sim/view/quick_look_5_mem	View: 3-D cockpit location # 6 MEMORIZE	2	101	4
+1251	cmnd_qv_6_mem	sim/view/quick_look_6_mem	View: 3-D cockpit location # 7 MEMORIZE	2	102	4
+1252	cmnd_qv_7_mem	sim/view/quick_look_7_mem	View: 3-D cockpit location # 8 MEMORIZE	2	103	4
+1253	cmnd_qv_8_mem	sim/view/quick_look_8_mem	View: 3-D cockpit location # 9 MEMORIZE	2	104	4
+1254	cmnd_qv_9_mem	sim/view/quick_look_9_mem	View: 3-D cockpit location # 10 MEMORIZE	2	105	4
+1255	cmnd_gen_lft	sim/general/left	General command: left.	3	37	0
+1256	cmnd_gen_rgt	sim/general/right	General command: right.	3	39	0
+1257	cmnd_gen_up	sim/general/up	General command: up.	3	38	0
+1258	cmnd_gen_dn	sim/general/down	General command: down.	3	40	0
+1259	cmnd_gen_for	sim/general/forward	General command: forward.	3	185	0
+1260	cmnd_gen_aft	sim/general/backward	General command: backward.	3	183	0
+1261	cmnd_gen_zoom_in	sim/general/zoom_in	General command: zoom in.	3	176	0
+1262	cmnd_gen_zoom_out	sim/general/zoom_out	General command: zoom out.	3	177	0
+1263	cmnd_hat_switch_left	sim/general/hat_switch_left	Hat switch left	3	0	0
+1264	cmnd_hat_switch_right	sim/general/hat_switch_right	Hat switch right	3	0	0
+1265	cmnd_hat_switch_up	sim/general/hat_switch_up	Hat switch up	3	0	0
+1266	cmnd_hat_switch_down	sim/general/hat_switch_down	Hat switch down	3	0	0
+1267	cmnd_hat_switch_up_left	sim/general/hat_switch_up_left	Hat switch up + left	3	0	0
+1268	cmnd_hat_switch_up_right	sim/general/hat_switch_up_right	Hat switch up + right	3	0	0
+1269	cmnd_hat_switch_down_left	sim/general/hat_switch_down_left	Hat switch down + left	3	0	0
+1270	cmnd_hat_switch_down_right	sim/general/hat_switch_down_right	Hat switch down + right	3	0	0
+1271	cmnd_gen_fast_lft	sim/general/left_fast	General command: left fast.	3	37	1
+1272	cmnd_gen_fast_rgt	sim/general/right_fast	General command: right fast.	3	39	1
+1273	cmnd_gen_fast_up	sim/general/up_fast	General command: up fast.	3	38	1
+1274	cmnd_gen_fast_dn	sim/general/down_fast	General command: down fast.	3	40	1
+1275	cmnd_gen_fast_for	sim/general/forward_fast	General command: forward fast.	3	185	1
+1276	cmnd_gen_fast_aft	sim/general/backward_fast	General command: backward fast.	3	183	1
+1277	cmnd_gen_fast_z_in	sim/general/zoom_in_fast	General command: zoom in fast.	3	176	1
+1278	cmnd_gen_fast_z_out	sim/general/zoom_out_fast	General command: zoom out fast.	3	177	1
+1279	cmnd_gen_slow_lft	sim/general/left_slow	General command: left slow.	2	37	4
+1280	cmnd_gen_slow_rgt	sim/general/right_slow	General command: right slow.	2	39	4
+1281	cmnd_gen_slow_up	sim/general/up_slow	General command: up slow.	2	38	4
+1282	cmnd_gen_slow_dn	sim/general/down_slow	General command: down slow.	2	40	4
+1283	cmnd_gen_slow_for	sim/general/forward_slow	General command: forward slow.	2	185	4
+1284	cmnd_gen_slow_aft	sim/general/backward_slow	General command: backward slow.	2	183	4
+1285	cmnd_gen_slow_z_in	sim/general/zoom_in_slow	General command: zoom in slow.	2	176	4
+1286	cmnd_gen_slow_z_out	sim/general/zoom_out_slow	General command: zoom out slow.	2	177	4
+1287	cmnd_rot_up	sim/general/rot_up	General command: tilt up.	3	82	0
+1288	cmnd_rot_dn	sim/general/rot_down	General command: tilt down.	3	70	0
+1289	cmnd_rot_lft	sim/general/rot_left	General command: pan left.	3	81	0
+1290	cmnd_rot_rgt	sim/general/rot_right	General command: pan right.	3	69	0
+1291	cmnd_rot_fast_up	sim/general/rot_up_fast	General command: tilt up fast.	3	82	1
+1292	cmnd_rot_fast_dn	sim/general/rot_down_fast	General command: tilt down fast.	3	70	1
+1293	cmnd_rot_fast_lft	sim/general/rot_left_fast	General command: pan left fast.	3	81	1
+1294	cmnd_rot_fast_rgt	sim/general/rot_right_fast	General command: pan right fast.	3	69	1
+1295	cmnd_rot_slow_up	sim/general/rot_up_slow	General command: tilt up slow.	2	82	4
+1296	cmnd_rot_slow_dn	sim/general/rot_down_slow	General command: tilt down slow.	2	70	4
+1297	cmnd_rot_slow_lft	sim/general/rot_left_slow	General command: pan left slow.	2	81	4
+1298	cmnd_rot_slow_rgt	sim/general/rot_right_slow	General command: pan right slow.	2	69	4
+1299	cmnd_toggle_artificial_stab_window	sim/general/toggle_artificial_stab_win	Toggle the artificial stability constants window.	2	0	0
+1300	cmnd_toggle_set_autopilot_window	sim/general/toggle_autopilot_constants_win	Toggle the autopilot constants window.	2	0	0
+1301	cmnd_toggle_set_fadec_window	sim/general/toggle_fadec_win	Toggle the FADEC constants window.	2	0	0
+1302	cmnd_toggle_control_deflections	sim/general/toggle_control_deflections_win	Toggle the control deflections window.	2	0	0
+1303	cmnd_toggle_bouncers	sim/general/toggle_bouncers_win	Toggle the bouncers window.	2	0	0
+1304	cmnd_toggle_weapon_guidance	sim/general/toggle_weapon_guidance_win	Toggle the weapon guidance window.	2	0	0
+1305	cmnd_toggle_projection_mapping	sim/general/toggle_projection_win	Toggle the projection configuration window.	2	0	0
+1306	cmnd_toggle_sky_colors	sim/operation/toggle_sky_colors_win	Toggle the sky colors window.	2	0	0

@@ -1204,6 +1204,8 @@ fn run_headless(
     forward: bool,
     panel: bool,
     menubar: bool,
+    menu_open: Option<usize>,
+    menu_hover: Option<(f32, f32)>,
     out: &Path,
 ) -> Result<()> {
     let instance = wgpu::Instance::new(wgpu::InstanceDescriptor::new_without_display_handle());
@@ -1261,7 +1263,14 @@ fn run_headless(
                 layers.extend(load_panel(&gpu, install, &aircraft_dir, &mut store)?);
             }
             if menubar {
-                layers.extend(ui.menu_bar(&gpu.device, &gpu.queue, extent.0 as f32)?);
+                let menus = xp_core::menu::load(install, "English", &|t| ui.measure(t))?;
+                layers.extend(ui.menu_bar(&gpu.device, &gpu.queue, extent.0 as f32, &menus)?);
+                if let Some(m) = menu_open.and_then(|i| menus.get(i)) {
+                    let hover = menu_hover.and_then(|(x, y)| xp_core::menu::item_at(m, x, y));
+                    // The port's only view is forward-with-panel (item 1800).
+                    layers
+                        .extend(ui.drop_down(&gpu.device, &gpu.queue, m, hover, &|id| id == 1800)?);
+                }
             }
             ui.draw(&gpu.device, &gpu.queue, &target, extent, &layers);
         }
@@ -1387,6 +1396,10 @@ const SCREEN: (u32, u32) = (1024, 768);
 const COCKPIT_PROBE: &str =
     include_str!("../../../tests/golden/original/frames/cockpit_default.probe.txt");
 
+/// The oracle's chase camera at the same start, for View > View is Chase.
+const CHASE_PROBE: &str =
+    include_str!("../../../tests/golden/original/frames/chase_default.probe.txt");
+
 /// Every text-format `.acf` under `Aircraft/`, as paths relative to the install, sorted.
 fn list_aircraft(install: &Path) -> Vec<PathBuf> {
     let mut out = Vec::new();
@@ -1446,6 +1459,15 @@ struct Renderer {
     chooser: Option<chooser::Chooser>,
     /// Its layers, rebuilt only after a click changes it.
     chooser_layers: Option<Vec<ui::Layer>>,
+    /// The menu bar, laid out from `Resources/menus/English/X-Plane.txt`.
+    menus: Vec<xp_core::menu::Menu>,
+    /// The open drop-down, and the layers drawn for it with the item that was under the pointer.
+    open_menu: Option<usize>,
+    menu_cache: Option<(usize, Option<usize>, Vec<ui::Layer>)>,
+    /// View is Chase (item 1807) instead of Forwards with Panel (item 1800).
+    chase: bool,
+    /// Set by File > Quit; the event loop exits on it.
+    quit: bool,
 }
 
 impl Renderer {
@@ -1490,7 +1512,9 @@ impl Renderer {
         let fwd = forward::Forward::new(&gpu.device, FORMAT, SCREEN);
         let mut store = TextureStore::new(&gpu.device, &gpu.queue);
         let ui = ui::Ui::new(&gpu.device, &gpu.queue, &mut store, install, FORMAT)?;
-        let menu = ui.menu_bar(&gpu.device, &gpu.queue, SCREEN.0 as f32)?;
+        let menus = xp_core::menu::load(install, "English", &|t| ui.measure(t))?;
+        let menu = ui.menu_bar(&gpu.device, &gpu.queue, SCREEN.0 as f32, &menus)?;
+        let menus_kept = menus.clone();
         let mut blit = overlay::Overlay::new(&gpu.device, format);
         blit.opaque = true;
 
@@ -1533,6 +1557,11 @@ impl Renderer {
             // The original opens its aircraft dialog at start-up (user's screenshot).
             chooser: Some(chooser::Chooser::new(install, aircraft)),
             chooser_layers: None,
+            menus: menus_kept,
+            open_menu: None,
+            menu_cache: None,
+            chase: false,
+            quit: false,
         })
     }
 
@@ -1570,14 +1599,73 @@ impl Renderer {
             }
             return;
         }
-        // Menu bar: the "Aircraft" title (item 109…177) opens the dialog again. A stand-in for
-        // the original's drop-down, whose first entry leads there.
-        if y < 18.0 && (109.0..177.0).contains(&x) {
-            self.chooser = Some(chooser::Chooser::new(
-                &self.install,
-                &self.aircraft[self.current],
-            ));
-            self.chooser_layers = None;
+        // The menu bar, as `mbar_select_an_item_click` / `mbar_select_an_item` behave: a click on
+        // a title opens it (or closes it if it is already open), a click on an item of the open
+        // menu runs it and closes the menu, a click anywhere else closes the menu.
+        if let Some(open) = self.open_menu {
+            if let Some(m) = self.menus.get(open) {
+                if let Some(i) = xp_core::menu::item_at(m, x, y) {
+                    let item = m.items[i].clone();
+                    self.open_menu = None;
+                    self.menu_cache = None;
+                    self.run_menu_item(&item);
+                    return;
+                }
+            }
+            match xp_core::menu::title_at(&self.menus, x, y) {
+                Some(t) if t != open => self.open_menu = Some(t),
+                _ => self.open_menu = None,
+            }
+            self.menu_cache = None;
+            return;
+        }
+        if let Some(t) = xp_core::menu::title_at(&self.menus, x, y) {
+            self.open_menu = Some(t);
+            self.menu_cache = None;
+        }
+    }
+
+    /// `APP_handlemenu` for the items the port can do; the rest are logged with what the
+    /// original would have done.
+    fn run_menu_item(&mut self, item: &xp_core::menu::Item) {
+        use xp_core::menu::Action;
+        match item.id {
+            600 => {
+                self.chooser = Some(chooser::Chooser::new(
+                    &self.install,
+                    &self.aircraft[self.current],
+                ));
+                self.chooser_layers = None;
+            }
+            317 => self.quit = true,
+            1800 | 1807 => {
+                let chase = item.id == 1807;
+                if chase != self.chase {
+                    self.chase = chase;
+                    let text = if chase { CHASE_PROBE } else { COCKPIT_PROBE };
+                    match Probe::parse(text) {
+                        Ok(p) => {
+                            self.probe = p;
+                            match self.load_session() {
+                                Ok(s) => self.session = Some(s),
+                                Err(e) => log::error!("switching view: {e:#}"),
+                            }
+                        }
+                        Err(e) => log::error!("{e:#}"),
+                    }
+                }
+            }
+            _ => match &item.action {
+                Action::Window(n) => log::info!(
+                    "{}: the original opens window {n}; that window is not ported",
+                    item.text
+                ),
+                Action::Command(c) => {
+                    log::info!("{}: the original runs {c}; not ported", item.text)
+                }
+                Action::Special(what) => log::info!("{}: {what}; not ported", item.text),
+                Action::None => log::info!("{}: no action recovered", item.text),
+            },
         }
     }
 
@@ -1694,13 +1782,54 @@ impl Renderer {
                     Some(&self.probe),
                     SCREEN,
                     &self.target_view,
-                    true,
+                    !self.chase,
                 )?;
-                self.ui.draw(device, queue, &self.target, SCREEN, &s.panel);
-                // `mbar_draw_menu_bar`: the bar shows while the pointer is in the top 18 rows.
-                if self.pointer_y.is_some_and(|y| y < 18.0) {
+                if !self.chase {
+                    self.ui.draw(device, queue, &self.target, SCREEN, &s.panel);
+                }
+                // `mbar_draw_menu_bar`: the bar shows while the pointer is in the top 18 rows, or
+                // while a menu is open.
+                if self.pointer_y.is_some_and(|y| y < 18.0) || self.open_menu.is_some() {
                     self.ui
                         .draw(device, queue, &self.target, SCREEN, &self.menu);
+                }
+                if let Some(open) = self.open_menu {
+                    // With a menu open, the pointer over another title switches to it.
+                    let (px, py) = (self.pointer_x, self.pointer_y.unwrap_or(-1.0));
+                    let open = match xp_core::menu::title_at(&self.menus, px, py) {
+                        Some(t) => t,
+                        None => open,
+                    };
+                    self.open_menu = Some(open);
+                    let hover = self
+                        .menus
+                        .get(open)
+                        .and_then(|m| xp_core::menu::item_at(m, px, py));
+                    let stale =
+                        !matches!(&self.menu_cache, Some((o, h, _)) if *o == open && *h == hover);
+                    if stale {
+                        if let Some(m) = self.menus.get(open) {
+                            let chase = self.chase;
+                            let checked = move |id: i32| id == if chase { 1807 } else { 1800 };
+                            let layers = self.ui.drop_down(
+                                &self.gpu.device,
+                                &self.gpu.queue,
+                                m,
+                                hover,
+                                &checked,
+                            )?;
+                            self.menu_cache = Some((open, hover, layers));
+                        }
+                    }
+                    if let Some((_, _, layers)) = &self.menu_cache {
+                        self.ui.draw(
+                            &self.gpu.device,
+                            &self.gpu.queue,
+                            &self.target,
+                            SCREEN,
+                            layers,
+                        );
+                    }
                 }
             }
         }
@@ -1778,7 +1907,7 @@ impl App {
     fn retitle(&self) {
         if let (Some(w), Some(r)) = (&self.window, &self.renderer) {
             w.set_title(&format!(
-                "xp-rs — {} ({} of {})",
+                "xplane10-rs — {} ({} of {})",
                 r.aircraft_rel().display(),
                 r.current + 1,
                 r.aircraft.len()
@@ -1793,7 +1922,7 @@ impl ApplicationHandler for App {
             return;
         }
         let attrs = Window::default_attributes()
-            .with_title("xp-rs")
+            .with_title("xplane10-rs")
             .with_inner_size(winit::dpi::LogicalSize::new(SCREEN.0, SCREEN.1));
         let window = match el.create_window(attrs) {
             Ok(w) => Arc::new(w),
@@ -1843,6 +1972,9 @@ impl ApplicationHandler for App {
             } => {
                 if let Some(r) = &mut self.renderer {
                     r.click();
+                    if r.quit {
+                        el.exit();
+                    }
                 }
                 self.retitle();
             }
@@ -1903,6 +2035,8 @@ fn main() -> Result<()> {
     let mut panel = false;
     let mut loading = false;
     let mut menubar = false;
+    let mut menu_open: Option<usize> = None;
+    let mut menu_hover: Option<(f32, f32)> = None;
     while let Some(a) = args.next() {
         match a.as_str() {
             "--install" => {
@@ -1939,6 +2073,15 @@ fn main() -> Result<()> {
             "--panel" => panel = true,
             "--loading" => loading = true,
             "--menubar" => menubar = true,
+            "--menu-open" => {
+                menubar = true;
+                menu_open = Some(args.next().context("--menu-open wants an index")?.parse()?);
+            }
+            "--menu-hover" => {
+                let v = args.next().context("--menu-hover wants X,Y")?;
+                let (x, y) = v.split_once(',').context("--menu-hover wants X,Y")?;
+                menu_hover = Some((x.parse()?, y.parse()?));
+            }
             "--renderer" => {
                 forward = match args.next().as_deref() {
                     Some("forward") => true,
@@ -1957,7 +2100,13 @@ fn main() -> Result<()> {
 
     let root = match install {
         Some(p) => PathBuf::from(p),
-        None => xp_core::install_root().context("set XP_INSTALL or pass --install")?,
+        None => match xp_core::install_root().or_else(find_install) {
+            Some(p) => p,
+            None => bail!(
+                "no X-Plane 10 installation found: set XP_INSTALL, pass --install, or put the \
+                 app next to a folder named \"X-Plane 10\""
+            ),
+        },
     };
     if !root.is_dir() {
         bail!("install root {} is not a directory", root.display());
@@ -2000,10 +2149,95 @@ fn main() -> Result<()> {
             forward,
             panel,
             menubar,
+            menu_open,
+            menu_hover,
             &out,
         ),
         None => run_windowed(root, aircraft),
     }
+}
+
+/// Is `p` an X-Plane 10 installation? It must hold the menus, the aircraft and the app.
+fn looks_like_install(p: &Path) -> bool {
+    p.join("Resources/menus").is_dir() && p.join("Aircraft").is_dir()
+}
+
+/// Where a found installation is remembered between runs.
+fn remembered_install_file() -> Option<PathBuf> {
+    let home = std::env::var_os("HOME").map(PathBuf::from)?;
+    Some(home.join("Library/Application Support/xplane10-rs/install.txt"))
+}
+
+/// Find an installation on this computer when none is given, so the app starts from Finder:
+///
+/// 1. the path remembered from the last successful search;
+/// 2. a folder named `X-Plane 10` beside the app or beside any folder above the executable, or
+///    one of those folders itself;
+/// 3. the usual places: `~`, `~/Desktop`, `~/Documents`, `~/Downloads`, `~/Applications`,
+///    `/Applications`, the Steam library, and the top of every mounted volume;
+/// 4. Spotlight (`mdfind`) for any folder holding `X-Plane.app` whose version is 10.
+///
+/// The first hit is remembered.
+fn find_install() -> Option<PathBuf> {
+    let remember = |p: &Path| {
+        if let Some(f) = remembered_install_file() {
+            if let Some(d) = f.parent() {
+                let _ = std::fs::create_dir_all(d);
+            }
+            let _ = std::fs::write(&f, p.to_string_lossy().as_bytes());
+        }
+    };
+    if let Some(f) = remembered_install_file() {
+        if let Ok(t) = std::fs::read_to_string(&f) {
+            let p = PathBuf::from(t.trim());
+            if looks_like_install(&p) {
+                return Some(p);
+            }
+        }
+    }
+    let mut candidates: Vec<PathBuf> = Vec::new();
+    if let Ok(exe) = std::env::current_exe() {
+        for dir in exe.ancestors().skip(1) {
+            candidates.push(dir.join("X-Plane 10"));
+            candidates.push(dir.to_path_buf());
+        }
+    }
+    if let Some(home) = std::env::var_os("HOME").map(PathBuf::from) {
+        for sub in [
+            "",
+            "Desktop",
+            "Documents",
+            "Downloads",
+            "Applications",
+            "Games",
+            "Library/Application Support/Steam/steamapps/common",
+        ] {
+            candidates.push(home.join(sub).join("X-Plane 10"));
+        }
+    }
+    candidates.push(PathBuf::from("/Applications/X-Plane 10"));
+    if let Ok(rd) = std::fs::read_dir("/Volumes") {
+        for v in rd.filter_map(|e| e.ok()) {
+            candidates.push(v.path().join("X-Plane 10"));
+            candidates.push(v.path().join("Games/X-Plane 10"));
+        }
+    }
+    if let Some(p) = candidates.into_iter().find(|p| looks_like_install(p)) {
+        remember(&p);
+        return Some(p);
+    }
+    // Spotlight: every X-Plane.app on the machine; its parent is an installation.
+    let out = std::process::Command::new("mdfind")
+        .arg("kMDItemFSName == 'X-Plane.app'")
+        .output()
+        .ok()?;
+    let hit = String::from_utf8_lossy(&out.stdout)
+        .lines()
+        .filter_map(|l| Path::new(l).parent().map(Path::to_path_buf))
+        .find(|p| looks_like_install(p))?;
+    log::info!("found X-Plane 10 with Spotlight at {}", hit.display());
+    remember(&hit);
+    Some(hit)
 }
 
 fn run_windowed(root: PathBuf, aircraft: PathBuf) -> Result<()> {

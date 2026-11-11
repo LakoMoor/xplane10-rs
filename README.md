@@ -1,5 +1,9 @@
 # xplane10-rs — X-Plane 10.51r2 in Rust + wgpu
 
+<img src="docs/icon.png" width="96" alt="">
+
+Download the macOS app from [Releases](https://github.com/LakoMoor/xplane10-rs/releases/latest); it finds your X-Plane 10 folder by itself.
+
 A compatible runtime for the shipped **X-Plane 10.51r2** (build 105101): it loads the
 original's own content and implements the original's own measured rules. There is no source
 for X-Plane, so every behavior here was recovered by reading the shipped files and by running
@@ -11,7 +15,7 @@ Early development; nothing flies yet. The window shows the loading screen and th
 aircraft's 2-D cockpit panel on runway 34R at KSEA; `[` and `]` step through the installed
 aircraft (a stand-in for the original's chooser dialog).
 
-Self-assessed, weighted by subsystem: about **15 % implemented, 7 % verified against the
+Self-assessed, weighted by subsystem: about **17 % implemented, 9 % verified against the
 original**. The loading screen is 99.0 % pixel-identical to the original's, the menu bar 96.3 %.
 See the project site (`docs/index.html`), [docs/PORT.md](docs/PORT.md) for the plan and decision
 log, and [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) for what is implemented, wired,

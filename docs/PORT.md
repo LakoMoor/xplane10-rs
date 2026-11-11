@@ -357,4 +357,38 @@ Order is leaves-first: formats and geometry before anything touches a window.
   (9.14, 3.47, 2.66) do not follow from `(2s)²/2S` with the semi-lengths printed beside them.
 - **Published** as a public GitHub repository with a Pages site from `docs/`. The Steam shim is
   kept out of it (`.gitignore`).
+- **Menus: how the original's work, from its code** (`xp_core::menu`, `ui::drop_down`).
+  `mbar_class` was decompiled whole (28 functions). Contents come from
+  `Resources/menus/English/X-Plane.txt` (`0 <title>` opens a menu, `<id> <text>` an item, `-` a
+  separator or the end); item ids are `menu · 300 + position`; "Plugins" is added at run time.
+  Geometry: title = text + 30, 18 high; drop-down 2 below the bar, items 12 high, separators 2,
+  width `max(40, 40 + text + key)`; frame `BTN_frame2` 0x14 = atlas cell x 78…103, y 157…183 with
+  its shadow. Fills: open title and hovered item palette 0x2d at 25 %; text palette 0x2f at
+  (left + 18, bottom − 2); `[key]` right-aligned 10 inside; check marks are `BTN_util_element`
+  centred on texel (109, 187 | 206). Behaviour: click a title to open/close, hover another title
+  to switch, click an item to run it, click elsewhere to close.
+- **What every item does** is now data, not guesswork: `APP_handlemenu`'s control flow gives item →
+  window (`start_win(n)`) or item → command index; the command table (`_default_commands`, 1 307
+  rows of enum, path, description, default key) turns indices into names (`data/commands.tsv`,
+  `data/menu_actions.tsv`, `data/menu_marks.tsv`). Key text is `get_key_for_cmnd` over
+  `X-Plane Keys.prf`: modifiers, `-`, key name with a lower-case first letter (`SHIFT-space`).
+- **Palette** (`data/ui_palette.tsv`): the original's interface colours, read live from
+  `_colr + 0x204`. Entry 0x2b is the blue behind dialogs, (13, 69, 101).
+- **Oracle frames of open menus**: the probe writes the open-menu index (`_mbar + 0x18`, guarded by
+  the menu count) and the pointer (`0x102f37000/4`); with a menu open the original follows the
+  pointer to whichever title it is over, so the pointer is put on the wanted title. About, File,
+  Location and Environment were captured; Aircraft crashes the original in
+  `MACIBM_post_event_proc` under the probe and is not captured.
+- **Result**: bar strip 96.3 % identical and 99.8 % within 4/255; About and File drop-downs
+  identical in geometry to the pixel (frame edges, text origin, separators, keys); the body differs
+  only by the sky behind its 92 %-opaque frame, which the port does not draw yet — with that
+  compensated, 5 of 2 247 pixels of About differ by more than 12.
+- **Start-up**: with the user's own preferences the original opens *QuickFlight Setup* at start
+  (`_show_qfl_on_start 1`, frame `quickflight_setup.png`); the "Open" dialog is Aircraft > Open
+  Aircraft. The port still starts on the Open dialog; QuickFlight Setup is next.
+- **Install discovery**: with no `XP_INSTALL`, the app looks beside itself, in the usual folders,
+  on mounted volumes, then asks Spotlight for `X-Plane.app`, and remembers the hit in
+  `~/Library/Application Support/xplane10-rs/install.txt`.
+- **Packaging**: `packaging/make_app.sh` builds `xplane10-rs.app` with its own icon
+  (`packaging/make_icon.py`, drawn from scratch) and bundled FreeType/libpng, ad-hoc signed.
 

@@ -13,6 +13,7 @@ pub mod dsf;
 pub mod flight;
 pub mod geoid;
 pub mod gpsdb;
+pub mod menu;
 pub mod obj8;
 pub mod oracle;
 pub mod panel;
