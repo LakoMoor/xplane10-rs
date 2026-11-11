@@ -8,6 +8,7 @@
 pub mod acf;
 pub mod airport;
 pub mod aptdat;
+pub mod btnwin;
 pub mod content;
 pub mod dsf;
 pub mod flight;

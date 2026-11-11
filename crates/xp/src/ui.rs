@@ -604,9 +604,17 @@ impl Ui {
 
     /// A sub-pane inside a window: `BTN_frame2` type 0x10 (atlas cell x 203…303, y 54…154).
     pub fn pane(&self, rect: xp_core::menu::Rect) -> Vec<Layer> {
+        self.frame2(0x10, rect)
+    }
+
+    /// `BTN_frame2` for the window-family types 0xe…0x12: atlas cells at x 1, 102, 203, 304, 405
+    /// (101 apart), rows 54…154. 0x12 is the dark translucent info pane (α 0.70 over the
+    /// pinstripe gives the oracle's 91/255 in Rendering Options).
+    pub fn frame2(&self, ty: i32, rect: xp_core::menu::Rect) -> Vec<Layer> {
+        let u = 1.0 + (ty.clamp(0xe, 0x12) - 0xe) as f32 * 101.0;
         self.nine_slice(
             rect,
-            [203.0, 54.0, 303.0, 154.0],
+            [u, 54.0, u + 100.0, 154.0],
             [30.0, 30.0, 30.0, 30.0],
             [9.0, 4.0, 9.0, 14.0],
         )

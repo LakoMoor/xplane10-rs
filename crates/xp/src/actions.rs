@@ -22,6 +22,19 @@ pub struct Win {
     pub title: String,
     pub lines: Vec<String>,
     pub rect: Rect,
+    /// The window's widgets, for windows whose `*_wind()` has been extracted.
+    pub def: Option<xp_core::btnwin::Window>,
+    pub state: crate::btnui::State,
+}
+
+impl Win {
+    pub(crate) fn place(&self) -> crate::btnui::Place {
+        crate::btnui::Place {
+            ox: self.rect.l,
+            oy: self.rect.t,
+            h: self.rect.h(),
+        }
+    }
 }
 
 impl Win {
@@ -183,7 +196,12 @@ impl Renderer {
                         let c = c.clone();
                         self.run_command(&c, Some(item));
                     }
-                    Action::Window(_) | Action::Special(_) | Action::None => {
+                    Action::Window(n) => {
+                        let title = window_title(&item.text);
+                        let n = *n;
+                        self.open_window(item.id, &title, Some(n));
+                    }
+                    Action::Special(_) | Action::None => {
                         let title = window_title(&item.text);
                         self.toggle_window(item.id, &title, not_ported(&title));
                     }
@@ -264,6 +282,45 @@ impl Renderer {
         self.notice = Some((text.to_string(), 240));
     }
 
+    /// `wins_class::start_win(n)`: the window's extracted widgets when the port has them,
+    /// otherwise the framed placeholder.
+    fn open_window(&mut self, item: i32, title: &str, start_win: Option<i32>) {
+        let def = match start_win.map(|n| xp_core::btnwin::load(n, title)) {
+            Some(Ok(d)) => d,
+            Some(Err(e)) => {
+                log::error!("{e:#}");
+                None
+            }
+            None => None,
+        };
+        match def {
+            None => self.toggle_window(item, title, not_ported(title)),
+            Some(def) => {
+                self.windows_cache = None;
+                if let Some(i) = self.windows.iter().position(|w| w.item == item) {
+                    self.windows.remove(i);
+                    return;
+                }
+                let (w, h) = def.size;
+                let l = ((self.screen.0 as f32 - w) * 0.5).floor();
+                let t = ((self.screen.1 as f32 - h) * 0.5).floor();
+                self.windows.push(Win {
+                    item,
+                    title: title.to_string(),
+                    lines: Vec::new(),
+                    rect: Rect {
+                        l,
+                        t,
+                        r: l + w,
+                        b: t + h,
+                    },
+                    def: Some(def),
+                    state: Default::default(),
+                });
+            }
+        }
+    }
+
     fn toggle_window(&mut self, item: i32, title: &str, lines: Vec<String>) {
         self.windows_cache = None;
         if let Some(i) = self.windows.iter().position(|w| w.item == item) {
@@ -284,6 +341,8 @@ impl Renderer {
                 r: l + w,
                 b: t + h,
             },
+            def: None,
+            state: Default::default(),
         });
     }
 
@@ -310,6 +369,22 @@ impl Renderer {
         };
         if self.windows[top].close_hit(x, y) {
             self.windows.remove(top);
+        } else if self.windows[top].def.is_some() {
+            let w = &mut self.windows[top];
+            let place = w.place();
+            if let Some(def) = &w.def {
+                crate::btnui::click(
+                    def,
+                    &mut self.prefs,
+                    &self.presets,
+                    &mut w.state,
+                    place,
+                    &self.ui,
+                    x,
+                    y,
+                );
+            }
+            self.apply_prefs();
         } else {
             // Bring it to the front.
             let w = self.windows.remove(top);
@@ -317,6 +392,41 @@ impl Renderer {
         }
         self.windows_cache = None;
         true
+    }
+
+    /// Pointer motion with the button held: sliders follow it.
+    pub(crate) fn drag_windows(&mut self, x: f32) {
+        if let Some(w) = self.windows.last_mut() {
+            let place = w.place();
+            if let Some(def) = &w.def {
+                if crate::btnui::drag(def, &mut self.prefs, &w.state, place, &self.ui, x) {
+                    self.windows_cache = None;
+                }
+            }
+        }
+    }
+
+    pub(crate) fn release(&mut self) {
+        for w in &mut self.windows {
+            w.state.drag = None;
+        }
+    }
+
+    /// Settings with an effect the port has: the default forward view (`_default_view`, radio
+    /// buttons of Rendering Options: 0 panel, 1 scenery only, 2 3-D cockpit, 3 HUD).
+    pub(crate) fn apply_prefs(&mut self) {
+        use xp_core::view::Mode;
+        let want = match self.prefs.get("_default_view") as i32 {
+            1 => Mode::ForwardNothing,
+            2 => Mode::Cockpit3d,
+            3 => Mode::ForwardHud,
+            _ => Mode::ForwardPanel,
+        };
+        if self.view.mode.is_forward() || self.view.mode == Mode::Cockpit3d {
+            if self.view.mode != want {
+                self.view.select(want);
+            }
+        }
     }
 
     /// Escape: close the open menu, else the front window.

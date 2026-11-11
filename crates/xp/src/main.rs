@@ -41,6 +41,7 @@
 //! chosen and why rather than implying they were measured.
 
 mod actions;
+mod btnui;
 mod chooser;
 mod forward;
 mod gbuffer;
@@ -1484,6 +1485,13 @@ struct Renderer {
     screenshot: bool,
     /// `X-Plane Keys.prf`: key text → command.
     key_commands: std::collections::BTreeMap<String, String>,
+    /// Settings values (`X-Plane.prf` + the port's own file), the presets from `settings.txt`,
+    /// and what Rendering Options shows about the GPU.
+    prefs: xp_core::btnwin::Prefs,
+    presets: Vec<Vec<(String, f64)>>,
+    gl_info: btnui::Info,
+    /// The left button is held (slider drags).
+    mouse_down: bool,
     /// `--script` steps still to run (see [`actions`]), and where the next screenshot goes.
     script: std::collections::VecDeque<String>,
     shot_to: Option<PathBuf>,
@@ -1556,6 +1564,15 @@ impl Renderer {
             .duration_since(std::time::UNIX_EPOCH)
             .map(|d| d.as_secs() as usize)
             .unwrap_or(0);
+        let gl_info = {
+            let a = gpu.adapter.get_info();
+            btnui::Info {
+                vendor: format!("{:?}", a.backend),
+                renderer: a.name.clone(),
+                version: format!("wgpu {} - {}", a.driver, a.driver_info),
+                texmem: "Total size of all loaded textures at current settings: not measured by the port".into(),
+            }
+        };
         Ok(Self {
             surface,
             config,
@@ -1596,6 +1613,13 @@ impl Renderer {
             key_commands: actions::key_commands(install),
             script: Default::default(),
             shot_to: None,
+            prefs: xp_core::btnwin::Prefs::load(install, port_settings_path()),
+            presets: xp_core::btnwin::presets(
+                &xp_core::read_text_lossy(install.join("Resources/settings.txt"))
+                    .unwrap_or_default(),
+            ),
+            gl_info,
+            mouse_down: false,
             quit: false,
         })
     }
@@ -1857,6 +1881,19 @@ impl Renderer {
                         let mut layers = Vec::new();
                         for w in &self.windows {
                             layers.extend(self.ui.window(device, queue, w.rect, &w.title, true)?);
+                            if let Some(def) = &w.def {
+                                layers.extend(btnui::layers(
+                                    &self.ui,
+                                    device,
+                                    queue,
+                                    def,
+                                    &self.prefs,
+                                    &self.gl_info,
+                                    &w.state,
+                                    w.place(),
+                                )?);
+                                continue;
+                            }
                             let pane = xp_core::menu::Rect {
                                 l: w.rect.l + 10.0,
                                 t: w.rect.t + 28.0,
@@ -2099,6 +2136,20 @@ impl ApplicationHandler for App {
                         Some(position.y as f32 * r.screen.1 as f32 / r.config.height.max(1) as f32);
                     r.pointer_x =
                         position.x as f32 * r.screen.0 as f32 / r.config.width.max(1) as f32;
+                    if r.mouse_down {
+                        let x = r.pointer_x;
+                        r.drag_windows(x);
+                    }
+                }
+            }
+            WindowEvent::MouseInput {
+                state: winit::event::ElementState::Released,
+                button: winit::event::MouseButton::Left,
+                ..
+            } => {
+                if let Some(r) = &mut self.renderer {
+                    r.mouse_down = false;
+                    r.release();
                 }
             }
             WindowEvent::MouseInput {
@@ -2107,6 +2158,7 @@ impl ApplicationHandler for App {
                 ..
             } => {
                 if let Some(r) = &mut self.renderer {
+                    r.mouse_down = true;
                     r.click();
                     if r.quit {
                         el.exit();
@@ -2336,6 +2388,13 @@ fn looks_like_install(p: &Path) -> bool {
 }
 
 /// Where a found installation is remembered between runs.
+/// The port's own settings file: changes made in the settings windows. The X-Plane
+/// installation is never written to.
+fn port_settings_path() -> Option<PathBuf> {
+    let home = std::env::var_os("HOME").map(PathBuf::from)?;
+    Some(home.join("Library/Application Support/xplane10-rs/settings.prf"))
+}
+
 fn remembered_install_file() -> Option<PathBuf> {
     let home = std::env::var_os("HOME").map(PathBuf::from)?;
     Some(home.join("Library/Application Support/xplane10-rs/install.txt"))
