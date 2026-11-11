@@ -30,8 +30,14 @@ pub enum Kind {
     Action,
     /// `BTN_horz_slider`: a = width, b..c = range.
     Slider,
-    /// `OGL_string`: text in palette colour b, wrapped at width a.
+    /// `OGL_string`: text in palette colour b, wrapped at width a; `¶` separates paragraphs.
     Text,
+    /// `BTN_tab`: tab x = index, a = value it sets `key` to.
+    Tab,
+    /// `BTN_enterstring`: a text field a wide.
+    Enter,
+    /// `BTN_display_number`: a read-only number.
+    Display,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -56,6 +62,10 @@ pub struct Window {
     pub id: i32,
     pub title: String,
     pub size: (f32, f32),
+    /// Rows above the even vertical split the original puts the window at (`# top`): −1 for
+    /// most, 0 for Rendering Options, Planet Map and Select Global Airport (pinstripe phase of
+    /// the oracle frames).
+    pub top: f32,
     pub widgets: Vec<Widget>,
 }
 
@@ -65,7 +75,23 @@ fn num(s: &str) -> f32 {
 
 pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
     let mut widgets = Vec::new();
+    let mut size = (1024.0, 768.0);
+    let mut top = -1.0;
     for (n, line) in text.lines().enumerate() {
+        if let Some(rest) = line.strip_prefix("# top ") {
+            top = rest.trim().parse().unwrap_or(-1.0);
+            continue;
+        }
+        if let Some(rest) = line.strip_prefix("# size ") {
+            let v: Vec<f32> = rest
+                .split_whitespace()
+                .filter_map(|t| t.parse().ok())
+                .collect();
+            if v.len() == 2 {
+                size = (v[0], v[1]);
+            }
+            continue;
+        }
         if line.starts_with('#') || line.trim().is_empty() {
             continue;
         }
@@ -82,6 +108,9 @@ pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
             "action" => Kind::Action,
             "slider" => Kind::Slider,
             "text" => Kind::Text,
+            "tab" => Kind::Tab,
+            "enter" => Kind::Enter,
+            "display" => Kind::Display,
             other => bail!("window {id} line {}: unknown widget {other}", n + 1),
         };
         widgets.push(Widget {
@@ -105,7 +134,8 @@ pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
     Ok(Window {
         id,
         title: title.to_string(),
-        size: (1024.0, 768.0),
+        size,
+        top,
         widgets,
     })
 }
@@ -113,7 +143,25 @@ pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
 /// The windows the port has tables for, by `start_win` id.
 pub fn load(id: i32, title: &str) -> Result<Option<Window>> {
     let text = match id {
+        1 => include_str!("../data/windows/1.tsv"),
+        2 => include_str!("../data/windows/2.tsv"),
+        3 => include_str!("../data/windows/3.tsv"),
+        4 => include_str!("../data/windows/4.tsv"),
+        5 => include_str!("../data/windows/5.tsv"),
+        6 => include_str!("../data/windows/6.tsv"),
+        7 => include_str!("../data/windows/7.tsv"),
+        8 => include_str!("../data/windows/8.tsv"),
+        9 => include_str!("../data/windows/9.tsv"),
         10 => include_str!("../data/windows/10.tsv"),
+        12 => include_str!("../data/windows/12.tsv"),
+        13 => include_str!("../data/windows/13.tsv"),
+        14 => include_str!("../data/windows/14.tsv"),
+        15 => include_str!("../data/windows/15.tsv"),
+        16 => include_str!("../data/windows/16.tsv"),
+        17 => include_str!("../data/windows/17.tsv"),
+        19 => include_str!("../data/windows/19.tsv"),
+        20 => include_str!("../data/windows/20.tsv"),
+        22 => include_str!("../data/windows/22.tsv"),
         _ => return Ok(None),
     };
     parse(id, title, text).map(Some)
@@ -176,12 +224,20 @@ impl Prefs {
     }
 
     /// Whether a widget's condition holds.
+    /// `key`, `!key` or `key=v1/v2/…`; several joined by `,` must all hold.
     pub fn shows(&self, cond: &str) -> bool {
-        match cond.strip_prefix('!') {
-            _ if cond.is_empty() => true,
-            Some(k) => self.get(k) == 0.0,
-            None => self.get(cond) != 0.0,
-        }
+        cond.split(',').filter(|c| !c.is_empty()).all(|c| {
+            if let Some((k, vs)) = c.split_once('=') {
+                let cur = self.get(k);
+                return vs
+                    .split('/')
+                    .any(|v| (cur - v.parse::<f64>().unwrap_or(0.0)).abs() < 0.5);
+            }
+            match c.strip_prefix('!') {
+                Some(k) => self.get(k) == 0.0,
+                None => self.get(c) != 0.0,
+            }
+        })
     }
 
     /// The value a widget shows: the anisotropic filter is stored as the multiplier (1…16), the
@@ -203,12 +259,15 @@ impl Prefs {
     }
 }
 
-/// Split a label at its `|`: text left of the control and text right of it.
+/// Split a label at its `|`: text left of the control and text right of it. A side that is
+/// just `-` is empty; a side starting with `-` is set on one line (`-|-Show mouse click-regions`
+/// in Instructions).
 pub fn sides(label: &str) -> (&str, &str) {
-    match label.split_once('|') {
+    let (l, r) = match label.split_once('|') {
         Some((l, r)) => (l.trim(), r.trim()),
         None => (label.trim(), ""),
-    }
+    };
+    (if l == "-" { "" } else { l }, if r == "-" { "" } else { r })
 }
 
 /// The original sets a label in two lines, broken where the first line's width comes nearest
@@ -216,6 +275,9 @@ pub fn sides(label: &str) -> (&str, &str) {
 /// a hyphen, the earlier break on a tie: "draw / volumetric fog", "number / of objects",
 /// "3-D bump- / maps" (oracle frame of Rendering Options).
 pub fn two_lines(text: &str, measure: &dyn Fn(&str) -> f32) -> Vec<String> {
+    if let Some(one) = text.strip_prefix('-') {
+        return vec![one.to_string()];
+    }
     let chars: Vec<char> = text.chars().collect();
     let half = measure(text) / 2.0;
     let mut best: Option<(f32, usize, bool)> = None;

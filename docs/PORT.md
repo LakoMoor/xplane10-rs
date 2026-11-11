@@ -424,3 +424,25 @@ Order is leaves-first: formats and geometry before anything touches a window.
   window turns out to start at `t = −1`), panes 0x10, scroll bar (x 83…101 caps/thumb, track
   106…117), folder/aircraft icons (34…47 / 48…61 × 418…431), radio buttons (83…101 ×
   352…370 / 371…389), buttons (304…356 × 0…26). 94.0 % identical, 98.2 % within 8/255.
+
+## 2026-11-11 — the settings windows from the binary
+
+- Oracle frames of every window: a 20-line XPLM plugin (`xp_probe.xpl`, inactive unless
+  `XP_PROBE_WIN` is set; kept with the unpublished shim) calls `wins_class::start_win(&_wins, n)`
+  from its flight loop on the original's main thread. `SteamAPI_RunCallbacks` is only called once,
+  so the Steam shim cannot do it.
+- `tests/original_patch/re/btnemu.py` walks a window function's disassembly, tracking xmm
+  registers, the layout globals `BTN_subwin` writes, and std::string literals, and records each
+  `BTN_*`/`OGL_string` call with concrete arguments. With `--tab=VAR=N` it follows the control flow
+  and decides comparisons of the tab variable, so each call gets the tabs it belongs to.
+  `gen_window.py` turns that into `crates/xp-core/data/windows/<id>.tsv`.
+- Window sizes and placement: dialogs 650×750 (airport), 580×264 (date & time), 630×434 (sound),
+  600×400 (instructions); the rest fill 1024×768. All are centred one row above the even split
+  except Rendering Options, Planet Map and Select Global Airport (pinstripe phase of the frames).
+  With a settings window open the original stops drawing the world and fills the dialog blue.
+- Widget cells: check box 142…156 × 298/318, pop-up 357…425 × 0…26 (width = longest item + 28,
+  centred on x + 12), digit arrows 86…95 × 302/319, radio 83…101 × 352/371, button 304…356,
+  slider thumb 267…278 × 225…241, tab 203…303 (selected), tab underline 102…202,
+  `BTN_frame2` 0xe…0x12 = cells at x 1 + 101·(t − 0xe).
+- Not yet: loops inside window functions (Data Set rows, situations list, failure categories),
+  sections switched by radio buttons (Weather), the map and globe drawing, QuickFlight's buttons.

@@ -124,7 +124,24 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             r: x + w.a + 19.0,
             b: y + 5.0,
         },
-        Kind::Subwin | Kind::Text => Rect {
+        // Tabs: 86 wide, 88 apart from x 10, top 25 below the window's top (Instructions).
+        Kind::Tab => {
+            let l = p.ox + 10.0 + 88.0 * w.x;
+            let t = p.oy + 25.0;
+            Rect {
+                l,
+                t,
+                r: l + 86.0,
+                b: t + 20.0,
+            }
+        }
+        Kind::Enter => Rect {
+            l: x - 7.0,
+            t: y - 12.0,
+            r: x - 7.0 + w.a.max(40.0),
+            b: y + 3.0,
+        },
+        Kind::Subwin | Kind::Text | Kind::Display => Rect {
             l: x,
             t: y,
             r: x,
@@ -329,6 +346,49 @@ pub fn layers(
                 }
                 label_lines(ui, d, q, right, x + w.a + 10.0, y, false, &mut l)?;
             }
+            Kind::Tab => {
+                let sel = (prefs.get(&w.key) - w.a as f64).abs() < 0.5;
+                // The underline (atlas 102…202 × 3…11) across the window, once per tab row.
+                if w.x == 0.0 {
+                    l.push(ui.atlas_cell(
+                        [110.0, 3.0, 190.0, 11.0],
+                        [p.ox, p.oy + 41.0, win.size.0, 8.0],
+                    ));
+                }
+                let cell = Rect {
+                    l: r.l,
+                    t: r.t - 3.0,
+                    r: r.r,
+                    b: r.t + 23.0,
+                };
+                let mut q9 = ui.nine_slice(
+                    cell,
+                    [203.0, 0.0, 303.0, 26.0],
+                    [8.0, 0.0, 8.0, 0.0],
+                    [0.0; 4],
+                );
+                if !sel {
+                    // PLACEHOLDER: the unselected tab is a grey translucent cell not yet located
+                    // in the atlas; the green one greyed out stands in.
+                    for c in &mut q9 {
+                        c.tint = [0.75, 0.62, 0.75, 0.55];
+                    }
+                }
+                l.extend(q9);
+                let rgb = if sel { [0; 3] } else { [96, 96, 96] };
+                l.push(ui.text_at(d, q, &w.label, [r.l + 3.0, r.t + 14.0], rgb)?);
+            }
+            Kind::Enter => {
+                l.push(ui.fill([r.l, r.t, r.r - r.l, r.b - r.t], [255, 255, 255, 255]));
+                l.push(ui.fill([r.l, r.t, r.r - r.l, 1.0], [119, 119, 119, 255]));
+                label_lines(ui, d, q, left, r.l - 3.0, y, true, &mut l)?;
+                label_lines(ui, d, q, right, r.r + 5.0, y, false, &mut l)?;
+            }
+            Kind::Display => {
+                let text = format!("{:.*}", w.c.max(0.0) as usize, w.a);
+                l.push(ui.text_at(d, q, &text, [x, y], TEXT)?);
+                label_lines(ui, d, q, left, x - 6.0, y, true, &mut l)?;
+            }
             Kind::Text => {
                 let rgb = xp_core::menu::palette(w.b as usize);
                 let text = match w.key.as_str() {
@@ -338,8 +398,14 @@ pub fn layers(
                     "gl:texmem" => info.texmem.clone(),
                     _ => w.label.clone(),
                 };
-                for (i, line) in wrap(ui, &text, w.a).iter().enumerate() {
-                    l.push(ui.text_at(d, q, line, [x + 2.0, y - 1.0 + 12.0 * i as f32], rgb)?);
+                // Paragraphs (`¶`) are separated by a blank line, as in Instructions.
+                let mut row = 0.0;
+                for para in text.split('¶') {
+                    for line in wrap(ui, para, w.a) {
+                        l.push(ui.text_at(d, q, &line, [x + 2.0, y - 1.0 + 12.0 * row], rgb)?);
+                        row += 1.0;
+                    }
+                    row += 1.0;
                 }
             }
         }
@@ -445,6 +511,10 @@ pub fn click(
             }
             Kind::Popup if r.contains(x, y) => {
                 state.popup = Some(i);
+                return true;
+            }
+            Kind::Tab if r.contains(x, y) => {
+                save(prefs, w, w.a as f64);
                 return true;
             }
             Kind::Radio if r.contains(x, y) => {

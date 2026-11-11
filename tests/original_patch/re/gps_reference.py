@@ -1,3 +1,4 @@
+import os
 import sys, os, math, struct
 root = sys.argv[1]
 f32 = lambda x: struct.unpack('<f', struct.pack('<f', x))[0]

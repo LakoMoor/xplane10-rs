@@ -1,3 +1,4 @@
+import os
 """Minimal PNG read/write (8-bit RGB/RGBA, non-interlaced), standard library only."""
 import struct, zlib
 def read_png(p):

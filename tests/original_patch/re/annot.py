@@ -1,3 +1,4 @@
+import os
 import sys, re, bisect
 B = sys.argv[1]
 syms = []

@@ -1,3 +1,4 @@
+import os
 """dumptab.py <binary> <addr> <count> — print a table of C-string pointers from a Mach-O data section."""
 import struct, re, subprocess, sys
 B = sys.argv[1]; b = open(B, 'rb').read()

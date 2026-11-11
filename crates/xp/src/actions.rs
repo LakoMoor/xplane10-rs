@@ -301,9 +301,11 @@ impl Renderer {
                     self.windows.remove(i);
                     return;
                 }
+                // Centred, offset by the window's measured `top` (pinstripe phase of its oracle
+                // frame).
                 let (w, h) = def.size;
                 let l = ((self.screen.0 as f32 - w) * 0.5).floor();
-                let t = ((self.screen.1 as f32 - h) * 0.5).floor();
+                let t = ((self.screen.1 as f32 - h) * 0.5).floor() + def.top;
                 self.windows.push(Win {
                     item,
                     title: title.to_string(),

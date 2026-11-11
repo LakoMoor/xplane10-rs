@@ -54,7 +54,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 
 <h2 id="progress">How much is ported</h2>
 <div class="grid">
-  <div class="card"><div class="big">≈ 18 %</div><div class="dim">implemented</div><div class="bar"><i style="width:18%"></i></div></div>
+  <div class="card"><div class="big">≈ 20 %</div><div class="dim">implemented</div><div class="bar"><i style="width:20%"></i></div></div>
   <div class="card"><div class="big">≈ 9 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:9%"></i></div></div>
   <div class="card"><div class="big">99.0 %</div><div class="dim">of loading-screen pixels identical to the original's</div></div>
 </div>
@@ -67,7 +67,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <tr><td>Content formats</td><td class="n">10</td><td class="n">70 %</td><td class="n">15 %</td><td>ACF, OBJ8, apt.dat, PNG, DDS read across the whole install; DSF terrain only framed.</td></tr>
 <tr><td>2-D cockpit panel</td><td class="n">10</td><td class="n">20 %</td><td class="n">10 %</td><td>All 76 Cessna instrument faces placed from the original's own table; no needles or displays.</td></tr>
 <tr><td>Systems, datarefs, avionics</td><td class="n">8</td><td class="n">2 %</td><td class="n">2 %</td><td>GPS airport database reproduces the original's count exactly (19 186).</td></tr>
-<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">55 %</td><td class="n">25 %</td><td>Menu bar and all drop-downs from the original's own menu file, laid out and drawn by its decompiled rules. Every item does something: all 13 views and the camera moves/zoom, screenshot, quit, check-mark toggles, and the original's key bindings. The 19 windows open with the original's frame and title; their controls are not ported yet. Open-aircraft dialog works.</td></tr>
+<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">70 %</td><td class="n">55 %</td><td>Menu bar, drop-downs and every item working. All 18 settings windows are drawn from the original's own widget calls, extracted from the binary per window and per tab; 68–93 % of their pixels identical to the original's (Rendering Options, Sound, Joystick, Failures, Net, Instructions…). Lists built in loops (Data Set, aircraft situations), the maps and QuickFlight are still partial.</td></tr>
 <tr><td>Sound, plugins, network, ATC</td><td class="n">5</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started.</td></tr>
 <tr><td>Loading screen</td><td class="n">3</td><td class="n">85 %</td><td class="n">85 %</td><td>Picture, text, bands and progress bar match the original.</td></tr>
 </table></div>
@@ -84,6 +84,8 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <h2 id="shots">Screenshots of the port</h2>
 <p class="dim">Every rendering change is recorded as a frame of the port, taken with the original's own camera, and compared with the original's frame. Newest first.</p>
 <div class="shots">
+  <div class="shot"><img loading="lazy" src="parity/25_window_10.png" alt="Rendering Options" width="1024" height="768"><p><b>Rendering Options</b>, every control from the original's own <code>reno_wind()</code> calls; values from your X-Plane.prf, presets from settings.txt.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/25_window_14.png" alt="Joystick and Equipment" width="1024" height="768"><p><b>Joystick &amp; Equipment</b>, extracted per tab from the binary.</p></div>
   <div class="shot"><img loading="lazy" src="parity/22_large_window_open.png" alt="Open dialog in a large window" width="1710" height="985"><p><b>Open dialog, drawn from the original's atlas.</b> 94.0 % of its pixels identical to the original's (98.2 % within 8/255). Like the original, a larger window gives a larger screen: the dialog stays 1000×761 and centred instead of being stretched.</p></div>
   <div class="shot"><img loading="lazy" src="parity/16_menu_view.png" alt="View menu open" width="1024" height="768"><p><b>View menu</b>, laid out and drawn by the original's own rules: check mark on the current view, key shortcuts from its key file.</p></div>
   <div class="shot"><img loading="lazy" src="parity/21_menu_view_checks.png" alt="View menu with checks" width="1024" height="768"><p><b>Menu items work.</b> View is Chase and Night Vision chosen from the menu: both checked, the view switched (the green tint is a placeholder for the original's goggles).</p></div>

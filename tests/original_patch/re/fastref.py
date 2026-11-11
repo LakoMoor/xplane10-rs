@@ -1,3 +1,4 @@
+import os
 # fast rip-relative reference finder: for each target, list code addresses whose disp32 resolves to it
 import sys, struct, bisect, re
 b = open(sys.argv[1], 'rb').read()

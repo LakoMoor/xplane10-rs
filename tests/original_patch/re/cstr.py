@@ -1,3 +1,4 @@
+import os
 """cstr.py <file.c> — annotate Ghidra C with the C strings and symbol names its constants point at."""
 import sys, re, bisect, os
 HERE = os.path.dirname(os.path.abspath(__file__))

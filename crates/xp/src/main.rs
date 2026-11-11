@@ -1879,6 +1879,14 @@ impl Renderer {
                 if !self.windows.is_empty() {
                     if self.windows_cache.is_none() {
                         let mut layers = Vec::new();
+                        // With a settings window open the original stops drawing the world and
+                        // fills the screen with the dialog-back blue (oracle frames win_*.png).
+                        if self.windows.iter().any(|w| w.def.is_some()) {
+                            layers.push(self.ui.fill(
+                                [0.0, 0.0, screen.0 as f32, screen.1 as f32],
+                                [13, 69, 101, 255],
+                            ));
+                        }
                         for w in &self.windows {
                             layers.extend(self.ui.window(device, queue, w.rect, &w.title, true)?);
                             if let Some(def) = &w.def {
