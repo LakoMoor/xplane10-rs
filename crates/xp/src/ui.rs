@@ -291,6 +291,79 @@ impl Ui {
         }
     }
 
+    /// A CPU image as a texture.
+    pub fn solid_image(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        img: &(u32, u32, Vec<u8>),
+    ) -> wgpu::TextureView {
+        upload_rgba(device, queue, "image", img.0, img.1, &img.2)
+    }
+
+    /// A flat rectangle in an 8-bit colour.
+    pub fn fill(&self, rect: [f32; 4], rgba: [u8; 4]) -> Layer {
+        self.solid(rect, rgba.map(|c| f32::from(c) / 255.0))
+    }
+
+    /// The 18-pixel title strip (the menu-bar cell of `interface.png`), `width` wide.
+    pub fn title_strip(&self, top_left: [f32; 2], width: f32) -> Layer {
+        Layer {
+            view: self.atlas.clone(),
+            rect: [top_left[0], top_left[1], width, MENU_BAR_HEIGHT],
+            tint: [1.0; 4],
+            src: Some([50.0, 0.0, 51.0, MENU_BAR_HEIGHT]),
+            linear: false,
+        }
+    }
+
+    /// Text with its baseline's left end at `at`.
+    pub fn text_at(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        text: &str,
+        at: [f32; 2],
+        rgb: [u8; 3],
+    ) -> Result<Layer> {
+        let (view, baseline, _) = self.text(device, queue, text, rgb)?;
+        Ok(Layer::bitmap(view, [at[0], at[1] - baseline], [1.0; 4]))
+    }
+
+    /// Text centred on `at[0]`, baseline at `at[1]`.
+    pub fn text_centred(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        text: &str,
+        at: [f32; 2],
+        rgb: [u8; 3],
+    ) -> Result<Layer> {
+        let (view, baseline, advance) = self.text(device, queue, text, rgb)?;
+        Ok(Layer::bitmap(
+            view,
+            [(at[0] - advance as f32 * 0.5).round(), at[1] - baseline],
+            [1.0; 4],
+        ))
+    }
+
+    /// Text ending at `at[0]`, baseline at `at[1]`.
+    pub fn text_right(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        text: &str,
+        at: [f32; 2],
+        rgb: [u8; 3],
+    ) -> Result<Layer> {
+        let (view, baseline, advance) = self.text(device, queue, text, rgb)?;
+        Ok(Layer::bitmap(
+            view,
+            [(at[0] - advance as f32).round(), at[1] - baseline],
+            [1.0; 4],
+        ))
+    }
+
     /// The menu bar across the top of a screen `width` pixels wide.
     ///
     /// Background: `mbar_draw_menu_bar` draws it with `BTN_frame1(0x48, …)`; the pixels are the

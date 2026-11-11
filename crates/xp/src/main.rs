@@ -40,6 +40,7 @@
 //! `gl_LightSource[0]` to, and the oracle never exposed it, so [`sun_state`] says which values are
 //! chosen and why rather than implying they were measured.
 
+mod chooser;
 mod forward;
 mod gbuffer;
 mod mesh_gpu;
@@ -1397,9 +1398,7 @@ fn list_aircraft(install: &Path) -> Vec<PathBuf> {
         for p in rd.filter_map(|e| e.ok().map(|e| e.path())) {
             if p.is_dir() {
                 stack.push(p);
-            } else if p.extension().and_then(|e| e.to_str()) == Some("acf")
-                && !xp_core::acf::is_legacy_binary_file(&p)
-            {
+            } else if chooser::is_acf(&p) && !xp_core::acf::is_legacy_binary_file(&p) {
                 if let Ok(rel) = p.strip_prefix(install) {
                     out.push(rel.to_path_buf());
                 }
@@ -1442,6 +1441,11 @@ struct Renderer {
     message: Vec<String>,
     /// Pointer y in `SCREEN` pixels from the top, if it is over the window.
     pointer_y: Option<f32>,
+    pointer_x: f32,
+    /// The start-up aircraft dialog, while it is open.
+    chooser: Option<chooser::Chooser>,
+    /// Its layers, rebuilt only after a click changes it.
+    chooser_layers: Option<Vec<ui::Layer>>,
 }
 
 impl Renderer {
@@ -1525,7 +1529,56 @@ impl Renderer {
             tip: ui::hint(install, pick),
             message: ui::server_message(install),
             pointer_y: None,
+            pointer_x: 0.0,
+            // The original opens its aircraft dialog at start-up (user's screenshot).
+            chooser: Some(chooser::Chooser::new(install, aircraft)),
+            chooser_layers: None,
         })
+    }
+
+    /// Top-left corner of the dialog: centred on the screen, as in the user's screenshot.
+    fn dialog_origin() -> [f32; 2] {
+        [
+            ((SCREEN.0 as f32 - chooser::DIALOG_W) * 0.5).floor(),
+            ((SCREEN.1 as f32 - chooser::DIALOG_H) * 0.5).floor(),
+        ]
+    }
+
+    /// A left click at the pointer.
+    fn click(&mut self) {
+        let (x, y) = (self.pointer_x, self.pointer_y.unwrap_or(-1.0));
+        if let Some(c) = &mut self.chooser {
+            let o = Self::dialog_origin();
+            let action = c.click(x - o[0], y - o[1]);
+            self.chooser_layers = None;
+            match action {
+                chooser::Action::Open(path) => {
+                    if let Some(i) = self.aircraft.iter().position(|p| *p == path) {
+                        self.current = i;
+                        self.session = None;
+                        self.loading_frames = 0;
+                        self.chooser = None;
+                    } else {
+                        log::warn!(
+                            "{} is a legacy binary aircraft; it cannot be loaded",
+                            path.display()
+                        );
+                    }
+                }
+                chooser::Action::Cancel => self.chooser = None,
+                chooser::Action::None => {}
+            }
+            return;
+        }
+        // Menu bar: the "Aircraft" title (item 109…177) opens the dialog again. A stand-in for
+        // the original's drop-down, whose first entry leads there.
+        if y < 18.0 && (109.0..177.0).contains(&x) {
+            self.chooser = Some(chooser::Chooser::new(
+                &self.install,
+                &self.aircraft[self.current],
+            ));
+            self.chooser_layers = None;
+        }
     }
 
     fn aircraft_rel(&self) -> &Path {
@@ -1586,6 +1639,34 @@ impl Renderer {
     }
 
     fn draw_scene(&mut self) -> Result<()> {
+        if let Some(c) = &self.chooser {
+            if self.chooser_layers.is_none() {
+                let (device, queue) = (&self.gpu.device, &self.gpu.queue);
+                let mut layers = vec![self.ui.fill(
+                    [0.0, 0.0, SCREEN.0 as f32, SCREEN.1 as f32],
+                    // The window behind the dialog, measured on the user's screenshot.
+                    [13, 69, 101, 255],
+                )];
+                layers.extend(c.layers(
+                    &self.ui,
+                    device,
+                    queue,
+                    &mut self.store,
+                    Self::dialog_origin(),
+                )?);
+                self.chooser_layers = Some(layers);
+            }
+            if let Some(layers) = &self.chooser_layers {
+                self.ui.draw(
+                    &self.gpu.device,
+                    &self.gpu.queue,
+                    &self.target,
+                    SCREEN,
+                    layers,
+                );
+            }
+            return Ok(());
+        }
         let (device, queue) = (&self.gpu.device, &self.gpu.queue);
         match &self.session {
             None => {
@@ -1665,7 +1746,7 @@ impl Renderer {
         self.queue_present(frame);
 
         // Load after the loading screen has been on screen for a few frames, so it is seen.
-        if self.session.is_none() {
+        if self.session.is_none() && self.chooser.is_none() {
             self.loading_frames += 1;
             if self.loading_frames >= 4 {
                 match self.load_session() {
@@ -1697,7 +1778,7 @@ impl App {
     fn retitle(&self) {
         if let (Some(w), Some(r)) = (&self.window, &self.renderer) {
             w.set_title(&format!(
-                "xp-rs — {} ({} of {}; [ and ] change aircraft)",
+                "xp-rs — {} ({} of {})",
                 r.aircraft_rel().display(),
                 r.current + 1,
                 r.aircraft.len()
@@ -1751,7 +1832,19 @@ impl ApplicationHandler for App {
                 if let Some(r) = &mut self.renderer {
                     r.pointer_y =
                         Some(position.y as f32 * SCREEN.1 as f32 / r.config.height.max(1) as f32);
+                    r.pointer_x =
+                        position.x as f32 * SCREEN.0 as f32 / r.config.width.max(1) as f32;
                 }
+            }
+            WindowEvent::MouseInput {
+                state: winit::event::ElementState::Pressed,
+                button: winit::event::MouseButton::Left,
+                ..
+            } => {
+                if let Some(r) = &mut self.renderer {
+                    r.click();
+                }
+                self.retitle();
             }
             WindowEvent::CursorLeft { .. } => {
                 if let Some(r) = &mut self.renderer {
