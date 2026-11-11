@@ -10,6 +10,12 @@ tabs = {}
 for c in calls:
     if c['fn'].startswith('BTN_tab') and isinstance(c['int'][2], str) and isinstance(c['int'][3], int) and c['int'][3] < 64:
         tabs.setdefault(c['int'][2][1:], []).append(c['int'][3])
+if not tabs:
+    # No tabs: radio buttons (BTN_is_int on one variable) switch sections the same way (Weather).
+    for c in calls:
+        if c['fn'].startswith('BTN_is_int') and isinstance(c['int'][0], str) and c['int'][0].startswith('&') and isinstance(c['int'][1], int):
+            tabs.setdefault(c['int'][0][1:], []).append(c['int'][1])
+    tabs = {k: v for k, v in tabs.items() if len(v) >= 3}
 TABCOND = {}
 if tabs:
     var, values = next(iter(tabs.items()))
@@ -32,6 +38,7 @@ def S(v): return v if isinstance(v, str) and v != '?' and not v.startswith('stk'
 def lab(v): return S(v).split(' { ')[0]
 def key(v, label):
     if isinstance(v, str) and v.startswith('&'): return v[1:]
+    if isinstance(v, list) and v and v[0] == 'thisp': return 'this+0x%x' % v[1]
     if isinstance(v, list) and v and v[0] == 'mem': return 'm:' + str(v[1])
     return 'lbl:' + (label or 'anon%d' % len(rows))
 tabvars = {c['int'][2][1:] for c in calls if c['fn'].startswith('BTN_tab') and isinstance(c['int'][2], str)}

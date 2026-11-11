@@ -67,6 +67,7 @@ def addr_of(op, comment):
     v = r.get(rn(reg))
     if v and v[0] == 'ptr': return ('abs', v[1] + disp)
     if v and v[0] == 'stk': return ('stk', v[1] + disp)
+    if v and v[0] == 'this': return ('this', v[1] + disp)
     return ('ind', reg, disp)
 
 def load_f(op, comment, dbl=False):
@@ -109,6 +110,8 @@ def fmt(v):
         if v[0] == 'imm': return v[1]
         if v[0] == 'ptr': return '&' + gname(v[1])
         if v[0] == 'stk': return strs.get(v[1], 'stk%d' % v[1])
+        if v[0] == 'thisp': return '&this+0x%x' % v[1]
+        if v[0] == 'this': return '&this+0x%x' % v[1]
         return list(v)
     return v
 
@@ -154,12 +157,14 @@ def exe(pc, ins, ops, comment, o, l):
                 if a and a[0] == 'stk': v = stk.get(a[1])
                 elif a and a[0] == 'abs':
                     v = ('mem', gname(a[1]))
+                elif a and a[0] == 'this':
+                    v = ('mem', 'this+0x%x' % a[1])
             if dst.startswith('%'): r[rn(dst)] = v
             else: store(dst, comment, v)
         elif ins == 'leaq':
             src, dst = o
             a = addr_of(src, comment)
-            r[rn(dst)] = ('ptr', a[1]) if a and a[0] == 'abs' else ('stk', a[1]) if a and a[0] == 'stk' else None
+            r[rn(dst)] = ('ptr', a[1]) if a and a[0] == 'abs' else ('stk', a[1]) if a and a[0] == 'stk' else ('thisp', a[1]) if a and a[0] == 'this' else None
         elif ins in ('cmpl', 'cmpb') and o[0].startswith('$'):
             imm = int(o[0][1:], 0); tgt = o[1]
             var = None
@@ -169,6 +174,10 @@ def exe(pc, ins, ops, comment, o, l):
             else:
                 a = addr_of(tgt, comment)
                 if a and a[0] == 'abs': var = gname(a[1])
+                if a and a[0] == 'this': var = 'this+0x%x' % a[1]
+                if a and a[0] == 'stk':
+                    sv = stk.get(a[1])
+                    if isinstance(sv, tuple) and sv[0] == 'mem': var = sv[1]
             last_cmp = (var, imm, pc) if var else None
         elif ins == 'testl' and o[0] == o[1]:
             v = r.get(rn(o[0]))
@@ -229,6 +238,7 @@ for l in open(sys.argv[1]):
     o = [q.strip() for q in re.split(r',(?![^(]*\))', ops)] if ops else []
     INS.append((pc, ins, ops, comment, o, l))
 IDX = {e[0]: i for i, e in enumerate(INS)}
+r['rdi'] = ('this', 0)   # a member function's object
 
 # --tab VAR=VALUE: walk the control flow, deciding comparisons of VAR with its value; other
 # conditional branches are explored both ways (fall-through first). Without --tab: linear sweep.
