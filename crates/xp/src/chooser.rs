@@ -3,12 +3,13 @@
 //! Reference: the user's screenshot of the original, `tests/golden/original/frames/
 //! user_aircraft_chooser.png` (1920×1080 window, dialog 1000×761 centred in the content area).
 //! Every coordinate below is relative to the dialog's top-left corner and was measured on that
-//! screenshot. The title strip is the same `interface.png` cell as the menu bar and is exact;
-//! the rest of the chrome (pinstripe body, panes, bevels, buttons) is drawn here from the
-//! measured colours as flat fills, NOT from the atlas cells the original uses, which are not yet
-//! identified. Folder and aircraft icons in the tree are not drawn. The tree's rules — only
-//! folders with an `.acf` somewhere below them, case-insensitive alphabetical order, the path to
-//! the current aircraft expanded — are read off the screenshot.
+//! screenshot. The chrome is the original's atlas cells (`interface.png`): window frame and
+//! panes (`BTN_frame2` 0xe / 0x10), scroll bars, folder and aircraft icons, radio buttons and
+//! buttons, each located by matching the screenshot; the sunken white fields are painted from
+//! their measured edge rows. 94.0 % of the dialog's pixels are identical to the screenshot and
+//! 98.2 % within 8/255; the rest is the preview picture's scaling and a few glyphs. The tree's
+//! rules — only folders with an `.acf` somewhere below them, case-insensitive alphabetical order,
+//! the path to the current aircraft expanded — are read off the screenshot.
 
 use std::path::{Path, PathBuf};
 
@@ -24,7 +25,7 @@ const INDENT: f32 = 15.0;
 /// Left list: white field and the first row.
 const LIST: [f32; 4] = [23.0, 54.0, 374.0, 627.0];
 const TREE_TEXT_X: f32 = 40.0;
-const TREE_FIRST_BASELINE: f32 = 70.0;
+const TREE_FIRST_BASELINE: f32 = 71.0;
 /// Livery list.
 const LIVERIES: [f32; 4] = [451.0, 369.0, 517.0, 312.0];
 const LIVERY_FIRST_CENTRE: f32 = 385.0;
@@ -37,6 +38,19 @@ pub const BTN_LIVERY: [f32; 2] = [744.0, 242.0];
 const BTN_Y: f32 = 727.0;
 const BTN_H: f32 = 15.0;
 const TEXT: [u8; 3] = [51, 59, 71];
+/// The sunken white fields (l, t, r, b): tree, preview, liveries.
+const FIELDS: [[f32; 4]; 3] = [
+    [20.0, 54.0, 400.0, 683.0],
+    [450.0, 49.0, 980.0, 339.0],
+    [450.0, 369.0, 970.0, 683.0],
+];
+/// The three panes' bodies (l, t, r, b): fitted so the pane cell's edge profiles land on the
+/// user's screenshot.
+const PANES: [[f32; 4]; 3] = [
+    [10.0, 29.0, 430.0, 752.0],
+    [440.0, 29.0, 990.0, 350.0],
+    [440.0, 359.0, 990.0, 752.0],
+];
 
 #[derive(Debug, Clone)]
 struct Node {
@@ -266,11 +280,48 @@ impl Chooser {
     ) -> Result<Vec<Layer>> {
         let at = |x: f32, y: f32| [origin[0] + x, origin[1] + y];
         let mut l = Vec::new();
+        let r = |x0: f32, y0: f32, x1: f32, y1: f32| xp_core::menu::Rect {
+            l: origin[0] + x0,
+            t: origin[1] + y0,
+            r: origin[0] + x1,
+            b: origin[1] + y1,
+        };
+        // Window and panes: `BTN_frame2` types 0xe and 0x10 from the atlas.
+        l.extend(ui.window(
+            device,
+            queue,
+            r(0.0, 0.0, DIALOG_W, DIALOG_H),
+            "Open",
+            false,
+        )?);
+        for p in PANES {
+            l.extend(ui.pane(r(p[0], p[1], p[2], p[3])));
+        }
         let chrome = ui.solid_image(device, queue, &chrome_pixels());
         l.push(Layer::bitmap(chrome, at(0.0, 18.0), [1.0; 4]));
-        l.push(ui.title_strip(at(0.0, 0.0), DIALOG_W));
-        l.push(ui.text_centred(device, queue, "Open", at(DIALOG_W * 0.5, 13.0), [255; 3])?);
-        l.push(ui.text_centred(device, queue, "Aircraft", at(210.0, 44.0), TEXT)?);
+        // Scroll bars (atlas column x 83…101: up cap, thumb, down cap; track x 106…117),
+        // places matched on the user's screenshot to within 1.2/255 rms.
+        for (x, top, bottom) in [(406.0, 35.0, 682.0), (971.0, 360.0, 682.0)] {
+            l.extend(ui.nine_slice(
+                r(x + 3.0, top + 11.0, x + 14.0, bottom + 11.0),
+                [106.0, 228.0, 117.0, 260.0],
+                [0.0, 3.0, 0.0, 3.0],
+                [0.0; 4],
+            ));
+            l.push(ui.atlas_cell(
+                [83.0, 224.0, 101.0, 246.0],
+                [at(x, 0.0)[0], at(0.0, top)[1], 18.0, 22.0],
+            ));
+            l.push(ui.atlas_cell(
+                [83.0, 274.0, 101.0, 296.0],
+                [at(x, 0.0)[0], at(0.0, bottom)[1], 18.0, 22.0],
+            ));
+            l.push(ui.atlas_cell(
+                [83.0, 247.0, 101.0, 273.0],
+                [at(x, 0.0)[0], at(0.0, top + 16.0)[1], 18.0, 26.0],
+            ));
+        }
+        l.push(ui.text_centred(device, queue, "Aircraft", at(221.0, 45.0), TEXT)?);
 
         // Tree.
         let rows = self.rows();
@@ -278,18 +329,32 @@ impl Chooser {
         for (i, n) in rows.iter().take(max_rows).enumerate() {
             let baseline = TREE_FIRST_BASELINE + i as f32 * ROW_PITCH;
             if n.is_acf && n.path == self.selected {
+                // Rows baseline − 12 … baseline + 3 across the field, 204, the field's sunken
+                // edge darkened over it (144/176/195), as on the user's screenshot.
+                let y = at(0.0, baseline - 12.0)[1];
+                let f = FIELDS[0];
                 l.push(ui.fill(
-                    [
-                        at(LIST[0], 0.0)[0],
-                        at(0.0, baseline - 11.5)[1],
-                        LIST[2],
-                        ROW_PITCH,
-                    ],
+                    [at(f[0], 0.0)[0], y, f[2] - f[0], 16.0],
                     [204, 204, 204, 255],
                 ));
+                for (k, c) in [144u8, 176, 195].into_iter().enumerate() {
+                    for x in [f[0] + k as f32, f[2] - 1.0 - k as f32] {
+                        l.push(ui.fill([at(x, 0.0)[0], y, 1.0, 16.0], [c, c, c, 255]));
+                    }
+                }
             }
             let x = TREE_TEXT_X + n.depth as f32 * INDENT;
-            l.push(ui.text_at(device, queue, &n.name, at(x, baseline), TEXT)?);
+            // Folder (atlas 34…47 × 418…431) or aircraft (48…61) icon, 16 left of the text and
+            // 10 above the baseline: matched on the user's screenshot (0.16/255 rms).
+            let u = if n.is_acf { 48.0 } else { 34.0 };
+            l.push(ui.atlas_cell([u, 418.0, u + 13.0, 431.0], {
+                let p = at(x - 16.0, baseline - 10.0);
+                [p[0], p[1], 13.0, 13.0]
+            }));
+            // Tree text is black; the selected row's is the dialog text colour.
+            let selected = n.is_acf && n.path == self.selected;
+            let rgb = if selected { TEXT } else { [0; 3] };
+            l.push(ui.text_at(device, queue, &n.name, at(x, baseline), rgb)?);
         }
 
         // Preview: the aircraft's `<name>_icon.png`, and its path in a black caption.
@@ -300,11 +365,16 @@ impl Chooser {
                 .map(|s| s.to_string_lossy())
                 .unwrap_or_default()
         ));
+        // A grey (130) 250×250 frame with the icon 230×230 inside, as on the user's screenshot.
+        l.push(ui.fill(
+            [at(590.0, 0.0)[0], at(0.0, 51.0)[1], 250.0, 250.0],
+            [130, 130, 130, 255],
+        ));
         if icon.is_file() {
             let view = store.get_ui(device, queue, &icon)?;
-            let mut layer = Layer::bitmap(view, at(590.0, 50.0), [1.0; 4]);
-            layer.rect[2] = 250.0;
-            layer.rect[3] = 250.0;
+            let mut layer = Layer::bitmap(view, at(600.0, 61.0), [1.0; 4]);
+            layer.rect[2] = 230.0;
+            layer.rect[3] = 230.0;
             l.push(layer);
         }
         l.push(ui.fill(
@@ -316,21 +386,32 @@ impl Chooser {
             Some(i) => (shown[..=i].to_string(), shown[i + 1..].to_string()),
             None => (String::new(), shown),
         };
-        l.push(ui.text_right(device, queue, &head, at(836.0, 312.0), [255; 3])?);
-        l.push(ui.text_right(device, queue, &tail, at(836.0, 326.0), [255; 3])?);
+        l.push(ui.text_right(device, queue, &head, at(835.0, 313.0), [255; 3])?);
+        l.push(ui.text_right(device, queue, &tail, at(835.0, 327.0), [255; 3])?);
 
         // Liveries.
         for (i, name) in self.liveries().iter().enumerate() {
             let cy = LIVERY_FIRST_CENTRE + i as f32 * LIVERY_PITCH;
-            let ring = if i == self.livery {
-                [70, 160, 70, 255]
-            } else {
-                [180, 180, 180, 255]
-            };
-            l.push(ui.fill([at(464.0, 0.0)[0], at(0.0, cy - 6.0)[1], 12.0, 12.0], ring));
-            l.push(ui.text_at(device, queue, name, at(482.0, cy + 4.0), TEXT)?);
+            // Radio button: atlas 83…101 × 352…370 (on) / 371…389 (off) at (461, cy − 8),
+            // matched on the user's screenshot (0.25/255 rms for the off state).
+            let v = if i == self.livery { 352.0 } else { 371.0 };
+            l.push(ui.atlas_cell([83.0, v, 101.0, v + 18.0], {
+                let p = at(461.0, cy - 8.0);
+                [p[0], p[1], 18.0, 18.0]
+            }));
+            l.push(ui.text_at(device, queue, name, at(482.0, cy + 5.0), TEXT)?);
         }
 
+        // Buttons: the atlas cell x 304…356, y 0…26 (found by matching the user's screenshot),
+        // its 8-texel caps kept and the middle stretched, 4 px outside the face each side.
+        for b in [BTN_RESCAN, BTN_CANCEL, BTN_OPEN, BTN_LIVERY] {
+            l.extend(ui.nine_slice(
+                r(b[0] - 4.0, BTN_Y - 5.0, b[0] + b[1] + 4.0, BTN_Y + 21.0),
+                [304.0, 0.0, 356.0, 26.0],
+                [8.0, 0.0, 8.0, 0.0],
+                [0.0; 4],
+            ));
+        }
         // Button labels.
         for (b, label) in [
             (BTN_RESCAN, "Re-Scan"),
@@ -342,7 +423,7 @@ impl Chooser {
                 device,
                 queue,
                 label,
-                at(b[0] + b[1] * 0.5, BTN_Y + 11.0),
+                at(b[0] + b[1] * 0.5 - 1.0, BTN_Y + 12.0),
                 TEXT,
             )?);
         }
@@ -364,52 +445,21 @@ fn chrome_pixels() -> (u32, u32, Vec<u8>) {
             }
         }
     };
-    for y in 18..(DIALOG_H as usize) {
-        let c = if y % 2 == 0 { 247 } else { 224 };
-        rect(0.0, y as f32, DIALOG_W, y as f32 + 1.0, [c; 3]);
-    }
-    // panes: bevel line, then the recess
-    for (x0, y0, x1, y1) in [
-        (8.0, 28.0, 432.0, 752.0),
-        (437.0, 28.0, 997.0, 350.0),
-        (437.0, 358.0, 997.0, 752.0),
-    ] {
-        rect(x0, y0, x1, y1, [178; 3]);
-        rect(x0 + 2.0, y0 + 2.0, x1 - 2.0, y1 - 2.0, [208; 3]);
-    }
-    rect(
-        LIST[0],
-        LIST[1],
-        LIST[0] + LIST[2],
-        LIST[1] + LIST[3],
-        [255; 3],
-    );
-    rect(409.0, 40.0, 419.0, 697.0, [225; 3]);
-    rect(451.0, 49.0, 967.0, 336.0, [255; 3]);
-    rect(
-        LIVERIES[0],
-        LIVERIES[1],
-        LIVERIES[0] + LIVERIES[2],
-        LIVERIES[1] + LIVERIES[3],
-        [255; 3],
-    );
-    rect(974.0, 365.0, 984.0, 697.0, [225; 3]);
-    for b in [BTN_RESCAN, BTN_CANCEL, BTN_OPEN, BTN_LIVERY] {
-        rect(b[0], BTN_Y, b[0] + b[1], BTN_Y + BTN_H, [103, 105, 102]);
-        rect(
-            b[0] + 1.0,
-            BTN_Y + 1.0,
-            b[0] + b[1] - 1.0,
-            BTN_Y + BTN_H - 1.0,
-            [165, 166, 162],
-        );
-        rect(
-            b[0] + 1.0,
-            BTN_Y + 8.0,
-            b[0] + b[1] - 1.0,
-            BTN_Y + BTN_H - 1.0,
-            [185, 186, 181],
-        );
+    // The white fields are sunken: their edge rows and columns measured on the user's
+    // screenshot (top 119/184/220/244, sides 180/220/244, bottom 244/231).
+    for f in FIELDS {
+        rect(f[0], f[1], f[2], f[3], [255; 3]);
+        for (k, c) in [119u8, 184, 220, 244].into_iter().enumerate() {
+            let y = f[1] + k as f32;
+            rect(f[0], y, f[2], y + 1.0, [c; 3]);
+        }
+        for (k, c) in [180u8, 220, 244].into_iter().enumerate() {
+            let (xl, xr) = (f[0] + k as f32, f[2] - 1.0 - k as f32);
+            rect(xl, f[1] + 1.0 + k as f32, xl + 1.0, f[3], [c; 3]);
+            rect(xr, f[1] + 1.0 + k as f32, xr + 1.0, f[3], [c; 3]);
+        }
+        rect(f[0] + 3.0, f[3] - 2.0, f[2] - 3.0, f[3] - 1.0, [244; 3]);
+        rect(f[0] + 1.0, f[3] - 1.0, f[2] - 1.0, f[3], [231; 3]);
     }
     (w as u32, h as u32, px)
 }

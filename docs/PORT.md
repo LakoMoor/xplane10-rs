@@ -412,3 +412,15 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - File > Take Screenshot writes `Output/<aircraft>_<n>.png` with a stored-deflate PNG encoder
   (`png::encode_rgba`, round-trip tested).
 - QuickFlight Setup (item 300) opens the aircraft dialog until QuickFlight itself is ported.
+
+## 2026-11-11 — window size and the Open dialog
+
+- The original takes its window's size in points as its screen (user's screenshot: in a
+  1920-wide window the Open dialog stays 1000×761, centred). The port now does the same:
+  frame, depth buffer and menu bar follow the window; the projection keeps the horizontal
+  field of view. Panel and loading screen placement on larger screens: PLACEHOLDER.
+- Open dialog rebuilt from atlas cells located by matching the user's screenshot: window 0xe
+  (cell drawn from `t − 3`, title baseline `t + 14` — corrected from the QuickFlight fit, whose
+  window turns out to start at `t = −1`), panes 0x10, scroll bar (x 83…101 caps/thumb, track
+  106…117), folder/aircraft icons (34…47 / 48…61 × 418…431), radio buttons (83…101 ×
+  352…370 / 371…389), buttons (304…356 × 0…26). 94.0 % identical, 98.2 % within 8/255.

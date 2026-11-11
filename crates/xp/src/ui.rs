@@ -312,20 +312,20 @@ impl Ui {
         upload_rgba(device, queue, "image", img.0, img.1, &img.2)
     }
 
+    /// An `interface.png` cell `src` (l, t, r, b texels) drawn into `dst` (l, t, w, h).
+    pub fn atlas_cell(&self, src: [f32; 4], dst: [f32; 4]) -> Layer {
+        Layer {
+            view: self.atlas.clone(),
+            rect: dst,
+            tint: [1.0; 4],
+            src: Some(src),
+            linear: false,
+        }
+    }
+
     /// A flat rectangle in an 8-bit colour.
     pub fn fill(&self, rect: [f32; 4], rgba: [u8; 4]) -> Layer {
         self.solid(rect, rgba.map(|c| f32::from(c) / 255.0))
-    }
-
-    /// The 18-pixel title strip (the menu-bar cell of `interface.png`), `width` wide.
-    pub fn title_strip(&self, top_left: [f32; 2], width: f32) -> Layer {
-        Layer {
-            view: self.atlas.clone(),
-            rect: [top_left[0], top_left[1], width, MENU_BAR_HEIGHT],
-            tint: [1.0; 4],
-            src: Some([50.0, 0.0, 51.0, MENU_BAR_HEIGHT]),
-            linear: false,
-        }
     }
 
     /// Text with its baseline's left end at `at`.
@@ -559,13 +559,14 @@ impl Ui {
     }
 
     /// A movable window: `BTN_frame2` type 0xe (atlas cell x 1…101, y 54…154: title strip and
-    /// pinstripe body with its drop shadow), title centred in white on baseline `t + 13`, and the
+    /// pinstripe body with its drop shadow), title centred in white on baseline `t + 14`, and the
     /// close box (atlas x 120…138, y 316…334) at both ends of the title strip.
     ///
-    /// The cell's offsets are measured on the oracle's full-screen QuickFlight window, whose
-    /// title strip starts at screen row 0 with atlas row 58 (so the cell is drawn from `t − 4`)
-    /// and whose title text sits on row 12. The close boxes' places are from the user's
-    /// screenshot of Rendering Options (centres 15 px inside each end).
+    /// Offsets fitted on the user's screenshot of the Open dialog (window at a known place): the
+    /// cell is drawn from `t − 3`, so atlas row 57 (the strip's dark top line) lands on row `t`.
+    /// The oracle's full-screen QuickFlight window fits the same rules with its `t` at −1. The
+    /// close boxes' places are from the user's Rendering Options screenshot (centres 15 px
+    /// inside each end).
     pub fn window(
         &self,
         device: &wgpu::Device,
@@ -578,7 +579,7 @@ impl Ui {
             rect,
             [1.0, 54.0, 101.0, 154.0],
             [30.0, 35.0, 30.0, 35.0],
-            [9.0, 4.0, 9.0, 14.0],
+            [9.0, 3.0, 9.0, 14.0],
         );
         if close {
             for x in [rect.l + 6.0, rect.r - 24.0] {
@@ -595,7 +596,7 @@ impl Ui {
             device,
             queue,
             title,
-            [((rect.l + rect.r) * 0.5).floor(), rect.t + 13.0],
+            [((rect.l + rect.r) * 0.5).floor(), rect.t + 14.0],
             xp_core::menu::palette(0x2f),
         )?);
         Ok(l)
