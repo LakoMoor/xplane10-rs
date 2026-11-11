@@ -422,6 +422,44 @@ impl Ui {
         out
     }
 
+    /// [`Ui::nine_slice`] with the middle row and column repeated at one texel per pixel instead
+    /// of stretched, for cells with a texture in them (the windows' 1-pixel pinstripe).
+    pub fn nine_slice_tiled(
+        &self,
+        dst: xp_core::menu::Rect,
+        cell: [f32; 4],
+        border: [f32; 4],
+        grow: [f32; 4],
+    ) -> Vec<Layer> {
+        let mut out = Vec::new();
+        for q in self.nine_slice(dst, cell, border, grow) {
+            let [x, y, w, h] = q.rect;
+            let [u0, v0, u1, v1] = q.src.unwrap_or([0.0; 4]);
+            let (sw, sh) = (u1 - u0, v1 - v0);
+            if sw <= 0.0 || sh <= 0.0 {
+                continue;
+            }
+            let mut ty = 0.0;
+            while ty < h {
+                let th = sh.min(h - ty);
+                let mut tx = 0.0;
+                while tx < w {
+                    let tw = sw.min(w - tx);
+                    out.push(Layer {
+                        view: q.view.clone(),
+                        rect: [x + tx, y + ty, tw, th],
+                        tint: q.tint,
+                        src: Some([u0, v0, u0 + tw, v0 + th]),
+                        linear: false,
+                    });
+                    tx += sw;
+                }
+                ty += sh;
+            }
+        }
+        out
+    }
+
     /// An open drop-down, as `mbar_draw_menus` draws it: the frame (`BTN_frame2` type 0x14), the
     /// open title and the hovered item filled with palette 0x2d at 25 %, separators as two
     /// lines, item text at (left + 18, bottom − 2) in palette 0x2f, and `[key]` right-aligned 10
@@ -492,6 +530,59 @@ impl Ui {
             }
         }
         Ok(l)
+    }
+
+    /// A movable window: `BTN_frame2` type 0xe (atlas cell x 1…101, y 54…154: title strip and
+    /// pinstripe body with its drop shadow), title centred in white on baseline `t + 13`, and the
+    /// close box (atlas x 120…138, y 316…334) at both ends of the title strip.
+    ///
+    /// The cell's offsets are measured on the oracle's full-screen QuickFlight window, whose
+    /// title strip starts at screen row 0 with atlas row 58 (so the cell is drawn from `t − 4`)
+    /// and whose title text sits on row 12. The close boxes' places are from the user's
+    /// screenshot of Rendering Options (centres 15 px inside each end).
+    pub fn window(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        rect: xp_core::menu::Rect,
+        title: &str,
+        close: bool,
+    ) -> Result<Vec<Layer>> {
+        let mut l = self.nine_slice_tiled(
+            rect,
+            [1.0, 54.0, 101.0, 154.0],
+            [30.0, 35.0, 30.0, 35.0],
+            [9.0, 4.0, 9.0, 14.0],
+        );
+        if close {
+            for x in [rect.l + 6.0, rect.r - 24.0] {
+                l.push(Layer {
+                    view: self.atlas.clone(),
+                    rect: [x, rect.t, 18.0, 18.0],
+                    tint: [1.0; 4],
+                    src: Some([120.0, 316.0, 138.0, 334.0]),
+                    linear: false,
+                });
+            }
+        }
+        l.push(self.text_centred(
+            device,
+            queue,
+            title,
+            [((rect.l + rect.r) * 0.5).floor(), rect.t + 13.0],
+            xp_core::menu::palette(0x2f),
+        )?);
+        Ok(l)
+    }
+
+    /// A sub-pane inside a window: `BTN_frame2` type 0x10 (atlas cell x 203…303, y 54…154).
+    pub fn pane(&self, rect: xp_core::menu::Rect) -> Vec<Layer> {
+        self.nine_slice(
+            rect,
+            [203.0, 54.0, 303.0, 154.0],
+            [30.0, 30.0, 30.0, 30.0],
+            [9.0, 4.0, 9.0, 14.0],
+        )
     }
 
     /// The menu bar across the top of a screen `width` pixels wide.

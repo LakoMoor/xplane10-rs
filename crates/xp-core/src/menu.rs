@@ -213,6 +213,15 @@ pub fn palette(i: usize) -> [u8; 3] {
 /// case; no modifiers, no `-`. The first binding of a command in the file wins.
 pub fn key_bindings(prf: &str) -> BTreeMap<String, String> {
     let mut out = BTreeMap::new();
+    for (cmd, text) in key_bindings_all(prf) {
+        out.entry(cmd).or_insert(text);
+    }
+    out
+}
+
+/// Every binding of the file as (command, key text), in file order.
+pub fn key_bindings_all(prf: &str) -> Vec<(String, String)> {
+    let mut out = Vec::new();
     for line in prf.lines().skip(2) {
         let f: Vec<&str> = line.split_whitespace().collect();
         if f.len() < 3 {
@@ -228,7 +237,7 @@ pub fn key_bindings(prf: &str) -> BTreeMap<String, String> {
         } else {
             format!("{mods}-{name}")
         };
-        out.entry(cmd.to_string()).or_insert(text);
+        out.push((cmd.to_string(), text));
     }
     out
 }

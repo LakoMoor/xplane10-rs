@@ -54,7 +54,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 
 <h2 id="progress">How much is ported</h2>
 <div class="grid">
-  <div class="card"><div class="big">≈ 17 %</div><div class="dim">implemented</div><div class="bar"><i style="width:17%"></i></div></div>
+  <div class="card"><div class="big">≈ 18 %</div><div class="dim">implemented</div><div class="bar"><i style="width:18%"></i></div></div>
   <div class="card"><div class="big">≈ 9 %</div><div class="dim">verified against the original</div><div class="bar"><i class="v" style="width:9%"></i></div></div>
   <div class="card"><div class="big">99.0 %</div><div class="dim">of loading-screen pixels identical to the original's</div></div>
 </div>
@@ -67,7 +67,7 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <tr><td>Content formats</td><td class="n">10</td><td class="n">70 %</td><td class="n">15 %</td><td>ACF, OBJ8, apt.dat, PNG, DDS read across the whole install; DSF terrain only framed.</td></tr>
 <tr><td>2-D cockpit panel</td><td class="n">10</td><td class="n">20 %</td><td class="n">10 %</td><td>All 76 Cessna instrument faces placed from the original's own table; no needles or displays.</td></tr>
 <tr><td>Systems, datarefs, avionics</td><td class="n">8</td><td class="n">2 %</td><td class="n">2 %</td><td>GPS airport database reproduces the original's count exactly (19 186).</td></tr>
-<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">35 %</td><td class="n">25 %</td><td>Menu bar and all drop-downs from the original's own menu file, laid out and drawn by its decompiled rules; every item's action recovered. Open-aircraft dialog works; the other 19 windows are not ported.</td></tr>
+<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">55 %</td><td class="n">25 %</td><td>Menu bar and all drop-downs from the original's own menu file, laid out and drawn by its decompiled rules. Every item does something: all 13 views and the camera moves/zoom, screenshot, quit, check-mark toggles, and the original's key bindings. The 19 windows open with the original's frame and title; their controls are not ported yet. Open-aircraft dialog works.</td></tr>
 <tr><td>Sound, plugins, network, ATC</td><td class="n">5</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started.</td></tr>
 <tr><td>Loading screen</td><td class="n">3</td><td class="n">85 %</td><td class="n">85 %</td><td>Picture, text, bands and progress bar match the original.</td></tr>
 </table></div>
@@ -85,6 +85,9 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <p class="dim">Every rendering change is recorded as a frame of the port, taken with the original's own camera, and compared with the original's frame. Newest first.</p>
 <div class="shots">
   <div class="shot"><img loading="lazy" src="parity/16_menu_view.png" alt="View menu open" width="1024" height="768"><p><b>View menu</b>, laid out and drawn by the original's own rules: check mark on the current view, key shortcuts from its key file.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/21_menu_view_checks.png" alt="View menu with checks" width="1024" height="768"><p><b>Menu items work.</b> View is Chase and Night Vision chosen from the menu: both checked, the view switched (the green tint is a placeholder for the original's goggles).</p></div>
+  <div class="shot"><img loading="lazy" src="parity/18_view_circle.png" alt="Circle view" width="1024" height="768"><p><b>View is Circle</b>, one of the 13 views; the arrow keys and <code>, . = -</code> move the camera as bound in the original's key file.</p></div>
+  <div class="shot"><img loading="lazy" src="parity/20_window_rendering.png" alt="Rendering Options window" width="1024" height="768"><p><b>Windows</b> open with the original's frame, title and close boxes; their controls are next.</p></div>
   <div class="shot"><img loading="lazy" src="parity/14_menu_file.png" alt="File menu" width="1024" height="768"><p><b>File menu.</b> Same frame, separators and <code>[SHIFT-space]</code> keys as the original's own frame.</p></div>
   <div class="shot"><img loading="lazy" src="parity/12_cockpit_gamma_menubar.png" alt="Cockpit view with menu bar" width="1024" height="768"><p><b>Cockpit and menu bar.</b> 47.6 % of the frame within 16 of 255 of the original; the missing half is sky, terrain, needles and displays.</p></div>
   <div class="shot"><img loading="lazy" src="parity/10_loading_screen.png" alt="Loading screen" width="1024" height="768"><p><b>Loading screen.</b> 99.0 % of pixels identical to the original's.</p></div>

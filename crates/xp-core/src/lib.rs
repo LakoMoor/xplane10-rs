@@ -21,6 +21,7 @@ pub mod png;
 pub mod scene;
 pub mod scenery;
 pub mod tex;
+pub mod view;
 
 /// Read a shipped text file as UTF-8, falling back to a lossy decode.
 ///

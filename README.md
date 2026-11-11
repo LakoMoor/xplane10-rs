@@ -15,7 +15,13 @@ Early development; nothing flies yet. The window shows the loading screen and th
 aircraft's 2-D cockpit panel on runway 34R at KSEA; `[` and `]` step through the installed
 aircraft (a stand-in for the original's chooser dialog).
 
-Self-assessed, weighted by subsystem: about **17 % implemented, 9 % verified against the
+Every menu-bar item works: the 13 views and camera moves, screenshot (`Output/<aircraft>_<n>.png`),
+quit, toggles with their check marks, and the original's key bindings from `X-Plane Keys.prf`.
+Items that open one of the original's windows open it with the original's frame and title; the
+windows' controls are not ported yet. `--script "close;item:1504;shot:out.png;quit"` drives the
+window for parity screenshots.
+
+Self-assessed, weighted by subsystem: about **18 % implemented, 9 % verified against the
 original**. The loading screen is 99.0 % pixel-identical to the original's, the menu bar 96.3 %.
 See the project site (`docs/index.html`), [docs/PORT.md](docs/PORT.md) for the plan and decision
 log, and [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) for what is implemented, wired,

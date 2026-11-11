@@ -392,3 +392,23 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - **Packaging**: `packaging/make_app.sh` builds `xplane10-rs.app` with its own icon
   (`packaging/make_icon.py`, drawn from scratch) and bundled FreeType/libpng, ad-hoc signed.
 
+
+## 2026-11-11 — every menu item acts
+
+- `crates/xp-core/src/view.rs`: the View menu's 13 modes and the `sim/general/*` camera commands
+  as an aircraft→eye matrix in model space. Forwards with Panel and Chase reproduce the oracle's
+  captured `g_acf_mv` exactly at their default state (unit test); the other modes' eye points and
+  the command step sizes are PLACEHOLDERS (not read from the original).
+- `crates/xp/src/actions.rs`: `APP_handlemenu` + the commands the port runs. Window items
+  (`start_win(n)`, 19 of them), the save/load specials and window-toggle commands open a window
+  drawn with `BTN_frame2` type 0xe (title strip at atlas row 58 = screen row `t`, title baseline
+  `t + 13`, both measured on the oracle's QuickFlight frame) and close boxes (atlas 120…138 ×
+  316…334, places from the user's Rendering Options screenshot). The window body's pinstripe is
+  repeated, not stretched (`Ui::nine_slice_tiled`). The windows' controls are not ported.
+- Toggles without a ported subsystem (smoke, replay, A.I., AVI, 3-D path, cinema verité, physics
+  model) only flip their check marks and say so in the notice line; night vision / sunglasses /
+  flashlight draw PLACEHOLDER tints.
+- Keys: `X-Plane Keys.prf` bindings run the same commands (`SHIFT`/`OPT`/`CTRL`, Command = CTRL).
+- File > Take Screenshot writes `Output/<aircraft>_<n>.png` with a stored-deflate PNG encoder
+  (`png::encode_rgba`, round-trip tested).
+- QuickFlight Setup (item 300) opens the aircraft dialog until QuickFlight itself is ported.

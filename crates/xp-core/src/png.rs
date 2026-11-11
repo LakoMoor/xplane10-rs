@@ -1115,3 +1115,57 @@ pub fn display_lut(gama: Option<u32>) -> [u8; 256] {
     }
     lut
 }
+
+/// Encode 8-bit RGBA as a PNG with stored (uncompressed) deflate blocks and filter 0.
+///
+/// Used for File > Take Screenshot. Uncompressed keeps the encoder a few lines with no
+/// dependency; the original's screenshots are compressed, so the files are larger, not different.
+pub fn encode_rgba(width: u32, height: u32, rgba: &[u8]) -> Vec<u8> {
+    let row = width as usize * 4;
+    let mut raw = Vec::with_capacity((row + 1) * height as usize);
+    for y in 0..height as usize {
+        raw.push(0);
+        raw.extend_from_slice(&rgba[y * row..(y + 1) * row]);
+    }
+    let mut z = vec![0x78, 0x01];
+    let mut chunks = raw.chunks(65_535).peekable();
+    if chunks.peek().is_none() {
+        z.extend_from_slice(&[1, 0, 0, 0xff, 0xff]);
+    }
+    while let Some(c) = chunks.next() {
+        z.push(u8::from(chunks.peek().is_none()));
+        let n = c.len() as u16;
+        z.extend_from_slice(&n.to_le_bytes());
+        z.extend_from_slice(&(!n).to_le_bytes());
+        z.extend_from_slice(c);
+    }
+    z.extend_from_slice(&adler32(&raw).to_be_bytes());
+
+    let mut out = vec![0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a];
+    let mut chunk = |name: &[u8; 4], payload: &[u8]| {
+        out.extend_from_slice(&(payload.len() as u32).to_be_bytes());
+        out.extend_from_slice(name);
+        out.extend_from_slice(payload);
+        out.extend_from_slice(&crc32(name, payload).to_be_bytes());
+    };
+    let mut ihdr = Vec::with_capacity(13);
+    ihdr.extend_from_slice(&width.to_be_bytes());
+    ihdr.extend_from_slice(&height.to_be_bytes());
+    ihdr.extend_from_slice(&[8, 6, 0, 0, 0]);
+    chunk(b"IHDR", &ihdr);
+    chunk(b"IDAT", &z);
+    chunk(b"IEND", &[]);
+    out
+}
+
+#[cfg(test)]
+mod encode_tests {
+    #[test]
+    fn encoded_png_decodes_back() {
+        let rgba: Vec<u8> = (0..(300 * 250 * 4)).map(|i| (i * 7 % 251) as u8).collect();
+        let png = super::encode_rgba(300, 250, &rgba);
+        let info = super::decode(&png).expect("decodes");
+        assert_eq!((info.width, info.height), (300, 250));
+        assert_eq!(info.samples, rgba);
+    }
+}

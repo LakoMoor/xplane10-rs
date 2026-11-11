@@ -40,6 +40,7 @@
 //! `gl_LightSource[0]` to, and the oracle never exposed it, so [`sun_state`] says which values are
 //! chosen and why rather than implying they were measured.
 
+mod actions;
 mod chooser;
 mod forward;
 mod gbuffer;
@@ -1464,8 +1465,24 @@ struct Renderer {
     /// The open drop-down, and the layers drawn for it with the item that was under the pointer.
     open_menu: Option<usize>,
     menu_cache: Option<(usize, Option<usize>, Vec<ui::Layer>)>,
-    /// View is Chase (item 1807) instead of Forwards with Panel (item 1800).
-    chase: bool,
+    /// The View menu's camera state.
+    view: xp_core::view::View,
+    /// The oracle chase view's projection: the symmetric one, used by every view but the panel.
+    chase_proj: [f32; 16],
+    /// Items whose check mark is on (toggles whose own state the port does not run yet).
+    toggles: actions::Toggles,
+    /// Open windows, back to front, and their layers.
+    windows: Vec<actions::Win>,
+    windows_cache: Option<Vec<ui::Layer>>,
+    /// A one-line notice at the foot of the screen, and frames left to show it.
+    notice: Option<(String, u32)>,
+    /// File > Take Screenshot was chosen; written after the next frame.
+    screenshot: bool,
+    /// `X-Plane Keys.prf`: key text → command.
+    key_commands: std::collections::BTreeMap<String, String>,
+    /// `--script` steps still to run (see [`actions`]), and where the next screenshot goes.
+    script: std::collections::VecDeque<String>,
+    shot_to: Option<PathBuf>,
     /// Set by File > Quit; the event loop exits on it.
     quit: bool,
 }
@@ -1527,6 +1544,9 @@ impl Renderer {
         })?;
         // The original picks a hint at random; the port has no random source by rule, so the
         // choice follows the clock's seconds, which is the one place wall time is read.
+        let cockpit = Probe::parse(COCKPIT_PROBE)?;
+        let chase = Probe::parse(CHASE_PROBE)?;
+        let view = xp_core::view::View::new(cockpit.acf_mv, &chase.acf_mv);
         let pick = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .map(|d| d.as_secs() as usize)
@@ -1545,7 +1565,7 @@ impl Renderer {
             resolver: Resolver::new(),
             store,
             install: install.to_path_buf(),
-            probe: Probe::parse(COCKPIT_PROBE)?,
+            probe: cockpit,
             aircraft: list,
             current,
             session: None,
@@ -1560,7 +1580,16 @@ impl Renderer {
             menus: menus_kept,
             open_menu: None,
             menu_cache: None,
-            chase: false,
+            view,
+            chase_proj: chase.proj,
+            toggles: Default::default(),
+            windows: Vec::new(),
+            windows_cache: None,
+            notice: None,
+            screenshot: false,
+            key_commands: actions::key_commands(install),
+            script: Default::default(),
+            shot_to: None,
             quit: false,
         })
     }
@@ -1622,51 +1651,9 @@ impl Renderer {
         if let Some(t) = xp_core::menu::title_at(&self.menus, x, y) {
             self.open_menu = Some(t);
             self.menu_cache = None;
+            return;
         }
-    }
-
-    /// `APP_handlemenu` for the items the port can do; the rest are logged with what the
-    /// original would have done.
-    fn run_menu_item(&mut self, item: &xp_core::menu::Item) {
-        use xp_core::menu::Action;
-        match item.id {
-            600 => {
-                self.chooser = Some(chooser::Chooser::new(
-                    &self.install,
-                    &self.aircraft[self.current],
-                ));
-                self.chooser_layers = None;
-            }
-            317 => self.quit = true,
-            1800 | 1807 => {
-                let chase = item.id == 1807;
-                if chase != self.chase {
-                    self.chase = chase;
-                    let text = if chase { CHASE_PROBE } else { COCKPIT_PROBE };
-                    match Probe::parse(text) {
-                        Ok(p) => {
-                            self.probe = p;
-                            match self.load_session() {
-                                Ok(s) => self.session = Some(s),
-                                Err(e) => log::error!("switching view: {e:#}"),
-                            }
-                        }
-                        Err(e) => log::error!("{e:#}"),
-                    }
-                }
-            }
-            _ => match &item.action {
-                Action::Window(n) => log::info!(
-                    "{}: the original opens window {n}; that window is not ported",
-                    item.text
-                ),
-                Action::Command(c) => {
-                    log::info!("{}: the original runs {c}; not ported", item.text)
-                }
-                Action::Special(what) => log::info!("{}: {what}; not ported", item.text),
-                Action::None => log::info!("{}: no action recovered", item.text),
-            },
-        }
+        self.click_windows(x, y);
     }
 
     fn aircraft_rel(&self) -> &Path {
@@ -1773,19 +1760,91 @@ impl Renderer {
                 self.ui.draw(device, queue, &self.target, SCREEN, &layers);
             }
             Some(s) => {
+                use xp_core::view::Mode;
+                let mode = self.view.mode;
+                let proj = if mode == Mode::ForwardPanel {
+                    self.probe.proj
+                } else {
+                    self.chase_proj
+                };
+                let mut camera = s.camera;
+                camera.exact = Some((
+                    flat_to_mat(&self.view.matrix()),
+                    gl_proj_to_wgpu(&self.view.projection(&proj)),
+                ));
                 draw_forward(
                     &self.gpu,
                     &self.fwd,
                     &s.bindings,
                     &s.objects,
-                    &s.camera,
+                    &camera,
                     Some(&self.probe),
                     SCREEN,
                     &self.target_view,
-                    !self.chase,
+                    mode.is_forward(),
                 )?;
-                if !self.chase {
+                if mode == Mode::ForwardPanel {
                     self.ui.draw(device, queue, &self.target, SCREEN, &s.panel);
+                }
+                // PLACEHOLDER tints for the eye-wear toggles: the original's night-vision and
+                // flashlight shaders are not ported, these only make the toggles visible.
+                let full = [0.0, 0.0, SCREEN.0 as f32, SCREEN.1 as f32];
+                let mut tints = Vec::new();
+                if self.toggles.contains(&1833) {
+                    tints.push(self.ui.fill(full, [40, 255, 60, 90]));
+                }
+                if self.toggles.contains(&1832) {
+                    tints.push(self.ui.fill(full, [0, 0, 0, 90]));
+                }
+                if self.toggles.contains(&1834) {
+                    tints.push(self.ui.fill(full, [255, 0, 0, 40]));
+                }
+                if !tints.is_empty() {
+                    self.ui.draw(device, queue, &self.target, SCREEN, &tints);
+                }
+                if !self.windows.is_empty() {
+                    if self.windows_cache.is_none() {
+                        let mut layers = Vec::new();
+                        for w in &self.windows {
+                            layers.extend(self.ui.window(device, queue, w.rect, &w.title, true)?);
+                            let pane = xp_core::menu::Rect {
+                                l: w.rect.l + 10.0,
+                                t: w.rect.t + 28.0,
+                                r: w.rect.r - 10.0,
+                                b: w.rect.b - 10.0,
+                            };
+                            layers.extend(self.ui.pane(pane));
+                            for (i, line) in w.lines.iter().enumerate() {
+                                if line.is_empty() {
+                                    continue;
+                                }
+                                layers.push(self.ui.text_at(
+                                    device,
+                                    queue,
+                                    line,
+                                    [pane.l + 16.0, pane.t + 24.0 + 16.0 * i as f32],
+                                    [51, 51, 51],
+                                )?);
+                            }
+                        }
+                        self.windows_cache = Some(layers);
+                    }
+                    if let Some(layers) = &self.windows_cache {
+                        self.ui.draw(device, queue, &self.target, SCREEN, layers);
+                    }
+                }
+                if let Some((text, left)) = &mut self.notice {
+                    let layers = [
+                        self.ui
+                            .fill([0.0, 740.0, SCREEN.0 as f32, 22.0], [0, 0, 0, 150]),
+                        self.ui
+                            .text_at(device, queue, text, [10.0, 755.0], [255, 255, 255])?,
+                    ];
+                    self.ui.draw(device, queue, &self.target, SCREEN, &layers);
+                    *left -= 1;
+                    if *left == 0 {
+                        self.notice = None;
+                    }
                 }
                 // `mbar_draw_menu_bar`: the bar shows while the pointer is in the top 18 rows, or
                 // while a menu is open.
@@ -1809,8 +1868,7 @@ impl Renderer {
                         !matches!(&self.menu_cache, Some((o, h, _)) if *o == open && *h == hover);
                     if stale {
                         if let Some(m) = self.menus.get(open) {
-                            let chase = self.chase;
-                            let checked = move |id: i32| id == if chase { 1807 } else { 1800 };
+                            let checked = |id: i32| self.checked(id);
                             let layers = self.ui.drop_down(
                                 &self.gpu.device,
                                 &self.gpu.queue,
@@ -1851,6 +1909,12 @@ impl Renderer {
         };
         if let Err(e) = self.draw_scene() {
             log::error!("{e:#}");
+        }
+        if std::mem::take(&mut self.screenshot) {
+            self.save_screenshot();
+        }
+        if self.session.is_some() || self.chooser.is_some() {
+            self.script_step();
         }
         let view = frame
             .texture
@@ -1897,10 +1961,12 @@ impl Renderer {
 }
 
 struct App {
+    mods: winit::keyboard::ModifiersState,
     window: Option<Arc<Window>>,
     renderer: Option<Renderer>,
     install: PathBuf,
     aircraft: PathBuf,
+    script: Vec<String>,
 }
 
 impl App {
@@ -1945,6 +2011,8 @@ impl ApplicationHandler for App {
             }
         };
         self.window = Some(window);
+        let mut renderer = renderer;
+        renderer.script = std::mem::take(&mut self.script).into();
         self.renderer = Some(renderer);
         self.retitle();
     }
@@ -1986,22 +2054,46 @@ impl ApplicationHandler for App {
             // NOT the original's control: its aircraft chooser is a dialog under the Aircraft
             // menu, which is not ported. `[` and `]` step through the installed aircraft so one
             // can be chosen at all until it is.
+            WindowEvent::ModifiersChanged(m) => self.mods = m.state(),
             WindowEvent::KeyboardInput { event, .. } if event.state.is_pressed() => {
+                let Some(r) = &mut self.renderer else {
+                    return;
+                };
+                let code = match event.physical_key {
+                    winit::keyboard::PhysicalKey::Code(c) => Some(c),
+                    _ => None,
+                };
+                if code == Some(winit::keyboard::KeyCode::Escape) {
+                    r.escape();
+                    return;
+                }
+                let bound = code
+                    .and_then(actions::key_name)
+                    .is_some_and(|n| r.key(&actions::key_text(&n, self.mods)));
+                if r.quit {
+                    el.exit();
+                }
+                if bound {
+                    return;
+                }
+                // NOT the original's control: `[` and `]` step through the installed aircraft.
                 let step = match event.logical_key.as_ref() {
                     winit::keyboard::Key::Character("]") => 1,
                     winit::keyboard::Key::Character("[") => -1,
                     _ => 0,
                 };
                 if step != 0 {
-                    if let Some(r) = &mut self.renderer {
-                        r.cycle_aircraft(step);
-                    }
+                    r.cycle_aircraft(step);
                     self.retitle();
                 }
             }
             WindowEvent::RedrawRequested => {
                 if let Some(r) = &mut self.renderer {
                     r.render();
+                    if r.quit {
+                        el.exit();
+                        return;
+                    }
                 }
                 if let Some(w) = &self.window {
                     w.request_redraw();
@@ -2034,6 +2126,7 @@ fn main() -> Result<()> {
     let mut forward = false;
     let mut panel = false;
     let mut loading = false;
+    let mut script: Vec<String> = Vec::new();
     let mut menubar = false;
     let mut menu_open: Option<usize> = None;
     let mut menu_hover: Option<(f32, f32)> = None;
@@ -2072,6 +2165,15 @@ fn main() -> Result<()> {
             }
             "--panel" => panel = true,
             "--loading" => loading = true,
+            "--script" => {
+                script = args
+                    .next()
+                    .context("--script wants steps separated by ';'")?
+                    .split(';')
+                    .map(|s| s.trim().to_string())
+                    .filter(|s| !s.is_empty())
+                    .collect();
+            }
             "--menubar" => menubar = true,
             "--menu-open" => {
                 menubar = true;
@@ -2153,7 +2255,7 @@ fn main() -> Result<()> {
             menu_hover,
             &out,
         ),
-        None => run_windowed(root, aircraft),
+        None => run_windowed(root, aircraft, script),
     }
 }
 
@@ -2240,14 +2342,16 @@ fn find_install() -> Option<PathBuf> {
     Some(hit)
 }
 
-fn run_windowed(root: PathBuf, aircraft: PathBuf) -> Result<()> {
+fn run_windowed(root: PathBuf, aircraft: PathBuf, script: Vec<String>) -> Result<()> {
     let el = EventLoop::new()?;
     el.set_control_flow(ControlFlow::Poll);
     let mut app = App {
+        mods: Default::default(),
         window: None,
         renderer: None,
         install: root,
         aircraft,
+        script,
     };
     el.run_app(&mut app)?;
     Ok(())
