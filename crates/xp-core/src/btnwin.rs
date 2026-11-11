@@ -38,6 +38,8 @@ pub enum Kind {
     Enter,
     /// `BTN_display_number`: a read-only number.
     Display,
+    /// `BTN_frame1` type 9: a sunken white read-out box a wide, centred on x, y.
+    Field,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -69,13 +71,26 @@ pub struct Window {
     pub widgets: Vec<Widget>,
 }
 
-fn num(s: &str) -> f32 {
-    s.trim().parse().unwrap_or(0.0)
+/// A table number: `base` or `base~kw,kh` = base + kw·(W − 1024) + kh·(H − 768) for windows
+/// that fill the screen (W×H).
+fn num(s: &str, screen: (f32, f32)) -> f32 {
+    let s = s.trim();
+    match s.split_once('~') {
+        None => s.parse().unwrap_or(0.0),
+        Some((base, k)) => {
+            let base: f32 = base.parse().unwrap_or(0.0);
+            let (kw, kh) = k.split_once(',').unwrap_or((k, "0"));
+            base + kw.parse::<f32>().unwrap_or(0.0) * (screen.0 - 1024.0)
+                + kh.parse::<f32>().unwrap_or(0.0) * (screen.1 - 768.0)
+        }
+    }
 }
 
-pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
+/// `screen`: the size a full-screen window takes (`# size screen`); fixed sizes come from
+/// `wins_class::start_win`.
+pub fn parse(id: i32, title: &str, text: &str, screen: (f32, f32)) -> Result<Window> {
     let mut widgets = Vec::new();
-    let mut size = (1024.0, 768.0);
+    let mut size = screen;
     let mut top = -1.0;
     for (n, line) in text.lines().enumerate() {
         if let Some(rest) = line.strip_prefix("# top ") {
@@ -83,6 +98,10 @@ pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
             continue;
         }
         if let Some(rest) = line.strip_prefix("# size ") {
+            if rest.trim() == "screen" {
+                size = screen;
+                continue;
+            }
             let v: Vec<f32> = rest
                 .split_whitespace()
                 .filter_map(|t| t.parse().ok())
@@ -111,16 +130,17 @@ pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
             "tab" => Kind::Tab,
             "enter" => Kind::Enter,
             "display" => Kind::Display,
+            "field" => Kind::Field,
             other => bail!("window {id} line {}: unknown widget {other}", n + 1),
         };
         widgets.push(Widget {
             kind,
-            x: num(f[1]),
-            y: num(f[2]),
-            a: num(f[3]),
-            b: num(f[4]),
-            c: num(f[5]),
-            d: num(f[6]),
+            x: num(f[1], screen),
+            y: num(f[2], screen),
+            a: num(f[3], screen),
+            b: num(f[4], screen),
+            c: num(f[5], screen),
+            d: num(f[6], screen),
             key: f[7].to_string(),
             label: f[8].to_string(),
             items: if f[9].is_empty() {
@@ -141,7 +161,7 @@ pub fn parse(id: i32, title: &str, text: &str) -> Result<Window> {
 }
 
 /// The windows the port has tables for, by `start_win` id.
-pub fn load(id: i32, title: &str) -> Result<Option<Window>> {
+pub fn load(id: i32, title: &str, screen: (f32, f32)) -> Result<Option<Window>> {
     let text = match id {
         1 => include_str!("../data/windows/1.tsv"),
         2 => include_str!("../data/windows/2.tsv"),
@@ -153,6 +173,7 @@ pub fn load(id: i32, title: &str) -> Result<Option<Window>> {
         8 => include_str!("../data/windows/8.tsv"),
         9 => include_str!("../data/windows/9.tsv"),
         10 => include_str!("../data/windows/10.tsv"),
+        11 => include_str!("../data/windows/11.tsv"),
         12 => include_str!("../data/windows/12.tsv"),
         13 => include_str!("../data/windows/13.tsv"),
         14 => include_str!("../data/windows/14.tsv"),
@@ -164,7 +185,7 @@ pub fn load(id: i32, title: &str) -> Result<Option<Window>> {
         22 => include_str!("../data/windows/22.tsv"),
         _ => return Ok(None),
     };
-    parse(id, title, text).map(Some)
+    parse(id, title, text, screen).map(Some)
 }
 
 /// Settings values by pref name.
@@ -172,6 +193,17 @@ pub fn load(id: i32, title: &str) -> Result<Option<Window>> {
 pub struct Prefs {
     values: BTreeMap<String, f64>,
     own: Option<PathBuf>,
+    /// Keys the port's own file holds: loaded from it or changed in a window.
+    saved: std::collections::BTreeSet<String>,
+}
+
+/// Window state the original keeps in function statics or object fields for the session only
+/// (tabs, unnamed controls): never written to the settings file.
+fn session_only(key: &str) -> bool {
+    key.contains("::")
+        || key.starts_with("this+")
+        || key.starts_with("lbl:")
+        || key.starts_with("m:")
 }
 
 impl Prefs {
@@ -180,6 +212,7 @@ impl Prefs {
         let mut p = Prefs {
             values: BTreeMap::new(),
             own,
+            saved: Default::default(),
         };
         let read = |path: &Path, v: &mut BTreeMap<String, f64>| {
             if let Ok(t) = crate::read_text_lossy(path) {
@@ -197,8 +230,16 @@ impl Prefs {
             &install.join("Output/preferences/X-Plane.prf"),
             &mut p.values,
         );
-        if let Some(o) = &p.own {
-            read(o, &mut p.values);
+        if let Some(o) = p.own.clone() {
+            let mut mine = BTreeMap::new();
+            read(&o, &mut mine);
+            for (k, v) in mine {
+                // Earlier builds copied all of X-Plane.prf here: keep only real changes.
+                if !session_only(&k) && p.values.get(&k) != Some(&v) {
+                    p.saved.insert(k.clone());
+                    p.values.insert(k, v);
+                }
+            }
         }
         p
     }
@@ -210,10 +251,14 @@ impl Prefs {
     /// Set a value and save the port's file.
     pub fn set(&mut self, key: &str, v: f64) -> Result<()> {
         self.values.insert(key.to_string(), v);
+        if session_only(key) {
+            return Ok(());
+        }
+        self.saved.insert(key.to_string());
         if let Some(o) = &self.own {
             let mut text = String::new();
-            for (k, v) in &self.values {
-                text.push_str(&format!("{k} {v}\n"));
+            for k in &self.saved {
+                text.push_str(&format!("{k} {}\n", self.values[k]));
             }
             if let Some(d) = o.parent() {
                 let _ = std::fs::create_dir_all(d);
@@ -275,30 +320,32 @@ pub fn sides(label: &str) -> (&str, &str) {
 /// a hyphen, the earlier break on a tie: "draw / volumetric fog", "number / of objects",
 /// "3-D bump- / maps" (oracle frame of Rendering Options).
 pub fn two_lines(text: &str, measure: &dyn Fn(&str) -> f32) -> Vec<String> {
+    // BTN_util_draw_label (0x1003d8a30): a leading '-' keeps one line; otherwise labels longer
+    // than 12 characters break at the space, '-' or '/' that makes the two lines' widths closest
+    // (a space is dropped, '-' and '/' stay on the first line).
     if let Some(one) = text.strip_prefix('-') {
         return vec![one.to_string()];
     }
     let chars: Vec<char> = text.chars().collect();
-    let half = measure(text) / 2.0;
-    let mut best: Option<(f32, usize, bool)> = None;
-    for (i, c) in chars.iter().enumerate() {
-        let (cut, keep) = match c {
-            ' ' => (i, false),
-            '-' if i + 1 < chars.len() && i > 0 => (i + 1, true),
+    if chars.len() <= 12 {
+        return vec![text.to_string()];
+    }
+    let mut best: Option<(f32, String, String)> = None;
+    for i in 0..chars.len() - 1 {
+        let cut = match chars[i] {
+            ' ' => i,
+            '-' | '/' => i + 1,
             _ => continue,
         };
-        let first: String = chars[..cut].iter().collect();
-        let d = (measure(first.trim_end()) - half).abs();
-        if best.is_none_or(|b| d < b.0) {
-            best = Some((d, cut, keep));
+        let a: String = chars[..cut].iter().collect();
+        let b: String = chars[i + 1..].iter().collect();
+        let d = (measure(&a) - measure(&b)).abs().trunc();
+        if best.as_ref().is_none_or(|x| d < x.0) {
+            best = Some((d, a, b));
         }
     }
     match best {
-        Some((_, cut, keep)) => {
-            let a: String = chars[..cut].iter().collect();
-            let b: String = chars[if keep { cut } else { cut + 1 }..].iter().collect();
-            vec![a.trim().to_string(), b.trim().to_string()]
-        }
+        Some((_, a, b)) => vec![a, b],
         None => vec![text.to_string()],
     }
 }
@@ -359,8 +406,22 @@ mod tests {
     }
 
     #[test]
+    fn screen_relative_numbers() {
+        assert_eq!(num("690~0,1", (1024.0, 868.0)), 790.0);
+        assert_eq!(num("837~0.5,0", (1224.0, 768.0)), 937.0);
+        assert_eq!(num("12", (2000.0, 2000.0)), 12.0);
+    }
+
+    #[test]
+    fn every_window_table_parses() {
+        for id in 1..=22 {
+            load(id, "w", (1280.0, 800.0)).unwrap_or_else(|e| panic!("window {id}: {e:#}"));
+        }
+    }
+
+    #[test]
     fn rendering_options_table_parses() {
-        let w = load(10, "Rendering Options")
+        let w = load(10, "Rendering Options", (1024.0, 768.0))
             .expect("parses")
             .expect("table");
         assert_eq!(

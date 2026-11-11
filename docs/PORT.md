@@ -444,5 +444,41 @@ Order is leaves-first: formats and geometry before anything touches a window.
   centred on x + 12), digit arrows 86…95 × 302/319, radio 83…101 × 352/371, button 304…356,
   slider thumb 267…278 × 225…241, tab 203…303 (selected), tab underline 102…202,
   `BTN_frame2` 0xe…0x12 = cells at x 1 + 101·(t − 0xe).
-- Not yet: loops inside window functions (Data Set rows, situations list, failure categories),
-  sections switched by radio buttons (Weather), the map and globe drawing, QuickFlight's buttons.
+- Superseded below: the sizes above were measured from frames; `start_win` sets them.
+
+## 2026-11-11 — window sizes, full-screen layout, loops
+
+- `wins_class::start_win` (0x10040fe60) sets the size per window: 1 651×753, 5 572×268,
+  9 620×438, 10 1020×766, 11 700×500, 15 530×650, 17 1020×750, 18 831×636, 19 600×400,
+  20 550×425, 21 550×300, 22 1024×768; every other window takes the screen size. The GL origin
+  is ((screen − size)·0.5 + 0.5) truncated, at least 0. On the oracle frames the top edge sits at
+  ⌊(H − h − 1)/2⌋ and windows as tall as the screen (less 2) have their widgets 2 rows lower —
+  measured, not yet traced.
+- The window → function table is `APP_update`'s compare chain on `_wins+4`: 1 airp, 2 dout,
+  3 inet, 4 wxr_region, 5 xtim (Date & Time — earlier wrongly qtim), 6 wegt, 7 fail, 8 acft,
+  9 soun, 10 reno, 11 qtim (movie), 12 xavi, 13 fldr, 14 joys, 15 warn, 16 pmap, 17 glob, 18 book,
+  19 inst, 20 envi, 21 aitc, 22 qflt.
+- Full-screen windows lay out from the screen size. `gen_window.py` walks them at 1024×768,
+  1124×768 and 1024×868 and writes each number as `base~kw,kh` (base + kw·(W − 1024) +
+  kh·(H − 768)); the port evaluates it for the actual screen and again on resize.
+- `btnemu.py` now always follows the control flow, with state snapshots per branch. A loop runs
+  once per value of its concrete counters (only registers and stack slots compared with a
+  constant somewhere in the function count as loop state; at most 256 visits per instruction),
+  so the cloud and wind layers, the Data Set grid and the joystick rows unroll. Any flag-writing
+  instruction drops the remembered compare (a float `ucomiss` was being decided by an old
+  integer compare). It also tracks pointer arithmetic on the window object: Weather's mode is
+  `this+0x30`, which splits it into its four sections.
+- Label breaking, from `BTN_util_draw_label` (0x1003d8a30): labels of at most 12 characters stay
+  on one line; longer ones break at the space, '-' or '/' giving the closest line widths.
+- `BTN_action` with width ≤ 0 is the label's width + 21; `BTN_horz_slider` draws its left label
+  right-aligned at x − 8 and its right label at x + w + 8; `BTN_frame1` type 9 is the sunken
+  read-out box, atlas 264…312 × 358…373.
+- Data Set names: `dout_class::get_line_object` switches on the line index through a jump table
+  at 0x100458918; the first `name|columns` string in each case is the row's name.
+- Window state the original keeps in statics (tabs, unnamed controls) is session-only; the
+  port's settings file keeps only real changes (earlier builds copied all of X-Plane.prf into it;
+  those copies are dropped on load).
+- REA times out (330 s) on whole-binary requests for this 20 MB executable; Ghidra without
+  analysis (`DecompileFns.java`) decompiles single functions in seconds.
+- Not yet: the failure lists (driven by a data table), the maps and globe, the airport list,
+  QuickFlight's buttons, run-time read-outs (slider captions, sim values).

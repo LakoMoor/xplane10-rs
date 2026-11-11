@@ -25,6 +25,36 @@ pub struct Win {
     /// The window's widgets, for windows whose `*_wind()` has been extracted.
     pub def: Option<xp_core::btnwin::Window>,
     pub state: crate::btnui::State,
+    /// Rows the widgets sit below the frame's split (see `content_drop`).
+    pub drop: f32,
+}
+
+/// `wins_class::start_win`: the window's GL origin is ((screen − size)·0.5 + 0.5) truncated,
+/// at least 0, measured from the bottom-left corner.
+fn centred(size: (f32, f32), screen: (f32, f32)) -> Rect {
+    let o = |s: f32, w: f32| (((s - w) * 0.5 + 0.5) as i32).max(0) as f32;
+    let l = o(screen.0, size.0);
+    // Measured on the oracle frames (even and odd leftovers, full-screen and small windows):
+    // the top edge sits ⌊(H − h − 1)/2⌋ rows down — one row above the bottom-origin split when
+    // H − h is even.
+    let t = ((screen.1 - size.1 - 1.0) * 0.5).floor();
+    Rect {
+        l,
+        t,
+        r: l + size.0,
+        b: t + size.1,
+    }
+}
+
+/// Oracle frames: in windows as tall as the screen (less 2) the widgets sit 2 rows lower than
+/// the frame's centring gives (Rendering Options 1020×766, every full-screen window); smaller
+/// windows match it. Measured, not yet traced in start_win.
+fn content_drop(size: (f32, f32), screen: (f32, f32)) -> f32 {
+    if size.1 >= screen.1 - 2.0 {
+        2.0
+    } else {
+        0.0
+    }
 }
 
 impl Win {
@@ -32,7 +62,7 @@ impl Win {
         crate::btnui::Place {
             ox: self.rect.l,
             oy: self.rect.t,
-            h: self.rect.h(),
+            h: self.rect.h() + self.drop,
         }
     }
 }
@@ -285,7 +315,8 @@ impl Renderer {
     /// `wins_class::start_win(n)`: the window's extracted widgets when the port has them,
     /// otherwise the framed placeholder.
     fn open_window(&mut self, item: i32, title: &str, start_win: Option<i32>) {
-        let def = match start_win.map(|n| xp_core::btnwin::load(n, title)) {
+        let screen = (self.screen.0 as f32, self.screen.1 as f32);
+        let def = match start_win.map(|n| xp_core::btnwin::load(n, title, screen)) {
             Some(Ok(d)) => d,
             Some(Err(e)) => {
                 log::error!("{e:#}");
@@ -296,28 +327,20 @@ impl Renderer {
         match def {
             None => self.toggle_window(item, title, not_ported(title)),
             Some(def) => {
+                let drop = content_drop(def.size, screen);
                 self.windows_cache = None;
                 if let Some(i) = self.windows.iter().position(|w| w.item == item) {
                     self.windows.remove(i);
                     return;
                 }
-                // Centred, offset by the window's measured `top` (pinstripe phase of its oracle
-                // frame).
-                let (w, h) = def.size;
-                let l = ((self.screen.0 as f32 - w) * 0.5).floor();
-                let t = ((self.screen.1 as f32 - h) * 0.5).floor() + def.top;
                 self.windows.push(Win {
                     item,
                     title: title.to_string(),
                     lines: Vec::new(),
-                    rect: Rect {
-                        l,
-                        t,
-                        r: l + w,
-                        b: t + h,
-                    },
+                    rect: centred(def.size, screen),
                     def: Some(def),
                     state: Default::default(),
+                    drop,
                 });
             }
         }
@@ -345,13 +368,30 @@ impl Renderer {
             },
             def: None,
             state: Default::default(),
+            drop: 0.0,
         });
     }
 
-    /// Re-centre the open windows on a new screen size, keeping their stacking offsets.
+    /// Re-centre the open windows on a new screen size, keeping their stacking offsets. Windows
+    /// with a widget table are laid out again: the full-screen ones take the new size.
     pub(crate) fn place_windows(&mut self) {
         let (sw, sh) = (self.screen.0 as f32, self.screen.1 as f32);
-        for (k, win) in self.windows.iter_mut().enumerate() {
+        self.windows_cache = None;
+        for win in self.windows.iter_mut() {
+            if let Some(def) = &win.def {
+                if let Ok(Some(d)) = xp_core::btnwin::load(def.id, &def.title, (sw, sh)) {
+                    win.rect = centred(d.size, (sw, sh));
+                    win.drop = content_drop(d.size, (sw, sh));
+                    win.def = Some(d);
+                }
+            }
+        }
+        for (k, win) in self
+            .windows
+            .iter_mut()
+            .enumerate()
+            .filter(|(_, w)| w.def.is_none())
+        {
             let (w, h) = (win.rect.w(), win.rect.h());
             let l = ((sw - w) * 0.5).floor() + k as f32 * 24.0;
             let t = ((sh - h) * 0.5).floor().max(18.0) + k as f32 * 24.0;

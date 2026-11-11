@@ -53,6 +53,75 @@ impl Place {
     }
 }
 
+/// Date & Time read-outs (`xtim_wind`): local and zulu time, the date. The port's sim clock
+/// starts at the computer's clock, as the original's does by default.
+fn clock_text(key: &str) -> String {
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs() as i64)
+        .unwrap_or(0);
+    let off = local_offset_secs();
+    let hm = |t: i64| {
+        format!(
+            "{:02}:{:02}",
+            (t / 3600).rem_euclid(24),
+            (t / 60).rem_euclid(60)
+        )
+    };
+    match key {
+        "clock:local" => format!("{} locl", hm(now + off)),
+        "clock:zulu" => format!("{} zulu", hm(now)),
+        _ => {
+            let days = (now + off).div_euclid(86400);
+            let (_, m, d) = civil(days);
+            const M: [&str; 12] = [
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+            ];
+            format!("{} {:2}", M[(m - 1) as usize], d)
+        }
+    }
+}
+
+/// Days since 1970-01-01 → (year, month, day) (proleptic Gregorian).
+fn civil(z: i64) -> (i64, i64, i64) {
+    let z = z + 719468;
+    let era = z.div_euclid(146097);
+    let doe = z - era * 146097;
+    let yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    (yoe + era * 400 + i64::from(m <= 2), m, d)
+}
+
+/// The computer's UTC offset, from `date +%z` (no libc time zone API in std).
+fn local_offset_secs() -> i64 {
+    static OFF: std::sync::OnceLock<i64> = std::sync::OnceLock::new();
+    *OFF.get_or_init(|| {
+        std::process::Command::new("date")
+            .arg("+%z")
+            .output()
+            .ok()
+            .and_then(|o| {
+                let s = String::from_utf8_lossy(&o.stdout).trim().to_string();
+                let sign = if s.starts_with('-') { -1 } else { 1 };
+                let v: i64 = s.trim_start_matches(['+', '-']).parse().ok()?;
+                Some(sign * ((v / 100) * 3600 + (v % 100) * 60))
+            })
+            .unwrap_or(0)
+    })
+}
+
+/// BTN_action: a width ≤ 0 means the label's width + 21.
+fn action_width(w: &Widget, ui: &Ui) -> f32 {
+    if w.a <= 0.0 {
+        ui.measure(&w.label) + 21.0
+    } else {
+        w.a
+    }
+}
+
 fn number_text(w: &Widget, v: f64) -> Vec<char> {
     let (n, d) = (w.a.max(1.0) as usize, w.b.max(0.0) as usize);
     let s = format!(
@@ -113,9 +182,9 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             b: y + 5.0,
         },
         Kind::Action => Rect {
-            l: x - w.a / 2.0 + 6.0,
+            l: x - action_width(w, ui) / 2.0 + 6.0,
             t: y - 8.0,
-            r: x + w.a / 2.0 - 3.0,
+            r: x + action_width(w, ui) / 2.0 - 3.0,
             b: y + 7.0,
         },
         Kind::Slider => Rect {
@@ -140,6 +209,12 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             t: y - 12.0,
             r: x - 7.0 + w.a.max(40.0),
             b: y + 3.0,
+        },
+        Kind::Field => Rect {
+            l: x - (w.a * 0.5).floor(),
+            t: y - 8.0,
+            r: x - (w.a * 0.5).floor() + w.a,
+            b: y + 7.0,
         },
         Kind::Subwin | Kind::Text | Kind::Display => Rect {
             l: x,
@@ -344,6 +419,8 @@ pub fn layers(
                     let cap = xp_core::btnwin::cloud_caption(v as f64);
                     l.push(ui.text_centred(d, q, &cap, [x + w.a / 2.0 + 1.0, y - 16.0], TEXT)?);
                 }
+                // BTN_horz_slider: labels at x − 8 (right-aligned) and x + w + 8.
+                label_lines(ui, d, q, left, x - 10.0, y, true, &mut l)?;
                 label_lines(ui, d, q, right, x + w.a + 10.0, y, false, &mut l)?;
             }
             Kind::Tab => {
@@ -384,6 +461,15 @@ pub fn layers(
                 label_lines(ui, d, q, left, r.l - 3.0, y, true, &mut l)?;
                 label_lines(ui, d, q, right, r.r + 5.0, y, false, &mut l)?;
             }
+            Kind::Field => {
+                // interface.png 264..312 × 358..373: the sunken white read-out box.
+                l.extend(ui.nine_slice(
+                    r,
+                    [264.0, 358.0, 312.0, 373.0],
+                    [4.0, 4.0, 4.0, 4.0],
+                    [0.0; 4],
+                ));
+            }
             Kind::Display => {
                 let text = format!("{:.*}", w.c.max(0.0) as usize, w.a);
                 l.push(ui.text_at(d, q, &text, [x, y], TEXT)?);
@@ -396,13 +482,20 @@ pub fn layers(
                     "gl:renderer" => info.renderer.clone(),
                     "gl:version" => info.version.clone(),
                     "gl:texmem" => info.texmem.clone(),
+                    k if k.starts_with("clock:") => clock_text(k),
                     _ => w.label.clone(),
                 };
                 // Paragraphs (`¶`) are separated by a blank line, as in Instructions.
                 let mut row = 0.0;
                 for para in text.split('¶') {
                     for line in wrap(ui, para, w.a) {
-                        l.push(ui.text_at(d, q, &line, [x + 2.0, y - 1.0 + 12.0 * row], rgb)?);
+                        // OGL_string's justification: 0 left, 1 centred, 2 right of x.
+                        let lx = match w.c as i32 {
+                            1 => x + 2.0 - (ui.measure(&line) * 0.5).floor(),
+                            2 => x + 2.0 - ui.measure(&line),
+                            _ => x + 2.0,
+                        };
+                        l.push(ui.text_at(d, q, &line, [lx, y - 1.0 + 12.0 * row], rgb)?);
                         row += 1.0;
                     }
                     row += 1.0;

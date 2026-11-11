@@ -37,6 +37,8 @@ r = {}            # integer registers: ('imm', v) | ('ptr', addr) | ('stk', off)
 stk = {}          # stack slots: off -> value (float or tuple)
 strs = {}         # stack string objects: off -> text
 out = []
+iters = {}
+seen_pc = {}       # call site -> times recorded (loop iteration of a record)
 conds = []        # (var, imm, op, start_pc, end_pc): code between start and end runs only when var op imm
 last_cmp = None
 
@@ -115,8 +117,10 @@ def fmt(v):
         return list(v)
     return v
 
+FLAGS = ('ucomis', 'comis', 'cmp', 'test', 'add', 'sub', 'inc', 'dec', 'and', 'or', 'xor', 'sh', 'sa', 'imul', 'neg', 'bt')
 def exe(pc, ins, ops, comment, o, l):
     global last_cmp
+    if ins.startswith(FLAGS): last_cmp = None   # flags rewritten; a compare below sets it again
     try:
         if ins in ('movss', 'movsd', 'movaps', 'movapd', 'movd'):
             src, dst = o
@@ -139,6 +143,8 @@ def exe(pc, ins, ops, comment, o, l):
                 v = r.get(rn(src)); x[dst[1:]] = float(v[1]) if v and v[0] == 'imm' else ('int', fmt(v))
             else:
                 a = addr_of(src, comment)
+                sv = stk.get(a[1]) if a and a[0] == 'stk' else None
+                if isinstance(sv, tuple) and sv[0] == 'imm': x[dst[1:]] = float(sv[1]); return
                 x[dst[1:]] = float(i32(a[1])) if a and a[0] == 'abs' and a[1] < 0x1014a8000 else ('g', gname(a[1])) if a and a[0]=='abs' else None
         elif ins in ('cvtss2sd', 'cvtsd2ss'):
             x[o[1][1:]] = x.get(o[0][1:]) if o[0].startswith('%xmm') else load_f(o[0], comment, ins == 'cvtsd2ss')
@@ -178,6 +184,10 @@ def exe(pc, ins, ops, comment, o, l):
                 if a and a[0] == 'stk':
                     sv = stk.get(a[1])
                     if isinstance(sv, tuple) and sv[0] == 'mem': var = sv[1]
+                    if isinstance(sv, tuple) and sv[0] == 'imm': var = ('#', sv[1])
+            if tgt.startswith('%'):
+                v = r.get(rn(tgt))
+                if v and v[0] == 'imm': var = ('#', v[1])
             last_cmp = (var, imm, pc) if var else None
         elif ins == 'testl' and o[0] == o[1]:
             v = r.get(rn(o[0]))
@@ -187,6 +197,38 @@ def exe(pc, ins, ops, comment, o, l):
             if t > pc and ins == 'jne':
                 conds.append((last_cmp[0], last_cmp[1], '==' if ins == 'jne' else '!=', pc, t))
             last_cmp = None
+        elif ins in ('addl', 'subl') and o[0].startswith('$') and not o[1].startswith('%'):
+            a = addr_of(o[1], comment)
+            if a and a[0] == 'stk':
+                v = stk.get(a[1]); k = int(o[0][1:], 0) * (1 if ins == 'addl' else -1)
+                stk[a[1]] = ('imm', v[1] + k) if isinstance(v, tuple) and v[0] == 'imm' else None
+        elif ins in ('addq', 'subq', 'addl', 'subl') and o[0].startswith('$') and o[1].startswith('%'):
+            k = int(o[0][1:], 0) * (1 if ins.startswith('add') else -1)
+            v = r.get(rn(o[1]))
+            if v and v[0] in ('imm', 'ptr', 'stk', 'this', 'thisp') and isinstance(v[1], int):
+                r[rn(o[1])] = (v[0], v[1] + k)
+            elif rn(o[1]) != 'rsp':
+                r[rn(o[1])] = None
+        elif ins in ('incl', 'decl', 'incq', 'decq') and o:
+            k = 1 if ins.startswith('inc') else -1
+            if o[0].startswith('%'):
+                v = r.get(rn(o[0]))
+                r[rn(o[0])] = ('imm', v[1] + k) if v and v[0] == 'imm' else None
+            else:
+                a = addr_of(o[0], comment)
+                if a and a[0] == 'stk':
+                    v = stk.get(a[1]); stk[a[1]] = ('imm', v[1] + k) if isinstance(v, tuple) and v[0] == 'imm' else None
+        elif ins in ('leal',) and o[1].startswith('%'):
+            m = re.match(r'(-?0x[0-9a-f]+|-?\d+)?\(%(\w+)\)$', o[0])
+            v = r.get(rn(m.group(2))) if m else None
+            r[rn(o[1])] = ('imm', v[1] + (int(m.group(1), 0) if m.group(1) else 0)) if v and v[0] == 'imm' else None
+        elif ins in ('movslq', 'movzbl', 'movzwl', 'movsbl') and o[1].startswith('%'):
+            a = addr_of(o[0], comment) if not o[0].startswith('%') else None
+            if o[0].startswith('%'): r[rn(o[1])] = r.get(rn(o[0]))
+            elif a and a[0] == 'stk': r[rn(o[1])] = stk.get(a[1])
+            elif a and a[0] == 'abs': r[rn(o[1])] = ('mem', gname(a[1]))
+            elif a and a[0] == 'this': r[rn(o[1])] = ('mem', 'this+0x%x' % a[1])
+            else: r[rn(o[1])] = None
         elif ins == 'xorl' and o[0] == o[1]:
             r[rn(o[1])] = ('imm', 0)
         elif ins.startswith('call'):
@@ -207,7 +249,8 @@ def exe(pc, ins, ops, comment, o, l):
                 if any(k in fn for k in ('BTN_', 'OGL_', 'set_view_type', 'REN_', 'MACIBM_set', 'is_int', 'textlist', 'dob_range', 'slider', 'qflt', 'wins_class')):
                     a = callargs()
                     active = [f'{c[0]}{c[2]}{c[1]}' for c in conds if c[3] < pc < c[4]]
-                    out.append({'pc': hex(pc), 'fn': fn, 'cond': active,
+                    seen_pc[pc] = seen_pc.get(pc, 0) + 1
+                    out.append({'pc': hex(pc), 'it': str(seen_pc[pc]), 'fn': fn, 'cond': active,
                                 'int': [fmt(a[k]) for k in ('edi', 'esi', 'edx', 'ecx', 'r8', 'r9')],
                                 'str': [strarg(k) for k in ('rdi', 'rsi', 'rdx', 'rcx', 'r8', 'r9')],
                                 'xmm': [fmt(v) for v in a['xmm']]})
@@ -242,34 +285,58 @@ r['rdi'] = ('this', 0)   # a member function's object
 
 # --tab VAR=VALUE: walk the control flow, deciding comparisons of VAR with its value; other
 # conditional branches are explored both ways (fall-through first). Without --tab: linear sweep.
-TAB = None
+TAB = ('', 0)
 for a in sys.argv[4:]:
     if a.startswith('--tab='):
         k, v = a[6:].split('='); TAB = (k, int(v))
-if TAB is None:
+import copy
+def snap():   # values are immutable (floats, tuples): shallow copies suffice
+    return tuple(dict(d) for d in (x, r, stk, strs, mem))
+def restore(sv):
+    global x, r, stk, strs, mem
+    x, r, stk, strs, mem = (dict(d) for d in sv)
+visited = set(); stack = [] if '--linear' in sys.argv else [(0, snap())]
+if '--linear' in sys.argv:
     for e in INS: exe(*e)
-else:
-    visited = set(); stack = [0]
-    JCC = {'je': lambda c: c == 0, 'jne': lambda c: c != 0, 'jg': lambda c: c > 0, 'jge': lambda c: c >= 0,
-           'jl': lambda c: c < 0, 'jle': lambda c: c <= 0, 'ja': lambda c: c > 0, 'jae': lambda c: c >= 0,
-           'jb': lambda c: c < 0, 'jbe': lambda c: c <= 0}
-    while stack:
-        i = stack.pop()
-        while 0 <= i < len(INS) and i not in visited:
-            visited.add(i)
-            pc, ins, ops, comment, o, l = INS[i]
-            cmp_before = last_cmp
-            exe(pc, ins, ops, comment, o, l)
-            if ins.startswith('ret'): break
-            if ins == 'jmp' and o and o[0].startswith('0x'):
-                t = IDX.get(int(o[0].split()[0], 16)); i = t if t is not None else -1; continue
-            if ins in JCC and o and o[0].startswith('0x'):
-                t = IDX.get(int(o[0].split()[0], 16))
-                if cmp_before and cmp_before[0] == TAB[0]:
-                    taken = JCC[ins](TAB[1] - cmp_before[1])
-                    if taken:
-                        i = t if t is not None else -1; continue
-                    i += 1; continue
-                if t is not None: stack.append(t)
-            i += 1
+JCC = {'je': lambda c: c == 0, 'jne': lambda c: c != 0, 'jg': lambda c: c > 0, 'jge': lambda c: c >= 0,
+       'jl': lambda c: c < 0, 'jle': lambda c: c <= 0, 'ja': lambda c: c > 0, 'jae': lambda c: c >= 0,
+       'jb': lambda c: c < 0, 'jbe': lambda c: c <= 0}
+# Loops: the visit key includes the concrete integers (registers and stack slots), so a loop
+# whose counter is known runs once per counter value; every instruction runs at most 64 times.
+visits = {}
+# Only locations compared with a constant somewhere in the function count as loop state.
+CREG, CSTK = set(), set()
+for e in INS:
+    if e[1] in ('cmpl', 'cmpq', 'cmpb') and e[4] and e[4][0].startswith('$'):
+        t = e[4][1]
+        if t.startswith('%'): CREG.add(rn(t))
+        else:
+            m = re.match(r'(-?0x[0-9a-f]+|-?\d+)\(%rbp\)$', t)
+            if m: CSTK.add(int(m.group(1), 0))
+def ikey():
+    return (tuple(sorted((k, v[1]) for k, v in r.items() if k in CREG and v and v[0] == 'imm' and isinstance(v[1], int))),
+            tuple(sorted((k, v[1]) for k, v in stk.items() if k in CSTK and isinstance(v, tuple) and v[0] == 'imm' and isinstance(v[1], int))))
+while stack:
+    i, sv = stack.pop(); restore(sv)
+    while 0 <= i < len(INS):
+        k = (i, ikey())
+        if k in visited or visits.get(i, 0) >= 256: break
+        visited.add(k); visits[i] = visits.get(i, 0) + 1
+        pc, ins, ops, comment, o, l = INS[i]
+        cmp_before = last_cmp
+        exe(pc, ins, ops, comment, o, l)
+        if ins.startswith('ret'): break
+        if ins == 'jmp' and o and o[0].startswith('0x'):
+            t = IDX.get(int(o[0].split()[0], 16)); i = t if t is not None else -1; continue
+        if ins in JCC and o and o[0].startswith('0x'):
+            t = IDX.get(int(o[0].split()[0], 16))
+            decided = None
+            if cmp_before and isinstance(cmp_before[0], tuple):          # concrete counter
+                decided = JCC[ins](cmp_before[0][1] - cmp_before[1])
+            elif cmp_before and cmp_before[0] == TAB[0]:
+                decided = JCC[ins](TAB[1] - cmp_before[1])
+            if decided is not None:
+                i = (t if t is not None else -1) if decided else i + 1; continue
+            if t is not None: stack.append((t, snap()))
+        i += 1
 json.dump(out, sys.stdout, indent=None)
