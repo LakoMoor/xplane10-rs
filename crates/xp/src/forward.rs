@@ -133,22 +133,7 @@ impl Forward {
             mipmap_filter: wgpu::MipmapFilterMode::Linear,
             ..Default::default()
         });
-        let depth = device
-            .create_texture(&wgpu::TextureDescriptor {
-                label: Some("forward depth"),
-                size: wgpu::Extent3d {
-                    width: extent.0.max(1),
-                    height: extent.1.max(1),
-                    depth_or_array_layers: 1,
-                },
-                mip_level_count: 1,
-                sample_count: 1,
-                dimension: wgpu::TextureDimension::D2,
-                format: DEPTH_FORMAT,
-                usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
-                view_formats: &[],
-            })
-            .create_view(&wgpu::TextureViewDescriptor::default());
+        let depth = depth_view(device, extent);
         Self {
             layout,
             triangles,
@@ -233,5 +218,33 @@ impl Forward {
         }
         queue.submit([enc.finish()]);
         Ok(())
+    }
+}
+
+/// The depth buffer for a frame of `extent`.
+fn depth_view(device: &wgpu::Device, extent: (u32, u32)) -> wgpu::TextureView {
+    device
+        .create_texture(&wgpu::TextureDescriptor {
+            label: Some("forward depth"),
+            size: wgpu::Extent3d {
+                width: extent.0.max(1),
+                height: extent.1.max(1),
+                depth_or_array_layers: 1,
+            },
+            mip_level_count: 1,
+            sample_count: 1,
+            dimension: wgpu::TextureDimension::D2,
+            format: DEPTH_FORMAT,
+            usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
+            view_formats: &[],
+        })
+        .create_view(&wgpu::TextureViewDescriptor::default())
+}
+
+impl Forward {
+    /// Follow a new frame size: only the depth buffer depends on it, so pipelines and the bind
+    /// groups made from `layout` stay valid.
+    pub fn resize(&mut self, device: &wgpu::Device, extent: (u32, u32)) {
+        self.depth = depth_view(device, extent);
     }
 }

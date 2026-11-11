@@ -1453,7 +1453,11 @@ struct Renderer {
     loading_frames: u32,
     tip: Vec<String>,
     message: Vec<String>,
-    /// Pointer y in `SCREEN` pixels from the top, if it is over the window.
+    /// The screen the interface is laid out on: the window's size in points, as the original
+    /// takes its window's size for its screen (user's screenshot of its Open dialog in a
+    /// 1920-wide window: the dialog stays 1000×761 and centred).
+    screen: (u32, u32),
+    /// Pointer y in screen pixels from the top, if it is over the window.
     pointer_y: Option<f32>,
     pointer_x: f32,
     /// The start-up aircraft dialog, while it is open.
@@ -1523,14 +1527,15 @@ impl Renderer {
         surface.configure(&gpu.device, &config);
 
         const FORMAT: wgpu::TextureFormat = wgpu::TextureFormat::Rgba8Unorm;
+        let screen = logical_size(&window);
         let chain = PassChain::with_size(&gpu.device, FORMAT, SCREEN.0, SCREEN.1)
             .context("building the pass chain")?;
-        let (target, target_view) = scene_target(&gpu.device, FORMAT, SCREEN);
-        let fwd = forward::Forward::new(&gpu.device, FORMAT, SCREEN);
+        let (target, target_view) = scene_target(&gpu.device, FORMAT, screen);
+        let fwd = forward::Forward::new(&gpu.device, FORMAT, screen);
         let mut store = TextureStore::new(&gpu.device, &gpu.queue);
         let ui = ui::Ui::new(&gpu.device, &gpu.queue, &mut store, install, FORMAT)?;
         let menus = xp_core::menu::load(install, "English", &|t| ui.measure(t))?;
-        let menu = ui.menu_bar(&gpu.device, &gpu.queue, SCREEN.0 as f32, &menus)?;
+        let menu = ui.menu_bar(&gpu.device, &gpu.queue, screen.0 as f32, &menus)?;
         let menus_kept = menus.clone();
         let mut blit = overlay::Overlay::new(&gpu.device, format);
         blit.opaque = true;
@@ -1566,6 +1571,7 @@ impl Renderer {
             store,
             install: install.to_path_buf(),
             probe: cockpit,
+            screen,
             aircraft: list,
             current,
             session: None,
@@ -1595,18 +1601,18 @@ impl Renderer {
     }
 
     /// Top-left corner of the dialog: centred on the screen, as in the user's screenshot.
-    fn dialog_origin() -> [f32; 2] {
+    fn dialog_origin(&self) -> [f32; 2] {
         [
-            ((SCREEN.0 as f32 - chooser::DIALOG_W) * 0.5).floor(),
-            ((SCREEN.1 as f32 - chooser::DIALOG_H) * 0.5).floor(),
+            ((self.screen.0 as f32 - chooser::DIALOG_W) * 0.5).floor(),
+            ((self.screen.1 as f32 - chooser::DIALOG_H) * 0.5).floor(),
         ]
     }
 
     /// A left click at the pointer.
     fn click(&mut self) {
         let (x, y) = (self.pointer_x, self.pointer_y.unwrap_or(-1.0));
+        let o = self.dialog_origin();
         if let Some(c) = &mut self.chooser {
-            let o = Self::dialog_origin();
             let action = c.click(x - o[0], y - o[1]);
             self.chooser_layers = None;
             match action {
@@ -1704,31 +1710,60 @@ impl Renderer {
         })
     }
 
-    fn resize(&mut self, w: u32, h: u32) {
-        if w == 0 || h == 0 || (w == self.config.width && h == self.config.height) {
+    fn resize(&mut self, w: u32, h: u32, screen: (u32, u32)) {
+        if w == 0 || h == 0 {
             return;
         }
-        self.config.width = w;
-        self.config.height = h;
-        self.surface.configure(&self.gpu.device, &self.config);
+        if (w, h) != (self.config.width, self.config.height) {
+            self.config.width = w;
+            self.config.height = h;
+            self.surface.configure(&self.gpu.device, &self.config);
+        }
+        if screen == self.screen || screen.0 == 0 || screen.1 == 0 {
+            return;
+        }
+        self.screen = screen;
+        let (target, view) = scene_target(&self.gpu.device, self.target.format(), screen);
+        self.target = target;
+        self.target_view = view;
+        self.fwd.resize(&self.gpu.device, screen);
+        match self.ui.menu_bar(
+            &self.gpu.device,
+            &self.gpu.queue,
+            screen.0 as f32,
+            &self.menus,
+        ) {
+            Ok(m) => self.menu = m,
+            Err(e) => log::error!("menu bar: {e:#}"),
+        }
+        self.chooser_layers = None;
+        self.menu_cache = None;
+        self.windows_cache = None;
+        self.place_windows();
+    }
+
+    /// Where the 1024×768 layouts (cockpit panel, loading screen) go on a larger screen.
+    /// PLACEHOLDER placement, not observed on the original: the panel bottom-centred, the
+    /// loading screen centred.
+    fn panel_offset(&self) -> [f32; 2] {
+        [
+            ((self.screen.0 as f32 - SCREEN.0 as f32) * 0.5).floor(),
+            self.screen.1 as f32 - SCREEN.1 as f32,
+        ]
     }
 
     fn draw_scene(&mut self) -> Result<()> {
+        let screen = self.screen;
+        let origin = self.dialog_origin();
         if let Some(c) = &self.chooser {
             if self.chooser_layers.is_none() {
                 let (device, queue) = (&self.gpu.device, &self.gpu.queue);
                 let mut layers = vec![self.ui.fill(
-                    [0.0, 0.0, SCREEN.0 as f32, SCREEN.1 as f32],
+                    [0.0, 0.0, self.screen.0 as f32, self.screen.1 as f32],
                     // The window behind the dialog, measured on the user's screenshot.
                     [13, 69, 101, 255],
                 )];
-                layers.extend(c.layers(
-                    &self.ui,
-                    device,
-                    queue,
-                    &mut self.store,
-                    Self::dialog_origin(),
-                )?);
+                layers.extend(c.layers(&self.ui, device, queue, &mut self.store, origin)?);
                 self.chooser_layers = Some(layers);
             }
             if let Some(layers) = &self.chooser_layers {
@@ -1736,7 +1771,7 @@ impl Renderer {
                     &self.gpu.device,
                     &self.gpu.queue,
                     &self.target,
-                    SCREEN,
+                    screen,
                     layers,
                 );
             }
@@ -1757,7 +1792,16 @@ impl Renderer {
                         progress: (self.loading_frames as f32 * 0.25).min(1.0),
                     },
                 )?;
-                self.ui.draw(device, queue, &self.target, SCREEN, &layers);
+                // The loading screen is laid out for 1024×768; centred on black on a larger one.
+                let [dx, dy] = [
+                    ((screen.0 as f32 - SCREEN.0 as f32) * 0.5).floor(),
+                    ((screen.1 as f32 - SCREEN.1 as f32) * 0.5).floor(),
+                ];
+                let mut all = vec![self
+                    .ui
+                    .fill([0.0, 0.0, screen.0 as f32, screen.1 as f32], [0, 0, 0, 255])];
+                all.extend(ui::shifted(layers, dx, dy));
+                self.ui.draw(device, queue, &self.target, screen, &all);
             }
             Some(s) => {
                 use xp_core::view::Mode;
@@ -1770,7 +1814,11 @@ impl Renderer {
                 let mut camera = s.camera;
                 camera.exact = Some((
                     flat_to_mat(&self.view.matrix()),
-                    gl_proj_to_wgpu(&self.view.projection(&proj)),
+                    gl_proj_to_wgpu(
+                        &self
+                            .view
+                            .projection(&proj, screen.0 as f32 / screen.1 as f32),
+                    ),
                 ));
                 draw_forward(
                     &self.gpu,
@@ -1779,16 +1827,18 @@ impl Renderer {
                     &s.objects,
                     &camera,
                     Some(&self.probe),
-                    SCREEN,
+                    screen,
                     &self.target_view,
                     mode.is_forward(),
                 )?;
                 if mode == Mode::ForwardPanel {
-                    self.ui.draw(device, queue, &self.target, SCREEN, &s.panel);
+                    let [dx, dy] = self.panel_offset();
+                    let panel = ui::shifted_ref(&s.panel, dx, dy);
+                    self.ui.draw(device, queue, &self.target, screen, &panel);
                 }
                 // PLACEHOLDER tints for the eye-wear toggles: the original's night-vision and
                 // flashlight shaders are not ported, these only make the toggles visible.
-                let full = [0.0, 0.0, SCREEN.0 as f32, SCREEN.1 as f32];
+                let full = [0.0, 0.0, screen.0 as f32, screen.1 as f32];
                 let mut tints = Vec::new();
                 if self.toggles.contains(&1833) {
                     tints.push(self.ui.fill(full, [40, 255, 60, 90]));
@@ -1800,7 +1850,7 @@ impl Renderer {
                     tints.push(self.ui.fill(full, [255, 0, 0, 40]));
                 }
                 if !tints.is_empty() {
-                    self.ui.draw(device, queue, &self.target, SCREEN, &tints);
+                    self.ui.draw(device, queue, &self.target, screen, &tints);
                 }
                 if !self.windows.is_empty() {
                     if self.windows_cache.is_none() {
@@ -1830,7 +1880,7 @@ impl Renderer {
                         self.windows_cache = Some(layers);
                     }
                     if let Some(layers) = &self.windows_cache {
-                        self.ui.draw(device, queue, &self.target, SCREEN, layers);
+                        self.ui.draw(device, queue, &self.target, screen, layers);
                     }
                 }
                 if let Some((text, left)) = &mut self.notice {
@@ -1840,7 +1890,7 @@ impl Renderer {
                         self.ui
                             .text_at(device, queue, text, [10.0, 755.0], [255, 255, 255])?,
                     ];
-                    self.ui.draw(device, queue, &self.target, SCREEN, &layers);
+                    self.ui.draw(device, queue, &self.target, screen, &layers);
                     *left -= 1;
                     if *left == 0 {
                         self.notice = None;
@@ -1850,7 +1900,7 @@ impl Renderer {
                 // while a menu is open.
                 if self.pointer_y.is_some_and(|y| y < 18.0) || self.open_menu.is_some() {
                     self.ui
-                        .draw(device, queue, &self.target, SCREEN, &self.menu);
+                        .draw(device, queue, &self.target, screen, &self.menu);
                 }
                 if let Some(open) = self.open_menu {
                     // With a menu open, the pointer over another title switches to it.
@@ -1884,7 +1934,7 @@ impl Renderer {
                             &self.gpu.device,
                             &self.gpu.queue,
                             &self.target,
-                            SCREEN,
+                            screen,
                             layers,
                         );
                     }
@@ -1960,6 +2010,16 @@ impl Renderer {
     }
 }
 
+/// The window's inner size in points: the original is not HiDPI-aware, so its screen is the
+/// window in points and the system shows each point as scale-factor pixels.
+fn logical_size(window: &Window) -> (u32, u32) {
+    let s = window.inner_size().to_logical::<f64>(window.scale_factor());
+    (
+        s.width.round().max(1.0) as u32,
+        s.height.round().max(1.0) as u32,
+    )
+}
+
 struct App {
     mods: winit::keyboard::ModifiersState,
     window: Option<Arc<Window>>,
@@ -1967,6 +2027,8 @@ struct App {
     install: PathBuf,
     aircraft: PathBuf,
     script: Vec<String>,
+    /// Initial window size in points (`--size`).
+    size: (u32, u32),
 }
 
 impl App {
@@ -1989,7 +2051,7 @@ impl ApplicationHandler for App {
         }
         let attrs = Window::default_attributes()
             .with_title("xplane10-rs")
-            .with_inner_size(winit::dpi::LogicalSize::new(SCREEN.0, SCREEN.1));
+            .with_inner_size(winit::dpi::LogicalSize::new(self.size.0, self.size.1));
         let window = match el.create_window(attrs) {
             Ok(w) => Arc::new(w),
             Err(e) => {
@@ -2021,16 +2083,22 @@ impl ApplicationHandler for App {
         match event {
             WindowEvent::CloseRequested => el.exit(),
             WindowEvent::Resized(s) => {
-                if let Some(r) = &mut self.renderer {
-                    r.resize(s.width, s.height);
+                if let (Some(r), Some(w)) = (&mut self.renderer, &self.window) {
+                    r.resize(s.width, s.height, logical_size(w));
+                }
+            }
+            WindowEvent::ScaleFactorChanged { .. } => {
+                if let (Some(r), Some(w)) = (&mut self.renderer, &self.window) {
+                    let s = w.inner_size();
+                    r.resize(s.width, s.height, logical_size(w));
                 }
             }
             WindowEvent::CursorMoved { position, .. } => {
                 if let Some(r) = &mut self.renderer {
                     r.pointer_y =
-                        Some(position.y as f32 * SCREEN.1 as f32 / r.config.height.max(1) as f32);
+                        Some(position.y as f32 * r.screen.1 as f32 / r.config.height.max(1) as f32);
                     r.pointer_x =
-                        position.x as f32 * SCREEN.0 as f32 / r.config.width.max(1) as f32;
+                        position.x as f32 * r.screen.0 as f32 / r.config.width.max(1) as f32;
                 }
             }
             WindowEvent::MouseInput {
@@ -2127,6 +2195,8 @@ fn main() -> Result<()> {
     let mut panel = false;
     let mut loading = false;
     let mut script: Vec<String> = Vec::new();
+    // The original's default window: 1024×768 points.
+    let mut window_size = SCREEN;
     let mut menubar = false;
     let mut menu_open: Option<usize> = None;
     let mut menu_hover: Option<(f32, f32)> = None;
@@ -2195,6 +2265,7 @@ fn main() -> Result<()> {
                 let v = args.next().context("--size wants WIDTHxHEIGHT")?;
                 let (w, h) = v.split_once('x').context("--size wants WIDTHxHEIGHT")?;
                 extent = (w.parse()?, h.parse()?);
+                window_size = extent;
             }
             other => bail!("unrecognised argument {other:?}"),
         }
@@ -2255,7 +2326,7 @@ fn main() -> Result<()> {
             menu_hover,
             &out,
         ),
-        None => run_windowed(root, aircraft, script),
+        None => run_windowed(root, aircraft, script, window_size),
     }
 }
 
@@ -2342,7 +2413,12 @@ fn find_install() -> Option<PathBuf> {
     Some(hit)
 }
 
-fn run_windowed(root: PathBuf, aircraft: PathBuf, script: Vec<String>) -> Result<()> {
+fn run_windowed(
+    root: PathBuf,
+    aircraft: PathBuf,
+    script: Vec<String>,
+    size: (u32, u32),
+) -> Result<()> {
     let el = EventLoop::new()?;
     el.set_control_flow(ControlFlow::Poll);
     let mut app = App {
@@ -2352,6 +2428,7 @@ fn run_windowed(root: PathBuf, aircraft: PathBuf, script: Vec<String>) -> Result
         install: root,
         aircraft,
         script,
+        size,
     };
     el.run_app(&mut app)?;
     Ok(())

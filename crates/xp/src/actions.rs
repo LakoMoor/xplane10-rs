@@ -13,7 +13,7 @@ use std::path::Path;
 use xp_core::menu::{Action, Item, Rect};
 use xp_core::view::Mode;
 
-use crate::{chooser, Renderer, SCREEN};
+use crate::{chooser, Renderer};
 
 /// One open window.
 pub struct Win {
@@ -272,8 +272,8 @@ impl Renderer {
         }
         let (w, h) = (640.0, 300.0);
         let k = self.windows.len() as f32 * 24.0;
-        let l = ((SCREEN.0 as f32 - w) * 0.5).floor() + k;
-        let t = ((SCREEN.1 as f32 - h) * 0.5).floor() + k;
+        let l = ((self.screen.0 as f32 - w) * 0.5).floor() + k;
+        let t = ((self.screen.1 as f32 - h) * 0.5).floor() + k;
         self.windows.push(Win {
             item,
             title: title.to_string(),
@@ -285,6 +285,22 @@ impl Renderer {
                 b: t + h,
             },
         });
+    }
+
+    /// Re-centre the open windows on a new screen size, keeping their stacking offsets.
+    pub(crate) fn place_windows(&mut self) {
+        let (sw, sh) = (self.screen.0 as f32, self.screen.1 as f32);
+        for (k, win) in self.windows.iter_mut().enumerate() {
+            let (w, h) = (win.rect.w(), win.rect.h());
+            let l = ((sw - w) * 0.5).floor() + k as f32 * 24.0;
+            let t = ((sh - h) * 0.5).floor().max(18.0) + k as f32 * 24.0;
+            win.rect = Rect {
+                l,
+                t,
+                r: l + w,
+                b: t + h,
+            };
+        }
     }
 
     /// A click on the open windows. True when a window took it.
@@ -336,7 +352,9 @@ impl Renderer {
         let Some(step) = self.script.pop_front() else {
             return;
         };
-        if self.session.is_none() && step != "close" {
+        let verb0 = step.split(':').next().unwrap_or("");
+        let early = matches!(verb0, "close" | "shot" | "wait" | "point" | "quit");
+        if self.session.is_none() && !early {
             self.script.push_front(step);
             return;
         }
@@ -388,12 +406,12 @@ impl Renderer {
     /// (or where a `--script` `shot:` step says).
     pub(crate) fn save_screenshot(&mut self) {
         if let Some(path) = self.shot_to.take() {
-            let r = crate::read_back(&self.gpu.device, &self.gpu.queue, &self.target, SCREEN)
+            let r = crate::read_back(&self.gpu.device, &self.gpu.queue, &self.target, self.screen)
                 .and_then(|mut rgba| {
                     for px in rgba.chunks_exact_mut(4) {
                         px[3] = 255;
                     }
-                    let png = xp_core::png::encode_rgba(SCREEN.0, SCREEN.1, &rgba);
+                    let png = xp_core::png::encode_rgba(self.screen.0, self.screen.1, &rgba);
                     std::fs::write(&path, png).map_err(anyhow::Error::from)
                 });
             if let Err(e) = r {
@@ -413,12 +431,12 @@ impl Renderer {
             self.notice("Screenshot: no free file name in Output/");
             return;
         };
-        let result = crate::read_back(&self.gpu.device, &self.gpu.queue, &self.target, SCREEN)
+        let result = crate::read_back(&self.gpu.device, &self.gpu.queue, &self.target, self.screen)
             .and_then(|mut rgba| {
                 for px in rgba.chunks_exact_mut(4) {
                     px[3] = 255;
                 }
-                let png = xp_core::png::encode_rgba(SCREEN.0, SCREEN.1, &rgba);
+                let png = xp_core::png::encode_rgba(self.screen.0, self.screen.1, &rgba);
                 std::fs::write(&path, png).map_err(anyhow::Error::from)
             });
         match result {

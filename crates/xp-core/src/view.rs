@@ -312,9 +312,14 @@ impl View {
         mul(&pan, &base)
     }
 
-    /// Scale a GL projection by the zoom factor.
-    pub fn projection(&self, proj: &Mat) -> Mat {
+    /// A GL projection captured on the oracle's 1024×768 screen, for a screen of `aspect`
+    /// (width / height), scaled by the zoom factor. The horizontal field of view is kept, as the
+    /// original's "lateral field of view" setting is: a wider screen sees less vertically.
+    pub fn projection(&self, proj: &Mat, aspect: f32) -> Mat {
         let mut p = *proj;
+        let k = aspect / (4.0 / 3.0);
+        p[1] *= k;
+        p[5] *= k;
         for i in [0, 1, 4, 5] {
             p[i] *= self.zoom;
         }

@@ -24,6 +24,32 @@ pub struct Layer {
     pub linear: bool,
 }
 
+/// `layers` moved by (dx, dy).
+pub fn shifted(layers: Vec<Layer>, dx: f32, dy: f32) -> Vec<Layer> {
+    layers
+        .into_iter()
+        .map(|mut l| {
+            l.rect[0] += dx;
+            l.rect[1] += dy;
+            l
+        })
+        .collect()
+}
+
+/// Copies of `layers` moved by (dx, dy).
+pub fn shifted_ref(layers: &[Layer], dx: f32, dy: f32) -> Vec<Layer> {
+    layers
+        .iter()
+        .map(|l| Layer {
+            view: l.view.clone(),
+            rect: [l.rect[0] + dx, l.rect[1] + dy, l.rect[2], l.rect[3]],
+            tint: l.tint,
+            src: l.src,
+            linear: l.linear,
+        })
+        .collect()
+}
+
 impl Layer {
     /// A whole bitmap, one texel per pixel, at `top_left`.
     pub fn bitmap(view: wgpu::TextureView, top_left: [f32; 2], tint: [f32; 4]) -> Layer {
