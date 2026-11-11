@@ -259,6 +259,28 @@ pub fn cloud_caption(v: f64) -> String {
     format!("{pct}%: {word}")
 }
 
+/// `PRESET n` / `PRESET_SETTING name value` blocks of `Resources/settings.txt`: what the five
+/// preset buttons of Rendering Options set (`REN_set_for_preset`).
+pub fn presets(settings_txt: &str) -> Vec<Vec<(String, f64)>> {
+    let mut out: Vec<Vec<(String, f64)>> = Vec::new();
+    for l in settings_txt.lines() {
+        let f: Vec<&str> = l.split_whitespace().collect();
+        match f.as_slice() {
+            ["PRESET", n] => {
+                let n: usize = n.parse().unwrap_or(out.len());
+                out.resize(out.len().max(n + 1), Vec::new());
+            }
+            ["PRESET_SETTING", k, v, ..] => {
+                if let (Some(last), Ok(v)) = (out.last_mut(), v.parse()) {
+                    last.push((k.to_string(), v));
+                }
+            }
+            _ => {}
+        }
+    }
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -288,26 +310,4 @@ mod tests {
             .iter()
             .any(|w| w.key == "renopt_for_05" && w.items.len() == 6));
     }
-}
-
-/// `PRESET n` / `PRESET_SETTING name value` blocks of `Resources/settings.txt`: what the five
-/// preset buttons of Rendering Options set (`REN_set_for_preset`).
-pub fn presets(settings_txt: &str) -> Vec<Vec<(String, f64)>> {
-    let mut out: Vec<Vec<(String, f64)>> = Vec::new();
-    for l in settings_txt.lines() {
-        let f: Vec<&str> = l.split_whitespace().collect();
-        match f.as_slice() {
-            ["PRESET", n] => {
-                let n: usize = n.parse().unwrap_or(out.len());
-                out.resize(out.len().max(n + 1), Vec::new());
-            }
-            ["PRESET_SETTING", k, v, ..] => {
-                if let (Some(last), Ok(v)) = (out.last_mut(), v.parse()) {
-                    last.push((k.to_string(), v));
-                }
-            }
-            _ => {}
-        }
-    }
-    out
 }

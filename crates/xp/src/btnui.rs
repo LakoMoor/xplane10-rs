@@ -133,6 +133,7 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn label_lines(
     ui: &Ui,
     d: &wgpu::Device,

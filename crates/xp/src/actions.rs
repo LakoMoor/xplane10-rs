@@ -422,10 +422,10 @@ impl Renderer {
             3 => Mode::ForwardHud,
             _ => Mode::ForwardPanel,
         };
-        if self.view.mode.is_forward() || self.view.mode == Mode::Cockpit3d {
-            if self.view.mode != want {
-                self.view.select(want);
-            }
+        if (self.view.mode.is_forward() || self.view.mode == Mode::Cockpit3d)
+            && self.view.mode != want
+        {
+            self.view.select(want);
         }
     }
 
