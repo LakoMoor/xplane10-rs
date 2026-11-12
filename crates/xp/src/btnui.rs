@@ -533,7 +533,7 @@ pub fn layers(
                     for line in wrap(ui, para, w.a) {
                         // OGL_string's justification: 0 left, 1 centred, 2 right of x.
                         let lx = match w.c as i32 {
-                            1 => x + 2.0 - (ui.measure(&line) * 0.5).floor(),
+                            1 => (x - ui.measure(&line) * 0.5).floor(),
                             2 => x + 2.0 - ui.measure(&line),
                             _ => x + 2.0,
                         };

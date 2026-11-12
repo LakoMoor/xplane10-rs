@@ -7,9 +7,11 @@ FIXED = {1: (651, 753), 5: (572, 268), 9: (620, 438), 10: (1020, 766), 11: (700,
 # Mode flags a window reads outside its tabs, fixed to the oracle's state (btnemu --fix).
 # Local Region: edit off (_pmap+0), no wide side panel (+4), the profile shown (+8), not the
 # instructor station (_xtim+0x14).
+# Every window: the install is not a Pro (certified-use) licence, `demo_class::has_pro_use` is 0.
+ALWAYS = ['--fix=ret:has_pro_use=0']
 FIXES = {16: ['--fix=_pmap=0', '--fix=0x102b69984=0', '--fix=0x102b69988=1', '--fix=0x102f2b2b4=0']}
 def run(W, H, *extra):
-    out = subprocess.run(['python3', 'btnemu.py', f'out/asm/{name}.asm', str(W), str(H), *extra, *FIXES.get(wid, [])], capture_output=True, text=True).stdout
+    out = subprocess.run(['python3', 'btnemu.py', f'out/asm/{name}.asm', str(W), str(H), *extra, *ALWAYS, *FIXES.get(wid, [])], capture_output=True, text=True).stdout
     return json.loads('\n'.join(l for l in out.splitlines() if not l.startswith('#')))
 def build(W, H):
     global rows

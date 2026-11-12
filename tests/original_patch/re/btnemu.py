@@ -268,6 +268,11 @@ def exe(pc, ins, ops, comment, o, l):
                 # caller-saved registers are clobbered
                 for k in ['xmm%d' % i for i in range(16)]: x.pop(k, None)
                 for k in ('rax', 'rcx', 'rdx', 'rsi', 'rdi', 'r8', 'r9', 'r10', 'r11'): r.pop(k, None)
+                # A query whose answer --fix states (e.g. --fix=ret:has_pro_use=0): its result is a
+                # variable the branches after it test.
+                for k in FIX:
+                    if k.startswith('ret:') and k[4:] in fn:
+                        r['rax'] = ('mem', k)
     except Exception as e:
         print('# skip', hex(pc), ins, ops, e, file=sys.stderr)
 
