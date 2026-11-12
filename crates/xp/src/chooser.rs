@@ -401,6 +401,7 @@ impl Chooser {
             device,
             queue,
             r(0.0, 0.0, DIALOG_W, DIALOG_H),
+            r(0.0, 0.0, DIALOG_W, DIALOG_H),
             "Open",
             false,
         )?);

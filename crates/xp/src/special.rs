@@ -34,6 +34,9 @@ pub struct AptList {
     pub select: i32,
     /// The filtered airports, as indices into the index.
     pub shown: Vec<usize>,
+    /// Select Airport: the selected airport's map caption and number of ramp starts.
+    pub title: String,
+    pub ramps: usize,
 }
 
 impl AptList {
@@ -48,6 +51,8 @@ impl AptList {
             scroll: 0,
             select,
             shown,
+            title: String::new(),
+            ramps: 0,
         };
         l.into_view();
         l
@@ -68,12 +73,19 @@ impl AptList {
     }
 
     /// A click at GL `gy` in a list centred at GL `y`: select the row under it.
-    pub fn click(&mut self, y: f32, gy: f32) {
+    /// Returns whether the selection changed.
+    pub fn click(&mut self, y: f32, gy: f32) -> bool {
         let k = ((gy - y) / 10.0).round() as i32;
         let i = self.scroll - k;
-        if (0..=self.max()).contains(&i) {
+        if (0..=self.max()).contains(&i) && i != self.select {
             self.select = i;
+            return true;
         }
+        false
+    }
+
+    pub fn selected<'a>(&self, index: &'a [AptName]) -> Option<&'a AptName> {
+        self.shown.get(self.select as usize).map(|&i| &index[i])
     }
 }
 
@@ -353,10 +365,33 @@ pub fn qflt_click(
 }
 
 /// A click at window GL (gx, gy) on an airport list centred at (x, y).
+/// Returns whether the selection changed.
 pub fn apt_click(list: &mut AptList, x: f32, y: f32, gx: f32, gy: f32) -> bool {
-    if (x..=x + 290.0).contains(&gx) && (y - 110.0..=y + 110.0).contains(&gy) {
-        list.click(y, gy);
-        return true;
+    (x..=x + 290.0).contains(&gx) && (y - 110.0..=y + 110.0).contains(&gy) && list.click(y, gy)
+}
+
+/// Select Airport's map caption (airp_wind: `OGL_string(341 + 10, 705 - 15, 0x38)`) and the
+/// ramp starts' slider (`BTN_vert_slider` at x 625, two starts a row; its y0 / y1, 25 / 385,
+/// are the oracle frame's: the call's float arguments are not recovered).
+#[allow(clippy::too_many_arguments)]
+pub fn airp_extras(
+    ui: &Ui,
+    d: &wgpu::Device,
+    q: &wgpu::Queue,
+    list: &AptList,
+    p: &Place,
+) -> Result<Vec<Layer>> {
+    let mut l = Vec::new();
+    if !list.title.is_empty() {
+        l.push(ui.text_at(
+            d,
+            q,
+            &list.title,
+            [p.sx(351.0), p.sy(690.0)],
+            xp_core::menu::palette(0x38),
+        )?);
     }
-    false
+    let rows = list.ramps.div_ceil(2) as i32;
+    l.extend(vert_slider(ui, p, 625.0, 25.0, 385.0, 0, 0, rows - 1));
+    Ok(l)
 }

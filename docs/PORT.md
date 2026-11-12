@@ -515,3 +515,24 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - Interface palette extended to 128 entries (probe read at 3·128 floats).
 - fail_class fields +0/+4 are the prf's `_use_MTBF` / `_real_MTBF_hours`.
 - Identical pixels vs the oracle: System Failures tabs 92.5 / 93.1 / 93.3 / 93.9 / 94.8 / 88.3 %.
+
+## 2026-11-12 — Select Airport, QuickFlight, window frames
+
+- Airport index (`xp_core::apt_index`): scenery packs in `scenery_packs.ini` order, then the
+  default apt.dat; the first ICAO wins; headers 1/16/17; sorted by name ignoring case. Over the
+  user's install that is 34 744 airports in exactly the oracle's order around KSEA.
+- `BTN_list_and_search` (0x100dc2e30) and `BTN_vert_slider` (0x100dc2390) from code: field
+  0x13 at (x, y − 110, 290, 220), rows k = −10…10 at y − 10k, name at x + 20, ICAO at x + 242,
+  selection palette 0x60 at 25 %; slider track, caps and thumb from the atlas.
+- `airp_wind` (0x1005e3f70): runway rows from y 391, two per runway, "RWY 1 6 L" from
+  `rway_to_cs`; ramp starts (1300/15 records) two to a row at x 295/507. btnemu's linear sweep
+  took QuickFlight's `+= 10` branch, so gen_window lowers those rows by 10.
+- `qflt_wind` / `opensave_perframe` mode 0x16 / `plot_a_tile`: picture cells from qflite.png,
+  aircraft tree and preview pane as in the Open dialog.
+- Window frames (`frame_rect`): from `start_win`'s origin o = trunc((H − h)/2 + 0.5) the
+  frame's bottom is H − o, its top one row above H − o − h. The pinstripe repeats upward from
+  the quad's bottom as GL does (was from the top).
+- Calibrations (measured): the full-screen windows' widgets sit `drop` rows below the centred
+  split, the others' on the frame's bottom row; ramp slider y0/y1 25/385.
+- Identical pixels: Select Airport 51.2 → 92.0 %, QuickFlight 25.5 → 84.3 %, Date & Time
+  98.0, Instructions 96.3, Xavion 95.3, Local Region 95.7; no window lost.

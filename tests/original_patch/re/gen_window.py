@@ -200,6 +200,13 @@ def extras(W, H, row):
     # (20, 595); the list itself is drawn by special.rs.
     rows[:] = [r for r in rows if not (r[0] == 'subwin' and r[8] == 'Airport') and r[0] != 'enter'
                and r[8] != 'TAKEOFF     FINAL APPROACH']
+    # The walk also took QuickFlight's `fStack_4f8 += 10`: every row below the list is 10
+    # too high. The runway rows are per runway and the map caption ("10 nm" here is a stale
+    # register) is built from the airport: both come from apt_index::airp_widgets / special.rs.
+    rows[:] = [r for r in rows if not (r[0] == 'action' and not r[8]) and r[8] != '10 nm']
+    for r in rows:
+        if not (r[0] == 'subwin' and r[5] == 16):
+            r[2] -= 10.0
     row('enter', 55.0, 464.0, 252.0, key='s:apt_filter', label='Apt:')
     # The window's pane is drawn first (the walk lists it by address, after the buttons).
     rows.sort(key=lambda r: 0 if (r[0] == 'subwin' and r[5] == 16) else 1)

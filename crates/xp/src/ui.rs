@@ -465,22 +465,24 @@ impl Ui {
             if sw <= 0.0 || sh <= 0.0 {
                 continue;
             }
-            let mut ty = 0.0;
-            while ty < h {
-                let th = sh.min(h - ty);
+            // GL repeats the texture upward from the quad's bottom edge: the last tile is whole
+            // and the top one is the source's lower part.
+            let mut end = h;
+            while end > 0.0 {
+                let th = sh.min(end);
                 let mut tx = 0.0;
                 while tx < w {
                     let tw = sw.min(w - tx);
                     out.push(Layer {
                         view: q.view.clone(),
-                        rect: [x + tx, y + ty, tw, th],
+                        rect: [x + tx, y + end - th, tw, th],
                         tint: q.tint,
-                        src: Some([u0, v0, u0 + tw, v0 + th]),
+                        src: Some([u0, v1 - th, u0 + tw, v1]),
                         linear: false,
                     });
                     tx += sw;
                 }
-                ty += sh;
+                end -= sh;
             }
         }
         out
@@ -572,11 +574,12 @@ impl Ui {
         device: &wgpu::Device,
         queue: &wgpu::Queue,
         rect: xp_core::menu::Rect,
+        frame: xp_core::menu::Rect,
         title: &str,
         close: bool,
     ) -> Result<Vec<Layer>> {
         let mut l = self.nine_slice_tiled(
-            rect,
+            frame,
             [1.0, 54.0, 101.0, 154.0],
             [30.0, 35.0, 30.0, 35.0],
             [9.0, 3.0, 9.0, 14.0],

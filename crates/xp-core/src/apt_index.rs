@@ -87,6 +87,132 @@ pub fn filter(list: &[AptName], filter: &str) -> Vec<usize> {
         .collect()
 }
 
+/// `rway_to_cs(get_rway_strings(…, spaced = 1))`: "RWY " (or "PAD " for a helipad) and the
+/// designator's characters a space apart, a trailing 'x' (no suffix) shown as a space.
+pub fn runway_label(name: &str) -> String {
+    let prefix = if name.starts_with('H') {
+        "PAD "
+    } else {
+        "RWY "
+    };
+    let mut chars: Vec<char> = name.chars().collect();
+    while chars.len() < 3 {
+        chars.push('x');
+    }
+    let mut out = prefix.to_string();
+    for (i, c) in chars.iter().take(3).enumerate() {
+        if i > 0 {
+            out.push(' ');
+        }
+        out.push(if i == 2 && *c == 'x' { ' ' } else { *c });
+    }
+    out
+}
+
+/// The start locations Select Airport lists, in file order: `1300` (name after six fields)
+/// and the older `15` (after four).
+pub fn ramp_names(apt: &crate::aptdat::Airport) -> Vec<String> {
+    apt.records
+        .iter()
+        .filter_map(|r| {
+            let n = match r.kind {
+                1300 => 6,
+                15 => 4,
+                _ => return None,
+            };
+            let mut rest = r.raw.trim_start();
+            for _ in 0..n {
+                let end = rest.find(char::is_whitespace)?;
+                rest = rest[end..].trim_start();
+            }
+            Some(rest.trim_end().to_string())
+        })
+        .collect()
+}
+
+/// The map's caption: `name (ICAO) elev <feet> ft.` (airp_wind).
+pub fn map_title(apt: &crate::aptdat::Airport) -> String {
+    let h = &apt.header;
+    let elev = h.field(1).unwrap_or("0");
+    let icao = h.field(4).unwrap_or("");
+    let name = h
+        .raw
+        .find(icao)
+        .map(|i| h.raw[i + icao.len()..].trim())
+        .unwrap_or("");
+    format!("{name} ({icao}) elev {elev} ft.")
+}
+
+fn action(x: f32, y: f32, w: f32, key: String, label: String) -> crate::btnwin::Widget {
+    crate::btnwin::Widget {
+        kind: crate::btnwin::Kind::Action,
+        x,
+        y,
+        a: w,
+        b: 0.0,
+        c: 0.0,
+        d: 0.0,
+        key,
+        label,
+        items: Vec::new(),
+        cond: String::new(),
+    }
+}
+
+/// Select Airport's start buttons (airp_wind, window 1; window GL coordinates):
+/// per runway two rows 20 apart from y 391 down while the row is above y 20 — the end's
+/// `RWY` button (x 50, 68 wide), "3 nm" (104, 52) and "10 nm" (150, 52) — and the ramp
+/// starts two to a row at x 295 / 507 (210 wide), row r at 393 + 20·(scroll − r), shown while
+/// 20 ≤ y ≤ 395.
+pub fn airp_widgets(apt: &crate::aptdat::Airport, scroll: i32) -> Vec<crate::btnwin::Widget> {
+    let mut out = Vec::new();
+    let mut y = 391.0;
+    for (i, r) in apt.runways.iter().enumerate() {
+        let names = [r.end1_name().unwrap_or(""), r.end2_name().unwrap_or("")];
+        for (e, name) in names.into_iter().enumerate() {
+            if y <= 20.0 {
+                return out;
+            }
+            out.push(action(
+                50.0,
+                y,
+                68.0,
+                format!("rwy:{i}:{e}"),
+                runway_label(name),
+            ));
+            out.push(action(
+                104.0,
+                y,
+                52.0,
+                format!("rwy:{i}:{e}:3"),
+                "3 nm".into(),
+            ));
+            out.push(action(
+                150.0,
+                y,
+                52.0,
+                format!("rwy:{i}:{e}:10"),
+                "10 nm".into(),
+            ));
+            y -= 20.0;
+        }
+    }
+    for (i, name) in ramp_names(apt).into_iter().enumerate() {
+        let (col, row) = ((i % 2) as f32, (i / 2) as i32);
+        let y = 393.0 + 20.0 * (scroll - row) as f32;
+        if (20.0..=395.0).contains(&y) {
+            out.push(action(
+                295.0 + 212.0 * col,
+                y,
+                210.0,
+                format!("ramp:{i}"),
+                name,
+            ));
+        }
+    }
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -108,5 +234,7 @@ mod tests {
             ["SEAHAWK LZ", "Seattle  Seaplane", "Seattle Tacoma Intl"]
         );
         assert_eq!(filter(&v, "ksea"), vec![2]);
+        assert_eq!(runway_label("16L"), "RWY 1 6 L");
+        assert_eq!(runway_label("34"), "RWY 3 4  ");
     }
 }

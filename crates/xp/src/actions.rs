@@ -31,6 +31,8 @@ pub struct Win {
     pub apt: Option<crate::special::AptList>,
     /// QuickFlight's aircraft tree (`opensave_perframe` in mode 0x16).
     pub tree: Option<crate::chooser::Chooser>,
+    /// Where `Ui::window` draws the frame (see `frame_rect`).
+    pub frame: Rect,
 }
 
 /// `wins_class::start_win`: the window's GL origin is ((screen − size)·0.5 + 0.5) truncated,
@@ -50,15 +52,45 @@ fn centred(size: (f32, f32), screen: (f32, f32)) -> Rect {
     }
 }
 
-/// [`centred`], except QuickFlight: the oracle frame shows its frame one row taller at the
-/// bottom (the pinstripe and the bottom edge one row lower, the title strip in place) and its
-/// widgets one row lower than the 2-row drop of the other full-screen windows. Measured.
-fn win_rect(def: &xp_core::btnwin::Window, screen: (f32, f32)) -> Rect {
-    let mut r = centred(def.size, screen);
-    if def.id == 22 {
-        r.b += 1.0;
+/// The rectangle `Ui::window` frames: `start_win`'s GL origin o = trunc((H − h)·0.5 + 0.5) puts
+/// the window's top row at H − o − h, and `BTN_frame2` 0xe grows its quad 4 rows above that
+/// (`Ui::window` grows 3, so the rect starts a row higher) and down to the window's bottom.
+/// Against [`centred`] this moves the frame's bottom a row down when H − h is even and its
+/// top a row up when odd — QuickFlight's and Select Airport's oracle frames.
+fn frame_rect(size: (f32, f32), screen: (f32, f32)) -> Rect {
+    let r = centred(size, screen);
+    let o = (((screen.1 - size.1) * 0.5 + 0.5) as i32).max(0) as f32;
+    let t = screen.1 - o - size.1;
+    Rect {
+        l: r.l,
+        t: t - 1.0,
+        r: r.r,
+        b: t + size.1,
     }
-    r
+}
+
+/// Select Airport's widgets for the selected airport: its runway and ramp-start buttons
+/// replace the previous airport's, and the list carries the map caption and ramp count.
+fn airp_refresh(
+    install: &std::path::Path,
+    index: &[xp_core::apt_index::AptName],
+    list: &mut crate::special::AptList,
+    widgets: &mut Vec<xp_core::btnwin::Widget>,
+) {
+    widgets.retain(|w| !(w.key.starts_with("rwy:") || w.key.starts_with("ramp:")));
+    list.title.clear();
+    list.ramps = 0;
+    let Some(a) = list.selected(index) else {
+        return;
+    };
+    match xp_core::airport::find_in_install(install, &a.icao) {
+        Ok((_, apt)) => {
+            widgets.extend(xp_core::apt_index::airp_widgets(&apt, 0));
+            list.title = xp_core::apt_index::map_title(&apt);
+            list.ramps = xp_core::apt_index::ramp_names(&apt).len();
+        }
+        Err(e) => log::warn!("{e:#}"),
+    }
 }
 
 /// The size `start_win` calls the screen (`_DAT_102f2b23c`): the interface's 1024×768, not the
@@ -81,7 +113,13 @@ impl Win {
         crate::btnui::Place {
             ox: self.rect.l,
             oy: self.rect.t,
-            h: self.rect.h() + self.drop,
+            // The window's bottom row is the frame's (H − o), its GL origin; the full-screen
+            // windows' widgets sit `drop` rows below the centred split instead (measured).
+            h: if self.drop > 0.0 {
+                self.rect.h() + self.drop
+            } else {
+                self.frame.b - self.rect.t
+            },
             tab_dy: 2.0 * self.drop,
         }
     }
@@ -89,7 +127,19 @@ impl Win {
 
 impl Win {
     /// The two close boxes of the title strip (`Ui::window`).
+    /// `BTN_frame2` 0xe draws the close boxes for start_win ids above 1 except 0x15 (Flight
+    /// Plan) and 0x16 (QuickFlight) and the modal file windows (999, 1000, 0x3e2…0x3ee).
+    pub(crate) fn closeable(&self) -> bool {
+        match self.def.as_ref().map(|d| d.id) {
+            None => true,
+            Some(id) => id > 1 && id != 0x15 && id != 0x16 && !(999..=0x3ee).contains(&id),
+        }
+    }
+
     fn close_hit(&self, x: f32, y: f32) -> bool {
+        if !self.closeable() {
+            return false;
+        }
         let t = self.rect.t;
         [self.rect.l + 6.0, self.rect.r - 24.0]
             .iter()
@@ -373,6 +423,10 @@ impl Renderer {
                     }
                     crate::special::AptList::new(&self.apt_index, crate::START_AIRPORT)
                 });
+                let mut apt = apt;
+                if let (Some(1), Some(a)) = (start_win, apt.as_mut()) {
+                    airp_refresh(&self.install, &self.apt_index, a, &mut def.widgets);
+                }
                 let tree = (start_win == Some(22)).then(|| {
                     crate::chooser::Chooser::new(&self.install, &self.aircraft[self.current])
                 });
@@ -380,7 +434,8 @@ impl Renderer {
                     item,
                     title: def.title.clone(),
                     lines: Vec::new(),
-                    rect: win_rect(&def, screen),
+                    rect: centred(def.size, screen),
+                    frame: frame_rect(def.size, screen),
                     def: Some(def),
                     state: Default::default(),
                     drop,
@@ -416,6 +471,12 @@ impl Renderer {
             drop: 0.0,
             apt: None,
             tree: None,
+            frame: Rect {
+                l,
+                t,
+                r: l + w,
+                b: t + h,
+            },
         });
     }
 
@@ -425,7 +486,8 @@ impl Renderer {
         self.windows_cache = None;
         for win in self.windows.iter_mut() {
             if let Some(def) = &win.def {
-                win.rect = win_rect(def, (sw, sh));
+                win.rect = centred(def.size, (sw, sh));
+                win.frame = frame_rect(def.size, (sw, sh));
             }
         }
         for (k, win) in self
@@ -443,6 +505,7 @@ impl Renderer {
                 r: l + w,
                 b: t + h,
             };
+            win.frame = win.rect;
         }
     }
 
@@ -456,7 +519,9 @@ impl Renderer {
         } else if self.windows[top].def.is_some() {
             let w = &mut self.windows[top];
             let place = w.place();
+            let mut id = 0;
             if let Some(def) = &w.def {
+                id = def.id;
                 crate::btnui::click(
                     def,
                     &mut self.prefs,
@@ -467,17 +532,21 @@ impl Renderer {
                     x,
                     y,
                 );
-                // Window GL coordinates of the press.
-                let (gx, gy) = (x - place.ox, place.oy + place.h - y);
-                if let Some(a) = &mut w.apt {
-                    let ly = if def.id == 22 { 605.0 } else { 595.0 };
-                    crate::special::apt_click(a, 20.0, ly, gx, gy);
+            }
+            // Window GL coordinates of the press.
+            let (gx, gy) = (x - place.ox, place.oy + place.h - y);
+            if let Some(a) = &mut w.apt {
+                let ly = if id == 22 { 605.0 } else { 595.0 };
+                if crate::special::apt_click(a, 20.0, ly, gx, gy) && id == 1 {
+                    if let Some(def) = &mut w.def {
+                        airp_refresh(&self.install, &self.apt_index, a, &mut def.widgets);
+                    }
                 }
-                if def.id == 22 {
-                    if let Some((k, v)) = crate::special::qflt_click(w.tree.as_mut(), gx, gy) {
-                        if let Err(e) = self.prefs.set(k, v) {
-                            log::error!("{e:#}");
-                        }
+            }
+            if id == 22 {
+                if let Some((k, v)) = crate::special::qflt_click(w.tree.as_mut(), gx, gy) {
+                    if let Err(e) = self.prefs.set(k, v) {
+                        log::error!("{e:#}");
                     }
                 }
             }

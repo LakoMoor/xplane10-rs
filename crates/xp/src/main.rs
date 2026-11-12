@@ -1895,7 +1895,14 @@ impl Renderer {
                             ));
                         }
                         for w in &self.windows {
-                            layers.extend(self.ui.window(device, queue, w.rect, &w.title, true)?);
+                            layers.extend(self.ui.window(
+                                device,
+                                queue,
+                                w.rect,
+                                w.frame,
+                                &w.title,
+                                w.closeable(),
+                            )?);
                             if let Some(def) = &w.def {
                                 layers.extend(btnui::layers(
                                     &self.ui,
@@ -1919,6 +1926,11 @@ impl Renderer {
                                         &p,
                                         20.0,
                                         y,
+                                    )?);
+                                }
+                                if let (1, Some(a)) = (def.id, &w.apt) {
+                                    layers.extend(special::airp_extras(
+                                        &self.ui, device, queue, a, &p,
                                     )?);
                                 }
                                 if def.id == 22 {
