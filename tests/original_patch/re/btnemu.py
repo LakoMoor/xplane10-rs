@@ -1,4 +1,3 @@
-import os
 # btnemu.py <asm file> [W H] — walk a window function's disassembly (objdump AT&T syntax) in
 # address order and print every BTN_* / OGL_* call with concrete arguments.
 #
@@ -9,10 +8,10 @@ import os
 # Linear sweep: branches are not followed, every call site is reported once, in order.
 import json, re, struct, sys
 
-X = os.environ["XP_INSTALL"] + "/X-Plane.app/Contents/MacOS/X-Plane"
+X = "/Users/lakomoor/ported/XPL/X-Plane 10/X-Plane.app/Contents/MacOS/X-Plane"
 B = open(X, 'rb').read()
 SYMS = {}
-for l in open(os.environ.get('RE_WORK', '.') + '/syms.txt'):
+for l in open('/Users/lakomoor/ported/XPL/re_work/syms.txt'):
     p = l.rstrip('\n').split(' ', 2)
     if len(p) == 3 and len(p[0]) == 16:
         SYMS[int(p[0], 16)] = p[2]
@@ -286,9 +285,14 @@ r['rdi'] = ('this', 0)   # a member function's object
 # --tab VAR=VALUE: walk the control flow, deciding comparisons of VAR with its value; other
 # conditional branches are explored both ways (fall-through first). Without --tab: linear sweep.
 TAB = ('', 0)
+# --fix=VAR=VALUE (repeatable): state the window reads but does not switch with tabs (a mode
+# flag, a pref); comparisons of VAR are decided with VALUE like the tab variable's.
+FIX = {}
 for a in sys.argv[4:]:
     if a.startswith('--tab='):
         k, v = a[6:].split('='); TAB = (k, int(v))
+    if a.startswith('--fix='):
+        k, v = a[6:].split('='); FIX[k] = int(v)
 import copy
 def snap():   # values are immutable (floats, tuples): shallow copies suffice
     return tuple(dict(d) for d in (x, r, stk, strs, mem))
@@ -335,6 +339,8 @@ while stack:
                 decided = JCC[ins](cmp_before[0][1] - cmp_before[1])
             elif cmp_before and cmp_before[0] == TAB[0]:
                 decided = JCC[ins](TAB[1] - cmp_before[1])
+            elif cmp_before and cmp_before[0] in FIX:
+                decided = JCC[ins](FIX[cmp_before[0]] - cmp_before[1])
             if decided is not None:
                 i = (t if t is not None else -1) if decided else i + 1; continue
             if t is not None: stack.append((t, snap()))

@@ -12,27 +12,27 @@ tab	1	0	1				tab	Low Enroute
 tab	2	0	2				tab	High Enroute		
 tab	3	0	3				tab	Sectional		
 tab	4	0	4				tab	Textured		
-subwin	323	260	477~1,0	446~0,1	18					
-enter	368	30	308				pmap_wind()::pilot	pilot		
-enter	368	10	308				lbl:aircraft	aircraft		
-enter	758	30	308				pmap_wind()::instructor	instructor		
-enter	758	10	308				pmap_wind()::comment	comment		
+subwin	158	260	752~1,0	446~0,1	18					
+enter	203	30	308				pmap_wind()::pilot	pilot		
+enter	203	10	308				lbl:aircraft	aircraft		
+enter	593	30	308				pmap_wind()::instructor	instructor		
+enter	593	10	308				pmap_wind()::comment	comment		
 field	968	33	95							
 field	968	13	95							
-dob	869~1,0	478~0,1	3	0	0	360	m:0x1014b1078	carrier heading		
-dob	869~1,0	433~0,1	3	0	0	360	m:0x1014b1080	frigate heading		
-bool	844~1,0	393~0,1					m:0x1014b1088	show|NEXRAD		
-bool	844~1,0	373~0,1					m:0x1014b1090	show|wind 12K		
-bool	844~1,0	353~0,1					m:0x1014b1098	show|wind 34k		
-bool	844~1,0	333~0,1					m:0x1014b10a0	show|airports		
-bool	844~1,0	313~0,1					m:0x1014b10a8	show|OUR ILS		
-bool	844~1,0	293~0,1					m:0x1014b10b0	show|ALL ILS		
-bool	844~1,0	273~0,1					m:0x1014b10b8	show|NAVAIDS		
-bool	844~1,0	253~0,1					m:0x1014b10c0	show|airways		
-bool	844~1,0	233~0,1					m:0x1014b10c8	show|fixes		
-bool	844~1,0	213~0,1					m:0x1014b10d0	show|aircraft		
-bool	844~1,0	193~0,1					m:0x1014b10d8	show|path		
-bool	844~1,0	173~0,1					m:0x1014b10e0	show|rose		
+dob	979~1,0	478~0,1	3	0	0	360	m:0x1014b1078	carrier heading		
+dob	979~1,0	433~0,1	3	0	0	360	m:0x1014b1080	frigate heading		
+bool	954~1,0	393~0,1					m:0x1014b1088	show|NEXRAD		
+bool	954~1,0	373~0,1					m:0x1014b1090	show|wind 12K		
+bool	954~1,0	353~0,1					m:0x1014b1098	show|wind 34k		
+bool	954~1,0	333~0,1					m:0x1014b10a0	show|airports		
+bool	954~1,0	313~0,1					m:0x1014b10a8	show|OUR ILS		
+bool	954~1,0	293~0,1					m:0x1014b10b0	show|ALL ILS		
+bool	954~1,0	273~0,1					m:0x1014b10b8	show|NAVAIDS		
+bool	954~1,0	253~0,1					m:0x1014b10c0	show|airways		
+bool	954~1,0	233~0,1					m:0x1014b10c8	show|fixes		
+bool	954~1,0	213~0,1					m:0x1014b10d0	show|aircraft		
+bool	954~1,0	193~0,1					m:0x1014b10d8	show|path		
+bool	954~1,0	173~0,1					m:0x1014b10e0	show|rose		
 action	79	400	120				act:Load Airport	Load Airport		
 action	79	381	120				act:Load Aircraft	Load Aircraft		
 action	79	343	120				act:Load Situation	Load Situation		
@@ -49,8 +49,7 @@ action	79	115	120				act:6-Speed Track	6-Speed Track
 action	79	77	120				act:Reset Path	Reset Path		
 action	79	39	120				act:Quit All	Quit All		
 action	79	20	120				act:Shut Down All	Shut Down All		
-popup	859~1,0	698~0,1					pmap_wind()::p_upper_right	acft:		
-text	790~1,0	57	9999	96	2			Can not determine what approach you are attempting to fly.		
-subwin	323	50	477~1,0	200	18					
-subwin	323	716~0,1	477~1,0	62	18					
-text	550~1,0	669~0,1	9999	56	0			elevation		
+popup	969~1,0	698~0,1					pmap_wind()::p_upper_right	acft:		
+text	900~1,0	57	9999	96	2			Can not determine what approach you are attempting to fly.		
+subwin	158	50	752~1,0	200	18					
+text	660~1,0	669~0,1	9999	56	0			elevation		

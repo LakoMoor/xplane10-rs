@@ -4,8 +4,13 @@ name, wid = sys.argv[1], int(sys.argv[2])
 # Window sizes set by wins_class::start_win (0x10040fe60); the others fill the screen.
 FIXED = {1: (651, 753), 5: (572, 268), 9: (620, 438), 10: (1020, 766), 11: (700, 500), 15: (530, 650),
          17: (1020, 750), 18: (831, 636), 19: (600, 400), 20: (550, 425), 21: (550, 300), 22: (1024, 768)}
+# Mode flags a window reads outside its tabs, fixed to the oracle's state (btnemu --fix).
+# Local Region: edit off (_pmap+0), no wide side panel (+4), the profile shown (+8), not the
+# instructor station (_xtim+0x14).
+FIXES = {16: ['--fix=_pmap=0', '--fix=0x102b69984=0', '--fix=0x102b69988=1', '--fix=0x102f2b2b4=0']}
 def run(W, H, *extra):
-    return json.loads(subprocess.run(['python3', 'btnemu.py', f'out/asm/{name}.asm', str(W), str(H), *extra], capture_output=True, text=True).stdout)
+    out = subprocess.run(['python3', 'btnemu.py', f'out/asm/{name}.asm', str(W), str(H), *extra, *FIXES.get(wid, [])], capture_output=True, text=True).stdout
+    return json.loads('\n'.join(l for l in out.splitlines() if not l.startswith('#')))
 def build(W, H):
     global rows
     rows = []
