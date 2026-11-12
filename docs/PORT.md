@@ -535,7 +535,7 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - Calibrations (measured): the full-screen windows' widgets sit `drop` rows below the centred
   split, the others' on the frame's bottom row; ramp slider y0/y1 25/385.
 - Identical pixels: Select Airport 51.2 → 92.0 %, QuickFlight 25.5 → 84.3 %, Date & Time
-  98.0, Instructions 96.3, Xavion 95.3, Local Region 95.7; no window lost.
+  98.0, Sound 96.3, Instructions 95.3, Xavion 95.7; no window lost.
 
 ## 2026-11-12 — shared window chrome
 
@@ -550,5 +550,5 @@ Order is leaves-first: formats and geometry before anything touches a window.
   `--fix=VAR=VAL` decides any mode flag (Local Region: `_pmap+0/+4/+8`, `_xtim+0x14`).
 - Net Connections: `inet_init`'s address table and `WIN_get_computer_name`, read live.
 - Calibration (measured): in full-screen windows the pane frames sit one row above the
-  widgets' 2-row drop. With it: Net 96.0, Local Region 97.1, Joystick 98.0, Rendering 87.9,
-  Flight Data Recorder 88.0, Sound 90.1 %.
+  widgets' 2-row drop. With it: Net 96.0, Xavion 97.1, Joystick 98.0, Rendering 87.9,
+  Flight Data Recorder (file) 88.0, Weight & Balance 90.1 %.

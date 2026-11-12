@@ -67,9 +67,26 @@ footer{margin:64px 0 40px;color:var(--dim);font-size:14px;border-top:1px solid v
 <tr><td>Content formats</td><td class="n">10</td><td class="n">70 %</td><td class="n">15 %</td><td>ACF, OBJ8, apt.dat, PNG, DDS read across the whole install; DSF terrain only framed.</td></tr>
 <tr><td>2-D cockpit panel</td><td class="n">10</td><td class="n">20 %</td><td class="n">10 %</td><td>All 76 Cessna instrument faces placed from the original's own table; no needles or displays.</td></tr>
 <tr><td>Systems, datarefs, avionics</td><td class="n">8</td><td class="n">2 %</td><td class="n">2 %</td><td>GPS airport database reproduces the original's count exactly (19 186).</td></tr>
-<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">82 %</td><td class="n">68 %</td><td>Menu bar, drop-downs and every item working. All settings windows are drawn from the original's own widget calls, extracted from the binary per window, per tab and per loop iteration, at the sizes and with the titles <code>start_win</code> sets; full-screen windows are laid out at 1024×768 and centred, as the original does. 65–95 % of their pixels identical to the original's (Date &amp; Time, Load Xavion, Sound, Instructions, Joystick, Failures…). System Failures is complete: all six tabs with the 560-entry failure table, popups coloured by mode and the NAVAIDs list read from earth_nav.dat (92–95 % identical; 88 % on NAVAIDs). Select Airport (92 %) and QuickFlight (84 %) list every airport of the install and start from the original's layout; the maps are still missing.</td></tr>
+<tr><td>Menus &amp; dialogs</td><td class="n">7</td><td class="n">85 %</td><td class="n">74 %</td><td>Menu bar, drop-downs and every item working. All settings windows are drawn from the original's own widget calls, extracted from the binary per window, per tab and per loop iteration, at the sizes and with the titles <code>start_win</code> sets; full-screen windows are laid out at 1024×768 and centred, as the original does. 65–95 % of their pixels identical to the original's (Date &amp; Time, Load Xavion, Sound, Instructions, Joystick, Failures…). System Failures is complete: all six tabs with the 560-entry failure table, popups coloured by mode and the NAVAIDs list read from earth_nav.dat (92–95 % identical; 88 % on NAVAIDs). Joystick 98 %, Xavion 97 %, Net Connections 96 % (computer name and addresses read live); Select Airport (92 %) and QuickFlight (84 %) list every airport of the install and start from the original's layout; the maps are still missing.</td></tr>
 <tr><td>Sound, plugins, network, ATC</td><td class="n">5</td><td class="n">0 %</td><td class="n">0 %</td><td>Not started.</td></tr>
 <tr><td>Loading screen</td><td class="n">3</td><td class="n">85 %</td><td class="n">85 %</td><td>Picture, text, bands and progress bar match the original.</td></tr>
+</table></div>
+
+<h3 style="margin-top:28px">By stage</h3>
+<p class="small dim">The port is built in ten stages, each closed by a measured criterion against the running original. A stage counts 100 % only when its criterion is met; until then the figure is the share of its work done.</p>
+<div class="tw"><table>
+<tr><th>#</th><th>Stage</th><th>Criterion</th><th>Done</th><th>Measured now</th></tr>
+<tr><td class="n">1</td><td>Interface: windows, dialogs, menus, loading screen</td><td>every window ≥ 95 % identical pixels, live values</td><td class="n">62 %</td><td>7 of 16 measured windows at ≥ 95 % (Date &amp; Time 98.0, Joystick 98.0, Xavion 97.1, Sound 96.3, Net 96.0, Instructions 95.3; Select Airport 92.0); the maps (Local Region, Planet, Weather) wait for terrain</td></tr>
+<tr><td class="n">2</td><td>Scenery: DSF, terrain, objects, airports, sky, light, water</td><td>SSIM ≥ 0.9 at KSEA, LOWI, KSFO, EGLL and KSEA by night</td><td class="n">5 %</td><td>runway outlines, forward lighting with the original's sun</td></tr>
+<tr><td class="n">3</td><td>Aircraft: .acf, OBJ8 animation, liveries, lights, 3-D and 2-D cockpits</td><td>every stock aircraft loads, ≥ 90 % match</td><td class="n">10 %</td><td>ACF and OBJ8 read; panel faces placed; no animation</td></tr>
+<tr><td class="n">4</td><td>Flight model</td><td>60 s replay: position &lt; 1 m, angles &lt; 0.5°, speeds &lt; 1 %</td><td class="n">2 %</td><td>wing strip build-up matches the original's report</td></tr>
+<tr><td class="n">5</td><td>Instruments, navigation and systems</td><td>panels ≥ 90 %, readings within stage-4 tolerances</td><td class="n">3 %</td><td>GPS airport database count exact</td></tr>
+<tr><td class="n">6</td><td>Weather and environment</td><td>real/manual weather, regions, date, stars, moon</td><td class="n">1 %</td><td>weather window layout only</td></tr>
+<tr><td class="n">7</td><td>Sound</td><td>original's rules and volumes</td><td class="n">0 %</td><td>—</td></tr>
+<tr><td class="n">8</td><td>Input: joystick, keyboard, mouse, commands</td><td>assignments from the prf</td><td class="n">5 %</td><td>menus and window controls by mouse</td></tr>
+<tr><td class="n">9</td><td>Plugins (XPLM SDK 2.x)</td><td>stock plugins and .xpl load</td><td class="n">0 %</td><td>—</td></tr>
+<tr><td class="n">10</td><td>Replay, data output, network, logbook, QuickFlight, ATC, AI</td><td>behaves as the original</td><td class="n">3 %</td><td>QuickFlight and Net Connections windows</td></tr>
+<tr><td></td><td><b>Overall</b></td><td>all ten closed</td><td class="n"><b>9 %</b></td><td>mean of the ten stages</td></tr>
 </table></div>
 
 <h2 id="match">What already matches the original</h2>
