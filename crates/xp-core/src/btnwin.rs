@@ -40,6 +40,11 @@ pub enum Kind {
     Display,
     /// `BTN_frame1` type 9: a sunken white read-out box a wide, centred on x, y.
     Field,
+    /// `BTN_select_path_stl`: a browse box and a field a wide showing the file name of the
+    /// path in text pref `key`.
+    Path,
+    /// `plot_dir`: a heading knob centred on x, y showing pref `key` in degrees.
+    Dir,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -129,6 +134,8 @@ pub fn parse(id: i32, title: &str, text: &str, screen: (f32, f32)) -> Result<Win
             "text" => Kind::Text,
             "tab" => Kind::Tab,
             "enter" => Kind::Enter,
+            "path" => Kind::Path,
+            "dir" => Kind::Dir,
             "display" => Kind::Display,
             "field" => Kind::Field,
             other => bail!("window {id} line {}: unknown widget {other}", n + 1),
@@ -224,6 +231,8 @@ pub fn start_win_title(id: i32) -> Option<&'static str> {
 #[derive(Debug, Clone, Default)]
 pub struct Prefs {
     values: BTreeMap<String, f64>,
+    /// Lines whose value is not a number (paths): the rest of the line.
+    texts: BTreeMap<String, String>,
     own: Option<PathBuf>,
     /// Keys the port's own file holds: loaded from it or changed in a window.
     saved: std::collections::BTreeSet<String>,
@@ -243,6 +252,7 @@ impl Prefs {
     pub fn load(install: &Path, own: Option<PathBuf>) -> Prefs {
         let mut p = Prefs {
             values: BTreeMap::new(),
+            texts: BTreeMap::new(),
             own,
             saved: Default::default(),
         };
@@ -258,10 +268,17 @@ impl Prefs {
                 }
             }
         };
-        read(
-            &install.join("Output/preferences/X-Plane.prf"),
-            &mut p.values,
-        );
+        let prf = install.join("Output/preferences/X-Plane.prf");
+        read(&prf, &mut p.values);
+        if let Ok(t) = crate::read_text_lossy(&prf) {
+            for l in t.lines() {
+                if let Some((k, rest)) = l.split_once(' ') {
+                    if rest.trim().parse::<f64>().is_err() {
+                        p.texts.insert(k.to_string(), rest.trim_end().to_string());
+                    }
+                }
+            }
+        }
         if let Some(o) = p.own.clone() {
             let mut mine = BTreeMap::new();
             read(&o, &mut mine);
@@ -274,6 +291,11 @@ impl Prefs {
             }
         }
         p
+    }
+
+    /// A non-numeric pref (a path), as the prf line has it.
+    pub fn text(&self, key: &str) -> Option<&str> {
+        self.texts.get(key).map(String::as_str)
     }
 
     pub fn get(&self, key: &str) -> f64 {

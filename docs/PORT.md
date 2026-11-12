@@ -572,3 +572,18 @@ Order is leaves-first: formats and geometry before anything touches a window.
   it by `_tank_rat`; LEFT / RIGHT spread over that side's tanks (**approximation**, the side split
   is not decoded yet).
 - Not yet: the endurance read-out (`util_hours_fuel`, needs the engine model), weapons' mass.
+
+## 2026-11-12 — Aircraft & Situations (window 8): 75.2 → 92.7 %; buttons from BTN_action
+
+- `BTN_select_path_stl` rows (new `path` kind): browse box (atlas 212,357, 17×17) at x − 26 and the
+  file name of the prf path in a sunken field; labels at x − 32 / x + w + 6 from
+  `BTN_select_path_stl_common`. **Calibration**: field box x − 7 … x + w + 2, y − 12 … y + 3 (drawn
+  inside OGLE callbacks, not decoded).
+- Prefs keep non-numeric prf lines (paths) as text; window 8's globals mapped to their prf names
+  (`_rel_path_*`, `_ref_v_ktas`, `_car_alt_ft`, `_for_v_rat`, …) so the numbers are live.
+- `plot_dir` (new `dir` kind): needle atlas 156…166 × 155…197 over x ± 5, y ± 21, glass ball
+  178…234 × 294…352 over x ± 28, y ± 29, three digits in palette 0x36. Not yet: needle rotation.
+  **Calibration**: digit centres x − 11 + 10·i.
+- `BTN_action` → `BTN_frame1(3, x, y, w)`: the button cell spans x − w/2 … x + w/2 (was 2 px right,
+  1 px wide). Select Airport 92.0 → 93.7. **Calibration**: one row higher in full-screen windows,
+  as the panes.

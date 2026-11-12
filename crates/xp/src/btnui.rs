@@ -226,13 +226,21 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             r: x - 7.0 + w.a.max(40.0),
             b: y + 3.0,
         },
+        // Calibration (oracle Aircraft & Situations frame): the field's sunken box covers
+        // x − 7 … x + w + 2, 12 rows above y to 3 below.
+        Kind::Path => Rect {
+            l: x - 7.0,
+            t: y - 12.0,
+            r: x + w.a + 2.0,
+            b: y + 3.0,
+        },
         Kind::Field => Rect {
             l: x - (w.a * 0.5).floor(),
             t: y - 8.0,
             r: x - (w.a * 0.5).floor() + w.a,
             b: y + 7.0,
         },
-        Kind::Subwin | Kind::Text | Kind::Display => Rect {
+        Kind::Subwin | Kind::Text | Kind::Display | Kind::Dir => Rect {
             l: x,
             t: y,
             r: x,
@@ -523,12 +531,17 @@ pub fn layers(
                 label_lines(ui, d, q, right, x + 14.0, y, false, &mut l)?;
             }
             Kind::Action => {
+                // BTN_action draws BTN_frame1(3, x, y, w, 1, 0x48): the cell over x − w/2 … x + w/2
+                // (control_rect is x − w/2 + 6 … x + w/2 − 3).
+                // Calibration (oracle frames, like the panes): one row higher in the full-screen
+                // windows (Aircraft & Situations, Weight, Data Output), not in the fixed-size ones.
+                let up = if p.tab_dy > 0.0 { 1.0 } else { 0.0 };
                 l.extend(ui.nine_slice(
                     Rect {
-                        l: r.l - 4.0,
-                        t: r.t - 5.0,
-                        r: r.r + 4.0,
-                        b: r.t + 21.0,
+                        l: r.l - 6.0,
+                        t: r.t - 5.0 - up,
+                        r: r.r + 3.0,
+                        b: r.t + 21.0 - up,
                     },
                     [304.0, 0.0, 356.0, 26.0],
                     [8.0, 0.0, 8.0, 0.0],
@@ -612,6 +625,38 @@ pub fn layers(
                 l.push(ui.fill([r.l, r.t, r.r - r.l, 1.0], [119, 119, 119, 255]));
                 label_lines(ui, d, q, left, r.l - 3.0, y, true, &mut l)?;
                 label_lines(ui, d, q, right, r.r + 5.0, y, false, &mut l)?;
+            }
+            Kind::Path => {
+                // The browse box: OGL_2dquad of the 17×17 atlas cell at (212, 357), from x − 26.
+                l.push(ui.atlas_cell([212.0, 357.0, 229.0, 374.0], [x - 26.0, r.t - 1.0, 17.0, 17.0]));
+                l.extend(ui.nine_slice(
+                    r,
+                    [264.0, 358.0, 312.0, 373.0],
+                    [4.0, 4.0, 4.0, 4.0],
+                    [0.0; 4],
+                ));
+                // BTN_select_path_stl_common shows the part after the last directory separator.
+                let path = prefs.text(&w.key).unwrap_or("");
+                let name = path.rsplit(['/', '\\', ':']).next().unwrap_or(path);
+                l.push(ui.text_at(d, q, name, [x, y], TEXT)?);
+                // BTN_util_draw_label at x − 32 and x + w + 6.
+                label_lines(ui, d, q, left, x - 32.0, y, true, &mut l)?;
+                label_lines(ui, d, q, right, x + w.a + 6.0, y, false, &mut l)?;
+            }
+            Kind::Dir => {
+                // plot_dir: the needle (atlas 156…166 × 155…197) over x ± 5, y ± 21 turned by the
+                // heading, then the glass ball (178…234 × 294…352) over x ± 28, y ± 29, then the
+                // heading in 3 digits, palette 0x36, from x − 14 at GL y − 3.
+                // Not yet: the needle's rotation (drawn upright, right for heading 0).
+                l.push(ui.atlas_cell([156.0, 155.0, 166.0, 197.0], [x - 5.0, y - 21.0, 10.0, 42.0]));
+                l.push(ui.atlas_cell([178.0, 294.0, 234.0, 352.0], [x - 28.0, y - 29.0, 56.0, 58.0]));
+                let v = prefs.get(&w.key).rem_euclid(360.0).round() as i32 % 360;
+                let rgb = xp_core::menu::palette(0x36);
+                // OGL_number sets digits 10 apart: centres x − 11, x − 1, x + 9 (oracle frame).
+                for (i, ch) in format!("{v:03}").chars().enumerate() {
+                    let c = [x - 11.0 + 10.0 * i as f32, y + 2.0];
+                    l.push(ui.text_centred(d, q, &ch.to_string(), c, rgb)?);
+                }
             }
             Kind::Field => {
                 // interface.png 264..312 × 358..373: the sunken white read-out box.
