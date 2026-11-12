@@ -317,7 +317,17 @@ pub fn layers(
                     r: x + w.a,
                     b: y,
                 };
-                l.extend(ui.frame2(w.c as i32, rect));
+                // Calibration (measured on every full-screen oracle frame): the panes sit one row
+                // above the widgets' 2-row drop; their titles stay with the widgets.
+                let up = if p.tab_dy > 0.0 { 1.0 } else { 0.0 };
+                l.extend(ui.frame2(
+                    w.c as i32,
+                    Rect {
+                        t: rect.t - up,
+                        b: rect.b - up,
+                        ..rect
+                    },
+                ));
                 if !w.label.is_empty() {
                     l.push(ui.text_centred(
                         d,
