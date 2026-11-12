@@ -552,3 +552,23 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - Calibration (measured): in full-screen windows the pane frames sit one row above the
   widgets' 2-row drop. With it: Net 96.0, Xavion 97.1, Joystick 98.0, Rendering 87.9,
   Flight Data Recorder (file) 88.0, Weight & Balance 90.1 %.
+
+## 2026-11-12 — Weight & Balance & Fuel (window 6): 90.1 → 98.1 %
+
+- `xp-core/src/weights.rs`: the default loading from `veh_class::load_veh3` / `fuel_class::fuel_plane`
+  (tanks = `_m_fuel_max_tot` × `_tank_rat` × 0.5, slung = `_m_jett` × 0.5, shifted = `_m_shift`,
+  payload = half of what `_m_max` leaves, or what `_m_displaced` leaves above half of `_m_max`)
+  and the patch of the `wegt_wind` rows: ranges 0 … 1.1 × `_m_max`, read-only empty / total /
+  maximum, palettes 0x49 / 0x50 / 0x51, tank rows at x 120 + 310·(i/3), y 391 − 36·(i%3), JATO,
+  shifted, slung rows and the slung-load size only when the aircraft has them, the Ordnance tab
+  only with weapons.
+- CG slider range from the code: (`_cgZ_fwd` − `_cgZ`) − 0.25 × MAC … (`_cgZ_aft` − `_cgZ`) +
+  0.25 × MAC, MAC = `_average_mac_acf` (+0x22b4) which `load_veh2` averages over the elements of
+  surfaces 8 … 55. **Approximation**: element-end chords assumed linear over equal spans (gives
+  the C172 thumb at x 447.15; oracle 447).
+- `BTN_horz_slider` drawn from the code: track `BTN_frame1` 7, fill `BTN_frame1` 8 tinted by the
+  palette over pos = w·(v − min)/(max − min) rounded up to even, value in palette 0x34 centred
+  15 above, labels at x − 8 / x + w + 8, thumb only on editable rows. Dragging fuel TOTAL spreads
+  it by `_tank_rat`; LEFT / RIGHT spread over that side's tanks (**approximation**, the side split
+  is not decoded yet).
+- Not yet: the endurance read-out (`util_hours_fuel`, needs the engine model), weapons' mass.

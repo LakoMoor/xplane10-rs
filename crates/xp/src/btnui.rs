@@ -242,6 +242,90 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
 }
 
 #[allow(clippy::too_many_arguments)]
+/// `BTN_horz_slider(x, y, w, palette, min, max, *v, editable, label, value)` at screen x (left
+/// end) and y: the track (`BTN_frame1` type 7, palette 0x48) centred on y over x … x + w; unless
+/// the palette is 0x60, the fill (`BTN_frame1` type 8 tinted with the palette) over the first
+/// pos = w·(v − min)/(max − min) columns rounded up to even, 4 rows up; the value string in
+/// palette 0x34 centred at x + w/2, 15 up; the thumb at x + pos when editable.
+/// items: ["horz", palette or the pref holding it, editable, format].
+fn horz_slider(
+    ui: &Ui,
+    d: &wgpu::Device,
+    q: &wgpu::Queue,
+    w: &Widget,
+    prefs: &Prefs,
+    x: f32,
+    y: f32,
+) -> Result<Vec<Layer>> {
+    let mut l = Vec::new();
+    let v = prefs.widget_value(w) as f32;
+    let pal = match w.items.get(1) {
+        Some(s) if s.starts_with("m:") => prefs.get(s) as usize,
+        Some(s) => s.parse().unwrap_or(0x49),
+        None => 0x49,
+    };
+    let editable = w.items.get(2).map(String::as_str) == Some("1");
+    let pos = if w.c > w.b {
+        (w.a * (v - w.b) / (w.c - w.b)).clamp(0.0, w.a)
+    } else {
+        w.a * 0.5
+    };
+    // Track: atlas cell 240…305 × 246…270, 10-column ends, top = y − 12 − 1.
+    l.extend(ui.nine_slice(
+        Rect {
+            l: x,
+            t: y - 13.0,
+            r: x + w.a,
+            b: y + 11.0,
+        },
+        [240.0, 246.0, 305.0, 270.0],
+        [10.0, 0.0, 10.0, 0.0],
+        [0.0; 4],
+    ));
+    if pal != 0x60 && pos > 0.0 {
+        let iw = 2.0 * ((pos.trunc() * 0.5 + 0.5).trunc());
+        let c = xp_core::menu::palette(pal);
+        let tint = [
+            f32::from(c[0]) / 255.0,
+            f32::from(c[1]) / 255.0,
+            f32::from(c[2]) / 255.0,
+            1.0,
+        ];
+        // Fill: atlas cell 289…305 × 277…293, 7-column ends, centred 4 rows above y.
+        for mut layer in ui.nine_slice(
+            Rect {
+                l: x,
+                t: y - 4.0 - 9.0,
+                r: x + iw,
+                b: y - 4.0 + 7.0,
+            },
+            [289.0, 277.0, 305.0, 293.0],
+            [7.0, 0.0, 7.0, 0.0],
+            [0.0; 4],
+        ) {
+            layer.tint = tint;
+            l.push(layer);
+        }
+    }
+    let text = match w.items.get(3).map(String::as_str) {
+        // flt_to_str(v × 12 × 3.2808, 3, 1): inches from the default CG.
+        Some("cg") => format!("{:.1}", v * 12.0 * 3.280_84),
+        _ => format!("{}", v as i32),
+    };
+    l.push(ui.text_centred(
+        d,
+        q,
+        &text,
+        [x + w.a / 2.0, y - 16.0],
+        xp_core::menu::palette(0x34),
+    )?);
+    if editable {
+        let tx = (x + pos - 5.5).round();
+        l.push(ui.atlas_cell([267.0, 225.0, 278.0, 241.0], [tx, y - 12.0, 11.0, 16.0]));
+    }
+    Ok(l)
+}
+
 fn label_lines(
     ui: &Ui,
     d: &wgpu::Device,
@@ -457,6 +541,12 @@ pub fn layers(
                     [((r.l + r.r) * 0.5).floor(), r.t + 11.0],
                     TEXT,
                 )?);
+            }
+            Kind::Slider if w.items.first().map(String::as_str) == Some("horz") => {
+                l.extend(horz_slider(ui, d, q, w, prefs, x, y)?);
+                // BTN_util_draw_label at x − 8 and x + w + 8 (the constant 8.0 at 0x1010b3048).
+                label_lines(ui, d, q, left, x - 8.0, y, true, &mut l)?;
+                label_lines(ui, d, q, right, x + w.a + 8.0, y, false, &mut l)?;
             }
             Kind::Slider => {
                 let v = prefs.widget_value(w) as f32;
@@ -767,6 +857,24 @@ pub fn drag(win: &Window, prefs: &mut Prefs, state: &State, p: Place, ui: &Ui, x
 }
 
 fn slide(w: &Widget, prefs: &mut Prefs, p: &Place, ui: &Ui, x: f32) {
+    if w.items.first().map(String::as_str) == Some("horz") {
+        // BTN_horz_slider: the value under the pointer, x … x + w spanning min … max; read-only
+        // rows do not move.
+        if w.items.get(2).map(String::as_str) != Some("1") {
+            return;
+        }
+        let t = ((x - p.sx(w.x)) / w.a).clamp(0.0, 1.0);
+        save(prefs, w, (w.b + t * (w.c - w.b)) as f64);
+        if w.key.starts_with("m:wgt_") {
+            let cell = std::cell::RefCell::new(prefs);
+            let get = |k: &str| cell.borrow().get(k);
+            let mut set = |k: &str, v: f64| {
+                let _ = cell.borrow_mut().set(k, v);
+            };
+            xp_core::weights::sync(&get, &mut set, &w.key);
+        }
+        return;
+    }
     let r = control_rect(w, p, ui);
     let t = ((x - r.l - 5.0) / (w.a - 28.0)).clamp(0.0, 1.0);
     save(prefs, w, (w.b + t * (w.c - w.b)) as f64);

@@ -45,3 +45,4 @@ pub fn read_text_lossy(path: impl AsRef<std::path::Path>) -> std::io::Result<Str
 pub fn install_root() -> Option<std::path::PathBuf> {
     std::env::var_os("XP_INSTALL").map(std::path::PathBuf::from)
 }
+pub mod weights;

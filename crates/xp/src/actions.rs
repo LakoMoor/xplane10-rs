@@ -407,6 +407,25 @@ impl Renderer {
                             .extend(xp_core::navaid::fail_widgets(&list, def.size.1));
                     }
                 }
+                if start_win == Some(6) {
+                    // Weight & Balance & Fuel: the loading the original sets up for the aircraft.
+                    match xp_core::acf::Acf::load(self.install.join(&self.aircraft[self.current])) {
+                        Ok(acf) => {
+                            let load = xp_core::weights::Loading::from_acf(&acf);
+                            load.apply(&mut def.widgets);
+                            for (k, v) in load.values() {
+                                let _ = self.prefs.set(&k, v);
+                            }
+                            let prefs = std::cell::RefCell::new(&mut self.prefs);
+                            let get = |k: &str| prefs.borrow().get(k);
+                            let mut set = |k: &str, v: f64| {
+                                let _ = prefs.borrow_mut().set(k, v);
+                            };
+                            xp_core::weights::sync(&get, &mut set, "");
+                        }
+                        Err(e) => log::warn!("{e:#}"),
+                    }
+                }
                 let drop = if def.id == 22 {
                     0.0
                 } else {
