@@ -192,6 +192,32 @@ def extras(W, H, row):
                     row('dob', x + 95.0, y, 4, 0, lo, 9999.0, key=f'm:fail{i}v{mode}', label=unit, cond=cond + f',{k}={mode}')
                 y -= 35.0
             cur[0], cur[1] = x, y
+  if name == 'airp_wind' and wid == 1:
+    # airp_wind serves three windows by _wins+4 (1 Select Airport, 0x10 Local Map, 0x16
+    # QuickFlight); the linear walk sees every branch. Window 1 keeps its own: no 'Airport'
+    # pane (QuickFlight), no BTN_enterstring and no short TAKEOFF line (Local Map). Its 'Apt:'
+    # field is BTN_list_and_search's own BTN_enterstring(x + 35, y - 131, 252) for the list at
+    # (20, 595); the list itself is drawn by special.rs.
+    rows[:] = [r for r in rows if not (r[0] == 'subwin' and r[8] == 'Airport') and r[0] != 'enter'
+               and r[8] != 'TAKEOFF     FINAL APPROACH']
+    row('enter', 55.0, 464.0, 252.0, key='s:apt_filter', label='Apt:')
+    # The window's pane is drawn first (the walk lists it by address, after the buttons).
+    rows.sort(key=lambda r: 0 if (r[0] == 'subwin' and r[5] == 16) else 1)
+  if name == 'qflt_wind':
+    # QuickFlight draws airp_wind (mode 0x16) and opensave_perframe(…, 0x16) before its own
+    # panes. airp_wind: the 'Airport' pane (BTN_subwin(0, 10, 427, -1, -1)), the list at
+    # (20, 605) and its 'Apt:' field (x + 35, y - 131, 252). opensave_perframe: file_list_x1
+    # 358, x2 568, y1 495, y2 = H - 53; the 'Aircraft' pane (x1 - 10, y1 - 68, x2 - x1 + 40,
+    # y2 - y1 + 93) with the list field (type 0x13) inside, and the preview pane (10, 10, 588,
+    # 407) with its field (20, 20, 568, 377). The lists and the preview: special.rs.
+    rows[:0] = [
+        ['subwin', 10.0, 427.0, 328.0, float(H) - 28.0 - 427.0, 16, '', '', 'Airport', '', ''],
+        ['enter', 55.0, 474.0, 252.0, '', '', '', 's:apt_filter', 'Apt:', '', ''],
+        ['subwin', 348.0, 427.0, 250.0, 313.0, 16, '', '', 'Aircraft', '', ''],
+        ['subwin', 358.0, 495.0, 210.0, 220.0, 19, '', '', '', '', ''],
+        ['subwin', 10.0, 10.0, 588.0, 407.0, 16, '', '', '', '', ''],
+        ['subwin', 20.0, 20.0, 568.0, 377.0, 19, '', '', '', '', ''],
+    ]
   if name == 'xtim_wind':
     # Month names: a loop over a string table, x = (i - 5.5) * 500 / 12 + 286 - 12 (xtim_wind).
     for i, m in enumerate('Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()):

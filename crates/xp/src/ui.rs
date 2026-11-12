@@ -611,6 +611,29 @@ impl Ui {
     /// (101 apart), rows 54…154. 0x12 is the dark translucent info pane (α 0.70 over the
     /// pinstripe gives the oracle's 91/255 in Rendering Options).
     pub fn frame2(&self, ty: i32, rect: xp_core::menu::Rect) -> Vec<Layer> {
+        // BTN_frame2 (0x1003d9700) per type: the atlas cell (GL texels u0, v0, size), its
+        // fixed borders (horizontal, vertical) and how far the quad grows past the rect.
+        match ty {
+            // The sunken white field: cell (1, 289) 68 square, borders 23.8 / 20.4, grown 2.
+            0x13 => {
+                return self.nine_slice(
+                    rect,
+                    [1.0, 155.0, 69.0, 223.0],
+                    [24.0, 20.0, 24.0, 20.0],
+                    [2.0; 4],
+                )
+            }
+            // The selection glow: cell (113, 315) 42 square, borders 14.7 / 12.6, grown 15.
+            0x15 => {
+                return self.nine_slice(
+                    rect,
+                    [113.0, 155.0, 155.0, 197.0],
+                    [15.0, 13.0, 15.0, 13.0],
+                    [15.0; 4],
+                )
+            }
+            _ => {}
+        }
         let u = 1.0 + (ty.clamp(0xe, 0x12) - 0xe) as f32 * 101.0;
         self.nine_slice(
             rect,

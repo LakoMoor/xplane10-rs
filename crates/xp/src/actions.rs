@@ -27,6 +27,10 @@ pub struct Win {
     pub state: crate::btnui::State,
     /// Rows the widgets sit below the frame's split (see `content_drop`).
     pub drop: f32,
+    /// The airport list of Select Airport / QuickFlight (`airp_wind`).
+    pub apt: Option<crate::special::AptList>,
+    /// QuickFlight's aircraft tree (`opensave_perframe` in mode 0x16).
+    pub tree: Option<crate::chooser::Chooser>,
 }
 
 /// `wins_class::start_win`: the window's GL origin is ((screen − size)·0.5 + 0.5) truncated,
@@ -44,6 +48,17 @@ fn centred(size: (f32, f32), screen: (f32, f32)) -> Rect {
         r: l + size.0,
         b: t + size.1,
     }
+}
+
+/// [`centred`], except QuickFlight: the oracle frame shows its frame one row taller at the
+/// bottom (the pinstripe and the bottom edge one row lower, the title strip in place) and its
+/// widgets one row lower than the 2-row drop of the other full-screen windows. Measured.
+fn win_rect(def: &xp_core::btnwin::Window, screen: (f32, f32)) -> Rect {
+    let mut r = centred(def.size, screen);
+    if def.id == 22 {
+        r.b += 1.0;
+    }
+    r
 }
 
 /// The size `start_win` calls the screen (`_DAT_102f2b23c`): the interface's 1024×768, not the
@@ -211,8 +226,7 @@ impl Renderer {
                         .into(),
                 ],
             ),
-            // QuickFlight Setup is not ported yet; its aircraft half is the Open dialog.
-            300 | 600 => {
+            600 => {
                 self.chooser = Some(chooser::Chooser::new(
                     &self.install,
                     &self.aircraft[self.current],
@@ -336,27 +350,42 @@ impl Renderer {
                     // The NAVAIDs tab lists the navaids around the start airport (KSEA).
                     let all = xp_core::navaid::load(&self.install);
                     if let Some((lat, lon)) =
-                        xp_core::navaid::airport_position(&self.install, "KSEA")
+                        xp_core::navaid::airport_position(&self.install, crate::START_AIRPORT)
                     {
                         let list = xp_core::navaid::fail_list(&all, lat, lon);
                         def.widgets
                             .extend(xp_core::navaid::fail_widgets(&list, def.size.1));
                     }
                 }
-                let drop = content_drop(def.size);
+                let drop = if def.id == 22 {
+                    0.0
+                } else {
+                    content_drop(def.size)
+                };
                 self.windows_cache = None;
                 if let Some(i) = self.windows.iter().position(|w| w.item == item) {
                     self.windows.remove(i);
                     return;
                 }
+                let apt = matches!(start_win, Some(1 | 22)).then(|| {
+                    if self.apt_index.is_empty() {
+                        self.apt_index = xp_core::apt_index::load(&self.install);
+                    }
+                    crate::special::AptList::new(&self.apt_index, crate::START_AIRPORT)
+                });
+                let tree = (start_win == Some(22)).then(|| {
+                    crate::chooser::Chooser::new(&self.install, &self.aircraft[self.current])
+                });
                 self.windows.push(Win {
                     item,
                     title: def.title.clone(),
                     lines: Vec::new(),
-                    rect: centred(def.size, screen),
+                    rect: win_rect(&def, screen),
                     def: Some(def),
                     state: Default::default(),
                     drop,
+                    apt,
+                    tree,
                 });
             }
         }
@@ -385,6 +414,8 @@ impl Renderer {
             def: None,
             state: Default::default(),
             drop: 0.0,
+            apt: None,
+            tree: None,
         });
     }
 
@@ -394,7 +425,7 @@ impl Renderer {
         self.windows_cache = None;
         for win in self.windows.iter_mut() {
             if let Some(def) = &win.def {
-                win.rect = centred(def.size, (sw, sh));
+                win.rect = win_rect(def, (sw, sh));
             }
         }
         for (k, win) in self
@@ -436,6 +467,19 @@ impl Renderer {
                     x,
                     y,
                 );
+                // Window GL coordinates of the press.
+                let (gx, gy) = (x - place.ox, place.oy + place.h - y);
+                if let Some(a) = &mut w.apt {
+                    let ly = if def.id == 22 { 605.0 } else { 595.0 };
+                    crate::special::apt_click(a, 20.0, ly, gx, gy);
+                }
+                if def.id == 22 {
+                    if let Some((k, v)) = crate::special::qflt_click(w.tree.as_mut(), gx, gy) {
+                        if let Err(e) = self.prefs.set(k, v) {
+                            log::error!("{e:#}");
+                        }
+                    }
+                }
             }
             self.apply_prefs();
         } else {

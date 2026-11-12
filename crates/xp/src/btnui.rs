@@ -47,10 +47,10 @@ pub struct Place {
 }
 
 impl Place {
-    fn sx(&self, x: f32) -> f32 {
+    pub(crate) fn sx(&self, x: f32) -> f32 {
         self.ox + x
     }
-    fn sy(&self, y: f32) -> f32 {
+    pub(crate) fn sy(&self, y: f32) -> f32 {
         self.oy + self.h - y
     }
 }

@@ -226,6 +226,26 @@ impl Chooser {
         out
     }
 
+    /// A click on tree row `row`: an aircraft is selected (opened on a second click), a
+    /// folder opens or closes.
+    pub fn click_row(&mut self, row: usize) -> Action {
+        let hit = self.rows().get(row).map(|n| (n.path.clone(), n.is_acf));
+        match hit {
+            Some((path, true)) => {
+                if self.selected == path {
+                    return Action::Open(path);
+                }
+                self.selected = path;
+                self.livery = 0;
+            }
+            Some((path, false)) if !path.as_os_str().is_empty() => {
+                toggle(&mut self.root.children, &path)
+            }
+            _ => {}
+        }
+        Action::None
+    }
+
     /// A click at `(x, y)` relative to the dialog's top-left corner.
     pub fn click(&mut self, x: f32, y: f32) -> Action {
         let inside =
@@ -240,22 +260,8 @@ impl Chooser {
             let first_top = TREE_FIRST_BASELINE - 11.5;
             let row = ((y - first_top) / ROW_PITCH).floor();
             if row >= 0.0 {
-                let hit = self
-                    .rows()
-                    .get(row as usize)
-                    .map(|n| (n.path.clone(), n.is_acf));
-                match hit {
-                    Some((path, true)) => {
-                        if self.selected == path {
-                            return Action::Open(path);
-                        }
-                        self.selected = path;
-                        self.livery = 0;
-                    }
-                    Some((path, false)) if !path.as_os_str().is_empty() => {
-                        toggle(&mut self.root.children, &path)
-                    }
-                    _ => {}
+                if let Action::Open(p) = self.click_row(row as usize) {
+                    return Action::Open(p);
                 }
             }
         }
@@ -267,6 +273,110 @@ impl Chooser {
             }
         }
         Action::None
+    }
+
+    /// Tree rows of the file list: `field` is the white field's left, top and right, `first`
+    /// the first row's text start and baseline, `skip` rows scrolled off the top.
+    #[allow(clippy::too_many_arguments)]
+    pub fn tree_layers(
+        &self,
+        ui: &Ui,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        field: [f32; 3],
+        first: [f32; 2],
+        max_rows: usize,
+        skip: usize,
+    ) -> Result<Vec<Layer>> {
+        let mut l = Vec::new();
+        let rows = self.rows();
+        for (i, n) in rows.iter().skip(skip).take(max_rows).enumerate() {
+            let baseline = first[1] + i as f32 * ROW_PITCH;
+            if n.is_acf && n.path == self.selected {
+                // Rows baseline − 12 … baseline + 3 across the field, 204, the field's sunken
+                // edge darkened over it (144/176/195), as on the user's screenshot.
+                let y = baseline - 12.0;
+                l.push(ui.fill(
+                    [field[0], y, field[2] - field[0], 16.0],
+                    [204, 204, 204, 255],
+                ));
+                for (k, c) in [144u8, 176, 195].into_iter().enumerate() {
+                    for x in [field[0] + k as f32, field[2] - 1.0 - k as f32] {
+                        l.push(ui.fill([x, y, 1.0, 16.0], [c, c, c, 255]));
+                    }
+                }
+            }
+            let x = first[0] + n.depth as f32 * INDENT;
+            // Folder (atlas 34…47 × 418…431) or aircraft (48…61) icon, 16 left of the text and
+            // 10 above the baseline: matched on the user's screenshot (0.16/255 rms).
+            let u = if n.is_acf { 48.0 } else { 34.0 };
+            l.push(ui.atlas_cell(
+                [u, 418.0, u + 13.0, 431.0],
+                [x - 16.0, baseline - 10.0, 13.0, 13.0],
+            ));
+            // Tree text is black; the selected row's is the dialog text colour.
+            let selected = n.is_acf && n.path == self.selected;
+            let rgb = if selected { TEXT } else { [0; 3] };
+            l.push(ui.text_at(device, queue, &n.name, [x, baseline], rgb)?);
+        }
+        Ok(l)
+    }
+
+    /// Visible tree rows.
+    pub fn row_count(&self) -> usize {
+        self.rows().len()
+    }
+
+    /// The preview tile (`plot_a_tile`, 0x1005b2dc0, at full size): a grey (130) 250×250
+    /// quad from (cx − 125, cy − 50) to (cx + 125, cy + 200), the aircraft's `<name>_icon.png`
+    /// 10 inside it at its own size (230×230 here), a black `OGL_grayrect` 30 high under it, and
+    /// the path split at its last '/' right-aligned 5 in from the right edge, 12 and 26 below
+    /// the tile's bottom. `at` is the tile's top-left corner.
+    pub fn preview_layers(
+        &self,
+        ui: &Ui,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        store: &mut TextureStore,
+        at: [f32; 2],
+    ) -> Result<Vec<Layer>> {
+        let mut l = Vec::new();
+        let acf = self.install.join(&self.selected);
+        let icon = acf.with_file_name(format!(
+            "{}_icon.png",
+            acf.file_stem()
+                .map(|s| s.to_string_lossy())
+                .unwrap_or_default()
+        ));
+        l.push(ui.fill([at[0], at[1], 250.0, 250.0], [130, 130, 130, 255]));
+        if icon.is_file() {
+            let view = store.get_ui(device, queue, &icon)?;
+            let mut layer = Layer::bitmap(view, [at[0] + 10.0, at[1] + 10.0], [1.0; 4]);
+            layer.rect[2] = 230.0;
+            layer.rect[3] = 230.0;
+            l.push(layer);
+        }
+        l.push(ui.fill([at[0], at[1] + 250.0, 250.0, 30.0], [0, 0, 0, 255]));
+        let shown = self.selected.to_string_lossy().into_owned();
+        let (head, tail) = match shown.rfind('/') {
+            Some(i) => (shown[..=i].to_string(), shown[i + 1..].to_string()),
+            None => (String::new(), shown),
+        };
+        l.push(ui.text_right(
+            device,
+            queue,
+            &head,
+            [at[0] + 245.0, at[1] + 262.0],
+            [255; 3],
+        )?);
+        l.push(ui.text_right(
+            device,
+            queue,
+            &tail,
+            [at[0] + 245.0, at[1] + 276.0],
+            [255; 3],
+        )?);
+        Ok(l)
     }
 
     /// The dialog as layers, with its top-left corner at `origin`.
@@ -323,71 +433,20 @@ impl Chooser {
         }
         l.push(ui.text_centred(device, queue, "Aircraft", at(221.0, 45.0), TEXT)?);
 
-        // Tree.
-        let rows = self.rows();
-        let max_rows = ((LIST[3] - 16.0) / ROW_PITCH) as usize;
-        for (i, n) in rows.iter().take(max_rows).enumerate() {
-            let baseline = TREE_FIRST_BASELINE + i as f32 * ROW_PITCH;
-            if n.is_acf && n.path == self.selected {
-                // Rows baseline − 12 … baseline + 3 across the field, 204, the field's sunken
-                // edge darkened over it (144/176/195), as on the user's screenshot.
-                let y = at(0.0, baseline - 12.0)[1];
-                let f = FIELDS[0];
-                l.push(ui.fill(
-                    [at(f[0], 0.0)[0], y, f[2] - f[0], 16.0],
-                    [204, 204, 204, 255],
-                ));
-                for (k, c) in [144u8, 176, 195].into_iter().enumerate() {
-                    for x in [f[0] + k as f32, f[2] - 1.0 - k as f32] {
-                        l.push(ui.fill([at(x, 0.0)[0], y, 1.0, 16.0], [c, c, c, 255]));
-                    }
-                }
-            }
-            let x = TREE_TEXT_X + n.depth as f32 * INDENT;
-            // Folder (atlas 34…47 × 418…431) or aircraft (48…61) icon, 16 left of the text and
-            // 10 above the baseline: matched on the user's screenshot (0.16/255 rms).
-            let u = if n.is_acf { 48.0 } else { 34.0 };
-            l.push(ui.atlas_cell([u, 418.0, u + 13.0, 431.0], {
-                let p = at(x - 16.0, baseline - 10.0);
-                [p[0], p[1], 13.0, 13.0]
-            }));
-            // Tree text is black; the selected row's is the dialog text colour.
-            let selected = n.is_acf && n.path == self.selected;
-            let rgb = if selected { TEXT } else { [0; 3] };
-            l.push(ui.text_at(device, queue, &n.name, at(x, baseline), rgb)?);
-        }
-
-        // Preview: the aircraft's `<name>_icon.png`, and its path in a black caption.
-        let acf = self.install.join(&self.selected);
-        let icon = acf.with_file_name(format!(
-            "{}_icon.png",
-            acf.file_stem()
-                .map(|s| s.to_string_lossy())
-                .unwrap_or_default()
-        ));
-        // A grey (130) 250×250 frame with the icon 230×230 inside, as on the user's screenshot.
-        l.push(ui.fill(
-            [at(590.0, 0.0)[0], at(0.0, 51.0)[1], 250.0, 250.0],
-            [130, 130, 130, 255],
-        ));
-        if icon.is_file() {
-            let view = store.get_ui(device, queue, &icon)?;
-            let mut layer = Layer::bitmap(view, at(600.0, 61.0), [1.0; 4]);
-            layer.rect[2] = 230.0;
-            layer.rect[3] = 230.0;
-            l.push(layer);
-        }
-        l.push(ui.fill(
-            [at(590.0, 0.0)[0], at(0.0, 300.0)[1], 250.0, 30.0],
-            [0, 0, 0, 255],
-        ));
-        let shown = self.selected.to_string_lossy().into_owned();
-        let (head, tail) = match shown.rfind('/') {
-            Some(i) => (shown[..=i].to_string(), shown[i + 1..].to_string()),
-            None => (String::new(), shown),
-        };
-        l.push(ui.text_right(device, queue, &head, at(835.0, 313.0), [255; 3])?);
-        l.push(ui.text_right(device, queue, &tail, at(835.0, 327.0), [255; 3])?);
+        l.extend(self.tree_layers(
+            ui,
+            device,
+            queue,
+            [
+                at(FIELDS[0][0], 0.0)[0],
+                at(0.0, FIELDS[0][1])[1],
+                at(FIELDS[0][2], 0.0)[0],
+            ],
+            at(TREE_TEXT_X, TREE_FIRST_BASELINE),
+            ((LIST[3] - 16.0) / ROW_PITCH) as usize,
+            0,
+        )?);
+        l.extend(self.preview_layers(ui, device, queue, store, at(590.0, 51.0))?);
 
         // Liveries.
         for (i, name) in self.liveries().iter().enumerate() {

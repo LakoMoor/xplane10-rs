@@ -48,6 +48,7 @@ mod gbuffer;
 mod mesh_gpu;
 mod overlay;
 mod passes;
+mod special;
 mod textures;
 mod ui;
 
@@ -555,6 +556,9 @@ fn upload_object(
         missing,
     })
 }
+
+/// The airport every flight starts at (the oracle's default flight).
+pub(crate) const START_AIRPORT: &str = "KSEA";
 
 /// Where the aircraft starts: an airport identifier and a runway end, as the oracle logs them
 /// (`Init dat_p0 type:loc_tak apt:KSEA rwy:34R`).
@@ -1479,6 +1483,8 @@ struct Renderer {
     /// Open windows, back to front, and their layers.
     windows: Vec<actions::Win>,
     windows_cache: Option<Vec<ui::Layer>>,
+    /// Every airport of the install by name (`__vec_apt`), read when a list first needs it.
+    apt_index: Vec<xp_core::apt_index::AptName>,
     /// A one-line notice at the foot of the screen, and frames left to show it.
     notice: Option<(String, u32)>,
     /// File > Take Screenshot was chosen; written after the next frame.
@@ -1608,6 +1614,7 @@ impl Renderer {
             toggles: Default::default(),
             windows: Vec::new(),
             windows_cache: None,
+            apt_index: Vec::new(),
             notice: None,
             screenshot: false,
             key_commands: actions::key_commands(install),
@@ -1710,7 +1717,7 @@ impl Renderer {
             .unwrap_or(&aircraft_dir)
             .join("objects");
         let start = Start {
-            airport: "KSEA".to_string(),
+            airport: START_AIRPORT.to_string(),
             runway: "34R".to_string(),
         };
         let (objects, camera) = build_scene(
@@ -1900,6 +1907,42 @@ impl Renderer {
                                     &w.state,
                                     w.place(),
                                 )?);
+                                let p = w.place();
+                                if let Some(a) = &w.apt {
+                                    let y = if def.id == 22 { 605.0 } else { 595.0 };
+                                    layers.extend(special::apt_list(
+                                        &self.ui,
+                                        device,
+                                        queue,
+                                        &self.apt_index,
+                                        a,
+                                        &p,
+                                        20.0,
+                                        y,
+                                    )?);
+                                }
+                                if def.id == 22 {
+                                    layers.extend(special::qflt_pictures(
+                                        &self.ui,
+                                        device,
+                                        queue,
+                                        &mut self.store,
+                                        &self.install,
+                                        self.prefs.get("_qfl_tim") as i32,
+                                        self.prefs.get("_qfl_wxr") as i32,
+                                        &p,
+                                    )?);
+                                }
+                                if let Some(t) = &w.tree {
+                                    layers.extend(special::qflt_aircraft(
+                                        &self.ui,
+                                        device,
+                                        queue,
+                                        &mut self.store,
+                                        t,
+                                        &p,
+                                    )?);
+                                }
                                 continue;
                             }
                             let pane = xp_core::menu::Rect {
