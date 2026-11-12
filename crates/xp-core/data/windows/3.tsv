@@ -12,77 +12,6 @@ text	20	690	900	73	0			This computer name:
 text	20	690	900	73	0			This computer name:		inet_class::inet_wind()::datW_tab=4
 text	20	680	900	73	0			This computer IP addresses:		
 text	20	680	900	73	0			This computer IP addresses:		inet_class::inet_wind()::datW_tab=4
-text	30	650	900	75	0			Sending to 		
-text	30	470	900	75	0			Sending to 		
-text	30	450	900	75	0			Sending to 		
-text	30	430	900	75	0			Sending to 		
-text	30	410	900	75	0			Sending to 		
-text	30	390	900	75	0			Sending to 		
-text	30	370	900	75	0			Sending to 		
-text	30	350	900	75	0			Sending to 		
-text	30	330	900	75	0			Sending to 		
-text	30	310	900	75	0			Sending to 		
-text	30	290	900	75	0			Sending to 		
-text	30	630	900	75	0			Sending to 		
-text	30	270	900	75	0			Sending to 		
-text	30	250	900	75	0			Sending to 		
-text	30	230	900	75	0			Sending to 		
-text	30	210	900	75	0			Sending to 		
-text	30	190	900	75	0			Sending to 		
-text	30	170	900	75	0			Sending to 		
-text	30	150	900	75	0			Sending to 		
-text	30	130	900	75	0			Sending to 		
-text	30	110	900	75	0			Sending to 		
-text	30	90	900	75	0			Sending to 		
-text	30	610	900	75	0			Sending to 		
-text	30	70	900	75	0			Sending to 		
-text	30	50	900	75	0			Sending to 		
-text	30	30	900	75	0			Sending to 		
-text	30	10	900	75	0			Sending to 		
-text	30	-10	900	75	0			Sending to 		
-text	30	-30	900	75	0			Sending to 		
-text	30	-50	900	75	0			Sending to 		
-text	30	590	900	75	0			Sending to 		
-text	30	570	900	75	0			Sending to 		
-text	30	550	900	75	0			Sending to 		
-text	30	530	900	75	0			Sending to 		
-text	30	510	900	75	0			Sending to 		
-text	30	490	900	75	0			Sending to 		
-text	30	640	900	75	0			Got a transmission from 		
-text	30	460	900	75	0			Got a transmission from 		
-text	30	440	900	75	0			Got a transmission from 		
-text	30	420	900	75	0			Got a transmission from 		
-text	30	400	900	75	0			Got a transmission from 		
-text	30	380	900	75	0			Got a transmission from 		
-text	30	360	900	75	0			Got a transmission from 		
-text	30	340	900	75	0			Got a transmission from 		
-text	30	320	900	75	0			Got a transmission from 		
-text	30	300	900	75	0			Got a transmission from 		
-text	30	280	900	75	0			Got a transmission from 		
-text	30	620	900	75	0			Got a transmission from 		
-text	30	260	900	75	0			Got a transmission from 		
-text	30	240	900	75	0			Got a transmission from 		
-text	30	220	900	75	0			Got a transmission from 		
-text	30	200	900	75	0			Got a transmission from 		
-text	30	180	900	75	0			Got a transmission from 		
-text	30	160	900	75	0			Got a transmission from 		
-text	30	140	900	75	0			Got a transmission from 		
-text	30	120	900	75	0			Got a transmission from 		
-text	30	100	900	75	0			Got a transmission from 		
-text	30	80	900	75	0			Got a transmission from 		
-text	30	600	900	75	0			Got a transmission from 		
-text	30	60	900	75	0			Got a transmission from 		
-text	30	40	900	75	0			Got a transmission from 		
-text	30	20	900	75	0			Got a transmission from 		
-text	30	0	900	75	0			Got a transmission from 		
-text	30	-20	900	75	0			Got a transmission from 		
-text	30	-40	900	75	0			Got a transmission from 		
-text	30	580	900	75	0			Got a transmission from 		
-text	30	560	900	75	0			Got a transmission from 		
-text	30	540	900	75	0			Got a transmission from 		
-text	30	520	900	75	0			Got a transmission from 		
-text	30	500	900	75	0			Got a transmission from 		
-text	30	480	900	75	0			Got a transmission from 		
 enter	65	-20	137				lbl:anon171			
 enter	65	-40	137				lbl:anon182			
 enter	515	225	137				lbl:anon187			inet_class::inet_wind()::datW_tab=3
@@ -97,8 +26,6 @@ enter	660	225	42				lbl:anon216			inet_class::inet_wind()::datW_tab=3
 enter	660	225	42				lbl:anon217			inet_class::inet_wind()::datW_tab=3
 enter	660	225	42				lbl:anon218			inet_class::inet_wind()::datW_tab=3
 enter	660	225	42				lbl:anon219			inet_class::inet_wind()::datW_tab=3
-bool	265	-20					lbl:anon227			
-bool	265	-40					lbl:anon238			
 bool	715	225					lbl:anon243			inet_class::inet_wind()::datW_tab=3
 bool	715	225					lbl:anon244			inet_class::inet_wind()::datW_tab=3
 bool	715	225					lbl:anon245			inet_class::inet_wind()::datW_tab=3
@@ -112,17 +39,17 @@ popup	200	135					lbl:anon313			inet_class::inet_wind()::datW_tab=3
 subwin	10	10	1004~1,0	250	16			UDP Ports		inet_class::inet_wind()::datW_tab=4
 subwin	10	270	1004~1,0	250	16			IP for Data Output		inet_class::inet_wind()::datW_tab=4
 text	512~0.5,0	485	500	52	1			Hook this machine up to another with an ethernet cable. If you have any data selected to go to the internet in the SET DATA OUTPUT screen, it will go to this address. Use this UDP data to drive anything you can think of!		inet_class::inet_wind()::datW_tab=4
-dob	485	200	5	0	-1e+09	1e+09	this+0x4	port that we receive on | 49000 is the default		inet_class::inet_wind()::datW_tab=4
-dob	485	150	5	0	-1e+09	1e+09	this+0x8	port that we send from | 49001 is the default		inet_class::inet_wind()::datW_tab=4
-dob	485	100	5	0	-1e+09	1e+09	this+0xc	port that we send to iPad from | 49002 is the default		inet_class::inet_wind()::datW_tab=4
+dob	485	200	5	0	-1e+09	1e+09	_rcv_port	port that we receive on | 49000 is the default		inet_class::inet_wind()::datW_tab=4
+dob	485	150	5	0	-1e+09	1e+09	_snd_port	port that we send from | 49001 is the default		inet_class::inet_wind()::datW_tab=4
+dob	485	100	5	0	-1e+09	1e+09	_flr_port	port that we send to iPad from | 49002 is the default		inet_class::inet_wind()::datW_tab=4
 subwin	10	10	1004~1,0	510	16			IP of Multiplayer		inet_class::inet_wind()::datW_tab=0
 text	512~0.5,0	485	500	52	1			Both you and up to 19 of your friends choose this option to fly together. You can race, fly in formation, put on an airshow (possibly in formation), have a contest to see who can land and stop in the shortest distance, or even pick the TOW or DROP situations, so one of you can carry or tow the other!		inet_class::inet_wind()::datW_tab=0
-dob	50	480	2	0	1	99	this+0xb2c	|multiplayer transmissions per second		inet_class::inet_wind()::datW_tab=0
+dob	50	480	2	0	1	99	_mp_xmts_per_sec	|multiplayer transmissions per second		inet_class::inet_wind()::datW_tab=0
 subwin	10	10	1004~1,0	180	16			IP of Master Machine		inet_class::inet_wind()::datW_tab=1
 subwin	10	200	1004~1,0	320	16			IP of External Visual		inet_class::inet_wind()::datW_tab=1
 text	512~0.5,0	155	500	52	1			Hook this machine up to another with an ethernet cable. This is an extra cockpit, visual, map, viewpoint, or anything else! It must be connected to a master machine, which has one of the entries in the above table checked. If the views in this machine track the views on the master, use the offsets in the Rendering Options to align the view relative to the master as desired.		inet_class::inet_wind()::datW_tab=1
 text	512~0.5,0	485	500	52	1			Hook this machine up to another with an ethernet cable. This will be the machine with the controls and flight model (master machine) and the other will be an extra monitor for more scenery or another cockpit instrument screen or anything else that tracks the master copy of X-Plane! The external view can either be independently controlled on the other machine or track the master machine's view.		inet_class::inet_wind()::datW_tab=1
-dob	50	480	2	0	1	99	this+0xb30	|external visual/cockpit transmissions per second		inet_class::inet_wind()::datW_tab=1
+dob	50	480	2	0	1	99	_ev_xmts_per_sec	|external visual/cockpit transmissions per second		inet_class::inet_wind()::datW_tab=1
 display	30	60	['expr', 'div', 1.0, None]	2	0			| external visual/cockpit receptions per second		inet_class::inet_wind()::datW_tab=1
 enter	30	30	112				m:0x1014c83b0	| aircraft folder name suffix		inet_class::inet_wind()::datW_tab=1
 subwin	10	10	1004~1,0	160	16			Discontinued iPhone and iPad Apps		inet_class::inet_wind()::datW_tab=3
@@ -133,3 +60,25 @@ subwin	10	10	1004~1,0	300	16			IP of Master Machine		inet_class::inet_wind()::da
 subwin	10	320	1004~1,0	200	16			IP of IOS		inet_class::inet_wind()::datW_tab=2
 text	512~0.5,0	275	500	52	1			Hook this machine up to another with an ethernet cable. This is the instructor's console. You can set weather, set location, cause failures, or anything else! Go to the MAP menu item and check the IOS button in that screen to control everything in the flight!		inet_class::inet_wind()::datW_tab=2
 text	512~0.5,0	485	500	52	1			Hook this machine up to another with an ethernet cable. This is the machine that the pilot flies. The instructor can use the other machine to set weather, set location, cause failures, etc.		inet_class::inet_wind()::datW_tab=2
+text	170	690	9999	72			net:host			inet_class::inet_wind()::datW_tab=0
+text	170	680	9999	72			net:ips			inet_class::inet_wind()::datW_tab=0
+text	30	660	9999	75			net:idle	Not receiving any messages now.		inet_class::inet_wind()::datW_tab=0
+bool	265	416.11					_Binet_0	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	396.11					_Binet_1	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	376.11					_Binet_2	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	356.11					_Binet_3	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	336.11					_Binet_4	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	316.11					_Binet_5	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	296.11					_Binet_6	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	276.11					_Binet_7	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	256.11					_Binet_8	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	265	236.11					_Binet_9	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	416.11					_Binet_10	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	396.11					_Binet_11	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	376.11					_Binet_12	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	356.11					_Binet_13	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	336.11					_Binet_14	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	316.11					_Binet_15	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	296.11					_Binet_16	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	276.11					_Binet_17	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0
+bool	715	256.11					_Binet_18	|-IP of other player (ENTER key to chat)		inet_class::inet_wind()::datW_tab=0

@@ -527,6 +527,26 @@ pub fn layers(
                     k if k.starts_with("clock:") => clock_text(k),
                     _ => w.label.clone(),
                 };
+                // Net Connections: the addresses one per 10 rows, the idle line 20 below the
+                // last of them (inet_wind).
+                if w.key == "net:ips" {
+                    for (i, ip) in crate::netinfo::local_addresses().iter().enumerate() {
+                        let at = [x + 2.0, y - 1.0 + 10.0 * i as f32];
+                        l.push(ui.text_at(d, q, &ip.to_string(), at, rgb)?);
+                    }
+                    continue;
+                }
+                let y = if w.key == "net:idle" {
+                    let n = crate::netinfo::local_addresses().len().max(1) as f32;
+                    y + 10.0 * (n - 1.0)
+                } else {
+                    y
+                };
+                let text = if w.key == "net:host" {
+                    crate::netinfo::computer_name().to_string()
+                } else {
+                    text
+                };
                 // Paragraphs (`¶`) are separated by a blank line, as in Instructions.
                 let mut row = 0.0;
                 for para in text.split('¶') {

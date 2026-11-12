@@ -46,6 +46,7 @@ mod chooser;
 mod forward;
 mod gbuffer;
 mod mesh_gpu;
+mod netinfo;
 mod overlay;
 mod passes;
 mod special;

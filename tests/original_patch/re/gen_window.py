@@ -232,6 +232,29 @@ def extras(W, H, row):
         ['subwin', 10.0, 10.0, 588.0, 407.0, 16, '', '', '', '', ''],
         ['subwin', 20.0, 20.0, 568.0, 377.0, 19, '', '', '', '', ''],
     ]
+  if name == 'inet_wind':
+    # inet_class fields, in the order the prf writes them: ports (+4/+8/+0xc) and the
+    # multiplayer / external-visual rates (+0xb2c/+0xb30); the oracle shows the user's values.
+    keys = {'this+0x4': '_rcv_port', 'this+0x8': '_snd_port', 'this+0xc': '_flr_port',
+            'this+0xb2c': '_mp_xmts_per_sec', 'this+0xb30': '_ev_xmts_per_sec'}
+    for r in rows:
+        r[7] = keys.get(r[7], r[7])
+    # Multiplayer tab: the message log is a loop over 80 peers that draws nothing while no
+    # packet has come in, then "Not receiving any messages now." below the IP addresses; the
+    # computer name, the addresses and that line are live (net:* keys, btnui). The IP rows:
+    # BTN_bool(215 + 50 / 500, y) for i 0…18 from 20 below the y OGL_string returns for the
+    # paragraph: 485 minus the font height (DejaVu Sans 2384/2048 em × 10.5 px = 12.22) for
+    # each of its 4 lines; 20 apart, the second column from i = 10; values are _Binet_i.
+    T = 'inet_class::inet_wind()::datW_tab'
+    rows[:] = [r for r in rows if not (r[0] == 'text' and (r[8].startswith('Sending to') or r[8].startswith('Got a transmission') or r[8].startswith('Not receiving')))
+               and not (r[0] == 'bool' and r[10] in ('', f'{T}=0') and (r[1] in (265.0, 715.0)) and r[3] == '')]
+    row('text', 170.0, 690.0, 9999.0, 72, key='net:host', cond=f'{T}=0')
+    row('text', 170.0, 680.0, 9999.0, 72, key='net:ips', cond=f'{T}=0')
+    row('text', 30.0, 660.0, 9999.0, 75, key='net:idle', label='Not receiving any messages now.', cond=f'{T}=0')
+    y0 = round(485.0 - 4 * 2384.0 / 2048.0 * 10.5 - 20.0, 2)
+    for i in range(19):
+        x, y = (265.0, y0 - 20.0 * i) if i < 10 else (715.0, y0 - 20.0 * (i - 10))
+        row('bool', x, y, key=f'_Binet_{i}', label='|-IP of other player (ENTER key to chat)', cond=f'{T}=0')
   if name == 'xtim_wind':
     # Month names: a loop over a string table, x = (i - 5.5) * 500 / 12 + 286 - 12 (xtim_wind).
     for i, m in enumerate('Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()):
