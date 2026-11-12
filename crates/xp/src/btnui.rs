@@ -470,11 +470,21 @@ pub fn layers(
             }
             Kind::Tab => {
                 let sel = (prefs.get(&w.key) - w.a as f64).abs() < 0.5;
-                // The underline (atlas 102…202 × 3…11) across the window, once per tab row.
+                // The bar under the tabs, once per tab row: `BTN_fillwin(…, 2)` draws
+                // `BTN_frame1(W/2, H − 50, W, 1, 2)`, the atlas cell 102…202 × 0…26 (green bar in
+                // rows 4…10, its shadow in 11…16) with 20-column ends.
                 if w.x == 0.0 {
-                    l.push(ui.atlas_cell(
-                        [110.0, 3.0, 190.0, 11.0],
-                        [p.ox, p.oy + 41.0 + p.tab_dy + 32.0 * w.y, win.size.0, 8.0],
+                    let t = p.oy + 38.0 + p.tab_dy + 32.0 * w.y;
+                    l.extend(ui.nine_slice(
+                        Rect {
+                            l: p.ox,
+                            t,
+                            r: p.ox + win.size.0,
+                            b: t + 26.0,
+                        },
+                        [102.0, 0.0, 202.0, 26.0],
+                        [20.0, 0.0, 20.0, 0.0],
+                        [0.0; 4],
                     ));
                 }
                 // The cell's opaque part (210…296 × 3…24) covers the tab's 86 columns.
