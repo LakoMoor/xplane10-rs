@@ -381,7 +381,8 @@ impl Ui {
         let (view, baseline, advance) = self.text(device, queue, text, rgb)?;
         Ok(Layer::bitmap(
             view,
-            [(at[0] - advance as f32 * 0.5).round(), at[1] - baseline],
+            // OGL_font::draw_range, just 1: floor(x − ½·width) (0x1000a5da0).
+            [(at[0] - advance as f32 * 0.5).floor(), at[1] - baseline],
             [1.0; 4],
         ))
     }
@@ -627,8 +628,10 @@ impl Ui {
             device,
             queue,
             title,
-            [((rect.l + rect.r) * 0.5).floor(), rect.t + 14.0],
-            xp_core::menu::palette(0x2f),
+            [(rect.l + rect.r) * 0.5, rect.t + 14.0],
+            // BTN_frame2 type 0xe (0x1003d9700): OGL_string palette 0x31 (0.945) from
+            // l + w/2 − measure/2, floored by draw_range.
+            xp_core::menu::palette(0x31),
         )?);
         Ok(l)
     }

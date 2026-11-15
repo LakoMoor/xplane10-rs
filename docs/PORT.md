@@ -677,3 +677,12 @@ Order is leaves-first: formats and geometry before anything touches a window.
   offset is not yet confirmed for the other widget kinds).
 - Rendering Options 92.1 → 93.2 %, Data Output 93.7 → 94.0, Aircraft & Situations 92.7 → 94.0,
   Local Region 76.8 → 79.2.
+
+## 2026-11-16 — centred text and window titles
+
+- OGL_font::draw_range with just 1 starts at floor(x − ½·width); the port rounded, one pixel
+  right for every odd-width string. `Ui::text_centred` now floors.
+- BTN_frame2 type 0xe (window frames, 0x1003d9700) draws the title with OGL_string palette 0x31
+  (0.945, 241 grey), not white, from l + w/2 − measure/2.
+- All windows: 1 93.9, 2 94.0, 3 96.8, 4 79.2, 5 98.1, 6 98.4, 8 94.2, 9 96.4, 10 93.2, 12 99.0,
+  13 95.9, 14 99.0, 16 32.8, 17 49.9, 19 95.4, 22 96.2.
