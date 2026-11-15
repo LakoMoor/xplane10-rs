@@ -609,3 +609,11 @@ Order is leaves-first: formats and geometry before anything touches a window.
   strings. The row numbers sit at box x − 22 / 26 / 30 for 1 / 2 / 3 digits (dout_wind).
 - Not yet: the enable boxes (`_Psumm_0…3`, 0 in the prf; the oracle frame has them set by the
   harness), and the font rasterisation differences that make most of the remaining 6.5 %.
+
+## 2026-11-16 — OGL_string placement from x
+
+- Left- and right-justified `OGL_string` text is set from x itself (fldr_wind passes x 20 and the
+  oracle glyphs start at 20); the port's +2 was a compensation. Data Output names are the 4th
+  box's `BTN_bool` right label (`BTN_util_draw_label` at box x + 12 = column + 66, was + 64).
+- Wrapped text keeps leading spaces (Flight Data Recorder's indented FDR entries).
+- Windows: 1 93.8, 2 93.7, 3 96.7, 5 98.1, 10 90.7, 12 99.0, 13 90.3, 14 98.9, 19 95.4.

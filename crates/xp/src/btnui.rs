@@ -362,14 +362,18 @@ fn label_lines(
 
 fn wrap(ui: &Ui, text: &str, width: f32) -> Vec<String> {
     let mut lines = Vec::new();
-    let mut cur = String::new();
-    for word in text.split(' ') {
-        let cand = if cur.is_empty() {
-            word.to_string()
+    // Leading spaces indent the first line (Flight Data Recorder's "   COMM: …" entries).
+    let body = text.trim_start_matches(' ');
+    let mut cur = text[..text.len() - body.len()].to_string();
+    let indent = cur.len();
+    for word in body.split(' ') {
+        let cur_empty = cur.len() == indent && lines.is_empty() || cur.is_empty();
+        let cand = if cur_empty {
+            format!("{cur}{word}")
         } else {
             format!("{cur} {word}")
         };
-        if ui.measure(&cand) > width && !cur.is_empty() {
+        if ui.measure(&cand) > width && !cur_empty {
             lines.push(std::mem::replace(&mut cur, word.to_string()));
         } else {
             cur = cand;
@@ -720,15 +724,12 @@ pub fn layers(
                 for para in text.split('¶') {
                     for line in wrap(ui, para, w.a) {
                         // OGL_string's justification: 0 left, 1 centred, 2 right of x.
-                        let pad = if w.items.first().map(String::as_str) == Some("num") {
-                            0.0
-                        } else {
-                            2.0
-                        };
-                        let lx = pad - 2.0 + match w.c as i32 {
+                        // OGL_string sets left- and right-justified text from x itself (fldr_wind's
+                        // x 20 starts its glyphs at 20 on the oracle frame); centred at x − w/2.
+                        let lx = match w.c as i32 {
                             1 => (x - ui.measure(&line) * 0.5).floor(),
-                            2 => x + 2.0 - ui.measure(&line),
-                            _ => x + 2.0,
+                            2 => x - ui.measure(&line),
+                            _ => x,
                         };
                         l.push(ui.text_at(d, q, &line, [lx, y - 1.0 + 12.0 * row], rgb)?);
                         row += 1.0;

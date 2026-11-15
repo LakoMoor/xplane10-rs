@@ -152,7 +152,8 @@ def extras(W, H, row):
         if r[0] == 'text' and str(r[8]).isdigit() and isinstance(r[1], (int, float)) and r[10].endswith('datW_tab=0'):
             col = min((c for c in starts if c > r[1]), default=None)
             if col is not None and int(r[8]) < len(names):
-                row('text', col + 64.0, r[2], 9999.0, 52, label=names[int(r[8])], cond=r[10])
+                # BTN_bool's right label: BTN_util_draw_label at the 4th box (col + 54) + 12.
+                row('text', col + 66.0, r[2], 9999.0, 52, label=names[int(r[8])], cond=r[10])
   if name == 'fail_wind':
     # The failure list: fail_wind (0x10078c780) loops over the 560 failures with the static
     # tables fail_group / fail_sub_group / fail_ui (0x1010bbc60, +0x8c0, +0x1180). Labels,
