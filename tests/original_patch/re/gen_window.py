@@ -86,7 +86,11 @@ def build(W, H):
             row('action', xm[0], xm[1], xm[2], key='act:' + S(st[2]), label=S(st[2]), cond=cond)
         elif fn == 'BTN_horz_slider':
             lo, hi = num(xm[3]), num(xm[4])
-            row('slider', xm[0], xm[1], xm[2], lo if lo is not None else 0.0, hi if hi is not None else 1.0, key=key(it[1], lab(st[3])), label=lab(st[3]), cond=cond)
+            # items: horz-palette-editable-none (BTN_horz_slider's palette and editable flag; its
+            # value string is built at run time and not drawn here).
+            pal = it[0] if isinstance(it[0], int) and not isinstance(it[0], bool) else 0x49
+            ed = it[2] if isinstance(it[2], int) and not isinstance(it[2], bool) else 1
+            row('slider', xm[0], xm[1], xm[2], lo if lo is not None else 0.0, hi if hi is not None else 1.0, key=key(it[1], lab(st[3])), label=lab(st[3]), items=f'horz-{pal}-{1 if ed else 0}-none', cond=cond)
         elif fn == 'OGL_string' and S(st[1]):
             row('text', xm[0], xm[1], xm[2] if num(xm[2]) else 9999.0, it[0] if isinstance(it[0], int) else 0, it[3] if isinstance(it[3], int) and it[3] in (0, 1, 2) else 0, label=S(st[1]), cond=cond)
         elif fn == 'BTN_tab':

@@ -317,16 +317,19 @@ fn horz_slider(
     }
     let text = match w.items.get(3).map(String::as_str) {
         // flt_to_str(v × 12 × 3.2808, 3, 1): inches from the default CG.
-        Some("cg") => format!("{:.1}", v * 12.0 * 3.280_84),
-        _ => format!("{}", v as i32),
+        Some("cg") => Some(format!("{:.1}", v * 12.0 * 3.280_84)),
+        Some("none") => None,
+        _ => Some(format!("{}", v as i32)),
     };
-    l.push(ui.text_centred(
-        d,
-        q,
-        &text,
-        [x + w.a / 2.0, y - 16.0],
-        xp_core::menu::palette(0x34),
-    )?);
+    if let Some(text) = text {
+        l.push(ui.text_centred(
+            d,
+            q,
+            &text,
+            [x + w.a / 2.0, y - 16.0],
+            xp_core::menu::palette(0x34),
+        )?);
+    }
     if editable {
         let tx = (x + pos - 5.5).round();
         l.push(ui.atlas_cell([267.0, 225.0, 278.0, 241.0], [tx, y - 12.0, 11.0, 16.0]));

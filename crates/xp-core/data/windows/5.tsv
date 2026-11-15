@@ -4,8 +4,8 @@
 # size 572 268
 subwin	10	10	552	110	16			DATE		
 subwin	10	130	552	110	16			TIME		
-slider	36	200	500	0	86400		this+0x47c			
-slider	36	80	500	0	364		lbl:anon3			
+slider	36	200	500	0	86400		this+0x47c		horz-96-1-none	
+slider	36	80	500	0	364		lbl:anon3		horz-96-1-none	
 text	30	188	9999	52				0	num	
 text	71.6667	188	9999	52				2	num	
 text	113.333	188	9999	52				4	num	
@@ -23,7 +23,7 @@ field	105	158	160
 field	105	38	160							
 bool	320	35					this+0x480	always track real date and time		
 dob	490	35	1	0	-1e+09	1e+09	this+0x484	correction from GMT (should be close to 0) | (hours)		
-slider	36	80	500	0	364		lbl:anon21			
+slider	36	80	500	0	364		lbl:anon21		horz-96-1-none	
 text	44.8333	68	9999	52				Jan		
 text	86.5	68	9999	52				Feb		
 text	128.167	68	9999	52				Mar		

@@ -617,3 +617,9 @@ Order is leaves-first: formats and geometry before anything touches a window.
   box's `BTN_bool` right label (`BTN_util_draw_label` at box x + 12 = column + 66, was + 64).
 - Wrapped text keeps leading spaces (Flight Data Recorder's indented FDR entries).
 - Windows: 1 93.8, 2 93.7, 3 96.7, 5 98.1, 10 90.7, 12 99.0, 13 90.3, 14 98.9, 19 95.4.
+
+## 2026-11-16 — every BTN_horz_slider from code
+
+- The generator records each `BTN_horz_slider`'s palette and editable flag (items
+  `horz-<pal>-<edit>-none`), so all of them use the code-derived track / fill / thumb drawing
+  (palette 0x60: no fill). Weather 73.3 → 76.8, Flight Data Recorder 90.3 → 91.1.
