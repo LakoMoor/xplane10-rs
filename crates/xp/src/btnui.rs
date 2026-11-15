@@ -240,7 +240,7 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             r: x - (w.a * 0.5).floor() + w.a,
             b: y + 7.0,
         },
-        Kind::Subwin | Kind::Text | Kind::Display | Kind::Dir => Rect {
+        Kind::Subwin | Kind::Text | Kind::Display | Kind::Dir | Kind::Line => Rect {
             l: x,
             t: y,
             r: x,
@@ -647,6 +647,15 @@ pub fn layers(
                 label_lines(ui, d, q, left, x - 32.0, y, true, &mut l)?;
                 label_lines(ui, d, q, right, x + w.a + 6.0, y, false, &mut l)?;
             }
+            Kind::Line => {
+                // Vertical or horizontal only (all the windows' OGL_line calls are); GL pixel
+                // rows y … b map to screen rows sy(max) … sy(min).
+                let c = xp_core::menu::palette(w.c as usize);
+                let (x2, y2) = (p.sx(w.a), p.sy(w.b));
+                let (l0, t0) = (x.min(x2), y.min(y2));
+                let (wd, ht) = ((x - x2).abs().max(1.0), (y - y2).abs().max(1.0));
+                l.push(ui.fill([l0, t0, wd, ht], [c[0], c[1], c[2], 255]));
+            }
             Kind::Dir => {
                 // plot_dir: the needle (atlas 156…166 × 155…197) over x ± 5, y ± 21 turned by the
                 // heading, then the glass ball (178…234 × 294…352) over x ± 28, y ± 29, then the
@@ -711,7 +720,12 @@ pub fn layers(
                 for para in text.split('¶') {
                     for line in wrap(ui, para, w.a) {
                         // OGL_string's justification: 0 left, 1 centred, 2 right of x.
-                        let lx = match w.c as i32 {
+                        let pad = if w.items.first().map(String::as_str) == Some("num") {
+                            0.0
+                        } else {
+                            2.0
+                        };
+                        let lx = pad - 2.0 + match w.c as i32 {
                             1 => (x - ui.measure(&line) * 0.5).floor(),
                             2 => x + 2.0 - ui.measure(&line),
                             _ => x + 2.0,

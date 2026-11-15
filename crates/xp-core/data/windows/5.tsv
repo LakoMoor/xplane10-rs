@@ -6,19 +6,19 @@ subwin	10	10	552	110	16			DATE
 subwin	10	130	552	110	16			TIME		
 slider	36	200	500	0	86400		this+0x47c			
 slider	36	80	500	0	364		lbl:anon3			
-text	30	188	9999	52				0		
-text	71.6667	188	9999	52				2		
-text	113.333	188	9999	52				4		
-text	155	188	9999	52				6		
-text	196.667	188	9999	52				8		
-text	238.333	188	9999	52				10		
-text	280	188	9999	52				12		
-text	321.667	188	9999	52				14		
-text	363.333	188	9999	52				16		
-text	405	188	9999	52				18		
-text	446.667	188	9999	52				20		
-text	488.333	188	9999	52				22		
-text	530	188	9999	52				24		
+text	30	188	9999	52				0	num	
+text	71.6667	188	9999	52				2	num	
+text	113.333	188	9999	52				4	num	
+text	155	188	9999	52				6	num	
+text	196.667	188	9999	52				8	num	
+text	238.333	188	9999	52				10	num	
+text	280	188	9999	52				12	num	
+text	321.667	188	9999	52				14	num	
+text	363.333	188	9999	52				16	num	
+text	405	188	9999	52				18	num	
+text	446.667	188	9999	52				20	num	
+text	488.333	188	9999	52				22	num	
+text	530	188	9999	52				24	num	
 field	105	158	160							
 field	105	38	160							
 bool	320	35					this+0x480	always track real date and time		

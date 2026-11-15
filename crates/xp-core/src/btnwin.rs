@@ -43,6 +43,8 @@ pub enum Kind {
     /// `BTN_select_path_stl`: a browse box and a field a wide showing the file name of the
     /// path in text pref `key`.
     Path,
+    /// `OGL_line(c, 1, x, y, a, b)`: a 1-pixel line in palette colour c.
+    Line,
     /// `plot_dir`: a heading knob centred on x, y showing pref `key` in degrees.
     Dir,
 }
@@ -136,6 +138,7 @@ pub fn parse(id: i32, title: &str, text: &str, screen: (f32, f32)) -> Result<Win
             "enter" => Kind::Enter,
             "path" => Kind::Path,
             "dir" => Kind::Dir,
+            "line" => Kind::Line,
             "display" => Kind::Display,
             "field" => Kind::Field,
             other => bail!("window {id} line {}: unknown widget {other}", n + 1),

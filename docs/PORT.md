@@ -599,3 +599,13 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - Net Connections: IP rows one row higher than the derived 416.11 (**calibration**): 96.5 %.
 - Windows now: 1 93.7, 2 92.2, 3 96.5, 5 98.0, 6 98.3, 8 92.7, 9 96.4, 10 89.6, 12 97.2,
   13 88.8, 14 98.9, 19 95.3, 22 84.3; maps 4 73.3, 16 32.8, 17 49.6.
+
+## 2026-11-16 — Data Output legend, rates, row numbers: 93.5 %
+
+- The legend under row 133: four `OGL_line(0x34, 1, x_i, 151 − 40 + 10·i, x_i, 146)` from the box
+  columns x 805 + 18·i (new `line` row kind); its texts at (805 − 3 + 18·i, 151 − 50 + 10·i).
+- UDP / disk rates are the prf's `_udp_rate` / `_dat_rate`.
+- `OGL_number` rows (items `num`) are set from x itself; `OGL_string`'s 2 px applies only to
+  strings. The row numbers sit at box x − 22 / 26 / 30 for 1 / 2 / 3 digits (dout_wind).
+- Not yet: the enable boxes (`_Psumm_0…3`, 0 in the prf; the oracle frame has them set by the
+  harness), and the font rasterisation differences that make most of the remaining 6.5 %.

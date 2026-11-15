@@ -98,7 +98,8 @@ def build(W, H):
         elif fn.startswith('BTN_enterstring'):
             row('enter', xm[0], xm[1], xm[2] if num(xm[2]) else 200.0, key=key(it[0], lab(st[2])), label=lab(st[2]), cond=cond)
         elif fn == 'OGL_number' and num(xm[2]) is not None and isinstance(it[2], int):
-            row('text', xm[0], xm[1], 9999.0, it[0] if isinstance(it[0], int) else 52, label='%.*f' % (it[2], xm[2]), cond=cond)
+            # items 'num': OGL_number sets its digits from x itself, without OGL_string's 2 px.
+            row('text', xm[0], xm[1], 9999.0, it[0] if isinstance(it[0], int) else 52, label='%.*f' % (it[2], xm[2]), items='num', cond=cond)
         elif fn == 'BTN_frame1' and it[0] == 9 and num(xm[2]) is not None:
             row('field', xm[0], xm[1], xm[2], cond=cond)
         elif fn == 'BTN_display_number':
@@ -135,6 +136,13 @@ def extras(W, H, row):
         text = '¶'.join(B[a - 0x100000000:B.index(b'\0', a - 0x100000000)].decode('latin-1') for a in addrs)
         row('text', 30.0, float(H) - 85.0, 540.0, 56, label=text, cond=f'inst_wind()::insW_tab={t}')
   if name == 'dout_wind':
+    # The legend under the last row (y 151, boxes at x 805 + 18·i): OGL_line(0x34, 1, x_i,
+    # 151 - 40 + 10·i, x_i, 151 - 5) from each box's column down to its text.
+    for i in range(4):
+        row('line', 805.0 + 18.0 * i, 151.0 - 40.0 + 10.0 * i, 805.0 + 18.0 * i, 146.0, 0x34, cond='dout_class::dout_wind()::datW_tab=0')
+    # The send rates, under their prf names.
+    for r in rows:
+        r[7] = {'m:0x1014ce048': '_udp_rate', 'm:0x1014ce050': '_dat_rate'}.get(r[7], r[7])
     # Data Set rows: dout_class::get_line_object(io, i) names each line (jump table at
     # 0x100458918; 119 and 133 are built outside it). Drawn 66 right of the row's first box.
     names = json.load(open('out/dout_names.json'))
