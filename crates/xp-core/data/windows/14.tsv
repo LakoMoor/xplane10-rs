@@ -152,6 +152,9 @@ bool	750	270					this+0x4c	PFC pitot-heat switch		joys_class::joys_wind()::joyW_
 bool	770	270					this+0x50	|PFC inlet-ice switch		joys_class::joys_wind()::joyW_tab=5
 bool	750	240					this+0x54	PFC full de-ice switch		joys_class::joys_wind()::joyW_tab=5
 subwin	10	10	1004~1,0	700	16					joys_class::joys_wind()::joyW_tab=2
+path	710	56	295				m:0x1014c8628			joys_class::joys_wind()::joyW_tab=2
+path	710	38	295				m:0x1014c8630			joys_class::joys_wind()::joyW_tab=2
+path	710	20	295				m:0x1014c8638			joys_class::joys_wind()::joyW_tab=2
 display	25	693~0,1	['int', None]	3	0			|-joystick button. Hit a button on your joystick. Then click the function you want that button to perform!		joys_class::joys_wind()::joyW_tab=2
 slider	670	663	160	0	1		this+0x390	yaw control-response, FULL-LEFT for linear|FULL-RIGHT for non-linear		joys_class::joys_wind()::joyW_tab=1
 slider	670	663	160	0	1		this+0x38c	roll control-response, FULL-LEFT for linear|FULL-RIGHT for non-linear		joys_class::joys_wind()::joyW_tab=1

@@ -431,12 +431,16 @@ pub fn layers(
                 }
             }
             Kind::Bool => {
-                let v = if prefs.widget_value(w) != 0.0 {
-                    298.0
-                } else {
-                    318.0
-                };
-                l.push(ui.atlas_cell([142.0, v, 156.0, v + 14.0], [r.l, r.t, 14.0, 14.0]));
+                // BTN_bool: OGL_2dquad over x ± 9, (y + 3) ± 9 of the 18×18 box cell (style 0:
+                // 139…157 × 316…334, else 83…101 × 371…389), and when set the check mark cell 19
+                // rows above it.
+                let (u, v) = if w.a == 0.0 { (139.0, 316.0) } else { (83.0, 371.0) };
+                // GL top y + 12 lands one row up on screen, as BTN_frame1 cells do.
+                let dst = [x - 9.0, y - 13.0, 18.0, 18.0];
+                l.push(ui.atlas_cell([u, v, u + 18.0, v + 18.0], dst));
+                if prefs.widget_value(w) != 0.0 {
+                    l.push(ui.atlas_cell([u, v - 19.0, u + 18.0, v - 1.0], dst));
+                }
                 label_lines(ui, d, q, left, r.l - 6.0, y, true, &mut l)?;
                 label_lines(ui, d, q, right, r.r + 4.0, y, false, &mut l)?;
             }

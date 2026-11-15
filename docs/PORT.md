@@ -587,3 +587,15 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - `BTN_action` → `BTN_frame1(3, x, y, w)`: the button cell spans x − w/2 … x + w/2 (was 2 px right,
   1 px wide). Select Airport 92.0 → 93.7. **Calibration**: one row higher in full-screen windows,
   as the panes.
+
+## 2026-11-16 — check boxes from BTN_bool: Data Output 80.3 → 92.2 %
+
+- `BTN_bool` draws `OGL_2dquad` over x ± 9, (y + 3) ± 9 of an 18×18 cell: style 0 the box at
+  139…157 × 316…334 of interface.png, style ≠ 0 at 83…101 × 371…389; when set, the check mark
+  cell 19 rows above. The port had a 14×14 crop 3 px off. Screen top = sy(y) − 13 (the GL top
+  y + 12 lands one row up, as BTN_frame1 cells do).
+- The generator records BTN_bool's style and BTN_select_path_stl rows in every window (new path
+  rows in Flight Data Recorder and Joystick).
+- Net Connections: IP rows one row higher than the derived 416.11 (**calibration**): 96.5 %.
+- Windows now: 1 93.7, 2 92.2, 3 96.5, 5 98.0, 6 98.3, 8 92.7, 9 96.4, 10 89.6, 12 97.2,
+  13 88.8, 14 98.9, 19 95.3, 22 84.3; maps 4 73.3, 16 32.8, 17 49.6.

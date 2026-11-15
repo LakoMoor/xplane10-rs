@@ -67,7 +67,9 @@ def build(W, H):
         elif num(xm[0]) is None and fn not in ('BTN_tab',):
             continue
         elif fn == 'BTN_bool':
-            row('bool', xm[0], xm[1], key=key(it[0], lab(st[1])), label=lab(st[1]), cond=cond)
+            # a: BTN_bool's style argument (0: the 139,316 cell; else the 83,371 one).
+            style = it[2] if isinstance(it[2], int) and not isinstance(it[2], bool) else ''
+            row('bool', xm[0], xm[1], style if style else '', key=key(it[0], lab(st[1])), label=lab(st[1]), cond=cond)
         elif fn == 'BTN_textlist':
             row('popup', xm[0], xm[1], key=key(it[0], lab(st[2])), label=lab(st[2]), items=S(st[1]), cond=cond)
         elif fn in ('BTN_flt_range', 'BTN_dob_range'):
@@ -270,7 +272,9 @@ def extras(W, H, row):
     row('text', 170.0, 690.0, 9999.0, 72, key='net:host', cond=f'{T}=0')
     row('text', 170.0, 680.0, 9999.0, 72, key='net:ips', cond=f'{T}=0')
     row('text', 30.0, 660.0, 9999.0, 75, key='net:idle', label='Not receiving any messages now.', cond=f'{T}=0')
-    y0 = round(485.0 - 4 * 2384.0 / 2048.0 * 10.5 - 20.0, 2)
+    # Calibration (oracle Net Connections frame, with BTN_bool's own quad): one row higher than
+    # the derived 416.11; OGL_string's returned y is not decoded exactly.
+    y0 = round(485.0 - 4 * 2384.0 / 2048.0 * 10.5 - 20.0 + 1.0, 2)
     for i in range(19):
         x, y = (265.0, y0 - 20.0 * i) if i < 10 else (715.0, y0 - 20.0 * (i - 10))
         row('bool', x, y, key=f'_Binet_{i}', label='|-IP of other player (ENTER key to chat)', cond=f'{T}=0')

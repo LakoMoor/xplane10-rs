@@ -31,3 +31,4 @@ text	20	205~0,1	9999	56	0			date:
 text	20	190~0,1	9999	56	0			SEA-LEVEL press, inch HG:		
 text	20	175~0,1	9999	56	0			SEA-LEVEL temp, deg F:		
 text	20	160~0,1	9999	56	0			wind:		
+path	120	350~0,1	400				fldr_wind()::fdr_path	Flight Data Recorder file		
