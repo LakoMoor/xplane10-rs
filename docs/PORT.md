@@ -623,3 +623,17 @@ Order is leaves-first: formats and geometry before anything touches a window.
 - The generator records each `BTN_horz_slider`'s palette and editable flag (items
   `horz-<pal>-<edit>-none`), so all of them use the code-derived track / fill / thumb drawing
   (palette 0x60: no fill). Weather 73.3 → 76.8, Flight Data Recorder 90.3 → 91.1.
+
+## 2026-11-16 — Flight Data Recorder (window 13): 91.1 → 95.9 %
+
+- fldr_wind (0x100613c40) draws, besides its BTN_* widgets: the file version with
+  OGL_number(180, y, version_found = 2, 0x38); a header band OGL_grayrect(15, 125, 985, 150,
+  0.5) (new `rect` row kind: black at alpha c); flt_class::handle_line(25 − x_os, 135), whose
+  fdr_display_flt → show_dat heads each 60-wide column with label[0..5] right-justified at
+  x + 30, y + 5 and label[6..] at y − 5 (palette 0x38; columns past x 985 are scissored off);
+  and the column description `_descrip_str` at 20, wy1 − 30.
+- The FDR entry lines start with a TAB then two spaces (`\t  COMM: …`). OGL_font::draw_range
+  draws every byte; the tab has no glyph and advances 0, so the generator now drops tabs
+  instead of turning them into spaces (no other window's strings have one).
+- Calibration: the band's left column is drawn from x + 1 (oracle frame); the header does not
+  yet scroll with the x_os slider.

@@ -240,7 +240,7 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             r: x - (w.a * 0.5).floor() + w.a,
             b: y + 7.0,
         },
-        Kind::Subwin | Kind::Text | Kind::Display | Kind::Dir | Kind::Line => Rect {
+        Kind::Subwin | Kind::Text | Kind::Display | Kind::Dir | Kind::Line | Kind::Rect => Rect {
             l: x,
             t: y,
             r: x,
@@ -662,6 +662,14 @@ pub fn layers(
                 let (l0, t0) = (x.min(x2), y.min(y2));
                 let (wd, ht) = ((x - x2).abs().max(1.0), (y - y2).abs().max(1.0));
                 l.push(ui.fill([l0, t0, wd, ht], [c[0], c[1], c[2], 255]));
+            }
+            Kind::Rect => {
+                // OGL_grayrect: black at alpha c (the oracle's band halves the panel grey).
+                // Calibration: the oracle's band starts one column right of x (FDR header).
+                let (x2, y2) = (p.sx(w.a), p.sy(w.b));
+                let (l0, t0) = (x.min(x2) + 1.0, y.min(y2));
+                let (wd, ht) = ((x - x2).abs() - 1.0, (y - y2).abs());
+                l.push(ui.fill([l0, t0, wd, ht], [0, 0, 0, (w.c * 255.0).round() as u8]));
             }
             Kind::Dir => {
                 // plot_dir: the needle (atlas 156…166 × 155…197) over x ± 5, y ± 21 turned by the

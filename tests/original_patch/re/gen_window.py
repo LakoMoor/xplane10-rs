@@ -45,7 +45,8 @@ def build(W, H):
         if v is None: return ''
         return str(v)
     def row(kind, x, y, a='', b='', c='', d='', key='', label='', items='', cond=''):
-        rows.append([kind, x, y, a, b, c, d, key, str(label).replace('\t', ' ').replace('\n', ' '), items, cond])
+        # A tab has no glyph in the UI font (draw_range advances 0): FDR's '\t  COMM: …'.
+        rows.append([kind, x, y, a, b, c, d, key, str(label).replace('\t', '').replace('\n', ' '), items, cond])
     def S(v): return v if isinstance(v, str) and v != '?' and not v.startswith('stk') else ''
     def lab(v):
         t = S(v)
@@ -158,6 +159,20 @@ def extras(W, H, row):
             if col is not None and int(r[8]) < len(names):
                 # BTN_bool's right label: BTN_util_draw_label at the 4th box (col + 54) + 12.
                 row('text', col + 66.0, r[2], 9999.0, 52, label=names[int(r[8])], cond=r[10])
+  if name == 'fldr_wind':
+    # fldr_wind (0x100613c40): the file version, OGL_number(180, y, version_found = 2, 0x38);
+    # the header band, OGL_grayrect(15, 125, 985, 150, 0.5); flt_class::handle_line(25 - x_os,
+    # 135) heads each 60-wide column with show_dat: label[0:5] right-justified at x + 30, y + 5
+    # and label[6:] at y - 5 (palette 0x38); then _descrip_str at 20, wy1 - 30.
+    row('text', 180.0, 265.0, 9999.0, 0x38, label='2', items='num')
+    row('rect', 15.0, 125.0, 985.0, 150.0, 0.5)
+    labs = [' time secon', ' temp deg C', '  lon degre', '  lat degre', 'h msl    ft', 'radio altft',
+            ' ailn ratio', ' elev ratio', ' rudd ratio', ' ptch   deg', ' roll   deg', ' hdng  TRUE',
+            'speed  KIAS', '  VVI ft/mn', ' slip   deg', ' turn   deg']   # the rest is scissored off
+    for i, t in enumerate(labs):
+        row('text', 55.0 + 60.0 * i, 140.0, 9999.0, 0x38, 2, label=t[:5])
+        row('text', 55.0 + 60.0 * i, 130.0, 9999.0, 0x38, 2, label=t[6:])
+    row('text', 20.0, 280.0, 9999.0, 0x38, label='Move the mouse over any column to see its description.')
   if name == 'fail_wind':
     # The failure list: fail_wind (0x10078c780) loops over the 560 failures with the static
     # tables fail_group / fail_sub_group / fail_ui (0x1010bbc60, +0x8c0, +0x1180). Labels,

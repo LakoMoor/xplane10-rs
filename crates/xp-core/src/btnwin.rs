@@ -45,6 +45,8 @@ pub enum Kind {
     Path,
     /// `OGL_line(c, 1, x, y, a, b)`: a 1-pixel line in palette colour c.
     Line,
+    /// `OGL_grayrect(x, y, a, b, c)`: a black quad over GL x … a, y … b at alpha c.
+    Rect,
     /// `plot_dir`: a heading knob centred on x, y showing pref `key` in degrees.
     Dir,
 }
@@ -139,6 +141,7 @@ pub fn parse(id: i32, title: &str, text: &str, screen: (f32, f32)) -> Result<Win
             "path" => Kind::Path,
             "dir" => Kind::Dir,
             "line" => Kind::Line,
+            "rect" => Kind::Rect,
             "display" => Kind::Display,
             "field" => Kind::Field,
             other => bail!("window {id} line {}: unknown widget {other}", n + 1),

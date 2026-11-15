@@ -8,20 +8,20 @@ slider	20	310~0,1	960~1,0	0	6000		fldr_wind()::x_os		horz-96-1-none
 text	20	720~0,1	980	52	0			Create a text file with any name you like that ends in '.FDR'.		
 text	20	705~0,1	980	52	0			This is a flight data recorder file, storing data from an actual Flight Data Recorder, or perhaps just a simulated flight.		
 text	20	690~0,1	980	52	0			See the INSTRUCTIONS folder for a sample FDR file. Here are the allowable FDR entries:		
-text	40	660~0,1	980	52	0			   COMM: any comment		
-text	40	630~0,1	980	52	0			   ACFT: the aircraft file to use, with directory path from X-Plane itself, for example: Aircraft/Heavy Metal/Boeing 747.acf		
-text	40	615~0,1	980	52	0			   TAIL: the tail number of the aircraft, for example: N8141Q. This line must come AFTER the ACFT line.		
-text	40	585~0,1	980	52	0			   TIME: the ZULU time of the beginning of the flight, for example: 18:54:32		
-text	40	570~0,1	980	52	0			   DATE: the date of the flight, for example: 03/05/02		
-text	40	555~0,1	980	52	0			   PRES: the sea-level pressure during the flight in inches HG, for example: 29.92		
-text	40	540~0,1	980	52	0			   TEMP: the sea-level temperature during the flight in degrees F, for example: 65		
-text	40	525~0,1	980	52	0			   WIND: the wind during the flight in degrees then knots, for example: 230,17		
-text	40	510~0,1	980	52	0			   CALI: the ACTUAL takeoff or touchdown longitude, latitude, and elevation in feet for calibration, for example: -118.34, 34.57, 456. This calibrates to X-Plane scenery.		
-text	40	480~0,1	980	52	0			   WARN: warning WAV file, with directory path from X-Plane itself, at a given time, for example: 10,aural_alarm.wav		
-text	40	465~0,1	980	52	0			   TEXT: spoken text to be read aloud by the computer at a given time, for example: 10,Copilot left the cockpit here.		
-text	40	450~0,1	980	52	0			   MARK: text marker to appear in the time slider at a given time, for example: 10,Approach began here.		
-text	40	435~0,1	980	52	0			   EVNT: flight path to be hilighted at a given time for the event duration, for example: 10,5		
-text	40	405~0,1	980	52	0			   DATA: a bunch of comma-delimited floating-point numbers, following the labels in the screen below.		
+text	40	660~0,1	980	52	0			  COMM: any comment		
+text	40	630~0,1	980	52	0			  ACFT: the aircraft file to use, with directory path from X-Plane itself, for example: Aircraft/Heavy Metal/Boeing 747.acf		
+text	40	615~0,1	980	52	0			  TAIL: the tail number of the aircraft, for example: N8141Q. This line must come AFTER the ACFT line.		
+text	40	585~0,1	980	52	0			  TIME: the ZULU time of the beginning of the flight, for example: 18:54:32		
+text	40	570~0,1	980	52	0			  DATE: the date of the flight, for example: 03/05/02		
+text	40	555~0,1	980	52	0			  PRES: the sea-level pressure during the flight in inches HG, for example: 29.92		
+text	40	540~0,1	980	52	0			  TEMP: the sea-level temperature during the flight in degrees F, for example: 65		
+text	40	525~0,1	980	52	0			  WIND: the wind during the flight in degrees then knots, for example: 230,17		
+text	40	510~0,1	980	52	0			  CALI: the ACTUAL takeoff or touchdown longitude, latitude, and elevation in feet for calibration, for example: -118.34, 34.57, 456. This calibrates to X-Plane scenery.		
+text	40	480~0,1	980	52	0			  WARN: warning WAV file, with directory path from X-Plane itself, at a given time, for example: 10,aural_alarm.wav		
+text	40	465~0,1	980	52	0			  TEXT: spoken text to be read aloud by the computer at a given time, for example: 10,Copilot left the cockpit here.		
+text	40	450~0,1	980	52	0			  MARK: text marker to appear in the time slider at a given time, for example: 10,Approach began here.		
+text	40	435~0,1	980	52	0			  EVNT: flight path to be hilighted at a given time for the event duration, for example: 10,5		
+text	40	405~0,1	980	52	0			  DATA: a bunch of comma-delimited floating-point numbers, following the labels in the screen below.		
 text	20	375~0,1	980	52	0			Once you have clicked below to read in the file, close this window and play the flight in X-Plane with the VCR buttons at the top of the screen.		
 text	20	265~0,1	9999	56	0			file version:		
 text	20	250~0,1	9999	56	0			aircraft:		
@@ -32,3 +32,38 @@ text	20	190~0,1	9999	56	0			SEA-LEVEL press, inch HG:
 text	20	175~0,1	9999	56	0			SEA-LEVEL temp, deg F:		
 text	20	160~0,1	9999	56	0			wind:		
 path	120	350~0,1	400				fldr_wind()::fdr_path	Flight Data Recorder file		
+text	180	265	9999	56				2	num	
+rect	15	125	985	150	0.5					
+text	55	140	9999	56	2			 time		
+text	55	130	9999	56	2			secon		
+text	115	140	9999	56	2			 temp		
+text	115	130	9999	56	2			deg C		
+text	175	140	9999	56	2			  lon		
+text	175	130	9999	56	2			degre		
+text	235	140	9999	56	2			  lat		
+text	235	130	9999	56	2			degre		
+text	295	140	9999	56	2			h msl		
+text	295	130	9999	56	2			   ft		
+text	355	140	9999	56	2			radio		
+text	355	130	9999	56	2			altft		
+text	415	140	9999	56	2			 ailn		
+text	415	130	9999	56	2			ratio		
+text	475	140	9999	56	2			 elev		
+text	475	130	9999	56	2			ratio		
+text	535	140	9999	56	2			 rudd		
+text	535	130	9999	56	2			ratio		
+text	595	140	9999	56	2			 ptch		
+text	595	130	9999	56	2			  deg		
+text	655	140	9999	56	2			 roll		
+text	655	130	9999	56	2			  deg		
+text	715	140	9999	56	2			 hdng		
+text	715	130	9999	56	2			 TRUE		
+text	775	140	9999	56	2			speed		
+text	775	130	9999	56	2			 KIAS		
+text	835	140	9999	56	2			  VVI		
+text	835	130	9999	56	2			ft/mn		
+text	895	140	9999	56	2			 slip		
+text	895	130	9999	56	2			  deg		
+text	955	140	9999	56	2			 turn		
+text	955	130	9999	56	2			  deg		
+text	20	280	9999	56				Move the mouse over any column to see its description.		
