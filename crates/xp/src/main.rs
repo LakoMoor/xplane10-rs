@@ -40,6 +40,7 @@
 //! `gl_LightSource[0]` to, and the oracle never exposed it, so [`sun_state`] says which values are
 //! chosen and why rather than implying they were measured.
 
+mod glinfo;
 mod actions;
 mod btnui;
 mod chooser;
@@ -1573,10 +1574,17 @@ impl Renderer {
             .unwrap_or(0);
         let gl_info = {
             let a = gpu.adapter.get_info();
+            let (vendor, renderer, version) = glinfo::query().unwrap_or_else(|| {
+                (
+                    format!("{:?}", a.backend),
+                    a.name.clone(),
+                    format!("wgpu {} - {}", a.driver, a.driver_info),
+                )
+            });
             btnui::Info {
-                vendor: format!("{:?}", a.backend),
-                renderer: a.name.clone(),
-                version: format!("wgpu {} - {}", a.driver, a.driver_info),
+                vendor,
+                renderer,
+                version,
                 texmem: "Total size of all loaded textures at current settings: not measured by the port".into(),
             }
         };

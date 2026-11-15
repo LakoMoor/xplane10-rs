@@ -647,3 +647,18 @@ Order is leaves-first: formats and geometry before anything touches a window.
   tile) of pixels, nearest on 27–28 %.
 - The UI overlay samples nearest, so `TextureStore::get_ui_post` pre-filters those two images
   once at load (`special::qflt_filter`, `chooser::resample_corner`) and the layers map 1 : 1.
+
+## 2026-11-16 — Rendering Options (window 10): 90.7 → 92.1 %
+
+- BTN_textlist (0x100dbe2c0) sizes its box as BTN_frame1(x + 10, y + 5, max(20, (int) longest
+  item) + 28, 1, 10, 0x48). The port's nine-slice overhung that cell by 5 / 4 px; it now spans
+  the cell −2 / +2 and places the left column by the GL pixel-centre rule (ceil(edge − ½)), which
+  puts every popup edge of window 10 on the oracle's columns.
+- The settings loop's own BTN_bool / BTN_textlist / BTN_horz_slider calls (unresolved '?'
+  labels) were emitted as stray widgets next to the settings.txt rows; gen_win10.py drops them.
+- Open-GL Vendor / Renderer / version: the original prints glGetString of its context. The port
+  opens a throw-away legacy CGL context and asks the same driver (`glinfo.rs`): "Apple",
+  "Apple M4", "2.1 Metal - 91.7", as in the oracle frame. The texture total stays "not measured"
+  until the port loads the same textures.
+- A stale `_tex_res 0` in the port's own settings.prf (from a test click) was removed; the
+  popup now shows the X-Plane.prf value ("high").

@@ -158,8 +158,9 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             r: x + 8.0,
             b: y + 2.0,
         },
-        // As wide as the longest item + 28 (arrow box included), centred on x + 12: texture
-        // resolution 368…456, number of cars 440…584 in the oracle frame.
+        // BTN_textlist (0x100dbe2c0): BTN_frame1(x + 10, y + 5, max(20, (int) longest item) + 28,
+        // 1, 10, 0x48); the frame cell's art starts 2 px inside its left edge (texture
+        // resolution 368…455, number of cars 440…583 in the oracle frame).
         Kind::Popup => {
             // `a` = 1: the failure-window variant of BTN_textlist, longest item × 0.95 (min 20).
             let longest = w.items.iter().map(|s| ui.measure(s)).fold(0.0, f32::max);
@@ -170,7 +171,9 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             } else {
                 longest
             } + 28.0;
-            let l = (x + 10.0 - wid / 2.0).round();
+            // BTN_frame1 centred on x + 10: a quad edge at .5 covers the pixel left of it
+            // (GL pixel-centre rule), so the left column is ceil(edge − ½).
+            let l = (x + 10.0 - wid / 2.0 - 0.5).ceil();
             Rect {
                 l,
                 t: y - 12.0,
@@ -454,9 +457,9 @@ pub fn layers(
             Kind::Popup => {
                 l.extend(ui.nine_slice(
                     Rect {
-                        l: r.l - 5.0,
+                        l: r.l - 2.0,
                         t: r.t - 6.0,
-                        r: r.r + 4.0,
+                        r: r.r + 2.0,
                         b: r.t + 20.0,
                     },
                     [357.0, 0.0, 425.0, 26.0],

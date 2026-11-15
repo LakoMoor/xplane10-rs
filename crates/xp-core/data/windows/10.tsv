@@ -14,9 +14,6 @@ popup	400	690					_tex_res	texture resolution|(changes take effect on re-start)	
 popup	400	640					port:screen_res	screen resolution | (only applies if the full-screen button is checked)	Default Monitor Settings	
 popup	800	690					port:vsync	framerate-lock to monitor | (will steady the frame-rate)	do not lock-refresh rate of monitor	
 flt	800	640	2	1	1	4	_screen_gamma_	gamma | (takes effect on restart)		
-bool	50	690						?		
-slider	250	330	100	0	1		_cloud_pref_number_rat	?	cloudpct	
-popup	250	330						screen resolution | (only applies if the full-screen button is checked)	Default Monitor Settings	
 popup	475	360					_aniso_filter	|anisotropic-filter level	1x (fast)-2x (nice)-4x (hardcore)-8x (mega)-16x (extreme)	
 slider	710	360	200	0	1		_cloud_pref_number_rat	|number of cloud puffs	cloudpct	
 dob	80	250	5	2	-180	180	_off_lat_deg	lateral offset|(degrees,for wrap-around)		
