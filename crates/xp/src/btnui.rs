@@ -188,9 +188,9 @@ fn control_rect(w: &Widget, p: &Place, ui: &Ui) -> Rect {
             let l = x + 5.0 * n - 1.0 - (5.0 * n + 7.5).floor();
             Rect {
                 l,
-                t: y - 11.0,
+                t: y - 12.0,
                 r: l + 10.0 * n + 15.0,
-                b: y + 4.0,
+                b: y + 3.0,
             }
         }
         Kind::Radio => Rect {
@@ -501,39 +501,45 @@ pub fn layers(
                     [0.0; 4],
                 ));
                 let c = digit_centres(w, &p);
-                // OGL_number: a comma after every three integer digits of the field, between
-                // the digit columns (not taking one).
-                let int_digits = (w.a - w.b.max(0.0)).max(0.0) as usize;
+                // OGL_number(x + 4, y − 1, v, 0x36, n, dec, charset 3) (0x1000bb3d0): from
+                // x0 = (int)(x + 4.5) − 10, digit k left-aligned at x0 + 10·(k + 1), the point at
+                // x0 + 10·(n − dec + ½), commas at x0 + 10·(int digits − 3m + ½), a minus at
+                // x0 + 1; all in font_from_enum(1), DejaVuSansMono, baseline GL y − 1.
+                let x0 = (p.sx(w.x) + 4.5).floor() - 10.0;
+                let by = y;
+                let rgb = xp_core::menu::palette(0x36);
+                let n = w.a.max(1.0) as usize;
+                let dec = w.b.max(0.0) as usize;
+                let int_digits = n.saturating_sub(dec);
                 for m in [3, 6, 9] {
                     if int_digits > m {
-                        if let Some(cx) = c.get(int_digits - m - 1) {
-                            l.push(ui.text_centred(d, q, ",", [cx + 5.0, y], [0; 3])?);
-                        }
+                        let cx = x0 + 10.0 * ((int_digits - m) as f32 + 0.5);
+                        l.push(ui.mono_at(d, q, ",", [cx, by], rgb)?);
                     }
                 }
-                let text = number_text(w, prefs.widget_value(w));
-                let mut col = 0;
-                for ch in text {
-                    if ch == '.' {
-                        if col > 0 {
-                            l.push(ui.text_centred(d, q, ".", [c[col - 1] + 5.0, y], [0; 3])?);
-                        }
-                        continue;
-                    }
-                    if let Some(cx) = c.get(col) {
-                        l.push(ui.text_centred(d, q, &ch.to_string(), [*cx, y], [0; 3])?);
-                    }
-                    col += 1;
+                let v = prefs.widget_value(w);
+                if v < 0.0 {
+                    l.push(ui.mono_at(d, q, "-", [x0 + 1.0, by], rgb)?);
                 }
-                for cx in &c {
-                    // Digit arrows: atlas 86…95 × 302…312 (up) and × 319…329 (down), matched on
-                    // the oracle frame to 1.1/255 rms at (cx − 4, y − 23) and (cx − 4, y + 3).
-                    l.push(
-                        ui.atlas_cell([86.0, 302.0, 95.0, 312.0], [cx - 4.0, y - 23.0, 9.0, 10.0]),
-                    );
-                    l.push(
-                        ui.atlas_cell([86.0, 319.0, 95.0, 329.0], [cx - 4.0, y + 3.0, 9.0, 10.0]),
-                    );
+                if dec > 0 {
+                    let px = x0 + 10.0 * (int_digits as f32 + 0.5);
+                    l.push(ui.mono_at(d, q, ".", [px, by], rgb)?);
+                }
+                let digits: Vec<char> =
+                    number_text(w, v).into_iter().filter(|c| c.is_ascii_digit()).collect();
+                for (k, ch) in digits.iter().take(n).enumerate() {
+                    let at = [x0 + 10.0 * (k as f32 + 1.0), by];
+                    l.push(ui.mono_at(d, q, &ch.to_string(), at, rgb)?);
+                }
+                // Digit arrows (BTN_flt_range): OGL_2dquad of interface.png, 14 × 18, centred on
+                // x + 6 + 10·k; up: texels 83…97 × 297…315 over GL y + 9 … y + 27, down:
+                // 83…97 × 316…334 over GL y − 19 … y − 1. Their pixels land one screen row
+                // above sy() of those edges in the oracle frame, as do the field and digits.
+                let x = p.sx(w.x);
+                for k in 0..c.len() {
+                    let ax = x - 1.0 + 10.0 * k as f32;
+                    l.push(ui.atlas_cell([83.0, 297.0, 97.0, 315.0], [ax, y - 28.0, 14.0, 18.0]));
+                    l.push(ui.atlas_cell([83.0, 316.0, 97.0, 334.0], [ax, y, 14.0, 18.0]));
                 }
                 label_lines(ui, d, q, left, r.l - 4.0, y, true, &mut l)?;
                 label_lines(ui, d, q, right, r.r + 5.0, y, false, &mut l)?;

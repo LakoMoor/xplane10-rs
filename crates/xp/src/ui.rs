@@ -77,6 +77,7 @@ impl Layer {
 /// of samples identical); 10.2 and 10.8 are twenty times worse.
 const UI_FONT: &str = "Resources/fonts/DejaVuSans.ttf";
 const UI_FONT_PX: f64 = 10.5;
+const UI_FONT_MONO: &str = "Resources/fonts/DejaVuSansMono.ttf";
 
 /// The original's glyph-coverage table, `s_font_gamma`: every byte FreeType produces goes through
 /// it in `OGL_font::require_char` before it reaches the font texture. Its initializer (oracle
@@ -195,6 +196,8 @@ pub fn hint(install: &Path, index: usize) -> Vec<String> {
 /// Interface resources and the two overlay pipelines.
 pub struct Ui {
     face: xp_ft::Face,
+    /// `font_from_enum(1)`: DejaVuSansMono at the same size, OGL_number's digits (charset 3).
+    mono: xp_ft::Face,
     white: wgpu::TextureView,
     atlas: wgpu::TextureView,
     intro: wgpu::TextureView,
@@ -257,6 +260,7 @@ impl Ui {
         let bitmaps = install.join("Resources/bitmaps");
         Ok(Ui {
             face: xp_ft::Face::open(&install.join(UI_FONT), UI_FONT_PX)?,
+            mono: xp_ft::Face::open(&install.join(UI_FONT_MONO), UI_FONT_PX)?,
             white: upload_rgba(device, queue, "white", 1, 1, &[255; 4]),
             atlas: store.get_ui(device, queue, &bitmaps.join("interface.png"))?,
             intro: store.get_ui(device, queue, &bitmaps.join("intro.png"))?,
@@ -274,7 +278,18 @@ impl Ui {
         text: &str,
         rgb: [u8; 3],
     ) -> Result<(wgpu::TextureView, f32, f64)> {
-        let bmp = xp_ft::render_line(&self.face, text, xp_ft::LOAD_TARGET_LIGHT)
+        self.text_in(&self.face, device, queue, text, rgb)
+    }
+
+    fn text_in(
+        &self,
+        face: &xp_ft::Face,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        text: &str,
+        rgb: [u8; 3],
+    ) -> Result<(wgpu::TextureView, f32, f64)> {
+        let bmp = xp_ft::render_line(face, text, xp_ft::LOAD_TARGET_LIGHT)
             .with_context(|| format!("rasterizing {text:?}"))?;
         let rgba: Vec<u8> = bmp
             .coverage
@@ -338,6 +353,19 @@ impl Ui {
         rgb: [u8; 3],
     ) -> Result<Layer> {
         let (view, baseline, _) = self.text(device, queue, text, rgb)?;
+        Ok(Layer::bitmap(view, [at[0], at[1] - baseline], [1.0; 4]))
+    }
+
+    /// Text in the mono face (OGL_number's charset 3) with its baseline's left end at `at`.
+    pub fn mono_at(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        text: &str,
+        at: [f32; 2],
+        rgb: [u8; 3],
+    ) -> Result<Layer> {
+        let (view, baseline, _) = self.text_in(&self.mono, device, queue, text, rgb)?;
         Ok(Layer::bitmap(view, [at[0], at[1] - baseline], [1.0; 4]))
     }
 

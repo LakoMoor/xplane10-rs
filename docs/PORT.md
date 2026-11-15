@@ -662,3 +662,18 @@ Order is leaves-first: formats and geometry before anything touches a window.
   until the port loads the same textures.
 - A stale `_tex_res 0` in the port's own settings.prf (from a test click) was removed; the
   popup now shows the X-Plane.prf value ("high").
+
+## 2026-11-16 — number fields from BTN_flt_range / OGL_number
+
+- BTN_flt_range (0x1003dcd20) prints its value with OGL_number(x + 4, y − 1, v, 0x36, n, dec,
+  charset 3). Charset 3 (0x1000bb3d0) draws each digit with font_from_enum(1) —
+  `DejaVuSansMono.ttf` at 10.5 px, not the text font — left-aligned at x0 + 10·(k + 1) with
+  x0 = (int)(x + 4.5) − 10, the point at x0 + 10·(n − dec + ½), commas at
+  x0 + 10·(int digits − 3m + ½), a minus at x0 + 1. The port now has a mono face for this.
+- The digit arrows are OGL_2dquad cells of interface.png, 14 × 18 (texels 83…97 × 297…315 up,
+  × 316…334 down) centred on x + 6 + 10·k, replacing a 9 × 10 cell fitted to the frame.
+- Field, digits and arrows all sat one screen row below the oracle; they now land one row
+  above sy() of their GL edges (calibration of the GL → screen row for this widget; the same
+  offset is not yet confirmed for the other widget kinds).
+- Rendering Options 92.1 → 93.2 %, Data Output 93.7 → 94.0, Aircraft & Situations 92.7 → 94.0,
+  Local Region 76.8 → 79.2.
