@@ -195,6 +195,33 @@ const WEATHERS: [&str; 8] = [
     "stormy",
 ];
 
+/// qflt_butn draws each 90 × 150-texel cell over 90 × 149 pixels with GL_LINEAR: columns land
+/// on texel centres, rows sample at v0 + (k + ½)·150/149 − ½ between two texels (simulated
+/// against the oracle frame: 93 % of a picture's pixels identical, nearest 27 %). The overlay
+/// samples nearest, so each cell is pre-filtered here into image rows v0 … v0 + 148, which the
+/// layer then maps 1 : 1.
+fn qflt_filter(w: u32, h: u32, rgba: &mut [u8]) {
+    let (w, h) = (w as usize, h as usize);
+    let src = rgba.to_vec();
+    for row in 0..3usize {
+        // Image row of the cell's top texel: 512 − (151·row + 151).
+        let v0 = h - (151 * row + 151);
+        for k in 0..149usize {
+            let v = v0 as f32 + (k as f32 + 0.5) * 150.0 / 149.0 - 0.5;
+            let f = v.floor();
+            let t = v - f;
+            let (a, b) = (f as usize, (f as usize + 1).min(h - 1));
+            for x in 0..w {
+                for c in 0..4 {
+                    let p = src[(a * w + x) * 4 + c] as f32;
+                    let n = src[(b * w + x) * 4 + c] as f32;
+                    rgba[((v0 + k) * w + x) * 4 + c] = (p + (n - p) * t).round() as u8;
+                }
+            }
+        }
+    }
+}
+
 /// One `qflt_butn`: picture `cell` of qflite.png at window GL (x, y).
 #[allow(clippy::too_many_arguments)]
 fn qflt_butn(
@@ -215,12 +242,12 @@ fn qflt_butn(
         l.extend(ui.frame2(0x15, rect(p, x + 5.0, y + 5.0, 80.0, 139.0)));
     }
     let (col, row) = ((cell % 4) as f32, (2 - cell / 4) as f32);
-    let (u0, v0, v1) = (col * 101.0 + 1.0, row * 151.0 + 1.0, row * 151.0 + 151.0);
+    let (u0, v1) = (col * 101.0 + 1.0, row * 151.0 + 151.0);
     l.push(Layer {
         view: atlas.clone(),
         rect: [p.sx(x), p.sy(y + 149.0), 90.0, 149.0],
         tint: [1.0; 4],
-        src: Some([u0, 512.0 - v1, u0 + 90.0, 512.0 - v0]),
+        src: Some([u0, 512.0 - v1, u0 + 90.0, 512.0 - v1 + 149.0]),
         linear: false,
     });
     let mut t = ui.text_centred(
@@ -247,7 +274,13 @@ pub fn qflt_pictures(
     wxr: i32,
     p: &Place,
 ) -> Result<Vec<Layer>> {
-    let atlas = store.get_ui(d, q, &install.join("Resources/bitmaps/qflite.png"))?;
+    let atlas = store.get_ui_post(
+        d,
+        q,
+        &install.join("Resources/bitmaps/qflite.png"),
+        "qflt",
+        &qflt_filter,
+    )?;
     let mut l = Vec::new();
     for pass in [false, true] {
         for (i, name) in TIMES.iter().enumerate() {

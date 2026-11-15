@@ -372,6 +372,31 @@ impl TextureStore {
         self.loaded += 1;
         Ok(view)
     }
+
+    /// [`TextureStore::get_ui`] with the decoded pixels passed through `post(width, height,
+    /// rgba)` first; cached under `path` + `key`. For pictures the original draws minified with
+    /// GL_LINEAR, which the nearest-only overlay reproduces by pre-filtering.
+    pub fn get_ui_post(
+        &mut self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        path: &Path,
+        key: &str,
+        post: &dyn Fn(u32, u32, &mut [u8]),
+    ) -> Result<wgpu::TextureView> {
+        let id = path.join(format!("#{key}"));
+        if let Some(view) = self.ui_views.get(&id) {
+            return Ok(view.clone());
+        }
+        let bytes =
+            std::fs::read(path).with_context(|| format!("reading bitmap {}", path.display()))?;
+        let lut = png::display_lut(png::gama_chunk(&bytes));
+        let view = upload_png_post(device, queue, path, &bytes, Some(&lut), post)
+            .with_context(|| format!("uploading {}", path.display()))?;
+        self.ui_views.insert(id, view.clone());
+        self.loaded += 1;
+        Ok(view)
+    }
 }
 /// Upload one shipped `.dds`, mip chain included.
 fn upload_dds(
@@ -562,6 +587,18 @@ fn upload_png_with(
     bytes: &[u8],
     lut: Option<&[u8; 256]>,
 ) -> Result<wgpu::TextureView> {
+    upload_png_post(device, queue, path, bytes, lut, &|_, _, _| {})
+}
+
+/// [`upload_png_with`], then `post(width, height, rgba)` before the upload.
+fn upload_png_post(
+    device: &wgpu::Device,
+    queue: &wgpu::Queue,
+    path: &Path,
+    bytes: &[u8],
+    lut: Option<&[u8; 256]>,
+    post: &dyn Fn(u32, u32, &mut [u8]),
+) -> Result<wgpu::TextureView> {
     let info = png::decode(bytes).with_context(|| format!("decoding {}", path.display()))?;
     let mut rgba =
         to_rgba8(&info).with_context(|| format!("expanding {} to RGBA8", path.display()))?;
@@ -572,6 +609,7 @@ fn upload_png_with(
             px[2] = lut[px[2] as usize];
         }
     }
+    post(info.width, info.height, &mut rgba);
     let label = path.display().to_string();
     let texture = device.create_texture(&wgpu::TextureDescriptor {
         label: Some(&label),

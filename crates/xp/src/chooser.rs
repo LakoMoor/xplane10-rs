@@ -350,10 +350,16 @@ impl Chooser {
         ));
         l.push(ui.fill([at[0], at[1], 250.0, 250.0], [130, 130, 130, 255]));
         if icon.is_file() {
-            let view = store.get_ui(device, queue, &icon)?;
+            // The original draws the icon over 230 × 230 with GL_LINEAR; the overlay samples
+            // nearest, so the icon is resampled once into its top-left 230 × 230 corner (vs the
+            // oracle's C172 tile: 95.5 % of pixels identical, nearest 28 %).
+            let view = store.get_ui_post(device, queue, &icon, "tile230", &|w, h, px| {
+                resample_corner(w, h, px, 230, 230)
+            })?;
             let mut layer = Layer::bitmap(view, [at[0] + 10.0, at[1] + 10.0], [1.0; 4]);
             layer.rect[2] = 230.0;
             layer.rect[3] = 230.0;
+            layer.src = Some([0.0, 0.0, 230.0, 230.0]);
             l.push(layer);
         }
         l.push(ui.fill([at[0], at[1] + 250.0, 250.0, 30.0], [0, 0, 0, 255]));
@@ -522,4 +528,41 @@ fn chrome_pixels() -> (u32, u32, Vec<u8>) {
         rect(f[0] + 1.0, f[3] - 1.0, f[2] - 1.0, f[3], [231; 3]);
     }
     (w as u32, h as u32, px)
+}
+
+/// GL_LINEAR minification of a `w` × `h` RGBA image to `nw` × `nh`, written into the image's
+/// own top-left corner (pixel centres at (k + ½)·w/nw − ½, edges clamped).
+pub fn resample_corner(w: u32, h: u32, px: &mut [u8], nw: usize, nh: usize) {
+    let (w, h) = (w as usize, h as usize);
+    if nw > w || nh > h {
+        return;
+    }
+    let tap = |n: usize, k: usize, m: usize| {
+        let v = (k as f32 + 0.5) * n as f32 / m as f32 - 0.5;
+        let f = v.floor();
+        let lo = (f.max(0.0) as usize).min(n - 1);
+        let hi = ((f + 1.0).max(0.0) as usize).min(n - 1);
+        (lo, hi, v - f)
+    };
+    let src = px.to_vec();
+    // Rows first, then columns (separable).
+    let mut rows = vec![0f32; nh * w * 4];
+    for k in 0..nh {
+        let (a, b, t) = tap(h, k, nh);
+        for i in 0..w * 4 {
+            let p = f32::from(src[a * w * 4 + i]);
+            let n = f32::from(src[b * w * 4 + i]);
+            rows[k * w * 4 + i] = p + (n - p) * t;
+        }
+    }
+    for k in 0..nh {
+        for j in 0..nw {
+            let (a, b, t) = tap(w, j, nw);
+            for c in 0..4 {
+                let p = rows[(k * w + a) * 4 + c];
+                let n = rows[(k * w + b) * 4 + c];
+                px[(k * w + j) * 4 + c] = (p + (n - p) * t).round() as u8;
+            }
+        }
+    }
 }

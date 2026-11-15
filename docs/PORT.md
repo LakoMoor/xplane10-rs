@@ -637,3 +637,13 @@ Order is leaves-first: formats and geometry before anything touches a window.
   instead of turning them into spaces (no other window's strings have one).
 - Calibration: the band's left column is drawn from x + 1 (oracle frame); the header does not
   yet scroll with the x_os slider.
+
+## 2026-11-16 — QuickFlight (window 22): 84.3 → 96.1 %; GL_LINEAR pictures
+
+- The time/weather pictures (`qflt_butn`) map each 90 × 150-texel cell of `qflite.png` onto
+  90 × 149 pixels, and the aircraft tile (`plot_a_tile`) maps the 256 × 256 `_icon.png` onto
+  230 × 230. The original samples both with GL_LINEAR: a simulation of bilinear sampling at
+  pixel centres ((k + ½)·n/m − ½) matches the oracle frame on 93 % (pictures) and 95.5 % (C172
+  tile) of pixels, nearest on 27–28 %.
+- The UI overlay samples nearest, so `TextureStore::get_ui_post` pre-filters those two images
+  once at load (`special::qflt_filter`, `chooser::resample_corner`) and the layers map 1 : 1.
